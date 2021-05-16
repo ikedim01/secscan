@@ -1,16 +1,16 @@
-# Project name here
-> Summary description here.
+# secscan
+> A system for scanning and scraping information from SEC filings.
 
 
-This file will become your README and also the index of your documentation.
+xxx This file will become your README and also the index of your documentation.
 
 ## Install
 
-`pip install your_project_name`
+`pip install secscan`
 
 ## How to use
 
-Fill me in please! Don't forget code examples:
+xxx Fill me in please! Don't forget code examples:
 
 ```python
 1+1
