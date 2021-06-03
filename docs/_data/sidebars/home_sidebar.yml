@@ -11,7 +11,7 @@ entries:
       url: /
     - output: web,pdf
       title: utils
-      url: utils.html
+      url: /utils
     output: web
     title: secscan
   output: web
