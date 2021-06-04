@@ -2,7 +2,8 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"stockDataRoot": "00_utils.ipynb",
+index = {"setStockDataRoot": "00_utils.ipynb",
+         "stockDataRoot": "00_utils.ipynb",
          "requestUrl": "00_utils.ipynb",
          "downloadSecUrl": "00_utils.ipynb",
          "secIndexUrl": "00_utils.ipynb",
@@ -21,7 +22,9 @@ index = {"stockDataRoot": "00_utils.ipynb",
          "loadSplitPklFromDir": "00_utils.ipynb",
          "curEasternUSTime": "00_utils.ipynb",
          "easternUSTimeZone": "00_utils.ipynb",
-         "printSamp": "00_utils.ipynb"}
+         "secBrowse": "00_utils.ipynb",
+         "printSamp": "00_utils.ipynb",
+         "printErrInfoOrAccessNo": "00_utils.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py"]
