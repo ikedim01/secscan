@@ -12,6 +12,9 @@ entries:
     - output: web,pdf
       title: utils
       url: utils.html
+    - output: web,pdf
+      title: recentFeed
+      url: recentFeed.html
     output: web
     title: secscan
   output: web

@@ -23,7 +23,8 @@ index = {"stockDataRoot": "00_utils.ipynb",
          "easternUSTimeZone": "00_utils.ipynb",
          "printSamp": "00_utils.ipynb"}
 
-modules = ["utils.py"]
+modules = ["utils.py",
+           "recentFeed.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 

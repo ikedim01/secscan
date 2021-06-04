@@ -256,8 +256,7 @@ so that we can flag the problem and retry later.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testAccessNo</span> <span class="o">=</span> <span class="s1">&#39;0000909108-21-000051&#39;</span>
-<span class="n">testUrl</span> <span class="o">=</span> <span class="n">secIndexUrl</span><span class="p">(</span><span class="n">testAccessNo</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testUrl</span> <span class="o">=</span> <span class="n">secIndexUrl</span><span class="p">(</span><span class="s1">&#39;0000909108-21-000051&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">testUrl</span><span class="p">)</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">downloadSecSoup</span><span class="p">(</span><span class="n">testUrl</span><span class="p">)</span>
 <span class="n">companyName</span> <span class="o">=</span> <span class="n">getCombString</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span><span class="s1">&#39;companyName&#39;</span><span class="p">))</span>

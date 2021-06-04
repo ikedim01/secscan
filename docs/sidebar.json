@@ -1,6 +1,7 @@
 {
   "secscan": {
     "Overview": "/",
-    "utils": "utils.html"
+    "utils": "utils.html",
+    "recentFeed": "recentFeed.html"
   }
 }
