@@ -2,8 +2,9 @@
 
 __all__ = ['setStockDataRoot', 'stockDataRoot', 'requestUrl', 'downloadSecUrl', 'secIndexUrl', 'downloadSecSoup',
            'getCombString', 'secUrlPref', 'pageUnavailableRE', 'spacesPat', 'openFp', 'pickSave', 'pickLoad',
-           'pickLoadIfPath', 'savePklToDir', 'loadPklFromDir', 'saveSplitPklToDir', 'loadSplitPklFromDir',
-           'curEasternUSTime', 'easternUSTimeZone', 'secBrowse', 'printSamp', 'printErrInfoOrAccessNo']
+           'pickLoadIfPath', 'savePklToDir', 'loadPklFromDir', 'saveSplitPklToDir', 'loadSplitPklFromDir', 'toDateStr',
+           'toDate', 'dateStrsBetween', 'formatDateStr', 'dateStr8Pat', 'curEasternUSTime', 'easternUSTimeZone',
+           'secBrowse', 'printSamp', 'printErrInfoOrAccessNo']
 
 # Cell
 
@@ -153,6 +154,60 @@ def loadSplitPklFromDir(fromDir, startK=None, endK=None, fSuff='m.pkl') :
             continue
         m[fPref] = pickLoad(os.path.join(fromDir,fName))
     return m
+
+# Cell
+
+def toDateStr(d=None) :
+    """
+    Converts date object or ISO format date string to YYYYMMDD format string;
+    leaves YYYYMMDD format strings unchanged;
+    None -> today.
+    """
+    if isinstance(d,str) :
+        dateStr = d
+    else :
+        if d is None :
+            d = curEasternUSTime()
+        dateStr = d.isoformat()[:10]
+    return dateStr.replace('-','').replace('/','')
+
+dateStr8Pat = re.compile(r"(\d\d\d\d)(\d\d)(\d\d)$")
+def toDate(d=None) :
+    """
+    Converts date string in ISO or YYYYMMDD format to date object;
+    leaves date objects unchanged;
+    None -> today.
+    """
+    if isinstance(d,str) :
+        dateStr = d.replace('-','').replace('/','')
+        m = dateStr8Pat.match(dateStr)
+        if m is None :
+            raise Exception('invalid date str "'+d+'"')
+        return datetime.date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
+    if d is None :
+        return curEasternUSTime()
+    return d
+
+def dateStrsBetween(d1,d2=None,excludeWeekends=False) :
+    """
+    Returns a list of date strings in YYYYMMDD format from d1 (inclusive)
+    to d2 (exclusive), optionally excluding weekends.
+    """
+    d1 = toDate(d1)
+    d2Str = toDateStr(d2)
+    res = []
+    while True :
+        d1Str = toDateStr(d1)
+        if d1Str >= d2Str :
+            break
+        if not (excludeWeekends and d1.weekday()>=5) :
+            res.append(d1Str)
+        d1 = d1 + datetime.timedelta(1)
+    return res
+
+def formatDateStr(dStr,sep='-') :
+    "Convert YYYYMMDD format date string to YYYY-MM-DD."
+    return sep.join((dStr[:4],dStr[4:6],dStr[6:8]))
 
 # Cell
 
