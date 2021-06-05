@@ -29,7 +29,12 @@ index = {"setStockDataRoot": "00_utils.ipynb",
          "easternUSTimeZone": "00_utils.ipynb",
          "secBrowse": "00_utils.ipynb",
          "printSamp": "00_utils.ipynb",
-         "printErrInfoOrAccessNo": "00_utils.ipynb"}
+         "printErrInfoOrAccessNo": "00_utils.ipynb",
+         "secMostRecentListUrl": "01_recentFeed.ipynb",
+         "printXmlParseWarning": "01_recentFeed.ipynb",
+         "getRecentChunk": "01_recentFeed.ipynb",
+         "titlePat": "01_recentFeed.ipynb",
+         "filedPat": "01_recentFeed.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py"]

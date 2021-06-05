@@ -36,7 +36,7 @@ def requestUrl(url, timeout=5.0, nTries=5, returnText=False, **kwargs) :
             r.raise_for_status()
             return r.text if returnText else r
         except Exception as e :
-            print('Error','downloading',url,'-',e)
+            print('Error','downloading',url,'-',e,'; retrying ...')
             if i >= nTries-1 :
                 raise
 
