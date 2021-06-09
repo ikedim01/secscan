@@ -106,20 +106,26 @@ def updateRecentFeedS3(bucket, skipOffHours=True) :
     else :
         print('continuing current day; no previous day found')
         prevFilings, prevDay = set(), None
-    newCount = 0
+    prevDayCount = newFTodayCount = newFOtherDayCount = 0
     for tup in l :
+        if tup in curFeed['filings'] :
+            continue
+        if tup in prevFilings :
+            prevDayCount += 1
+            continue
+        curFeed['filings'].add(tup)
         fDate = tup[0]
-        fTup = tup[1:]
         if fDate == today :
-            if fTup not in curFeed['filings'] :
-                newCount += 1
-                curFeed['filings'].add(fTup)
-        elif fDate == prevDay :
-            if fTup not in prevFilings :
-                print('*** new filing from previous day',tup)
+            newFTodayCount += 1
         else :
-            print('*** unexpected filing date',tup)
-    print(len(l), 'feed filings,', newCount, 'new, total now',len(curFeed['filings']))
+            newFOtherDayCount += 1
+            if fDate < today :
+                print('*** old filing date',tup)
+            else :
+                print('*** unexpected future filing date',tup)
+    print(len(l),'filings,',
+          prevDayCount,'from prev day,',newFTodayCount,'new fToday,',newFOtherDayCount,'new FOther,',
+          'total now',len(curFeed['filings']))
     curFeed['updated'] = curTS
     utils.pickSaveToS3(bucket, 'today-feed.pkl', curFeed,
                        use_gzip=True, make_public=True, protocol=2)
