@@ -2,6 +2,7 @@
 
 title: utils
 
+
 keywords: fastai
 sidebar: home_sidebar
 
@@ -46,13 +47,6 @@ nb_path: "00_utils.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -74,6 +68,13 @@ nb_path: "00_utils.ipynb"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Low-level-download-functions">Low-level download functions<a class="anchor-link" href="#Low-level-download-functions"> </a></h2><p>We download SEC data using the requests library.
@@ -84,13 +85,6 @@ so that we can flag the problem and retry later.</p>
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -194,6 +188,13 @@ the download later.</p>
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -303,13 +304,6 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -406,6 +400,13 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Test in-memory pickling:</p>
@@ -427,6 +428,8 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 <span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickleFromBytes</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;pickling an object to bytes (no compression)&#39;</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">pickleToBytes</span><span class="p">(</span><span class="n">test_rand</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickleFromBytes</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;pickling an object to bytes (gzip compression)&#39;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">pickleToBytes</span><span class="p">(</span><span class="n">test_rand</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickleFromBytes</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;pickling an object to bytes (gzip compression)&#39;</span>
 </pre></div>
 
     </div>
@@ -443,13 +446,6 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -526,6 +522,13 @@ its argument unchanged (assumes it's an already loaded object).</p>
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Test pickled data storage to single files:</p>
@@ -562,13 +565,6 @@ its argument unchanged (assumes it's an already loaded object).</p>
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -643,6 +639,13 @@ its argument unchanged (assumes it's an already loaded object).</p>
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Testing pickled data storage to S3:</p>
@@ -689,13 +692,6 @@ its argument unchanged (assumes it's an already loaded object).</p>
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -748,6 +744,13 @@ Returns a default value if the file doesn't exist.</p>
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Test pickled data storage under directory:</p>
@@ -783,13 +786,6 @@ Returns a default value if the file doesn't exist.</p>
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -844,6 +840,13 @@ optionally restricting to keys in [startK .. endK)</p>
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Test pickled dict storage split by key:</p>
@@ -882,13 +885,6 @@ optionally restricting to keys in [startK .. endK)</p>
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1019,6 +1015,13 @@ to d2 (exclusive), optionally excluding weekends.</p>
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Test YYYYMMDD date string functions:</p>
@@ -1058,13 +1061,6 @@ to d2 (exclusive), optionally excluding weekends.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -1081,6 +1077,13 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -1122,13 +1125,6 @@ to d2 (exclusive), optionally excluding weekends.</p>
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1200,6 +1196,13 @@ for other objects just prints the whole thing.</p>
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}

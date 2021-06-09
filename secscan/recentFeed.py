@@ -80,7 +80,7 @@ def initRecentFeedS3(bucket, prevDay=None) :
     _, curTS, today = curEasternTimeStampAndDate()
     utils.pickSaveToS3(bucket, 'today-feed.pkl',
                        {'updated':curTS, 'filings':set(), 'curDay':today, 'prevDay':None},
-                       use_gzip=True, make_public=True)
+                       use_gzip=True, make_public=True, protocol=2)
 
 def updateRecentFeedS3(bucket, skipOffHours=True) :
     nowET, curTS, today = curEasternTimeStampAndDate()
@@ -95,7 +95,8 @@ def updateRecentFeedS3(bucket, skipOffHours=True) :
     print('last update', curFeed['updated'])
     if today != curFeed['curDay'] :
         print('starting new day; last day found was',curFeed['curDay'])
-        utils.pickSaveToS3(bucket, curFeed['curDay']+'-feed.pkl', curFeed, use_gzip=True, make_public=True)
+        utils.pickSaveToS3(bucket, curFeed['curDay']+'-feed.pkl', curFeed,
+                           use_gzip=True, make_public=True, protocol=2)
         prevFilings, prevDay = curFeed['filings'], curFeed['curDay']
         curFeed = {'filings':set(), 'curDay':today, 'prevDay':prevDay}
     elif curFeed['prevDay'] is not None :
@@ -120,7 +121,8 @@ def updateRecentFeedS3(bucket, skipOffHours=True) :
             print('*** unexpected filing date',tup)
     print(len(l), 'feed filings,', newCount, 'new, total now',len(curFeed['filings']))
     curFeed['updated'] = curTS
-    utils.pickSaveToS3(bucket, 'today-feed.pkl', curFeed, use_gzip=True, make_public=True)
+    utils.pickSaveToS3(bucket, 'today-feed.pkl', curFeed,
+                       use_gzip=True, make_public=True, protocol=2)
     print('--- update complete at',curEasternTimeStampAndDate()[1])
 
 def getRecentFromS3(bucket, key='today') :
