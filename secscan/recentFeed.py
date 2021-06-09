@@ -124,7 +124,7 @@ def updateRecentFeedS3(bucket, skipOffHours=True) :
             else :
                 print('*** unexpected future filing date',tup)
     print(len(l),'filings,',
-          prevDayCount,'from prev day,',newFTodayCount,'new fToday,',newFOtherDayCount,'new FOther,',
+          prevDayCount,'from prev day,',newFTodayCount,'new fToday,',newFOtherDayCount,'new fOther,',
           'total now',len(curFeed['filings']))
     curFeed['updated'] = curTS
     utils.pickSaveToS3(bucket, 'today-feed.pkl', curFeed,

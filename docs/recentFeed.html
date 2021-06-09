@@ -2,7 +2,6 @@
 
 title: recentFeed
 
-
 keywords: fastai
 sidebar: home_sidebar
 
@@ -22,6 +21,13 @@ nb_path: "01_recentFeed.ipynb"
 
 <div class="container" id="notebook-container">
         
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -113,13 +119,6 @@ with the most recent filings first</p>
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Test downloading and parsing the recent filings feed:</p>
@@ -149,11 +148,12 @@ with the most recent filings first</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0 (&#39;2021-06-08&#39;, &#39;Ajila Rohan&#39;, &#39;0001104659-21-078439&#39;, &#39;3&#39;, &#39;1864266&#39;)
-1 (&#39;2021-06-08&#39;, &#39;Global Consumer Acquisition Corp&#39;, &#39;0001104659-21-078439&#39;, &#39;3&#39;, &#39;1846288&#39;)
-2 (&#39;2021-06-08&#39;, &#39;Pai Gautham&#39;, &#39;0001104659-21-078438&#39;, &#39;3&#39;, &#39;1863979&#39;)
-3 (&#39;2021-06-08&#39;, &#39;Global Consumer Acquisition Corp&#39;, &#39;0001104659-21-078438&#39;, &#39;3&#39;, &#39;1846288&#39;)
-4 (&#39;2021-06-08&#39;, &#39;Clausen Tom&#39;, &#39;0001104659-21-078437&#39;, &#39;3&#39;, &#39;1864275&#39;)
+<pre>*** Problem downloading https://www.sec.gov/cgi-bin/browse-edgar?count=100&amp;action=getcurrent&amp;output=atom - 403 Client Error: Forbidden for url: https://www.sec.gov/cgi-bin/browse-edgar?count=100&amp;action=getcurrent&amp;output=atom ; retrying ...
+0 (&#39;2021-06-09&#39;, &#39;ACRES Commercial Realty Corp.&#39;, &#39;0001567619-21-011939&#39;, &#39;4&#39;, &#39;1332551&#39;)
+1 (&#39;2021-06-09&#39;, &#39;Elliott Thomas C&#39;, &#39;0001567619-21-011939&#39;, &#39;4&#39;, &#39;1332163&#39;)
+2 (&#39;2021-06-09&#39;, &#39;LPL Financial Holdings Inc.&#39;, &#39;0001397911-21-000134&#39;, &#39;4&#39;, &#39;1397911&#39;)
+3 (&#39;2021-06-09&#39;, &#39;SCHIFTER RICHARD P&#39;, &#39;0001397911-21-000134&#39;, &#39;4&#39;, &#39;1249554&#39;)
+4 (&#39;2021-06-09&#39;, &#39;Allen Tom&#39;, &#39;0001140361-21-020413&#39;, &#39;4&#39;, &#39;1712910&#39;)
 </pre>
 </div>
 </div>
@@ -171,6 +171,13 @@ with the most recent filings first</p>
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -294,18 +301,11 @@ with the most recent filings first</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># updateRecentFeedS3(&#39;bucket_name&#39;)</span>
 </pre></div>
 
     </div>
