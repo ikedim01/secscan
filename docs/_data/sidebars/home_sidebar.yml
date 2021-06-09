@@ -11,10 +11,10 @@ entries:
       url: /
     - output: web,pdf
       title: utils
-      url: utils.html
+      url: /utils
     - output: web,pdf
       title: recentFeed
-      url: recentFeed.html
+      url: /recentFeed
     output: web
     title: secscan
   output: web

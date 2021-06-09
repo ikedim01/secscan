@@ -2,7 +2,6 @@
 
 title: utils
 
-
 keywords: fastai
 sidebar: home_sidebar
 
@@ -47,6 +46,13 @@ nb_path: "00_utils.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -54,50 +60,12 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="setStockDataRoot" class="doc_header"><code>setStockDataRoot</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L24" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setStockDataRoot</code>(<strong><code>loc</code></strong>)</p>
+<h4 id="setStockDataRoot" class="doc_header"><code>setStockDataRoot</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setStockDataRoot</code>(<strong><code>loc</code></strong>)</p>
 </blockquote>
 <p>Set location for storing scraped stock data.</p>
 
 </div>
 
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">stockDataRoot</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>C:\Users\ikedi\secData2
-</pre>
-</div>
 </div>
 
 </div>
@@ -120,6 +88,13 @@ so that we can flag the problem and retry later.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -127,7 +102,7 @@ so that we can flag the problem and retry later.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="requestUrl" class="doc_header"><code>requestUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L31" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>requestUrl</code>(<strong><code>url</code></strong>, <strong><code>timeout</code></strong>=<em><code>5.0</code></em>, <strong><code>nTries</code></strong>=<em><code>5</code></em>, <strong><code>returnText</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="requestUrl" class="doc_header"><code>requestUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>requestUrl</code>(<strong><code>url</code></strong>, <strong><code>timeout</code></strong>=<em><code>5.0</code></em>, <strong><code>nTries</code></strong>=<em><code>5</code></em>, <strong><code>returnText</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Downloads a URL using the requests package.</p>
 
@@ -152,7 +127,7 @@ so that we can flag the problem and retry later.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="secIndexUrl" class="doc_header"><code>secIndexUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secIndexUrl</code>(<strong><code>accessNo</code></strong>, <strong><code>includePref</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="secIndexUrl" class="doc_header"><code>secIndexUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L55" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secIndexUrl</code>(<strong><code>accessNo</code></strong>, <strong><code>includePref</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns the url for the index page of an SEC filing specified by accession number.</p>
 
@@ -177,7 +152,7 @@ so that we can flag the problem and retry later.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="downloadSecUrl" class="doc_header"><code>downloadSecUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>downloadSecUrl</code>(<strong><code>secSubUrlOrAccessNo</code></strong>, <strong><code>soupify</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="downloadSecUrl" class="doc_header"><code>downloadSecUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L63" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>downloadSecUrl</code>(<strong><code>secSubUrlOrAccessNo</code></strong>, <strong><code>soupify</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Downloads a page from the SEC site. The page can be specified by
 a sub-URL (ex. /cgi-bin/browse-edgar?CIK=0000716314&amp;owner=exclude),
@@ -209,7 +184,7 @@ the download later.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombSoupText" class="doc_header"><code>getCombSoupText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L78" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombSoupText</code>(<strong><code>tag</code></strong>)</p>
+<h4 id="getCombSoupText" class="doc_header"><code>getCombSoupText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L88" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombSoupText</code>(<strong><code>tag</code></strong>)</p>
 </blockquote>
 <p>Get the combined text from a BeautifulSoup tag.</p>
 
@@ -217,30 +192,6 @@ the download later.</p>
 
 </div>
 
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">accessNoPat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;000119315-21-181366&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -262,7 +213,7 @@ the download later.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">downloadSecUrl</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="s1">&#39;securities and exchange&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="k">assert</span> <span class="s1">&#39;securities and exchange&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;SEC main page download&quot;</span>
 </pre></div>
 
     </div>
@@ -279,14 +230,31 @@ the download later.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testUrl</span> <span class="o">=</span> <span class="n">secIndexUrl</span><span class="p">(</span><span class="s1">&#39;0000909108-21-000051&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;URL:&#39;</span><span class="p">,</span><span class="n">testUrl</span><span class="p">)</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">downloadSecUrl</span><span class="p">(</span><span class="n">testUrl</span><span class="p">,</span> <span class="n">soupify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">accessNo</span> <span class="o">=</span> <span class="s1">&#39;0000909108-21-000051&#39;</span>
+<span class="k">assert</span> <span class="n">accessNoPat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">accessNo</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">accessNoPat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">accessNo</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accession number&#39;</span><span class="p">,</span><span class="n">accessNo</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">downloadSecUrl</span><span class="p">(</span><span class="n">accessNo</span><span class="p">,</span> <span class="n">soupify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span><span class="s1">&#39;companyName&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Company name HTML:&#39;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
 <span class="n">companyName</span> <span class="o">=</span> <span class="n">getCombSoupText</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Company name text:&#39;</span><span class="p">,</span><span class="n">companyName</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">companyName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;diamond hill&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">companyName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;diamond hill&#39;</span><span class="p">),</span><span class="s1">&#39;Parsing company name from filing index.htm&#39;</span>
 </pre></div>
 
     </div>
@@ -299,8 +267,7 @@ the download later.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>URL: /Archives/edgar/data/000090910821000051/0000909108-21-000051-index.htm
-Error downloading https://www.sec.gov/Archives/edgar/data/000090910821000051/0000909108-21-000051-index.htm - 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/data/000090910821000051/0000909108-21-000051-index.htm ; retrying ...
+<pre>Accession number 0000909108-21-000051
 Company name HTML: &lt;span class=&#34;companyName&#34;&gt;DIAMOND HILL INVESTMENT GROUP INC (Filer)
  &lt;acronym title=&#34;Central Index Key&#34;&gt;CIK&lt;/acronym&gt;: &lt;a href=&#34;/cgi-bin/browse-edgar?CIK=0000909108&amp;amp;action=getcompany&#34;&gt;0000909108 (see all company filings)&lt;/a&gt;&lt;/span&gt;
 Company name text: DIAMOND HILL INVESTMENT GROUP INC (Filer) CIK : 0000909108 (see all company filings)
@@ -325,6 +292,20 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In-memory pickling:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -336,9 +317,9 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="openFp" class="doc_header"><code>openFp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L84" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>openFp</code>(<strong><code>fpath</code></strong>, <strong><code>mode</code></strong>, <strong><code>use_gzip</code></strong>)</p>
+<h4 id="compressGZipBytes" class="doc_header"><code>compressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compressGZipBytes</code>(<strong><code>b</code></strong>)</p>
 </blockquote>
-<p>Open a file for writing or reading, optionally using gzip compression.</p>
+<p>Compress a byte string in-memory using gzip.</p>
 
 </div>
 
@@ -361,7 +342,126 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickSave" class="doc_header"><code>pickSave</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L89" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSave</code>(<strong><code>fpath</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="decompressGZipBytes" class="doc_header"><code>decompressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L101" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decompressGZipBytes</code>(<strong><code>b</code></strong>)</p>
+</blockquote>
+<p>Decompress a byte string in-memory using gzip.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="pickleToBytes" class="doc_header"><code>pickleToBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L107" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleToBytes</code>(<strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Pickle an object in-memory, optionally using gzip compression.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="pickleFromBytes" class="doc_header"><code>pickleFromBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L114" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleFromBytes</code>(<strong><code>b</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Unpickle an object in-memory, optionally using gzip compression.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Test in-memory pickling:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">test_rand</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="sa">f</span><span class="s1">&#39;r</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">pickleToBytes</span><span class="p">(</span><span class="n">test_rand</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickleFromBytes</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="s1">&#39;pickling an object to bytes (no compression)&#39;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">pickleToBytes</span><span class="p">(</span><span class="n">test_rand</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickleFromBytes</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;pickling an object to bytes (gzip compression)&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pickled data storage to single files:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="pickSave" class="doc_header"><code>pickSave</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L122" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSave</code>(<strong><code>fpath</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Save a pickled object to a file, optionally using gzip compression.</p>
 
@@ -386,7 +486,7 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoad" class="doc_header"><code>pickLoad</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoad</code>(<strong><code>fpath</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="pickLoad" class="doc_header"><code>pickLoad</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoad</code>(<strong><code>fpath</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Load a pickled object from a file, optionally using gzip compression.</p>
 
@@ -411,7 +511,7 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoadIfPath" class="doc_header"><code>pickLoadIfPath</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L99" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadIfPath</code>(<strong><code>path_or_ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="pickLoadIfPath" class="doc_header"><code>pickLoadIfPath</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L132" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadIfPath</code>(<strong><code>path_or_ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>If given a path, loads a pickled object from it; otherwise returns
 its argument unchanged (assumes it's an already loaded object).</p>
@@ -426,16 +526,9 @@ its argument unchanged (assumes it's an already loaded object).</p>
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Test pickled data storage in single files:</p>
+<p>Test pickled data storage to single files:</p>
 
 </div>
 </div>
@@ -447,18 +540,54 @@ its argument unchanged (assumes it's an already loaded object).</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">test_rand</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="sa">f</span><span class="s1">&#39;r</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">pickSave</span><span class="p">(</span><span class="s1">&#39;test.pkl&#39;</span><span class="p">,</span> <span class="n">test_rand</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickLoad</span><span class="p">(</span><span class="s1">&#39;test.pkl&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pickSave</span><span class="p">(</span><span class="s1">&#39;test.pkl&#39;</span><span class="p">,</span> <span class="n">test_rand</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickLoad</span><span class="p">(</span><span class="s1">&#39;test.pkl&#39;</span><span class="p">),</span> <span class="s1">&#39;pickling an object to a file (no compression)&#39;</span>
 <span class="n">pickSave</span><span class="p">(</span><span class="s1">&#39;test.pkl&#39;</span><span class="p">,</span> <span class="n">test_rand</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickLoad</span><span class="p">(</span><span class="s1">&#39;test.pkl&#39;</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">test_rand</span> <span class="o">==</span> <span class="n">pickLoad</span><span class="p">(</span><span class="s1">&#39;test.pkl&#39;</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;pickling an object to a file (gzip compression)&#39;</span>
 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="s1">&#39;test.pkl&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pickled data storage to S3:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="pickSaveToS3" class="doc_header"><code>pickSaveToS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L144" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSaveToS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>make_public</code></strong>=<em><code>False</code></em>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Save a pickled object to an S3 bucket, optionally using gzip compression.</p>
+
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -476,7 +605,109 @@ its argument unchanged (assumes it's an already loaded object).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="savePklToDir" class="doc_header"><code>savePklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L111" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>savePklToDir</code>(<strong><code>toDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="pickLoadFromS3" class="doc_header"><code>pickLoadFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L152" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Load a pickled object from an S3 bucket, optionally using gzip compression.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="pickLoadFromS3Public" class="doc_header"><code>pickLoadFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L158" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Testing pickled data storage to S3:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">testS3Pickle</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">ob</span><span class="p">)</span> <span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">boto3_available</span> <span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;boto3 not available, skipping test&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+    <span class="n">s3</span><span class="o">.</span><span class="n">delete_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">pickSaveToS3</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">ob</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ob</span> <span class="o">!=</span> <span class="n">pickLoadFromS3</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">pickSaveToS3</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">ob</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ob</span> <span class="o">!=</span> <span class="n">pickLoadFromS3</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">use_gzip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+<span class="c1"># change thenycentral to your S3 bucket name and set up boto3 to run the test</span>
+<span class="k">assert</span> <span class="n">testS3Pickle</span><span class="p">(</span><span class="s1">&#39;thenycentral&#39;</span><span class="p">,</span> <span class="s1">&#39;test_rand.pkl&#39;</span><span class="p">,</span> <span class="n">test_rand</span><span class="p">),</span> <span class="s1">&#39;pickling an object to S3&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pickled data storage under directory:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="savePklToDir" class="doc_header"><code>savePklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L164" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>savePklToDir</code>(<strong><code>toDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Saves a pickled object to a file under a directory, optionally using gzip compression.
 Creates the directory if it doesn't exist.</p>
@@ -502,7 +733,7 @@ Creates the directory if it doesn't exist.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadPklFromDir" class="doc_header"><code>loadPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L121" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>defaultVal</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="loadPklFromDir" class="doc_header"><code>loadPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L173" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>defaultVal</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Load a pickled object from a file under a directory, optionally using gzip compression.
 Returns a default value if the file doesn't exist.</p>
@@ -513,13 +744,6 @@ Returns a default value if the file doesn't exist.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -552,6 +776,20 @@ Returns a default value if the file doesn't exist.</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pickled dict storage split by key:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -563,7 +801,7 @@ Returns a default value if the file doesn't exist.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveSplitPklToDir" class="doc_header"><code>saveSplitPklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L134" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveSplitPklToDir</code>(<strong><code>m</code></strong>, <strong><code>toDir</code></strong>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtyMap</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="saveSplitPklToDir" class="doc_header"><code>saveSplitPklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L186" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveSplitPklToDir</code>(<strong><code>m</code></strong>, <strong><code>toDir</code></strong>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtyMap</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Saves a dict with str keys to a separate file for each key.
 If dirtyMap is True, saves all keys.
@@ -591,7 +829,7 @@ Otherwise, also saves keys k for which dirtyMap.get(k) is true.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadSplitPklFromDir" class="doc_header"><code>loadSplitPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L154" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadSplitPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>startK</code></strong>=<em><code>None</code></em>, <strong><code>endK</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>)</p>
+<h4 id="loadSplitPklFromDir" class="doc_header"><code>loadSplitPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L206" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadSplitPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>startK</code></strong>=<em><code>None</code></em>, <strong><code>endK</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Loads a pickled dict with str keys stored with a separate file for each key,
 optionally restricting to keys in [startK .. endK)</p>
@@ -602,13 +840,6 @@ optionally restricting to keys in [startK .. endK)</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -655,6 +886,13 @@ optionally restricting to keys in [startK .. endK)</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -662,7 +900,7 @@ optionally restricting to keys in [startK .. endK)</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="toDateStr" class="doc_header"><code>toDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L174" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDateStr</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="toDateStr" class="doc_header"><code>toDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L226" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDateStr</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts date object or ISO format date string to YYYYMMDD format string;
 leaves YYYYMMDD format strings unchanged;
@@ -689,7 +927,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="toDate" class="doc_header"><code>toDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L189" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDate</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="toDate" class="doc_header"><code>toDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L241" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDate</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts date string in ISO or YYYYMMDD format to date object;
 leaves date objects unchanged;
@@ -716,7 +954,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="isWeekend" class="doc_header"><code>isWeekend</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L205" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isWeekend</code>(<strong><code>d</code></strong>)</p>
+<h4 id="isWeekend" class="doc_header"><code>isWeekend</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L257" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isWeekend</code>(<strong><code>d</code></strong>)</p>
 </blockquote>
 <p>Says if date string or date object is on a weekend (Saturday or Sunday).</p>
 
@@ -741,7 +979,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dateStrsBetween" class="doc_header"><code>dateStrsBetween</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L209" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dateStrsBetween</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>=<em><code>None</code></em>, <strong><code>excludeWeekends</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="dateStrsBetween" class="doc_header"><code>dateStrsBetween</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L261" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dateStrsBetween</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>=<em><code>None</code></em>, <strong><code>excludeWeekends</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns a list of date strings in YYYYMMDD format from d1 (inclusive)
 to d2 (exclusive), optionally excluding weekends.</p>
@@ -767,7 +1005,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="formatDateStr" class="doc_header"><code>formatDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L226" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>formatDateStr</code>(<strong><code>dStr</code></strong>, <strong><code>sep</code></strong>=<em><code>'-'</code></em>)</p>
+<h4 id="formatDateStr" class="doc_header"><code>formatDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L278" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>formatDateStr</code>(<strong><code>dStr</code></strong>, <strong><code>sep</code></strong>=<em><code>'-'</code></em>)</p>
 </blockquote>
 <p>Convert YYYYMMDD format date string to YYYY-MM-DD.</p>
 
@@ -777,13 +1015,6 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -827,6 +1058,13 @@ to d2 (exclusive), optionally excluding weekends.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -834,7 +1072,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="curEasternUSTime" class="doc_header"><code>curEasternUSTime</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L233" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternUSTime</code>()</p>
+<h4 id="curEasternUSTime" class="doc_header"><code>curEasternUSTime</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L285" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternUSTime</code>()</p>
 </blockquote>
 
 </div>
@@ -843,13 +1081,6 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -874,7 +1105,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-06-05T12:41:11.647654-04:00
+<pre>2021-06-08T22:39:04.239400-04:00
 </pre>
 </div>
 </div>
@@ -895,6 +1126,13 @@ to d2 (exclusive), optionally excluding weekends.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -902,7 +1140,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="secBrowse" class="doc_header"><code>secBrowse</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L238" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secBrowse</code>(<strong><code>accessNo</code></strong>)</p>
+<h4 id="secBrowse" class="doc_header"><code>secBrowse</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L290" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secBrowse</code>(<strong><code>accessNo</code></strong>)</p>
 </blockquote>
 <p>Open the index page of an SEC filing specified by accession number in a web browser.</p>
 
@@ -927,7 +1165,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printSamp" class="doc_header"><code>printSamp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L242" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printSamp</code>(<strong><code>m</code></strong>, <strong><code>n</code></strong>=<em><code>10</code></em>)</p>
+<h4 id="printSamp" class="doc_header"><code>printSamp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L294" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printSamp</code>(<strong><code>m</code></strong>, <strong><code>n</code></strong>=<em><code>10</code></em>)</p>
 </blockquote>
 <p>Prints a sample of n items from object m , where m is a list or dict;
 for other objects just prints the whole thing.</p>
@@ -953,7 +1191,7 @@ for other objects just prints the whole thing.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printErrInfoOrAccessNo" class="doc_header"><code>printErrInfoOrAccessNo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L258" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printErrInfoOrAccessNo</code>(<strong><code>msg</code></strong>, <strong><code>infoOrAccessNo</code></strong>)</p>
+<h4 id="printErrInfoOrAccessNo" class="doc_header"><code>printErrInfoOrAccessNo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L310" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printErrInfoOrAccessNo</code>(<strong><code>msg</code></strong>, <strong><code>infoOrAccessNo</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -962,13 +1200,6 @@ for other objects just prints the whole thing.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}

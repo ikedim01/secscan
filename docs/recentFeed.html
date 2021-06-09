@@ -2,7 +2,6 @@
 
 title: recentFeed
 
-
 keywords: fastai
 sidebar: home_sidebar
 
@@ -40,6 +39,13 @@ nb_path: "01_recentFeed.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -47,7 +53,7 @@ nb_path: "01_recentFeed.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="secMostRecentListUrl" class="doc_header"><code>secMostRecentListUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secMostRecentListUrl</code>(<strong><code>count</code></strong>=<em><code>100</code></em>)</p>
+<h4 id="secMostRecentListUrl" class="doc_header"><code>secMostRecentListUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L16" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secMostRecentListUrl</code>(<strong><code>count</code></strong>=<em><code>100</code></em>)</p>
 </blockquote>
 <p>Returns the URL for the SEC's atom-format feed of most recent filings.</p>
 
@@ -72,7 +78,7 @@ nb_path: "01_recentFeed.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printXmlParseWarning" class="doc_header"><code>printXmlParseWarning</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L21" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printXmlParseWarning</code>(<strong><code>msg</code></strong>, <strong><code>el</code></strong>)</p>
+<h4 id="printXmlParseWarning" class="doc_header"><code>printXmlParseWarning</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printXmlParseWarning</code>(<strong><code>msg</code></strong>, <strong><code>el</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -96,10 +102,10 @@ nb_path: "01_recentFeed.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getRecentChunk" class="doc_header"><code>getRecentChunk</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L34" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecentChunk</code>(<strong><code>count</code></strong>=<em><code>100</code></em>)</p>
+<h4 id="getRecentChunk" class="doc_header"><code>getRecentChunk</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecentChunk</code>(<strong><code>count</code></strong>=<em><code>100</code></em>)</p>
 </blockquote>
 <p>Parses the SEC's atom-format feed of most recent filings and returns a list of tuples:
-    [(fileDate, cik, cikName, formType, accNo),
+    [(fileDate, cikName, accNo, formType, cik),
      ... ]
 with the most recent filings first</p>
 
@@ -109,13 +115,6 @@ with the most recent filings first</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -136,7 +135,7 @@ with the most recent filings first</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="n">getRecentChunk</span><span class="p">()</span>
 <span class="n">utils</span><span class="o">.</span><span class="n">printSamp</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">==</span> <span class="mi">100</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">==</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;parsing recent SEC filings feed&#39;</span>
 </pre></div>
 
     </div>
@@ -149,13 +148,51 @@ with the most recent filings first</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0 (&#39;2021-06-04&#39;, &#39;1787088&#39;, &#39;4&#39;, &#39;0000899243-21-022205&#39;, &#39;Wellington Hadley Harbor Master Investors (Cayman) III L.P.&#39;)
-1 (&#39;2021-06-04&#39;, &#39;1431695&#39;, &#39;4&#39;, &#39;0000899243-21-022205&#39;, &#39;Olo Inc.&#39;)
-2 (&#39;2021-06-04&#39;, &#39;1797168&#39;, &#39;4&#39;, &#39;0001437749-21-014199&#39;, &#39;Acuitas Group Holdings, LLC&#39;)
-3 (&#39;2021-06-04&#39;, &#39;1136174&#39;, &#39;4&#39;, &#39;0001437749-21-014199&#39;, &#39;Ontrak, Inc.&#39;)
-4 (&#39;2021-06-04&#39;, &#39;904534&#39;, &#39;4&#39;, &#39;0001437749-21-014199&#39;, &#39;PEIZER TERREN S&#39;)
+<pre>0 (&#39;2021-06-08&#39;, &#39;Ajila Rohan&#39;, &#39;0001104659-21-078439&#39;, &#39;3&#39;, &#39;1864266&#39;)
+1 (&#39;2021-06-08&#39;, &#39;Global Consumer Acquisition Corp&#39;, &#39;0001104659-21-078439&#39;, &#39;3&#39;, &#39;1846288&#39;)
+2 (&#39;2021-06-08&#39;, &#39;Pai Gautham&#39;, &#39;0001104659-21-078438&#39;, &#39;3&#39;, &#39;1863979&#39;)
+3 (&#39;2021-06-08&#39;, &#39;Global Consumer Acquisition Corp&#39;, &#39;0001104659-21-078438&#39;, &#39;3&#39;, &#39;1846288&#39;)
+4 (&#39;2021-06-08&#39;, &#39;Clausen Tom&#39;, &#39;0001104659-21-078437&#39;, &#39;3&#39;, &#39;1864275&#39;)
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Accumulating the recent filings feed to an S3 bucket:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="curEasternTimeStampAndDate" class="doc_header"><code>curEasternTimeStampAndDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternTimeStampAndDate</code>()</p>
+</blockquote>
+
+</div>
+
 </div>
 
 </div>
@@ -175,7 +212,7 @@ with the most recent filings first</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="testBoto3" class="doc_header"><code>testBoto3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>testBoto3</code>()</p>
+<h4 id="initRecentFeedS3" class="doc_header"><code>initRecentFeedS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>initRecentFeedS3</code>(<strong><code>bucket</code></strong>, <strong><code>prevDay</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -192,6 +229,71 @@ with the most recent filings first</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="updateRecentFeedS3" class="doc_header"><code>updateRecentFeedS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L85" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>updateRecentFeedS3</code>(<strong><code>bucket</code></strong>, <strong><code>skipOffHours</code></strong>=<em><code>True</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getRecentFromS3" class="doc_header"><code>getRecentFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecentFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>=<em><code>'today'</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getRecentFromS3Public" class="doc_header"><code>getRecentFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L129" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecentFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>=<em><code>'today'</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -202,24 +304,28 @@ with the most recent filings first</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testBoto3</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>boto3 not available, skipping test
-</pre>
 </div>
-</div>
+    {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print(len(r[&#39;filings&#39;]))</span>
+<span class="c1"># utils.printSamp(sorted(r[&#39;filings&#39;]))</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 

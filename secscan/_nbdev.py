@@ -2,7 +2,8 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"setStockDataRoot": "00_utils.ipynb",
+index = {"boto3_available": "00_utils.ipynb",
+         "setStockDataRoot": "00_utils.ipynb",
          "stockDataRoot": "00_utils.ipynb",
          "requestUrl": "00_utils.ipynb",
          "secIndexUrl": "00_utils.ipynb",
@@ -13,10 +14,16 @@ index = {"setStockDataRoot": "00_utils.ipynb",
          "secUrlPref": "00_utils.ipynb",
          "pageUnavailablePat": "00_utils.ipynb",
          "spacesPat": "00_utils.ipynb",
-         "openFp": "00_utils.ipynb",
+         "compressGZipBytes": "00_utils.ipynb",
+         "decompressGZipBytes": "00_utils.ipynb",
+         "pickleToBytes": "00_utils.ipynb",
+         "pickleFromBytes": "00_utils.ipynb",
          "pickSave": "00_utils.ipynb",
          "pickLoad": "00_utils.ipynb",
          "pickLoadIfPath": "00_utils.ipynb",
+         "pickSaveToS3": "00_utils.ipynb",
+         "pickLoadFromS3": "00_utils.ipynb",
+         "pickLoadFromS3Public": "00_utils.ipynb",
          "savePklToDir": "00_utils.ipynb",
          "loadPklFromDir": "00_utils.ipynb",
          "saveSplitPklToDir": "00_utils.ipynb",
@@ -37,8 +44,11 @@ index = {"setStockDataRoot": "00_utils.ipynb",
          "getRecentChunk": "01_recentFeed.ipynb",
          "titlePat": "01_recentFeed.ipynb",
          "filedPat": "01_recentFeed.ipynb",
-         "testBoto3": "01_recentFeed.ipynb",
-         "boto3_available": "01_recentFeed.ipynb"}
+         "curEasternTimeStampAndDate": "01_recentFeed.ipynb",
+         "initRecentFeedS3": "01_recentFeed.ipynb",
+         "updateRecentFeedS3": "01_recentFeed.ipynb",
+         "getRecentFromS3": "01_recentFeed.ipynb",
+         "getRecentFromS3Public": "01_recentFeed.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py"]
