@@ -48,10 +48,16 @@ index = {"boto3_available": "00_utils.ipynb",
          "initRecentFeedS3": "01_recentFeed.ipynb",
          "updateRecentFeedS3": "01_recentFeed.ipynb",
          "getRecentFromS3": "01_recentFeed.ipynb",
-         "getRecentFromS3Public": "01_recentFeed.ipynb"}
+         "getRecentFromS3Public": "01_recentFeed.ipynb",
+         "getQStr": "02_dailyList.ipynb",
+         "getSecDailyIndexUrl": "02_dailyList.ipynb",
+         "getDailyFList": "02_dailyList.ipynb",
+         "noListExceptionPat": "02_dailyList.ipynb",
+         "edgarTxtFPat": "02_dailyList.ipynb"}
 
 modules = ["utils.py",
-           "recentFeed.py"]
+           "recentFeed.py",
+           "dailyList.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 
