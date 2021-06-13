@@ -53,11 +53,16 @@ index = {"boto3_available": "00_utils.ipynb",
          "getSecDailyIndexUrl": "02_dailyList.ipynb",
          "getDailyFList": "02_dailyList.ipynb",
          "noListExceptionPat": "02_dailyList.ipynb",
-         "edgarTxtFPat": "02_dailyList.ipynb"}
+         "edgarTxtFPat": "02_dailyList.ipynb",
+         "getSecTickerDict": "03_tickerMap.ipynb",
+         "secTickerListUrl": "03_tickerMap.ipynb",
+         "getCikFilings": "04_getCikFilings.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
-           "dailyList.py"]
+           "dailyList.py",
+           "tickerMap.py",
+           "getCikFilings.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 

@@ -18,6 +18,12 @@ entries:
     - output: web,pdf
       title: dailyList
       url: dailyList.html
+    - output: web,pdf
+      title: tickerMap
+      url: tickerMap.html
+    - output: web,pdf
+      title: getCikFilings
+      url: getCikFilings.html
     output: web
     title: secscan
   output: web

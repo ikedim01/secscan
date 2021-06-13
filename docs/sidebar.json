@@ -3,6 +3,8 @@
     "Overview": "/",
     "utils": "utils.html",
     "recentFeed": "recentFeed.html",
-    "dailyList": "dailyList.html"
+    "dailyList": "dailyList.html",
+    "tickerMap": "tickerMap.html",
+    "getCikFilings": "getCikFilings.html"
   }
 }

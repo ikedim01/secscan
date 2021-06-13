@@ -86,8 +86,9 @@ def updateRecentFeedS3(bucket, skipOffHours=True) :
     nowET, curTS, today = curEasternTimeStampAndDate()
     print('updating at', curTS, end='; ')
     if skipOffHours and (utils.isWeekend(nowET)
-                         or nowET.hour<6 or nowET.hour>22
-                         or (nowET.hour==22 and nowET.minute>10)) :
+                         #or nowET.hour<6 or nowET.hour>22
+                         #or (nowET.hour==22 and nowET.minute>10)
+                        ) :
         print('SEC off hours, skipping update')
         return
     l = getRecentChunk()
