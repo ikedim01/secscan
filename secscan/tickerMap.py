@@ -4,15 +4,16 @@ __all__ = ['getSecTickerDict', 'secTickerListUrl']
 
 # Cell
 
-import json
-
 from secscan import utils
 
 # Cell
 
 secTickerListUrl = '/files/company_tickers_exchange.json'
 def getSecTickerDict() :
-    secTickerJson = json.loads(utils.downloadSecUrl(secTickerListUrl))
+    """
+    Creates a dict mapping ticker -> CIK based on download from the SEC.
+    """
+    secTickerJson = utils.downloadSecUrl(secTickerListUrl, toFormat='json')
     tickerPos = secTickerJson['fields'].index('ticker')
     cikPos = secTickerJson['fields'].index('cik')
     res = {}

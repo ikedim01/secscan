@@ -39,7 +39,7 @@ def getRecentChunk(count=100) :
          ... ]
     with the most recent filings first
     """
-    mrListXml = cElTree.fromstring(utils.downloadSecUrl(secMostRecentListUrl(count=count)))
+    mrListXml = utils.downloadSecUrl(secMostRecentListUrl(count=count), toFormat='xml')
     res = []
     for listEntry in mrListXml :
         if not listEntry.tag.lower().endswith("entry") :

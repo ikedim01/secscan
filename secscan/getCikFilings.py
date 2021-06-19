@@ -4,13 +4,11 @@ __all__ = ['getCikFilings']
 
 # Cell
 
-import json
-
 from secscan import utils
 
 # Cell
 
 def getCikFilings(cik) :
-    restFilingsUrl = f'https://data.sec.gov/submissions/CIK{str(cik).zfill(10)}.json'
-    secTickerJson = json.loads(utils.requestUrl(restFilingsUrl,returnText=True))
-    return secTickerJson
+    restFilingsUrl = f'/submissions/CIK{str(cik).zfill(10)}.json'
+    filingsJson = utils.downloadSecUrl(restFilingsUrl, restData=True, toFormat='json')
+    return filingsJson

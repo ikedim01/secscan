@@ -54,7 +54,7 @@ nb_path: "02_dailyList.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getQStr" class="doc_header"><code>getQStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L14" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getQStr</code>(<strong><code>dateStr</code></strong>)</p>
+<h4 id="getQStr" class="doc_header"><code>getQStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L18" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getQStr</code>(<strong><code>dateStr</code></strong>)</p>
 </blockquote>
 <p>Converts a date in YYYYMMDD format to YYYY/QTRn/
 where n is the quarter number from 1 to 4."</p>
@@ -80,7 +80,7 @@ where n is the quarter number from 1 to 4."</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecDailyIndexUrl" class="doc_header"><code>getSecDailyIndexUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L21" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecDailyIndexUrl</code>(<strong><code>dateStr</code></strong>, <strong><code>listType</code></strong>=<em><code>'master'</code></em>)</p>
+<h4 id="getSecDailyIndexUrls" class="doc_header"><code>getSecDailyIndexUrls</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L25" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecDailyIndexUrls</code>(<strong><code>dateStr</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -104,7 +104,7 @@ where n is the quarter number from 1 to 4."</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getDailyFList" class="doc_header"><code>getDailyFList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L32" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getDailyFList</code>(<strong><code>d</code></strong>)</p>
+<h4 id="getDailyFList" class="doc_header"><code>getDailyFList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getDailyFList</code>(<strong><code>d</code></strong>, <strong><code>listIndexCache</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Returns a list of SEC filed forms:
     [(cik, cikName, formType, fileDate, accNo), ... ]
@@ -143,12 +143,14 @@ the SEC daily index.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="p">((</span><span class="n">getQStr</span><span class="p">(</span><span class="s1">&#39;20200101&#39;</span><span class="p">),</span><span class="n">getQStr</span><span class="p">(</span><span class="s1">&#39;20200401&#39;</span><span class="p">),</span><span class="n">getQStr</span><span class="p">(</span><span class="s1">&#39;20201201&#39;</span><span class="p">))</span>
-        <span class="o">==</span> <span class="p">(</span><span class="s1">&#39;2020/QTR1/&#39;</span><span class="p">,</span><span class="s1">&#39;2020/QTR2/&#39;</span><span class="p">,</span><span class="s1">&#39;2020/QTR4/&#39;</span><span class="p">)),</span> <span class="s2">&quot;Quarter string calc&quot;</span>
-<span class="k">assert</span> <span class="p">(</span><span class="n">getSecDailyIndexUrl</span><span class="p">(</span><span class="s1">&#39;20201201&#39;</span><span class="p">)</span>
-        <span class="o">==</span><span class="s1">&#39;/Archives/edgar/daily-index/2020/QTR4/master.20201201.idx&#39;</span><span class="p">),</span> <span class="s2">&quot;Daily index URL&quot;</span>
+        <span class="o">==</span> <span class="p">(</span><span class="s1">&#39;2020/QTR1/&#39;</span><span class="p">,</span><span class="s1">&#39;2020/QTR2/&#39;</span><span class="p">,</span><span class="s1">&#39;2020/QTR4/&#39;</span><span class="p">)),</span> <span class="s2">&quot;quarter string calc&quot;</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">getSecDailyIndexUrls</span><span class="p">(</span><span class="s1">&#39;20201201&#39;</span><span class="p">)</span>
+        <span class="o">==</span><span class="p">(</span><span class="s1">&#39;/Archives/edgar/daily-index/2020/QTR4/master.20201201.idx&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;/Archives/edgar/daily-index/2020/QTR4/index.json&#39;</span><span class="p">)),</span> <span class="s2">&quot;daily index URL&quot;</span>
+<span class="k">assert</span> <span class="n">getDailyFList</span><span class="p">(</span><span class="s1">&#39;20210531&#39;</span><span class="p">)</span><span class="o">==</span><span class="p">[],</span><span class="s2">&quot;daily list holiday test&quot;</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">getDailyFList</span><span class="p">(</span><span class="s1">&#39;20201201&#39;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">==</span><span class="mi">3464</span> <span class="ow">and</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span> <span class="p">(</span><span class="s1">&#39;97745&#39;</span><span class="p">,</span> <span class="s1">&#39;THERMO FISHER SCIENTIFIC INC.&#39;</span><span class="p">,</span>
-                                 <span class="s1">&#39;8-K&#39;</span><span class="p">,</span> <span class="s1">&#39;20201201&#39;</span><span class="p">,</span> <span class="s1">&#39;0000097745-20-000055&#39;</span><span class="p">)</span>
+                                 <span class="s1">&#39;8-K&#39;</span><span class="p">,</span> <span class="s1">&#39;20201201&#39;</span><span class="p">,</span> <span class="s1">&#39;0000097745-20-000055&#39;</span><span class="p">),</span> <span class="s2">&quot;daily list regular day test&quot;</span>
 </pre></div>
 
     </div>
@@ -161,8 +163,8 @@ the SEC daily index.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>*** Problem downloading https://www.sec.gov/Archives/edgar/daily-index/2020/QTR4/master.20201201.idx - 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2020/QTR4/master.20201201.idx ; retrying ...
-filings for 20201201: 3464 </pre>
+<pre>### list index 56 HOLIDAY *** Problem downloading https://www.sec.gov/Archives/edgar/daily-index/2020/QTR4/index.json - 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2020/QTR4/index.json ; retrying ...
+### list index 61 filings for 20201201: 3464 </pre>
 </div>
 </div>
 
@@ -174,12 +176,85 @@ filings for 20201201: 3464 </pre>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Update a trio of dicts</p>
+<p>Form classes (how to specify groups of form types):</p>
 
-<pre><code>    dlMap: dateStr -&gt; list of filings [(cik, formType, accNo, fDate,'*'), ... ]
-    cikNameMap: cik -&gt; (name, latestDateStr)
-    cikOldNamesMap: cik -&gt; [name1, name2, ...]</code></pre>
-<p>using the SEC's archived daily list of filings:</p>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="isInFormClass" class="doc_header"><code>isInFormClass</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L89" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isInFormClass</code>(<strong><code>formClass</code></strong>, <strong><code>formType</code></strong>)</p>
+</blockquote>
+<p>Says if formType is in formClass, where formClass can be one of the following:</p>
+
+<pre><code>- None or '' - includes all formTypes
+- namedFormClass - one of the ones above
+- other string - includes formTypes starting with that string
+- regex - includes matching formTypes</code></pre>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Test form classes:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="p">((</span><span class="n">isInFormClass</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;10-Q&#39;</span><span class="p">),</span><span class="n">isInFormClass</span><span class="p">(</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="s1">&#39;10-Q&#39;</span><span class="p">),</span><span class="n">isInFormClass</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;10-Q&#39;</span><span class="p">))</span>
+        <span class="o">==</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">)),</span> <span class="s2">&quot;string form classes&quot;</span>
+<span class="k">assert</span> <span class="p">((</span><span class="n">isInFormClass</span><span class="p">(</span><span class="s1">&#39;INVESTOR&#39;</span><span class="p">,</span><span class="s1">&#39;13F-HR&#39;</span><span class="p">),</span><span class="n">isInFormClass</span><span class="p">(</span><span class="s1">&#39;investor&#39;</span><span class="p">,</span><span class="s1">&#39;10-Q&#39;</span><span class="p">))</span>
+        <span class="o">==</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">)),</span> <span class="s2">&quot;names form classes&quot;</span>
+<span class="k">assert</span> <span class="p">((</span><span class="n">isInFormClass</span><span class="p">(</span><span class="n">noPeriodFormTypes</span><span class="p">,</span><span class="s1">&#39;SC 13D&#39;</span><span class="p">),</span><span class="n">isInFormClass</span><span class="p">(</span><span class="n">noPeriodFormTypes</span><span class="p">,</span><span class="s1">&#39;10-Q&#39;</span><span class="p">))</span>
+        <span class="o">==</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">)),</span> <span class="s2">&quot;regex form class&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The dailyList class maintains a trio of dicts:</p>
+
+<pre><code>    dl: dateStr -&gt; list of filings [(cik, formType, accNo, fDate), ... ]
+    cikNames: cik -&gt; (name, latestDateStr)
+    cikOldNames: cik -&gt; [name1, name2, ...]</code></pre>
+<p>using the SEC's archived daily list of filings.</p>
 
 </div>
 </div>
@@ -196,83 +271,175 @@ filings for 20201201: 3464 </pre>
 <span class="sd">    Checks if a CIK name already appears in a list of old names (case insensitive).</span>
 <span class="sd">    Returns the position if it appears, else -1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">cikName</span> <span class="o">=</span> <span class="n">cikName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">cikName</span> <span class="o">=</span> <span class="n">cikName</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">oldName</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">oldNames</span><span class="p">)</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="n">cikName</span> <span class="o">==</span> <span class="n">oldName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="p">:</span>
+        <span class="k">if</span> <span class="n">cikName</span> <span class="o">==</span> <span class="n">oldName</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span> <span class="p">:</span>
             <span class="k">return</span> <span class="n">i</span>
     <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 
-<span class="k">def</span> <span class="nf">updateCikNameMapsFromEntry</span><span class="p">(</span><span class="n">dStr</span><span class="p">,</span> <span class="n">cik</span><span class="p">,</span> <span class="n">cikName</span><span class="p">,</span> <span class="n">cikNameMap</span><span class="p">,</span> <span class="n">cikOldNamesMap</span><span class="p">)</span> <span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Updates two maps:</span>
-<span class="sd">        cikNameMap: cik -&gt; (name, latestDateStr)</span>
-<span class="sd">        cikOldNamesMap: cik -&gt; [oldname1, oldname2, ...]</span>
-<span class="sd">    to reflect an entry (cik, cikName, ... ) from the index for day dStr.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">cik</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cikNameMap</span> <span class="p">:</span> <span class="c1"># completely new name</span>
-        <span class="n">cikNameMap</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cikName</span><span class="p">,</span> <span class="n">dStr</span><span class="p">)</span>
-        <span class="k">return</span>
-    <span class="n">mapName</span><span class="p">,</span> <span class="n">mapDStr</span> <span class="o">=</span> <span class="n">cikNameMap</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">dStr</span> <span class="o">&lt;</span> <span class="n">mapDStr</span> <span class="p">:</span>
-        <span class="c1"># name in cikNameMap is newer than this entry</span>
-        <span class="n">oldName</span> <span class="o">=</span> <span class="n">cikName</span>
-    <span class="k">else</span> <span class="p">:</span>
-        <span class="c1"># this entry is newer than the name in cikNameMap - update the map</span>
-        <span class="n">oldName</span> <span class="o">=</span> <span class="n">mapName</span>
-        <span class="n">cikNameMap</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cikName</span><span class="p">,</span> <span class="n">dStr</span><span class="p">)</span>
-        <span class="n">mapName</span> <span class="o">=</span> <span class="n">cikName</span>
-    <span class="k">if</span> <span class="n">oldName</span><span class="o">==</span><span class="n">mapName</span> <span class="ow">or</span> <span class="n">oldName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="n">curName</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="p">:</span>
-        <span class="c1"># old and new names are the same</span>
-        <span class="k">return</span>
-    <span class="c1"># update the old names map:</span>
-    <span class="k">if</span> <span class="n">cik</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cikOldNamesMap</span> <span class="p">:</span>
-        <span class="n">cikOldNamesMap</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">oldName</span><span class="p">]</span>
-        <span class="k">return</span>
-    <span class="n">oldNames</span> <span class="o">=</span> <span class="n">cikOldNamesMap</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">findCikName</span><span class="p">(</span><span class="n">oldName</span><span class="p">,</span> <span class="n">oldNames</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">:</span> <span class="c1"># add a new old name</span>
-        <span class="n">oldNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oldName</span><span class="p">)</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">findCikName</span><span class="p">(</span><span class="n">curName</span><span class="p">,</span> <span class="n">oldNames</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="c1"># delete current name if it&#39;s in the list of old names</span>
-        <span class="k">del</span> <span class="n">oldNames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="k">class</span> <span class="nc">dailyList</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlDir</span><span class="o">=</span><span class="n">defaultDLDir</span><span class="p">,</span> <span class="n">startD</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endD</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fSuff</span><span class="o">=</span><span class="s1">&#39;m.pkl&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a dailyList object and loads lists for the date range [startD..endD), along with</span>
+<span class="sd">        the full CIK name maps. By default (startD=None, endD=None) loads all dates present.</span>
+<span class="sd">        Use dlDir=None to create an empty object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">dlDir</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikOldNames</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{},</span> <span class="p">{}</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dl</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">loadSplitPklFromDir</span><span class="p">(</span><span class="n">dlDir</span><span class="p">,</span> <span class="n">startK</span><span class="o">=</span><span class="n">startD</span><span class="p">,</span> <span class="n">endK</span><span class="o">=</span><span class="n">endD</span><span class="p">,</span> <span class="n">fSuff</span><span class="o">=</span><span class="n">fSuff</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">loadPklFromDir</span><span class="p">(</span><span class="n">dlDir</span><span class="p">,</span> <span class="s1">&#39;cikNames.pkl&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cikOldNames</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">loadPklFromDir</span><span class="p">(</span><span class="n">dlDir</span><span class="p">,</span> <span class="s1">&#39;cikOldNames.pkl&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlDir</span><span class="o">=</span><span class="n">defaultDLDir</span><span class="p">,</span> <span class="n">dirtyMap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fSuff</span><span class="o">=</span><span class="s1">&#39;m.pkl&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves daily lists and name maps to dlDir. By default just saves days with no list already present.</span>
+<span class="sd">        See utils.saveSplitPklToDir for other possibilities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">saveSplitPklToDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="p">,</span> <span class="n">dlDir</span><span class="p">,</span> <span class="n">dirtyMap</span><span class="o">=</span><span class="n">dirtyMap</span><span class="p">,</span> <span class="n">fSuff</span><span class="o">=</span><span class="n">fSuff</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">savePklToDir</span><span class="p">(</span><span class="n">dlDir</span><span class="p">,</span> <span class="s1">&#39;cikNames.pkl&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">savePklToDir</span><span class="p">(</span><span class="n">dlDir</span><span class="p">,</span> <span class="s1">&#39;cikOldNames.pkl&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikOldNames</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">updateCikNamesFromEntry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dStr</span><span class="p">,</span> <span class="n">cik</span><span class="p">,</span> <span class="n">cikName</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the name maps</span>
+<span class="sd">            self.cikNames: cik -&gt; (name, latestDateStr)</span>
+<span class="sd">            self.cikOldNames: cik -&gt; [oldname1, oldname2, ... ]</span>
+<span class="sd">        to reflect an entry (cik, cikName, ... ) from the daily index for dStr.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cik</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span> <span class="p">:</span> <span class="c1"># completely new name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cikName</span><span class="p">,</span> <span class="n">dStr</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="c1"># make sure self.cikNames contains the latest name</span>
+        <span class="k">if</span> <span class="n">dStr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span><span class="p">[</span><span class="n">cik</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="p">:</span>
+            <span class="c1"># name in self.cikNames is newer than this entry</span>
+            <span class="n">oldName</span> <span class="o">=</span> <span class="n">cikName</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="c1"># this entry is newer than the name in self.cikNames - update it</span>
+            <span class="n">oldName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span><span class="p">[</span><span class="n">cik</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cikName</span><span class="p">,</span> <span class="n">dStr</span><span class="p">)</span>
+        <span class="n">curName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikNames</span><span class="p">[</span><span class="n">cik</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">curName</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span> <span class="o">==</span> <span class="n">oldName</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span> <span class="p">:</span>
+            <span class="c1"># new and old names are the same (case insensitive)</span>
+            <span class="k">return</span>
+        <span class="c1"># oldName is different from curName - update self.cikOldNames:</span>
+        <span class="k">if</span> <span class="n">cik</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikOldNames</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cikOldNames</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">oldName</span><span class="p">]</span>
+            <span class="k">return</span>
+        <span class="c1"># add the old name if it&#39;s not in the list of old names:</span>
+        <span class="n">oldNames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cikOldNames</span><span class="p">[</span><span class="n">cik</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">findCikName</span><span class="p">(</span><span class="n">oldName</span><span class="p">,</span> <span class="n">oldNames</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">:</span>
+            <span class="n">oldNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oldName</span><span class="p">)</span>
+        <span class="c1"># delete the current name if it&#39;s in the list of old names:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">findCikName</span><span class="p">(</span><span class="n">curName</span><span class="p">,</span> <span class="n">oldNames</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">:</span>
+            <span class="k">del</span> <span class="n">oldNames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">updateForDays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">startD</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endD</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update to reflect the filings for dates between startD (inclusive)</span>
+<span class="sd">        and endD (exclusive). If startD is None, uses the last date already</span>
+<span class="sd">        in self.dl, or the start of the current year if self.dl is empty.</span>
+<span class="sd">        If endD is None, uses today.</span>
+<span class="sd">        Retrieves the filings info from the SEC daily index using getDailyFList.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">startD</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>
+                <span class="n">startD</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">toDateStr</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;0101&#39;</span> <span class="c1"># start of current year</span>
+            <span class="k">else</span> <span class="p">:</span>
+                <span class="n">startD</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">listIndexCache</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">dStr</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">dateStrsBetween</span><span class="p">(</span><span class="n">startD</span><span class="p">,</span><span class="n">endD</span><span class="p">))</span> <span class="p">:</span>
+            <span class="k">if</span> <span class="n">dStr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dl</span> <span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SKIP&#39;</span><span class="o">+</span><span class="n">dStr</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">dStr</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="p">[</span><span class="n">dStr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">isWeekend</span><span class="p">(</span><span class="n">dStr</span><span class="p">)</span> <span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;WEEKEND&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">l</span> <span class="o">=</span> <span class="n">getDailyFList</span><span class="p">(</span><span class="n">dStr</span><span class="p">,</span> <span class="n">listIndexCache</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">cik</span><span class="p">,</span> <span class="n">cikName</span><span class="p">,</span> <span class="n">formType</span><span class="p">,</span> <span class="n">fileDate</span><span class="p">,</span> <span class="n">accNo</span> <span class="ow">in</span> <span class="n">l</span> <span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="p">[</span><span class="n">dStr</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cik</span><span class="p">,</span> <span class="n">formType</span><span class="p">,</span> <span class="n">accNo</span><span class="p">,</span> <span class="n">fileDate</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">updateCikNamesFromEntry</span><span class="p">(</span><span class="n">dStr</span><span class="p">,</span><span class="n">cik</span><span class="p">,</span><span class="n">cikName</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">getAllFormTypes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+        <span class="s2">&quot;Returns all form types found.&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">formType</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="n">formType</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span> <span class="ow">in</span>  <span class="n">l</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span>
+    <span class="k">def</span> <span class="nf">getCiksFiling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formClass</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="p">:</span>
+        <span class="s2">&quot;Returns all ciks who have filed any forms in formClass.&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dl</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cik</span> <span class="k">for</span> <span class="n">cik</span><span class="p">,</span><span class="n">formType</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span> <span class="ow">in</span> <span class="n">l</span>
+                       <span class="k">if</span> <span class="n">isInFormClass</span><span class="p">(</span><span class="n">formClass</span><span class="p">,</span><span class="n">formType</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">res</span>
 
-<span class="c1"># def getDLMapBetween(startD, endD,</span>
-<span class="c1">#                     dlMap=None, cikNameMap=None, cikOldNamesMap=None) :</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     Updates the trio of maps dlMap, cikNameMap, cikOldNamesMap</span>
-<span class="c1">#     to reflect the filings for dates between startD (inclusive) and</span>
-<span class="c1">#     endD (exclusive). If startD is None, uses the last date already</span>
-<span class="c1">#     in dlMap, or the start of the current year if dlMap is empty.</span>
-<span class="c1">#     If endD is None, uses today.</span>
-<span class="c1">#     Retrieves the filings info from the SEC daily index using getDailyFList.</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     if dlMap is None :</span>
-<span class="c1">#         dlMap = {}</span>
-<span class="c1">#     if cikNameMap is None :</span>
-<span class="c1">#         cikNameMap = {}</span>
-<span class="c1">#     if cikOldNamesMap is None :</span>
-<span class="c1">#         cikOldNamesMap = {}</span>
-<span class="c1">#     if startD is None :</span>
-<span class="c1">#         if len(dlMap) == 0 :</span>
-<span class="c1">#             startD = toDateStr()[:4]+&#39;0101&#39; # start of current year</span>
-<span class="c1">#         else :</span>
-<span class="c1">#             startD = max(dlMap.keys())</span>
-<span class="c1">#     for d in reversed(dateStrsBetween(startD,endD)) :</span>
-<span class="c1">#         if d in dlMap :</span>
-<span class="c1">#             print &#39;SKIP&#39;+d,</span>
-<span class="c1">#         else :</span>
-<span class="c1">#             print d,</span>
-<span class="c1">#             dlMap[d] = []</span>
-<span class="c1">#             l = getDailyFList(d)</span>
-<span class="c1">#             print &#39;*&#39;,</span>
-<span class="c1">#             for cik, cikName, formType, fileDate, accNo in l :</span>
-<span class="c1">#                 dlMap[d].append((cik,formType,accNo,</span>
-<span class="c1">#                                  &#39;*&#39; if fileDate==d else fileDate, &#39;*&#39;))</span>
-<span class="c1">#                 updateCikNameMapsFromEntry(d,cik,cikName,</span>
-<span class="c1">#                                            cikNameMap,cikOldNamesMap)</span>
-<span class="c1">#     return dlMap,cikNameMap,cikOldNamesMap</span>
+<span class="k">def</span> <span class="nf">loadAndUpdateDL</span><span class="p">(</span><span class="n">dlDir</span><span class="o">=</span><span class="n">defaultDLDir</span><span class="p">,</span> <span class="n">startD</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endD</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uStartD</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uEndD</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">fSuff</span><span class="o">=</span><span class="s1">&#39;m.pkl&#39;</span><span class="p">,</span> <span class="n">dirtyMap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">dl</span> <span class="o">=</span> <span class="n">dailyList</span><span class="p">(</span><span class="n">dlDir</span><span class="o">=</span><span class="n">dlDir</span><span class="p">,</span> <span class="n">startD</span><span class="o">=</span><span class="n">startD</span><span class="p">,</span> <span class="n">endD</span><span class="o">=</span><span class="n">endD</span><span class="p">,</span> <span class="n">fSuff</span><span class="o">=</span><span class="n">fSuff</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span>
+    <span class="n">dl</span><span class="o">.</span><span class="n">updateForDays</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="n">uStartD</span><span class="p">,</span> <span class="n">endD</span><span class="o">=</span><span class="n">uEndD</span><span class="p">)</span>
+    <span class="n">dl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dlDir</span><span class="o">=</span><span class="n">dlDir</span><span class="p">,</span> <span class="n">dirtyMap</span><span class="o">=</span><span class="n">dirtyMap</span><span class="p">,</span> <span class="n">fSuff</span><span class="o">=</span><span class="n">fSuff</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dl</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Test dailyList class:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tdl</span> <span class="o">=</span> <span class="n">dailyList</span><span class="p">(</span><span class="n">dlDir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">tdl</span><span class="o">.</span><span class="n">updateForDays</span><span class="p">(</span><span class="s1">&#39;20210611&#39;</span><span class="p">,</span><span class="s1">&#39;20210612&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">dl</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">dl</span><span class="p">[</span><span class="s1">&#39;20210611&#39;</span><span class="p">])</span><span class="o">==</span><span class="mi">4263</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">cikNames</span><span class="p">)</span><span class="o">==</span><span class="mi">2821</span>
+        <span class="ow">and</span> <span class="n">tdl</span><span class="o">.</span><span class="n">dl</span><span class="p">[</span><span class="s1">&#39;20210611&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="p">(</span><span class="s1">&#39;1000045&#39;</span><span class="p">,</span> <span class="s1">&#39;8-K&#39;</span><span class="p">,</span> <span class="s1">&#39;0001564590-21-032560&#39;</span><span class="p">,</span> <span class="s1">&#39;20210611&#39;</span><span class="p">)</span>
+       <span class="p">),</span> <span class="s2">&quot;initializing daily list&quot;</span>
+
+<span class="n">tdl</span><span class="o">.</span><span class="n">updateForDays</span><span class="p">(</span><span class="s1">&#39;20210611&#39;</span><span class="p">,</span><span class="s1">&#39;20210615&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">dl</span><span class="p">)</span><span class="o">==</span><span class="mi">4</span>
+        <span class="ow">and</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">dl</span><span class="p">[</span><span class="n">dStr</span><span class="p">])</span> <span class="k">for</span> <span class="n">dStr</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;20210611&#39;</span><span class="p">,</span><span class="s1">&#39;20210612&#39;</span><span class="p">,</span><span class="s1">&#39;20210613&#39;</span><span class="p">,</span><span class="s1">&#39;20210614&#39;</span><span class="p">]]</span><span class="o">==</span><span class="p">[</span><span class="mi">4263</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4379</span><span class="p">]</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">cikNames</span><span class="p">)</span><span class="o">==</span><span class="mi">5063</span>
+        <span class="ow">and</span> <span class="n">tdl</span><span class="o">.</span><span class="n">dl</span><span class="p">[</span><span class="s1">&#39;20210614&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="p">(</span><span class="s1">&#39;1000230&#39;</span><span class="p">,</span> <span class="s1">&#39;10-Q&#39;</span><span class="p">,</span> <span class="s1">&#39;0001437749-21-014672&#39;</span><span class="p">,</span> <span class="s1">&#39;20210614&#39;</span><span class="p">)</span>
+       <span class="p">),</span> <span class="s2">&quot;continuing daily list maps&quot;</span>
+
+<span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">getAllFormTypes</span><span class="p">())</span><span class="o">==</span><span class="mi">157</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">getCiksFiling</span><span class="p">())</span><span class="o">==</span><span class="mi">5063</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">getCiksFiling</span><span class="p">(</span><span class="s1">&#39;financial&#39;</span><span class="p">))</span><span class="o">==</span><span class="mi">110</span>
+        <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">getCiksFiling</span><span class="p">(</span><span class="s1">&#39;financial&#39;</span><span class="p">))</span><span class="o">==</span><span class="s1">&#39;1000230&#39;</span><span class="p">),</span> <span class="s2">&quot;checking daily list filings/CIKs&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>20210611 ### list index 56 *** Problem downloading https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/master.20210611.idx - 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/master.20210611.idx ; retrying ...
+filings for 20210611: 4263 * 20210614 ### list index 56 *** Problem downloading https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/master.20210614.idx - 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/master.20210614.idx ; retrying ...
+filings for 20210614: 4379 * 20210613 WEEKEND 20210612 WEEKEND SKIP20210611 </pre>
+</div>
+</div>
+
 </div>
 </div>
 
