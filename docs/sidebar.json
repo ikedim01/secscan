@@ -5,6 +5,7 @@
     "recentFeed": "recentFeed.html",
     "dailyList": "dailyList.html",
     "tickerMap": "tickerMap.html",
-    "getCikFilings": "getCikFilings.html"
+    "getCikFilings": "getCikFilings.html",
+    "basicInfo": "basicInfo.html"
   }
 }

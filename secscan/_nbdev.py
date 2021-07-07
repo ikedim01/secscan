@@ -66,13 +66,24 @@ index = {"boto3_available": "00_utils.ipynb",
          "loadAndUpdateDL": "02_dailyList.ipynb",
          "getSecTickerDict": "03_tickerMap.ipynb",
          "secTickerListUrl": "03_tickerMap.ipynb",
-         "getRecent": "04_getCikFilings.ipynb"}
+         "getRecent": "04_getCikFilings.ipynb",
+         "getSecFormLinkList": "05_basicInfo.ipynb",
+         "getSecFormCikList": "05_basicInfo.ipynb",
+         "getTextAfterTag": "05_basicInfo.ipynb",
+         "getSecFormInfo": "05_basicInfo.ipynb",
+         "companyNameAndCikPat": "05_basicInfo.ipynb",
+         "periodPat": "05_basicInfo.ipynb",
+         "periodDatePatStr": "05_basicInfo.ipynb",
+         "periodDatePat": "05_basicInfo.ipynb",
+         "acceptedPat": "05_basicInfo.ipynb",
+         "acceptedDateTimePat": "05_basicInfo.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
            "dailyList.py",
            "tickerMap.py",
-           "getCikFilings.py"]
+           "getCikFilings.py",
+           "basicInfo.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 
