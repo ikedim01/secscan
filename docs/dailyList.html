@@ -163,8 +163,7 @@ the SEC daily index.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>*** Problem downloading https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/index.json - 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/index.json ; retrying ...
-### list index 56 HOLIDAY ### list index 61 filings for 20201201: 3464 </pre>
+<pre>### list index 64 HOLIDAY ### list index 61 filings for 20201201: 3464 </pre>
 </div>
 </div>
 
@@ -320,8 +319,19 @@ Returns the position if it appears, else -1.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadAndUpdateDL" class="doc_header"><code>loadAndUpdateDL</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L233" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadAndUpdateDL</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>uStartD</code></strong>=<em><code>None</code></em>, <strong><code>uEndD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtyMap</code></strong>=<em><code>None</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
+<h4 id="loadAndUpdateDL" class="doc_header"><code>loadAndUpdateDL</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L253" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadAndUpdateDL</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>uStartD</code></strong>=<em><code>None</code></em>, <strong><code>uEndD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtyMap</code></strong>=<em><code>None</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
 </blockquote>
+<p>Creates a dailyList object and loads lists for the date range [startD..endD), along with
+the full CIK name maps. By default (startD=None, endD=None) loads all dates present.
+Then updates to reflect the filings for dates between uStartD (inclusive)
+and uEndD (exclusive), and saves. If uStartD is None, uses the last date already
+in the loaded dailyList, or the start of the current year if the loaded dailyList
+is empty. If uEndD is None, uses today.
+Use startD='empty' to start with an empty dailyList.</p>
+<p>A dailyList can be initialized for a date range starting from an empty directory by:
+    dl = loadAndUpdateDL(dlDir=emptyDir, startD='empty', uStartD=drangeStart, uEndD=drangeEnd)
+An dailyList in an existing directory can be updated up to and including yesterday by:
+    dl = loadAndUpdateDL(dlDir=existingDir)</p>
 
 </div>
 
@@ -354,7 +364,7 @@ Returns the position if it appears, else -1.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tdl</span> <span class="o">=</span> <span class="n">dailyList</span><span class="p">(</span><span class="n">dlDir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tdl</span> <span class="o">=</span> <span class="n">dailyList</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;empty&#39;</span><span class="p">)</span>
 <span class="n">tdl</span><span class="o">.</span><span class="n">updateForDays</span><span class="p">(</span><span class="s1">&#39;20210611&#39;</span><span class="p">,</span><span class="s1">&#39;20210612&#39;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">dl</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span>
         <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">dl</span><span class="p">[</span><span class="s1">&#39;20210611&#39;</span><span class="p">])</span><span class="o">==</span><span class="mi">4263</span>
@@ -385,9 +395,7 @@ Returns the position if it appears, else -1.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>20210611 ### list index 56 *** Problem downloading https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/master.20210611.idx - 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/master.20210611.idx ; retrying ...
-filings for 20210611: 4263 * 20210614 ### list index 56 *** Problem downloading https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/master.20210614.idx - 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2021/QTR2/master.20210614.idx ; retrying ...
-filings for 20210614: 4379 * 20210613 WEEKEND 20210612 WEEKEND SKIP20210611 </pre>
+<pre>20210611 ### list index 64 filings for 20210611: 4263 * 20210614 ### list index 64 filings for 20210614: 4379 * 20210613 WEEKEND 20210612 WEEKEND SKIP20210611 </pre>
 </div>
 </div>
 

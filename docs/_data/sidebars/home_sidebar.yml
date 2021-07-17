@@ -27,6 +27,15 @@ entries:
     - output: web,pdf
       title: basicInfo
       url: basicInfo.html
+    - output: web,pdf
+      title: infoScraper
+      url: infoScraper.html
+    - output: web,pdf
+      title: scrape13F
+      url: scrape13F.html
+    - output: web,pdf
+      title: scrape8K
+      url: scrape8K.html
     output: web
     title: secscan
   output: web

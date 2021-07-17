@@ -6,6 +6,9 @@
     "dailyList": "dailyList.html",
     "tickerMap": "tickerMap.html",
     "getCikFilings": "getCikFilings.html",
-    "basicInfo": "basicInfo.html"
+    "basicInfo": "basicInfo.html",
+    "infoScraper": "infoScraper.html",
+    "scrape13F": "scrape13F.html",
+    "scrape8K": "scrape8K.html"
   }
 }

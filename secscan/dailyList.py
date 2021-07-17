@@ -124,22 +124,33 @@ class dailyList(object) :
         """
         Creates a dailyList object and loads lists for the date range [startD..endD), along with
         the full CIK name maps. By default (startD=None, endD=None) loads all dates present.
-        Use dlDir=None to create an empty object.
+        Use startD='empty' to create an empty object.
         """
-        if dlDir is None :
-            self.dl, self.cikNames, self.cikOldNames = {}, {}, {}
+        self.dlDir = dlDir
+        self.fSuff = fSuff
+        self.pickle_kwargs = dict(pickle_kwargs)
+        self.dl = {}
+        if startD=='empty' :
+            self.cikNames, self.cikOldNames = {}, {}
             return
-        self.dl = utils.loadSplitPklFromDir(dlDir, startK=startD, endK=endD, fSuff=fSuff, **pickle_kwargs)
+        self.loadDays(startD=startD, endD=endD)
         self.cikNames = utils.loadPklFromDir(dlDir, 'cikNames.pkl', {}, **pickle_kwargs)
         self.cikOldNames = utils.loadPklFromDir(dlDir, 'cikOldNames.pkl', {}, **pickle_kwargs)
-    def save(self, dlDir=defaultDLDir, dirtyMap=None, fSuff='m.pkl', **pickle_kwargs) :
+    def loadDays(self, startD=None, endD=None) :
         """
-        Saves daily lists and name maps to dlDir. By default just saves days with no list already present.
+        Loads lists for the given date range into an already created dailyList object.
+        """
+        self.dl.update(utils.loadSplitPklFromDir(self.dlDir, startK=startD, endK=endD,
+                                                 fSuff=self.fSuff, **self.pickle_kwargs))
+    def save(self, dirtyMap=None) :
+        """
+        Saves daily lists and name maps to self.dlDir.
+        By default just saves days with no list already present.
         See utils.saveSplitPklToDir for other possibilities.
         """
-        utils.saveSplitPklToDir(self.dl, dlDir, dirtyMap=dirtyMap, fSuff=fSuff, **pickle_kwargs)
-        utils.savePklToDir(dlDir, 'cikNames.pkl', self.cikNames, **pickle_kwargs)
-        utils.savePklToDir(dlDir, 'cikOldNames.pkl', self.cikOldNames, **pickle_kwargs)
+        utils.saveSplitPklToDir(self.dl, self.dlDir, dirtyMap=dirtyMap, fSuff=self.fSuff, **self.pickle_kwargs)
+        utils.savePklToDir(self.dlDir, 'cikNames.pkl', self.cikNames, **self.pickle_kwargs)
+        utils.savePklToDir(self.dlDir, 'cikOldNames.pkl', self.cikOldNames, **self.pickle_kwargs)
     def updateCikNamesFromEntry(self, dStr, cik, cikName) :
         """
         Updates the name maps
@@ -215,12 +226,21 @@ class dailyList(object) :
             res.update(cik for cik,formType,_,_ in l
                        if isInFormClass(formClass,formType))
         return res
-    def getFilingsList(self, ciks, formClass=None) :
+    def getFilingsList(self, ciks=None, formClass=None) :
+        """
+        Returns a list of filings for the given ciks (may be a set or None for all CIKs),
+        that are in formClass. The list is is the form:
+            [(dlDate, name, formType, accNo, fileDate),
+             ... ]
+        and is sorted lexicographically on those fields, except in reverse order on dlDate
+        (most recent dates appear first).
+        Also returns a dict mapping each cik -> the set of accession numbers its filings.
+        """
         res = []
         accNosByCik = collections.defaultdict(set)
         for dDate,l in self.dl.items() :
             for cik, formType, accNo, fileDate in l :
-                if cik in ciks and isInFormClass(formClass,formType):
+                if (ciks is None or cik in ciks) and isInFormClass(formClass,formType):
                     res.append((dDate,self.cikNames[cik][0],formType,accNo,fileDate))
                     accNosByCik[cik].add(accNo)
         res.sort()
@@ -232,7 +252,21 @@ class dailyList(object) :
 
 def loadAndUpdateDL(dlDir=defaultDLDir, startD=None, endD=None, uStartD=None, uEndD=None,
                     fSuff='m.pkl', dirtyMap=None, **pickle_kwargs) :
+    """
+    Creates a dailyList object and loads lists for the date range [startD..endD), along with
+    the full CIK name maps. By default (startD=None, endD=None) loads all dates present.
+    Then updates to reflect the filings for dates between uStartD (inclusive)
+    and uEndD (exclusive), and saves. If uStartD is None, uses the last date already
+    in the loaded dailyList, or the start of the current year if the loaded dailyList
+    is empty. If uEndD is None, uses today.
+    Use startD='empty' to start with an empty dailyList.
+
+    A dailyList can be initialized for a date range starting from an empty directory by:
+        dl = loadAndUpdateDL(dlDir=emptyDir, startD='empty', uStartD=drangeStart, uEndD=drangeEnd)
+    An dailyList in an existing directory can be updated up to and including yesterday by:
+        dl = loadAndUpdateDL(dlDir=existingDir)
+    """
     dl = dailyList(dlDir=dlDir, startD=startD, endD=endD, fSuff=fSuff, **pickle_kwargs)
     dl.updateForDays(startD=uStartD, endD=uEndD)
-    dl.save(dlDir=dlDir, dirtyMap=dirtyMap, fSuff=fSuff, **pickle_kwargs)
+    dl.save(dirtyMap=dirtyMap)
     return dl

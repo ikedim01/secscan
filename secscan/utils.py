@@ -232,7 +232,7 @@ def saveSplitPklToDir(m, toDir, fSuff='m.pkl', dirtyMap=None, use_gzip=False, **
         else :
             needToSave = not os.path.exists(fPath)
             if dirtyMap is not None :
-                needToSave = needTooSave or dirtyMap.get(k)
+                needToSave = needToSave or dirtyMap.get(k)
         if needToSave :
             pickSave(fPath, m[k], use_gzip=use_gzip, **kwargs)
 
