@@ -104,7 +104,9 @@ index = {"boto3_available": "00_utils.ipynb",
          "scraper8K": "08_scrape8K.ipynb",
          "secItemHeaderPatStrs": "08_scrape8K.ipynb",
          "secItemPats": "08_scrape8K.ipynb",
-         "financialStatementsPat": "08_scrape8K.ipynb"}
+         "financialStatementsPat": "08_scrape8K.ipynb",
+         "default6KDir": "09_scrape6K.ipynb",
+         "scraper6K": "09_scrape6K.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
@@ -114,7 +116,8 @@ modules = ["utils.py",
            "basicInfo.py",
            "infoScraper.py",
            "scrape13F.py",
-           "scrape8K.py"]
+           "scrape8K.py",
+           "scrape6K.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 
