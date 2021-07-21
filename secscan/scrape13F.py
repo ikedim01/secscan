@@ -66,12 +66,17 @@ def getRowInfo(row) :
 
 def parse13FHoldings(accNo, formType=None) :
     """
-    Parses a 13F filing, returning the result as a list of rows in the form:
-        (cusip, name, value, title, count, putCall)
+    Parses a 13F filing, returning the result in the form:
+    {
+        'period': 'YYYY-MM-DD',
+        'acceptDate': 'YYYY-MM-DD',
+        'acceptTime': 'HH:MM:SS',
+        'cik' : 'DDDDDDDDDD',
+        'holdings': [(cusip, name, value, title, count, putCall), ... ]
+    }
     where the field values are as given in the table,
     except putCall is 'CALL', 'PUT', or ''.
     """
-    print(f'[{accNo}]',end=' ')
     info = basicInfo.getSecFormInfo(accNo, formType)
     xmlUrls = [l[-1] for l in info['links'] if l[0].lower().endswith('xml')]
     if len(xmlUrls) == 1 :
@@ -93,26 +98,17 @@ def parse13FHoldings(accNo, formType=None) :
         holdings = [getRowInfo(tabRow) for tabRow in tabRows]
     if len(info['ciks']) != 1 :
         print('*** unexpected number of CIKs!=1',info['ciks'])
-    return {'holdings': holdings,
-            'period': info['period'],
+    return {'period': info['period'],
             'acceptDate': info['acceptDate'],
             'acceptTime': info['acceptTime'],
-            'cik': info['ciks'][0]}
+            'cik': info['ciks'][0],
+            'holdings': holdings}
 
 class scraper13F(infoScraper.scraperBase) :
     def __init__(self, infoDir=default13FDir, startD=None, endD=None, fSuff='m.pkl', **pickle_kwargs) :
         super().__init__(infoDir, '13F-HR', startD=startD, endD=endD, fSuff=fSuff, **pickle_kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse13FHoldings(accNo, formType), None
-
-# def loadAndUpdate13F(infoDir=default13FDir, dl=None,
-#                      startD=None, endD=None, fSuff='m.pkl', dirtyMap=None, **pickle_kwargs) :
-#     if dl is None :
-#         dl = dailyList.dailyList(startD=startD, endD=endD)
-#     s = scraper13F(infoDir=infoDir, startD=startD, endD=endD)
-#     s.updateForDays(dl=dl, startD=startD, endD=endD)
-#     s.save(dirtyMap=dirtyMap)
-#     return s
 
 # Cell
 
