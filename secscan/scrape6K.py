@@ -16,17 +16,22 @@ default6KDir = os.path.join(utils.stockDataRoot,'scraped6K')
 # Cell
 
 extract6KPats = [
-    re.compile(r'12g.*?no(?:.{1,20}is marked.{1,100}82.)?(.*)signature',re.IGNORECASE),
-    re.compile(r'101\s*\(b\)\s*\(7\)(?:.{1,20}note\s*:.*?on edgar.)?(.*)signature',re.IGNORECASE),
-    re.compile(r'exhibit\s+index(.*)signature',re.IGNORECASE),
-    re.compile(r'signature.*exhibit(?:\s+index)?(.*)',re.IGNORECASE),
+    re.compile(r'12g.*?no(?:.{1,20}is marked.{1,100}82.)?(.*)(?:signature|pursuant)',re.IGNORECASE),
+    re.compile(r'101\s*\(b\)\s*\(7\)(?:.{1,20}note\s*:.*?on edgar.)?(.*)(?:signature|pursuant)',re.IGNORECASE),
+    re.compile(r'20-Fb\)\s*\(1\)(?:.{1,20}note\s*:.*?on edgar.)?(.*)(?:signature|pursuant)',re.IGNORECASE),
+    re.compile(r'20-F.{1,40}40-F(.*)(?:signature|pursuant)',re.IGNORECASE),
+    re.compile(r'announce[s|d]?(.*)',re.IGNORECASE),
+    re.compile(r'explanatory\s+note(.*)',re.IGNORECASE),
+    re.compile(r'contents(.*)',re.IGNORECASE),
+    re.compile(r'exhibits?(?:\s+index)?(.*)',re.IGNORECASE),
 ]
 
-def parse6K(accNo, formType=None, textLimit=500) :
-    print(f'[{accNo}]',end=' ')
-    info = basicInfo.getSecFormInfo(accNo, formType)
+def parse6K(accNo, formType=None, textLimit=basicInfo.defaultTextLimit) :
+    info = basicInfo.getSecFormInfo(accNo, formType=formType, get99=True, textLimit=textLimit)
     mainText = utils.downloadSecUrl(info['links'][0][3], toFormat='souptext')
+    print(mainText)
     for extract6KPat in extract6KPats :
+        print('PAT',extract6KPat)
         m = extract6KPat.search(mainText)
         if m :
             m = m.group(1).strip()

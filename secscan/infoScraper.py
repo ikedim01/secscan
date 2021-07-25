@@ -60,7 +60,9 @@ class scraperBase(object) :
         self.save()
     def showErrs(self, startD=None, endD=None) :
         self.retryErrs(startD=startD, endD=endD, justShow=True)
-    def getCounts(self, startD=None, endD=None) :
+    def printCounts(self, startD=None, endD=None) :
+        print()
+        print('Counts by day:')
         tot = 0
         for dStr in sorted(self.infoMap.keys()) :
             if ((startD is not None and dStr<startD)
@@ -98,16 +100,19 @@ class scraperBase(object) :
             if dStr not in dl.dl :
                 print('date',dStr,'not found in dailyList, aborting update!')
                 return
-            print(f'====={"NEW " if dStr not in self.infoMap else ""}{dStr}=====', end=' ')
-            dInfo = self.infoMap.get(dStr,{})
+            print(f'=========={"NEW " if dStr not in self.infoMap else ""}{dStr}==========', end=' ')
             errCount = 0
             dayIsDirty = False
+            if dStr not in self.infoMap :
+                dayIsDirty = True
+                self.infoMap[dStr] = {}
+            dInfo = self.infoMap[dStr]
             for cik, formType, accNo, fileDate in dl.dl[dStr] :
                 if (accNo in dInfo
                     or (ciks is not None and cik not in ciks)
                     or not dailyList.isInFormClass(self.formClass, formType)) :
                     continue
-                print(f'[{accNo}]',end=' ')
+                print(f"'{accNo}]'",end=' ')
                 dInfo[accNo] = self.scrapeForAccNo(accNo,formType)
                 dayIsDirty = True
                 if dInfo[accNo] == 'ERROR' :
@@ -117,16 +122,18 @@ class scraperBase(object) :
                         return
             if dayIsDirty :
                 self.dirtySet.add(dStr)
-                self.infoMap[dStr] = dInfo
     def loadAndUpdate(self, dlOrDir=dailyList.defaultDLDir,
                       startD=None, endD=None, ciks=None, errLimitPerDay=10) :
         """
         Loads a dailyList for the given date range (this must already have been saved),
         and then updates the scraper for the given date range and saves it.
+        If startD is None, uses the last date already in self.infoMap, or the start of
+        the current year if self.infoMap is empty. If endD is None, uses today.
         Optionally restricts to a given set of CIKs.
         A scraperBase or subclass can be initialized for a date range starting from an empty directory by:
             s = scraperBase(emptyDir, formClass, startD='empty')  # or s = subclass(startD='empty', ...)
             s.loadAndUpdate(startD=drangeStart, endD=drangeEnd)
+            s.printCounts()
         assuming the dailyList is already saved for that date range.
         This will also work to extend a scraperBase or subclass to a new date range.
         """

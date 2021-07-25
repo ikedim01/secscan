@@ -110,6 +110,8 @@ def downloadSecUrl(secSubUrlOrAccessNo, toFormat='text', sleepTime=0.1, restData
         secSubUrl = secIndexUrl(secSubUrlOrAccessNo)
     else :
         secSubUrl = secSubUrlOrAccessNo
+        if secSubUrl.startswith('/ix?') :
+            secSubUrl = secSubUrl[secSubUrl.index('/',1):]
     fullUrl = (secRestDataPref if restData else secUrlPref) + secSubUrl
     urlContents = requestUrl(fullUrl, returnText=True, headers=secHeaders, sleepTime=sleepTime)
     if pageUnavailablePat.search(urlContents) :

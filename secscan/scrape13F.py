@@ -175,7 +175,7 @@ class cikConsolidatedHoldings(object) :
                     continue
                 if info['period'] != period :
                     continue
-                cikTo13Fs[info['cik']].append((dStr, accNo, info['holdings']))
+                cikTo13Fs[info['cik'].lstrip('0')].append((dStr, accNo, info['holdings']))
                 count += 1
         print('period',period,'- total of',len(cikTo13Fs),'ciks,',count,'13F filings')
         #

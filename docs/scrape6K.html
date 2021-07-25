@@ -38,7 +38,7 @@ nb_path: "09_scrape6K.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>6K scraper class - scrape XXX from the SEC filing:</p>
+<p>6-K scraper class - scrape text from the first sublink and from any EX-99 links in the SEC filing:</p>
 
 </div>
 </div>
@@ -54,7 +54,7 @@ nb_path: "09_scrape6K.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="parse6K" class="doc_header"><code>parse6K</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape6K.py#L25" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse6K</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>, <strong><code>textLimit</code></strong>=<em><code>500</code></em>)</p>
+<h4 id="parse6K" class="doc_header"><code>parse6K</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape6K.py#L29" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse6K</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>, <strong><code>textLimit</code></strong>=<em><code>1000</code></em>)</p>
 </blockquote>
 
 </div>
@@ -78,7 +78,7 @@ nb_path: "09_scrape6K.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="scraper6K" class="doc_header"><code>class</code> <code>scraper6K</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape6K.py#L41" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>scraper6K</code>(<strong><code>infoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\scraped6K'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>) :: <a href="/secscan/infoScraper.html#scraperBase"><code>scraperBase</code></a></p>
+<h2 id="scraper6K" class="doc_header"><code>class</code> <code>scraper6K</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape6K.py#L46" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>scraper6K</code>(<strong><code>infoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\scraped6K'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>) :: <a href="/secscan/infoScraper.html#scraperBase"><code>scraperBase</code></a></p>
 </blockquote>
 
 </div>
@@ -113,8 +113,8 @@ nb_path: "09_scrape6K.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dl</span> <span class="o">=</span> <span class="n">dailyList</span><span class="o">.</span><span class="n">dailyList</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;empty&#39;</span><span class="p">)</span>
-<span class="n">dl</span><span class="o">.</span><span class="n">updateForDays</span><span class="p">(</span><span class="s1">&#39;20210701&#39;</span><span class="p">,</span><span class="s1">&#39;20210705&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dl</span><span class="o">.</span><span class="n">getFilingsList</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;6-K&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">==</span><span class="mi">188</span><span class="p">,</span><span class="s2">&quot;testing 6-K scraper class (daily list count)&quot;</span>
+<span class="n">dl</span><span class="o">.</span><span class="n">updateForDays</span><span class="p">(</span><span class="s1">&#39;20210701&#39;</span><span class="p">,</span><span class="s1">&#39;20210704&#39;</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">dl</span><span class="o">.</span><span class="n">getFilingsList</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;6-K&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="c1">#==188,&quot;testing 6-K scraper class (daily list count)&quot;</span>
 </pre></div>
 
     </div>
@@ -127,10 +127,141 @@ nb_path: "09_scrape6K.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>20210704 WEEKEND 20210703 WEEKEND 20210702 ### list index 13 filings for 20210702: 6569 * 20210701 filings for 20210701: 5573 * </pre>
+<pre>20210703 WEEKEND 20210702 ### list index 15 filings for 20210702: 6569 * 20210701 filings for 20210701: 5573 * </pre>
 </div>
 </div>
 
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>188</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print(); s.getCounts()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>=====20210721===== =====20210720===== =====NEW 20210719===== [0000910680-21-000052] [0001292814-21-003001] [0001178913-21-002304] [0001193125-21-218580] [0001193125-21-218585] [0001193125-21-218103] [0001193125-21-218466] [0001279569-21-000986] [0001292814-21-002998] [0001292814-21-002999] [0001493152-21-017121] [0001062993-21-006597] [0001683168-21-003004] [0001140361-21-024697] [0001564590-21-036947] [0001171843-21-004958] [0001217160-21-000049] [0001193125-21-218153] [0001279569-21-000981] [0001193125-21-218375] [0001193125-21-218152] [0001178913-21-002300] [0001395064-21-000155] [0001292814-21-002995] [0001279569-21-000987] [0001193125-21-217659] [0001171843-21-004934] [0001171843-21-004944] [0001279569-21-000982] [0001292814-21-002993] [0001062993-21-006604] [0001437749-21-017152] [0001654954-21-008034] [0001279569-21-000980] [0001178913-21-002302] [0001628280-21-014005] [0001104659-21-093230] [0001104659-21-093479] [0001493152-21-017207] [0001605484-21-000070] [0001213900-21-037474] [0001213900-21-037399] [0001104659-21-093272] [0001171843-21-004943] [0001648416-21-000078] [0001193125-21-217981] [0001493152-21-017228] [0001493152-21-017224] [0001193125-21-218074] [0001213900-21-037385] [0001493152-21-017200] [0001104659-21-093251] [0000950103-21-010608] [0001213900-21-037495] [0001104659-21-093271] [0001213900-21-037476] [0001213900-21-037402] [0001171843-21-004942] [0001193125-21-218441] [0000814052-21-000093] [0001654954-21-008042] [0001062993-21-006608] [0000950142-21-002381] [0001654954-21-008028] [0000876779-21-000012] [0001178913-21-002311] [0001654954-21-008026] [0001279569-21-000985] [0001193125-21-217967] [0001104659-21-093385] [0000947871-21-000778] [0001279569-21-000989] 
+20210719: 72
+20210720: 71
+20210721: 77
+Total: 220
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#     print(f&quot;&#39;{k}&#39;&quot;)</span>
+<span class="c1">#     print(v[&#39;mainText&#39;])</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -160,76 +291,6 @@ nb_path: "09_scrape6K.ipynb"
 
 <div class="output_text output_subarea output_execute_result">
 <pre>5788</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># l = dl.getFilingsList(formClass=&#39;6-K&#39;)[0]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;eh210139217_ex9901.htm&#39;,
-  &#39;EXHIBIT 99.1&#39;,
-  &#39;EX-99.1&#39;,
-  &#39;/Archives/edgar/data/886986/000095014221001036/eh210139217_ex9901.htm&#39;)]</pre>
 </div>
 
 </div>

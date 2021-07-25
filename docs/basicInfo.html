@@ -54,7 +54,7 @@ nb_path: "05_basicInfo.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecFormLinkList" class="doc_header"><code>getSecFormLinkList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormLinkList</code>(<strong><code>indexSoup</code></strong>, <strong><code>accessNo</code></strong>)</p>
+<h4 id="getSecFormLinkList" class="doc_header"><code>getSecFormLinkList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormLinkList</code>(<strong><code>indexSoup</code></strong>, <strong><code>accessNo</code></strong>)</p>
 </blockquote>
 <p>Returns
     sublinkList, completeTextLink
@@ -83,7 +83,7 @@ Prints a warning message if the complete text link is missing.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecFormCikList" class="doc_header"><code>getSecFormCikList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormCikList</code>(<strong><code>indexSoup</code></strong>, <strong><code>accessNo</code></strong>)</p>
+<h4 id="getSecFormCikList" class="doc_header"><code>getSecFormCikList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L47" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormCikList</code>(<strong><code>indexSoup</code></strong>, <strong><code>accessNo</code></strong>)</p>
 </blockquote>
 <p>Returns list of CIKs for the form: [cik, ... ]</p>
 
@@ -108,7 +108,7 @@ Prints a warning message if the complete text link is missing.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getTextAfterTag" class="doc_header"><code>getTextAfterTag</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextAfterTag</code>(<strong><code>resDict</code></strong>, <strong><code>resKey</code></strong>, <strong><code>top</code></strong>, <strong><code>firstTagPat</code></strong>, <strong><code>firstTagName</code></strong>=<em><code>'div'</code></em>, <strong><code>firstTagClass</code></strong>=<em><code>'infoHead'</code></em>, <strong><code>nextTagName</code></strong>=<em><code>'div'</code></em>, <strong><code>nextTagClass</code></strong>=<em><code>'info'</code></em>, <strong><code>missingMessage</code></strong>=<em><code>None</code></em>, <strong><code>strListHeader</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="getTextAfterTag" class="doc_header"><code>getTextAfterTag</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L64" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextAfterTag</code>(<strong><code>resDict</code></strong>, <strong><code>resKey</code></strong>, <strong><code>top</code></strong>, <strong><code>firstTagPat</code></strong>, <strong><code>firstTagName</code></strong>=<em><code>'div'</code></em>, <strong><code>firstTagClass</code></strong>=<em><code>'infoHead'</code></em>, <strong><code>nextTagName</code></strong>=<em><code>'div'</code></em>, <strong><code>nextTagClass</code></strong>=<em><code>'info'</code></em>, <strong><code>missingMessage</code></strong>=<em><code>None</code></em>, <strong><code>strListHeader</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Looks for a sequence of two HTML elements specified by name and class,
 with the text of the first element matching a given regular expression.
@@ -136,7 +136,31 @@ If not found and missingMessage is not None, prints it.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecFormInfo" class="doc_header"><code>getSecFormInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormInfo</code>(<strong><code>accessNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get99Texts" class="doc_header"><code>get99Texts</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L97" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get99Texts</code>(<strong><code>info</code></strong>, <strong><code>textLimit</code></strong>=<em><code>1000</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getSecFormInfo" class="doc_header"><code>getSecFormInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L107" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormInfo</code>(<strong><code>accessNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>, <strong><code>get99</code></strong>=<em><code>False</code></em>, <strong><code>textLimit</code></strong>=<em><code>1000</code></em>)</p>
 </blockquote>
 <p>Parses some basic information from the index URL of a form with the given accession number.
 Returns a dict {
@@ -206,6 +230,11 @@ For some forms, additional fields may be parsed:
 <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;Item 5.03: Amendments to Articles of Incorporation or Bylaws; Change in Fiscal Year&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Item 8.01: Other Events&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Item 9.01: Financial Statements and Exhibits&#39;</span><span class="p">],</span> <span class="s2">&quot;parsing form 8-K items&quot;</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">getSecFormInfo</span><span class="p">(</span><span class="s1">&#39;0001753926-21-000263&#39;</span><span class="p">,</span><span class="s1">&#39;8-K&#39;</span><span class="p">,</span> <span class="n">get99</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">textLimit</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;text99&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="mi">85</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;EX-99.1 2 g082265_ex99-1.htm EXHIBIT 99.1 Exhibit 99.1 EcoChain, Inc. Reports Monthly&#39;</span>
+        <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;text99&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">29</span><span class="p">:]</span><span class="o">==</span><span class="s1">&#39;Key Summary Highlights: Summa&#39;</span>
+       <span class="p">),</span> <span class="s2">&quot;parsing form 8-K EX-99 text&quot;</span>
 </pre></div>
 
     </div>
