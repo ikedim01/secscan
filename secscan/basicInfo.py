@@ -2,7 +2,7 @@
 
 __all__ = ['defaultBasicInfoDir', 'defaultTextLimit', 'getSecFormLinkList', 'getSecFormCikList', 'getTextAfterTag',
            'get99Texts', 'getSecFormInfo', 'companyNameAndCikPat', 'periodPat', 'periodDatePatStr', 'periodDatePat',
-           'acceptedPat', 'acceptedDateTimePat', 'itemsPat', 'itemFormTypes']
+           'acceptedPat', 'acceptedDateTimePat', 'itemsPat', 'itemFormTypes', 'startExhibitPat']
 
 # Cell
 
@@ -94,12 +94,17 @@ itemsPat = re.compile('items',re.IGNORECASE)
 
 itemFormTypes = re.compile('8-K',re.IGNORECASE)
 
+startExhibitPat = re.compile(r'.{1,100}exhibit\s*\d+(?:\.\d+)?\.?',re.IGNORECASE)
 def get99Texts(info, textLimit=defaultTextLimit) :
     res = []
     for _,_,linkType,url in info.get('links',[]) :
         if (linkType.lower().startswith('ex-99')
             and (url.lower().endswith('.htm') or url.lower().endswith('.html'))) :
-            res.append(utils.downloadSecUrl(url, toFormat='souptext')[:textLimit])
+            urlText = utils.downloadSecUrl(url, toFormat='souptext')
+            m = startExhibitPat.match(urlText)
+            if m :
+                urlText = urlText[m.end():]
+            res.append(urlText[:textLimit].strip())
         else :
             res.append('')
     return res

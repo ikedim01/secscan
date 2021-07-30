@@ -112,7 +112,7 @@ class scraper13F(infoScraper.scraperBase) :
 
 # Cell
 
-def condenseHoldings(holdings, cutoff=0.0) :
+def condenseHoldings(holdings, cutoff=0.0, pctFormat=False, includeName=False, cusipNames={}) :
     """
     Converts a list of of stock and option holdings as parsed from the 13F:
         [(cusip, name, value, title, count, putCall), ... ]
@@ -122,6 +122,9 @@ def condenseHoldings(holdings, cutoff=0.0) :
     sorted in descending order by value, and restricted to stocks with fraction
     of total portfolio >= cutoff.
     """
+    if includeName :
+        cusipToName = dict((cusip,name)
+                           for cusip, name, value, shType, nShares, putCall in holdings)
     holdings = sorted((cusip, float(value))
                       for cusip, name, value, shType, nShares, putCall in holdings
                       if putCall=='')
@@ -132,10 +135,13 @@ def condenseHoldings(holdings, cutoff=0.0) :
     res = []
     for cusip,val in holdings :
         frac = val/tot if tot>0.0 else 0.0
-        if frac >= cutoff :
-            res.append((cusip,val,frac))
-        else :
+        if frac < cutoff :
             break
+        fracOut = f'{frac:.2%}' if pctFormat else frac
+        if includeName :
+            res.append((cusip, cusipNames.get(cusip,cusipToName[cusip]), val, fracOut))
+        else :
+            res.append((cusip, val, fracOut))
     return res
 
 def get13FAmendmentType(accNo, formType=None) :

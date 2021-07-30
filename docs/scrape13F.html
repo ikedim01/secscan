@@ -251,7 +251,7 @@ except putCall is 'CALL', 'PUT', or ''.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="condenseHoldings" class="doc_header"><code>condenseHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>condenseHoldings</code>(<strong><code>holdings</code></strong>, <strong><code>cutoff</code></strong>=<em><code>0.0</code></em>)</p>
+<h4 id="condenseHoldings" class="doc_header"><code>condenseHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>condenseHoldings</code>(<strong><code>holdings</code></strong>, <strong><code>cutoff</code></strong>=<em><code>0.0</code></em>, <strong><code>pctFormat</code></strong>=<em><code>False</code></em>, <strong><code>includeName</code></strong>=<em><code>False</code></em>, <strong><code>cusipNames</code></strong>=<em><code>{}</code></em>)</p>
 </blockquote>
 <p>Converts a list of of stock and option holdings as parsed from the 13F:
     [(cusip, name, value, title, count, putCall), ... ]
@@ -282,7 +282,7 @@ of total portfolio &gt;= cutoff.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get13FAmendmentType" class="doc_header"><code>get13FAmendmentType</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L141" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get13FAmendmentType</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get13FAmendmentType" class="doc_header"><code>get13FAmendmentType</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L147" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get13FAmendmentType</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Gets the amendment type for a 13F-HR/A filing - may be RESTATEMENT or NEW HOLDINGS.
 This turned out to be unreliable (often missing or wrong), so I don't use it to get
@@ -311,7 +311,7 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="cikConsolidatedHoldings" class="doc_header"><code>class</code> <code>cikConsolidatedHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L158" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>cikConsolidatedHoldings</code>(<strong><code>scraped13F</code></strong>, <strong><code>period</code></strong>, <strong><code>cutoff</code></strong>=<em><code>0.0</code></em>)</p>
+<h2 id="cikConsolidatedHoldings" class="doc_header"><code>class</code> <code>cikConsolidatedHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L164" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>cikConsolidatedHoldings</code>(<strong><code>scraped13F</code></strong>, <strong><code>period</code></strong>, <strong><code>cutoff</code></strong>=<em><code>0.0</code></em>)</p>
 </blockquote>
 
 </div>
@@ -335,7 +335,7 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L241" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
+<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L247" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
 </blockquote>
 <p>Returns the 13F period date for a given year and quarter number (this is the
 last day in the quarter), along with the start and end dateStrs for the next
@@ -363,7 +363,7 @@ Quarters are numbered 1-4.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getMatrixFor" class="doc_header"><code>getMatrixFor</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L254" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getMatrixFor</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>cutoff</code></strong>=<em><code>0.0</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>3</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
+<h4 id="getMatrixFor" class="doc_header"><code>getMatrixFor</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L260" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getMatrixFor</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>cutoff</code></strong>=<em><code>0.0</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>3</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
 
 </div>
@@ -426,6 +426,58 @@ total of 42 positions
 </div>
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cusipNames = utils.pickLoad(os.path.join(utils.stockDataRoot,&#39;cusipMap.pkl&#39;))</span>
+<span class="c1"># len(cusips)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
 </div>
 </div>
 

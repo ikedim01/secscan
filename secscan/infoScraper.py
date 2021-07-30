@@ -60,18 +60,20 @@ class scraperBase(object) :
         self.save()
     def showErrs(self, startD=None, endD=None) :
         self.retryErrs(startD=startD, endD=endD, justShow=True)
-    def printCounts(self, startD=None, endD=None) :
-        print()
-        print('Counts by day:')
+    def printCounts(self, startD=None, endD=None, verbose=True) :
+        if verbose :
+            print()
+            print('Counts by day:')
         tot = 0
         for dStr in sorted(self.infoMap.keys()) :
             if ((startD is not None and dStr<startD)
                 or (endD is not None and endD<=dStr)) :
                 continue
             dCount = len(self.infoMap[dStr])
-            print(f'{dStr}: {dCount}')
+            if verbose :
+                print(f'{dStr}: {dCount}')
             tot += dCount
-        print('Total:',tot)
+        print('Total filings:',tot)
     def scrapeForAccNo(self, accNo, formType=None) :
         try :
             info, xInfo = self.scrapeInfo(accNo, formType)
@@ -82,7 +84,7 @@ class scraperBase(object) :
         except Exception as e :
             print('*** ERROR ***',e)
             return 'ERROR'
-    def updateForDays(self, dl, startD=None, endD=None, ciks=None, errLimitPerDay=10) :
+    def updateForDays(self, dl, startD=None, endD=None, ciks=None, errLimitPerDay=10, verbose=True) :
         """
         Update to reflect the filings for dates between startD (inclusive)
         and endD (exclusive). If startD is None, uses the last date already
@@ -100,19 +102,19 @@ class scraperBase(object) :
             if dStr not in dl.dl :
                 print('date',dStr,'not found in dailyList, aborting update!')
                 return
-            print(f'=========={"NEW " if dStr not in self.infoMap else ""}{dStr}==========', end=' ')
-            errCount = 0
-            dayIsDirty = False
-            if dStr not in self.infoMap :
-                dayIsDirty = True
+            dayIsDirty = (dStr not in self.infoMap)
+            if dayIsDirty :
                 self.infoMap[dStr] = {}
+            if verbose or dayIsDirty :
+                print(f'=========={"NEW " if dayIsDirty else ""}{dStr}==========', end=' ')
+            errCount = 0
             dInfo = self.infoMap[dStr]
             for cik, formType, accNo, fileDate in dl.dl[dStr] :
                 if (accNo in dInfo
                     or (ciks is not None and cik not in ciks)
                     or not dailyList.isInFormClass(self.formClass, formType)) :
                     continue
-                print(f"'{accNo}]'",end=' ')
+                print(f"'{accNo}'",end=' ')
                 dInfo[accNo] = self.scrapeForAccNo(accNo,formType)
                 dayIsDirty = True
                 if dInfo[accNo] == 'ERROR' :
@@ -123,7 +125,7 @@ class scraperBase(object) :
             if dayIsDirty :
                 self.dirtySet.add(dStr)
     def loadAndUpdate(self, dlOrDir=dailyList.defaultDLDir,
-                      startD=None, endD=None, ciks=None, errLimitPerDay=10) :
+                      startD=None, endD=None, ciks=None, errLimitPerDay=10, verbose=True) :
         """
         Loads a dailyList for the given date range (this must already have been saved),
         and then updates the scraper for the given date range and saves it.
@@ -142,5 +144,5 @@ class scraperBase(object) :
         else :
             dl = dailyList.dailyList(dlDir=dlOrDir, startD=startD, endD=endD)
         self.loadDays(startD=startD, endD=endD)
-        self.updateForDays(dl, startD=startD, endD=endD, ciks=ciks, errLimitPerDay=errLimitPerDay)
+        self.updateForDays(dl, startD=startD, endD=endD, ciks=ciks, errLimitPerDay=errLimitPerDay, verbose=verbose)
         self.save()

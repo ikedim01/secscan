@@ -54,7 +54,7 @@ nb_path: "08_scrape8K.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecItemsFromTextUsingPat" class="doc_header"><code>getSecItemsFromTextUsingPat</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L28" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecItemsFromTextUsingPat</code>(<strong><code>txt</code></strong>, <strong><code>secItemPat</code></strong>, <strong><code>filterF</code></strong>=<em><code>None</code></em>, <strong><code>maxHeadLen</code></strong>=<em><code>80</code></em>, <strong><code>maxBodyLen</code></strong>=<em><code>500</code></em>)</p>
+<h4 id="parse8K" class="doc_header"><code>parse8K</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L20" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse8K</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>, <strong><code>textLimit</code></strong>=<em><code>1000</code></em>)</p>
 </blockquote>
 
 </div>
@@ -78,7 +78,31 @@ nb_path: "08_scrape8K.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecItemsFromText" class="doc_header"><code>getSecItemsFromText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L47" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecItemsFromText</code>(<strong><code>txt</code></strong>, <strong><code>filterF</code></strong>=<em><code>None</code></em>, <strong><code>maxHeadLen</code></strong>=<em><code>80</code></em>, <strong><code>maxBodyLen</code></strong>=<em><code>500</code></em>)</p>
+<h4 id="getSecItemsFromTextUsingPat" class="doc_header"><code>getSecItemsFromTextUsingPat</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L73" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecItemsFromTextUsingPat</code>(<strong><code>txt</code></strong>, <strong><code>secItemPat</code></strong>, <strong><code>filterF</code></strong>=<em><code>None</code></em>, <strong><code>maxHeadLen</code></strong>=<em><code>80</code></em>, <strong><code>maxBodyLen</code></strong>=<em><code>500</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getSecItemsFromText" class="doc_header"><code>getSecItemsFromText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L92" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecItemsFromText</code>(<strong><code>txt</code></strong>, <strong><code>filterF</code></strong>=<em><code>None</code></em>, <strong><code>maxHeadLen</code></strong>=<em><code>80</code></em>, <strong><code>maxBodyLen</code></strong>=<em><code>500</code></em>)</p>
 </blockquote>
 <p>Returns a list of item summaries for items from 8-K and SC 13D forms:
     format in form:
@@ -109,7 +133,7 @@ nb_path: "08_scrape8K.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSec8KItemsFromText" class="doc_header"><code>getSec8KItemsFromText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L65" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSec8KItemsFromText</code>(<strong><code>txt</code></strong>)</p>
+<h4 id="getSec8KItemsFromText" class="doc_header"><code>getSec8KItemsFromText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L110" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSec8KItemsFromText</code>(<strong><code>txt</code></strong>)</p>
 </blockquote>
 <p>Returns list of item summaries for 8-K forms, ignoring the
 'Financial Statements and Exhibits' item.</p>
@@ -135,31 +159,7 @@ nb_path: "08_scrape8K.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="parse8K" class="doc_header"><code>parse8K</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L72" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse8K</code>(<strong><code>accessNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="scraper8K" class="doc_header"><code>class</code> <code>scraper8K</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L93" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>scraper8K</code>(<strong><code>infoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\scraped8K'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>) :: <a href="/secscan/infoScraper.html#scraperBase"><code>scraperBase</code></a></p>
+<h2 id="scraper8K" class="doc_header"><code>class</code> <code>scraper8K</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape8K.py#L117" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>scraper8K</code>(<strong><code>infoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\scraped8K'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>) :: <a href="/secscan/infoScraper.html#scraperBase"><code>scraperBase</code></a></p>
 </blockquote>
 
 </div>
@@ -208,10 +208,50 @@ nb_path: "08_scrape8K.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;Item 1.02: Termination of a Material Definitive Agreement&#39;,
- &#39;Item 3.02: Unregistered Sales of Equity Securities&#39;,
- &#39;Item 8.01: Other Events&#39;,
- &#39;Item 9.01: Financial Statements and Exhibits&#39;]</pre>
+<pre>{&#39;links&#39;: [(&#39;dhil-20210728.htm&#39;,
+   &#39;8-K&#39;,
+   &#39;8-K&#39;,
+   &#39;/ix?doc=/Archives/edgar/data/909108/000090910821000058/dhil-20210728.htm&#39;),
+  (&#39;dhil-20210630xexx991.htm&#39;,
+   &#39;EX-99.1&#39;,
+   &#39;EX-99.1&#39;,
+   &#39;/Archives/edgar/data/909108/000090910821000058/dhil-20210630xexx991.htm&#39;),
+  (&#39;dhillogoa14a.jpg&#39;,
+   &#39;&#39;,
+   &#39;GRAPHIC&#39;,
+   &#39;/Archives/edgar/data/909108/000090910821000058/dhillogoa14a.jpg&#39;),
+  (&#39;dhil-20210728.xsd&#39;,
+   &#39;XBRL TAXONOMY EXTENSION SCHEMA DOCUMENT&#39;,
+   &#39;EX-101.SCH&#39;,
+   &#39;/Archives/edgar/data/909108/000090910821000058/dhil-20210728.xsd&#39;),
+  (&#39;dhil-20210728_lab.xml&#39;,
+   &#39;XBRL TAXONOMY EXTENSION LABEL LINKBASE DOCUMENT&#39;,
+   &#39;EX-101.LAB&#39;,
+   &#39;/Archives/edgar/data/909108/000090910821000058/dhil-20210728_lab.xml&#39;),
+  (&#39;dhil-20210728_pre.xml&#39;,
+   &#39;XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT&#39;,
+   &#39;EX-101.PRE&#39;,
+   &#39;/Archives/edgar/data/909108/000090910821000058/dhil-20210728_pre.xml&#39;),
+  (&#39;dhil-20210728_htm.xml&#39;,
+   &#39;EXTRACTED XBRL INSTANCE DOCUMENT&#39;,
+   &#39;XML&#39;,
+   &#39;/Archives/edgar/data/909108/000090910821000058/dhil-20210728_htm.xml&#39;)],
+ &#39;complete&#39;: &#39;/Archives/edgar/data/909108/000090910821000058/0000909108-21-000058.txt&#39;,
+ &#39;ciks&#39;: [&#39;0000909108&#39;],
+ &#39;text99&#39;: [&#39;&#39;,
+  &#39;EX-99.1 2 dhil-20210630xexx991.htm EX-99.1 Document FOR IMMEDIATE RELEASE: Investor Contact: Tom Line—Chief Financial Officer 614-255-5989 (tline@diamond-hill.com) Media Contact: Lara Hoffmans—Managing Director-Marketing 614-255-5550 (lhoffmans@diamond-hill.com) DIAMOND HILL INVESTMENT GROUP, INC. REPORTS RESULTS FOR SECOND QUARTER 2021 COLUMBUS, Ohio - July 28, 2021 -- Diamond Hill Investment Group, Inc. (NASDAQ:DHIL) today reported unaudited financial results for the second quarter of 2021. The following are selected highlights for the quarter ended June 30, 2021: • Assets under management (&#34;AUM&#34;) were $32.4 billion compared to $30.6 billion as of March 31, 2021, and $20.6 billion as of June 30, 2020. • Average AUM was $32.1 billion compared to $19.7 billion during the second quarter of 2020. • Net client inflows were $550 million, compared to $231 million of net inflows for the same period in 2020. Net inflows into our fixed income strategies were $485 million and net inflows into o&#39;,
+  &#39;&#39;,
+  &#39;&#39;,
+  &#39;&#39;,
+  &#39;&#39;,
+  &#39;&#39;],
+ &#39;period&#39;: &#39;2021-07-28&#39;,
+ &#39;acceptDate&#39;: &#39;2021-07-28&#39;,
+ &#39;acceptTime&#39;: &#39;16:04:40&#39;,
+ &#39;items&#39;: [&#39;Item 2.02: Results of Operations and Financial Condition&#39;,
+  &#39;Item 9.01: Financial Statements and Exhibits&#39;],
+ &#39;itemTexts&#39;: [&#39;Item 2.02 Results of Operations and Financial Condition Diamond Hill Investment Group, Inc. (the &#34;Company&#34;) has reported its results of operations for the fiscal quarter ended June 30, 2021, as described in Company\&#39;s press release dated July 28, 2021 , a copy of which is filed herewith as Exhibit 99.1 and incorporated herein by reference. &#39;,
+  &#39;Item 9.01 Financial Statements and Exhibits Exhibit No. Description 99.1 Press release issued by the Registrant dated July 28 , 2021. SIGNATURES Pursuant to the requirements of the Securities Exchange Act of 1934, as amended, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized. DIAMOND HILL INVESTMENT GROUP, INC. Date: July 28, 2021 By: /s/ Thomas E. Line Thomas E. Line, Chief Financial Officer&#39;]}</pre>
 </div>
 
 </div>
