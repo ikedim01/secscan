@@ -106,7 +106,7 @@ class scraperBase(object) :
             if dayIsDirty :
                 self.infoMap[dStr] = {}
             if verbose or dayIsDirty :
-                print(f'=========={"NEW " if dayIsDirty else ""}{dStr}==========', end=' ')
+                print(f'=========={"NEW " if dayIsDirty else ""}{dStr}==========', end=' ', flush=True)
             errCount = 0
             dInfo = self.infoMap[dStr]
             for cik, formType, accNo, fileDate in dl.dl[dStr] :
@@ -114,7 +114,7 @@ class scraperBase(object) :
                     or (ciks is not None and cik not in ciks)
                     or not dailyList.isInFormClass(self.formClass, formType)) :
                     continue
-                print(f"'{accNo}'",end=' ')
+                print(f"'{accNo}'", end=' ', flush=True)
                 dInfo[accNo] = self.scrapeForAccNo(accNo,formType)
                 dayIsDirty = True
                 if dInfo[accNo] == 'ERROR' :
