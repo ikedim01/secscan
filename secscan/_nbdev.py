@@ -103,21 +103,18 @@ index = {"boto3_available": "00_utils.ipynb",
          "qPeriods": "07_scrape13F.ipynb",
          "default8KDir": "08_scrape8K.ipynb",
          "parse8K": "08_scrape8K.ipynb",
-         "getSecItemsFromTextUsingPat": "08_scrape8K.ipynb",
-         "getSecItemsFromText": "08_scrape8K.ipynb",
-         "getSec8KItemsFromText": "08_scrape8K.ipynb",
          "scraper8K": "08_scrape8K.ipynb",
          "itemPat": "08_scrape8K.ipynb",
-         "secItemHeaderPatStrs": "08_scrape8K.ipynb",
-         "secItemPats": "08_scrape8K.ipynb",
-         "financialStatementsPat": "08_scrape8K.ipynb",
          "default6KDir": "09_scrape6K.ipynb",
          "parse6K": "09_scrape6K.ipynb",
          "scraper6K": "09_scrape6K.ipynb",
          "reg12gStr": "09_scrape6K.ipynb",
          "header6KPat": "09_scrape6K.ipynb",
          "signaturePat": "09_scrape6K.ipynb",
-         "skipJunkPat": "09_scrape6K.ipynb"}
+         "skipJunkPat": "09_scrape6K.ipynb",
+         "default13GDir": "10_scrape13G.ipynb",
+         "parse13G": "10_scrape13G.ipynb",
+         "scraper13G": "10_scrape13G.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
@@ -128,7 +125,8 @@ modules = ["utils.py",
            "infoScraper.py",
            "scrape13F.py",
            "scrape8K.py",
-           "scrape6K.py"]
+           "scrape6K.py",
+           "scrape13G.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 
