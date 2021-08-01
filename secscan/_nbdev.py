@@ -113,8 +113,15 @@ index = {"boto3_available": "00_utils.ipynb",
          "signaturePat": "09_scrape6K.ipynb",
          "skipJunkPat": "09_scrape6K.ipynb",
          "default13GDir": "10_scrape13G.ipynb",
+         "getSec13NshAndPctFromText": "10_scrape13G.ipynb",
          "parse13G": "10_scrape13G.ipynb",
-         "scraper13G": "10_scrape13G.ipynb"}
+         "scraper13G": "10_scrape13G.ipynb",
+         "nSharesPatStr": "10_scrape13G.ipynb",
+         "nPctPatStr": "10_scrape13G.ipynb",
+         "form13NshAndPctPats": "10_scrape13G.ipynb",
+         "default13DDir": "11_scrape13D.ipynb",
+         "parse13D": "11_scrape13D.ipynb",
+         "scraper13D": "11_scrape13D.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
@@ -126,7 +133,8 @@ modules = ["utils.py",
            "scrape13F.py",
            "scrape8K.py",
            "scrape6K.py",
-           "scrape13G.py"]
+           "scrape13G.py",
+           "scrape13D.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 

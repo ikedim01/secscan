@@ -42,6 +42,9 @@ entries:
     - output: web,pdf
       title: scrape13G
       url: scrape13G.html
+    - output: web,pdf
+      title: scrape13D
+      url: scrape13D.html
     output: web
     title: secscan
   output: web
