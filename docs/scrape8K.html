@@ -126,6 +126,10 @@ nb_path: "08_scrape8K.ipynb"
         <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;text99&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;EX-99.1 2 a2q21earningsrelease.htm EX-99.1 Document Westwood&#39;</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;text99&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;Income Opportunity and Total R&#39;</span><span class="p">)</span>
     <span class="p">),</span><span class="s2">&quot;testing 8-K scraper class (parsing)&quot;</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">parse8K</span><span class="p">(</span><span class="s1">&#39;0001606757-21-000040&#39;</span><span class="p">,</span> <span class="n">formType</span><span class="o">=</span><span class="s1">&#39;8-K/A&#39;</span><span class="p">,</span> <span class="n">textLimit</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;explanatoryNote&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Explanatory Note This Amendment No. 1&#39;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;explanatoryNote&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;Ms. Croom accepted a written offer &#39;</span><span class="p">)</span>
+    <span class="p">),</span><span class="s2">&quot;testing 8-K scraper class (parsing explanatory note)&quot;</span>
 </pre></div>
 
     </div>
@@ -138,7 +142,7 @@ nb_path: "08_scrape8K.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>20210703 WEEKEND 20210702 ### list index 20 filings for 20210702: 6569 * 20210701 filings for 20210701: 5573 * </pre>
+<pre>20210703 WEEKEND 20210702 ### list index 21 filings for 20210702: 6569 * 20210701 filings for 20210701: 5573 * </pre>
 </div>
 </div>
 
