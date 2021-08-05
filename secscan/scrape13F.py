@@ -2,7 +2,7 @@
 
 __all__ = ['default13FDir', 'findChildEndingWith', 'findChildSeries', 'getRowInfo', 'parse13FHoldings', 'scraper13F',
            'callOptPat', 'putOptPat', 'condenseHoldings', 'get13FAmendmentType', 'cikConsolidatedHoldings',
-           'getPeriodAndNextQStartEnd', 'getMatrixFor', 'qStartEnds', 'qPeriods']
+           'getPeriodAndNextQStartEnd', 'getMatrixFor', 'saveConvMatrixFor', 'qStartEnds', 'qPeriods']
 
 # Cell
 
@@ -112,7 +112,7 @@ class scraper13F(infoScraper.scraperBase) :
 
 # Cell
 
-def condenseHoldings(holdings, cutoff=0.0, pctFormat=False, includeName=False, cusipNames={}) :
+def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0, pctFormat=False, includeName=False, cusipNames={}) :
     """
     Converts a list of of stock and option holdings as parsed from the 13F:
         [(cusip, name, value, title, count, putCall), ... ]
@@ -120,7 +120,7 @@ def condenseHoldings(holdings, cutoff=0.0, pctFormat=False, includeName=False, c
     options and only has one combined entry per stock:
         [(cusip, val, frac) ... ]
     sorted in descending order by value, and restricted to stocks with fraction
-    of total portfolio >= cutoff.
+    of total portfolio in [minFrac..maxFrac]
     """
     if includeName :
         cusipToName = dict((cusip,name)
@@ -135,7 +135,7 @@ def condenseHoldings(holdings, cutoff=0.0, pctFormat=False, includeName=False, c
     res = []
     for cusip,val in holdings :
         frac = val/tot if tot>0.0 else 0.0
-        if frac < cutoff :
+        if frac < minFrac or maxFrac < frac :
             break
         fracOut = f'{frac:.2%}' if pctFormat else frac
         if includeName :
@@ -162,10 +162,10 @@ def get13FAmendmentType(accNo, formType=None) :
     return findChildSeries(coverPage,['amendmentinfo','amendmenttype']).text.strip()
 
 class cikConsolidatedHoldings(object) :
-    def __init__(self, scraped13F, period, cutoff=0.0) :
+    def __init__(self, scraped13F, period, minFrac=0.0, maxFrac=1.0) :
         """
         Consolidate holdings for each CIK based on all filings with a given period.
-        Restrict to stocks only (no options) with fraction of total portfolio >= cutoff.
+        Restrict to stocks only (no options) with fraction of total portfolio in [minFrac..maxFrac].
         Sets self.cikToPosList: cik -> [(cusip, val, frac) ... ]
         and  self.investorsPerStock: cusip -> nInvestors
         """
@@ -207,7 +207,8 @@ class cikConsolidatedHoldings(object) :
             while i+1 < j :
                 i += 1
                 combHoldings = combHoldings + cik13FList[i][2]
-            self.cikToPosList[cik] = condenseHoldings(combHoldings, cutoff)
+            self.cikToPosList[cik] = condenseHoldings(combHoldings,
+                                                      minFrac=minFrac, maxFrac=maxFrac)
         # generate a count of investors per stock:
         self.investorsPerStock = collections.Counter()
         for posList in self.cikToPosList.values() :
@@ -240,7 +241,7 @@ class cikConsolidatedHoldings(object) :
                 res[cikToRow[cik], cusipToCol[cusip]] = frac
                 count += 1
         print('total of',count,'positions')
-        return ciks,cusips,res
+        return ciks, cikToRow, cusips, cusipToCol, res
 
 qStartEnds = ['0101','0401','0701','1001','0101']
 qPeriods = ['-03-31','-06-30','-09-30','-12-31']
@@ -257,7 +258,17 @@ def getPeriodAndNextQStartEnd(y, qNo) :
             {'startD' : str(nextY) + qStartEnds[nextQNo-1],
              'endD' : str(nextY+1 if nextQNo==4 else nextY) + qStartEnds[nextQNo]})
 
-def getMatrixFor(y, qNo, cutoff=0.0, minInvestorsPerStock=3, minStocksPerInvestor=1) :
+def getMatrixFor(y, qNo, minFrac=0.0, maxFrac=1.0, minInvestorsPerStock=3, minStocksPerInvestor=1) :
     period, nextQStartEnd = getPeriodAndNextQStartEnd(y,qNo)
-    cikConsHoldings = cikConsolidatedHoldings(scraper13F(**nextQStartEnd), period, cutoff=cutoff)
-    return cikConsHoldings.getHoldingsMatrix(minInvestorsPerStock, minStocksPerInvestor)
+    cikConsHoldings = cikConsolidatedHoldings(scraper13F(**nextQStartEnd), period,
+                                              minFrac=minFrac, maxFrac=maxFrac)
+    return cikConsHoldings.getHoldingsMatrix(minInvestorsPerStock=minInvestorsPerStock,
+                                             minStocksPerInvestor=minStocksPerInvestor)
+
+def saveConvMatrixFor(y, qNo, minFrac=0.12, maxFrac=0.4, minInvestorsPerStock=2, minStocksPerInvestor=1) :
+    m = getMatrixFor(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
+                     minInvestorsPerStock=minInvestorsPerStock, minStocksPerInvestor=minStocksPerInvestor)
+    print(m[-1].shape)
+    print(os.path.join(utils.stockDataRoot,f'Conv{y}Q{qNo}.pkl'))
+    utils.pickSave(os.path.join(utils.stockDataRoot,f'Conv{y}Q{qNo}.pkl'), m,
+                   fix_imports=True, protocol=2)
