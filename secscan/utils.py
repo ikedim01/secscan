@@ -6,8 +6,8 @@ __all__ = ['boto3_available', 'setStockDataRoot', 'stockDataRoot', 'requestUrl',
            'decompressGZipBytes', 'pickleToBytes', 'pickleFromBytes', 'pickSave', 'pickLoad', 'pickLoadIfPath',
            'pickSaveToS3', 'pickLoadFromS3', 'pickLoadFromS3Public', 'savePklToDir', 'loadPklFromDir',
            'saveSplitPklToDir', 'loadSplitPklFromDir', 'toDateStr', 'toDate', 'isWeekend', 'dateStrsBetween',
-           'formatDateStr', 'dateStr8Pat', 'curEasternUSTime', 'easternUSTimeZone', 'secBrowse', 'printSamp',
-           'printErrInfoOrAccessNo']
+           'formatDateStr', 'dateStr8Pat', 'curEasternUSTime', 'easternUSTimeZone', 'sanitizeText', 'secBrowse',
+           'printSamp', 'printErrInfoOrAccessNo']
 
 # Cell
 
@@ -322,6 +322,13 @@ def formatDateStr(dStr,sep='-') :
 easternUSTimeZone = timezone('US/Eastern')
 def curEasternUSTime() :
     return datetime.datetime.now(easternUSTimeZone)
+
+# Cell
+
+def sanitizeText(s) :
+    if '&' in s[-10:] :
+        s = s[:s.rindex('&')]
+    return s
 
 # Cell
 
