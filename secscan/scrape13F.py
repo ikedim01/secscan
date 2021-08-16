@@ -178,11 +178,9 @@ class cikConsolidatedHoldings(object) :
             for accNo, info in accNoToInfo.items() :
                 if info == 'ERROR' :
                     print('ERR',accNo)
-                    continue
-                if info['period'] != period :
-                    continue
-                cikTo13Fs[info['cik'].lstrip('0')].append((dStr, accNo, info['holdings']))
-                count += 1
+                elif info['period'] == period :
+                    cikTo13Fs[info['cik'].lstrip('0')].append((dStr, accNo, info['holdings']))
+                    count += 1
         print('period',period,'- total of',len(cikTo13Fs),'ciks,',count,'13F filings')
         #
         # Get a consolidated list of positions for each cik. For ciks with multiple filings

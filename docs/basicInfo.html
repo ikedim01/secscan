@@ -83,9 +83,10 @@ Prints a warning message if the complete text link is missing.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecFormCikList" class="doc_header"><code>getSecFormCikList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L47" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormCikList</code>(<strong><code>indexSoup</code></strong>, <strong><code>accessNo</code></strong>)</p>
+<h4 id="getSecFormCiks" class="doc_header"><code>getSecFormCiks</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L48" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormCiks</code>(<strong><code>indexSoup</code></strong>, <strong><code>accessNo</code></strong>)</p>
 </blockquote>
-<p>Returns list of CIKs for the form: [cik, ... ]</p>
+<p>Returns full list of CIKs on the filing, and the "filed by" cik if present:
+    [cik, ... ], filingCik</p>
 
 </div>
 
@@ -108,7 +109,7 @@ Prints a warning message if the complete text link is missing.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getTextAfterTag" class="doc_header"><code>getTextAfterTag</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L64" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextAfterTag</code>(<strong><code>resDict</code></strong>, <strong><code>resKey</code></strong>, <strong><code>top</code></strong>, <strong><code>firstTagPat</code></strong>, <strong><code>firstTagName</code></strong>=<em><code>'div'</code></em>, <strong><code>firstTagClass</code></strong>=<em><code>'infoHead'</code></em>, <strong><code>nextTagName</code></strong>=<em><code>'div'</code></em>, <strong><code>nextTagClass</code></strong>=<em><code>'info'</code></em>, <strong><code>missingMessage</code></strong>=<em><code>None</code></em>, <strong><code>strListHeader</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="getTextAfterTag" class="doc_header"><code>getTextAfterTag</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L71" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextAfterTag</code>(<strong><code>resDict</code></strong>, <strong><code>resKey</code></strong>, <strong><code>top</code></strong>, <strong><code>firstTagPat</code></strong>, <strong><code>firstTagName</code></strong>=<em><code>'div'</code></em>, <strong><code>firstTagClass</code></strong>=<em><code>'infoHead'</code></em>, <strong><code>nextTagName</code></strong>=<em><code>'div'</code></em>, <strong><code>nextTagClass</code></strong>=<em><code>'info'</code></em>, <strong><code>missingMessage</code></strong>=<em><code>None</code></em>, <strong><code>strListHeader</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Looks for a sequence of two HTML elements specified by name and class,
 with the text of the first element matching a given regular expression.
@@ -136,7 +137,7 @@ If not found and missingMessage is not None, prints it.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get99Texts" class="doc_header"><code>get99Texts</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get99Texts</code>(<strong><code>info</code></strong>, <strong><code>textLimit</code></strong>=<em><code>1000</code></em>)</p>
+<h4 id="get99Texts" class="doc_header"><code>get99Texts</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L105" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get99Texts</code>(<strong><code>info</code></strong>, <strong><code>textLimit</code></strong>=<em><code>1000</code></em>)</p>
 </blockquote>
 
 </div>
@@ -160,7 +161,7 @@ If not found and missingMessage is not None, prints it.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecFormInfo" class="doc_header"><code>getSecFormInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L112" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormInfo</code>(<strong><code>accessNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>, <strong><code>get99</code></strong>=<em><code>False</code></em>, <strong><code>textLimit</code></strong>=<em><code>1000</code></em>)</p>
+<h4 id="getSecFormInfo" class="doc_header"><code>getSecFormInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/basicInfo.py#L119" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecFormInfo</code>(<strong><code>accessNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>, <strong><code>get99</code></strong>=<em><code>False</code></em>, <strong><code>textLimit</code></strong>=<em><code>1000</code></em>)</p>
 </blockquote>
 <p>Parses some basic information from the index URL of a form with the given accession number.
 Returns a dict {
@@ -172,7 +173,8 @@ For some forms, additional fields may be parsed:
     'period' : 'YYYY-MM-DD',
     'acceptDate' : 'YYYY-MM-DD',
     'acceptTime' : 'HH:MM:SS',
-    'items' : [title, ... ],</p>
+    'items' : [title, ... ],
+    'filedByCik' : cik,</p>
 
 </div>
 
@@ -223,6 +225,7 @@ For some forms, additional fields may be parsed:
                <span class="s1">&#39;/Archives/edgar/data/830122/000108676321000007/ffa13g03312021vidler.htm&#39;</span><span class="p">)],</span>
     <span class="s1">&#39;complete&#39;</span><span class="p">:</span> <span class="s1">&#39;/Archives/edgar/data/830122/000108676321000007/0001086763-21-000007.txt&#39;</span><span class="p">,</span>
     <span class="s1">&#39;ciks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0000830122&#39;</span><span class="p">,</span> <span class="s1">&#39;0001086763&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;filedByCik&#39;</span><span class="p">:</span> <span class="s1">&#39;0001086763&#39;</span><span class="p">,</span>
     <span class="s1">&#39;acceptDate&#39;</span><span class="p">:</span> <span class="s1">&#39;2021-05-17&#39;</span><span class="p">,</span>
     <span class="s1">&#39;acceptTime&#39;</span><span class="p">:</span> <span class="s1">&#39;19:32:43&#39;</span><span class="p">},</span> <span class="s2">&quot;parsing form 13G basic info&quot;</span>
 
