@@ -269,6 +269,9 @@ def getMatrixFor(y, qNo, minFrac=0.0, maxFrac=1.0, minInvestorsPerStock=3, minSt
                                              minStocksPerInvestor=minStocksPerInvestor)
 
 def saveConvMatrixFor(y, qNo, minFrac=0.12, maxFrac=0.4, minInvestorsPerStock=2, minStocksPerInvestor=1) :
+    """
+    Save a matrix of 13F conviction positions only for the given quarter.
+    """
     m = getMatrixFor(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
                      minInvestorsPerStock=minInvestorsPerStock, minStocksPerInvestor=minStocksPerInvestor)
     fPath = os.path.join(utils.stockDataRoot,f'Conv{y}Q{qNo}.pkl')
