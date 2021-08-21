@@ -135,7 +135,11 @@ def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0, pctFormat=False, includ
     res = []
     for cusip,val in holdings :
         frac = val/tot if tot>0.0 else 0.0
-        if frac < minFrac or maxFrac < frac :
+        if frac > maxFrac :
+            # skip holdings with fraction too large
+            continue
+        if minFrac > frac :
+            # holdings list is sorted in descending order by fraction, so we can stop here
             break
         fracOut = f'{frac:.2%}' if pctFormat else frac
         if includeName :
@@ -214,7 +218,7 @@ class cikConsolidatedHoldings(object) :
     def getHoldingsMatrix(self, minInvestorsPerStock=3, minStocksPerInvestor=1, dtype=np.float64) :
         """
         Calculates a combined matrix of investor holdings.
-        Returns ciks, cusips, mat
+        Returns mat, ciks, cikToRow, cusips, cusipToCol
         where mat is a matrix of shape (len(ciks), len(cusips))
         in which each row has the fractions held by the corresponding cik in each cusip.
         """
@@ -235,11 +239,12 @@ class cikConsolidatedHoldings(object) :
         res = np.zeros((len(ciks), len(cusips)), dtype=dtype)
         count = 0
         for cik,posList in ciksToKeepPosLists.items() :
+            cikRow = cikToRow[cik]
             for cusip,_,frac in posList :
-                res[cikToRow[cik], cusipToCol[cusip]] = frac
+                res[cikRow, cusipToCol[cusip]] = frac
                 count += 1
         print('total of',count,'positions')
-        return ciks, cikToRow, cusips, cusipToCol, res
+        return res, ciks, cikToRow, cusips, cusipToCol
 
 qStartEnds = ['0101','0401','0701','1001','0101']
 qPeriods = ['-03-31','-06-30','-09-30','-12-31']
@@ -266,7 +271,6 @@ def getMatrixFor(y, qNo, minFrac=0.0, maxFrac=1.0, minInvestorsPerStock=3, minSt
 def saveConvMatrixFor(y, qNo, minFrac=0.12, maxFrac=0.4, minInvestorsPerStock=2, minStocksPerInvestor=1) :
     m = getMatrixFor(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
                      minInvestorsPerStock=minInvestorsPerStock, minStocksPerInvestor=minStocksPerInvestor)
-    print(m[-1].shape)
-    print(os.path.join(utils.stockDataRoot,f'Conv{y}Q{qNo}.pkl'))
-    utils.pickSave(os.path.join(utils.stockDataRoot,f'Conv{y}Q{qNo}.pkl'), m,
-                   fix_imports=True, protocol=2)
+    fPath = os.path.join(utils.stockDataRoot,f'Conv{y}Q{qNo}.pkl')
+    print(m[0].shape,'->',fPath)
+    utils.pickSave(fPath, m, fix_imports=True, protocol=2)
