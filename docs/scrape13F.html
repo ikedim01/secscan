@@ -311,7 +311,7 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="cikConsolidatedHoldings" class="doc_header"><code>class</code> <code>cikConsolidatedHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L168" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>cikConsolidatedHoldings</code>(<strong><code>scraped13F</code></strong>, <strong><code>period</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>)</p>
+<h4 id="indexMap" class="doc_header"><code>indexMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L168" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>indexMap</code>(<strong><code>lis</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -335,7 +335,31 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L251" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
+<h2 id="cikConsolidatedHoldings" class="doc_header"><code>class</code> <code>cikConsolidatedHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L171" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>cikConsolidatedHoldings</code>(<strong><code>scraped13F</code></strong>, <strong><code>period</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L254" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
 </blockquote>
 <p>Returns the 13F period date for a given year and quarter number (this is the
 last day in the quarter), along with the start and end dateStrs for the next
@@ -363,7 +387,7 @@ Quarters are numbered 1-4.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getMatrixFor" class="doc_header"><code>getMatrixFor</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L264" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getMatrixFor</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>3</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
+<h4 id="getMatrixFor" class="doc_header"><code>getMatrixFor</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L267" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getMatrixFor</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>3</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
 
 </div>
@@ -387,9 +411,10 @@ Quarters are numbered 1-4.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveConvMatrixFor" class="doc_header"><code>saveConvMatrixFor</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L271" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveConvMatrixFor</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.12</code></em>, <strong><code>maxFrac</code></strong>=<em><code>0.4</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>2</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
+<h4 id="saveConvMatrixPy2" class="doc_header"><code>saveConvMatrixPy2</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L274" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveConvMatrixPy2</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.12</code></em>, <strong><code>maxFrac</code></strong>=<em><code>0.4</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>2</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
-<p>Save a matrix of 13F conviction positions only for the given quarter.</p>
+<p>Save a matrix of 13F conviction positions only for the given quarter,
+in a format readable by old Python 2 versions.</p>
 
 </div>
 
@@ -426,7 +451,7 @@ Quarters are numbered 1-4.</p>
 <span class="k">assert</span> <span class="n">getPeriodAndNextQStartEnd</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="o">==</span><span class="p">(</span><span class="s1">&#39;2020-12-31&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;startD&#39;</span><span class="p">:</span> <span class="s1">&#39;20210101&#39;</span><span class="p">,</span> <span class="s1">&#39;endD&#39;</span><span class="p">:</span> <span class="s1">&#39;20210401&#39;</span><span class="p">}),</span><span class="s2">&quot;13F qstart/end&quot;</span>
 
 <span class="n">c</span> <span class="o">=</span> <span class="n">cikConsolidatedHoldings</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="s1">&#39;2021-03-31&#39;</span><span class="p">)</span>
-<span class="n">m</span><span class="p">,</span><span class="n">ciks</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">cusips</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getHoldingsMatrix</span><span class="p">(</span><span class="n">minInvestorsPerStock</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">m</span><span class="p">,</span> <span class="n">ciks</span><span class="p">,</span> <span class="n">cusips</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getHoldingsMatrix</span><span class="p">(</span><span class="n">minInvestorsPerStock</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">assert</span> <span class="p">(</span><span class="n">ciks</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;1325083&#39;</span><span class="p">,</span> <span class="s1">&#39;1867040&#39;</span><span class="p">]</span>
         <span class="ow">and</span> <span class="n">cusips</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;00289Y107&#39;</span><span class="p">,</span><span class="s1">&#39;003279730&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">cusips</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;G11196105&#39;</span><span class="p">,</span><span class="s1">&#39;M40527109&#39;</span><span class="p">]</span>
         <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">shape</span><span class="o">==</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">42</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.03502463</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">1e-6</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">]</span><span class="o">-</span><span class="mf">0.9675410812420477</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">1e-6</span>
@@ -591,7 +616,7 @@ CIK 1717479 1 - 2 [(&#39;20210817&#39;, &#39;0001717479-21-000006&#39;, 241), (&
 requiring  2 investors per stock, 1 stocks per investor
 1530 investors, 449 stocks
 total of 2332 positions
-(1530, 449) -&gt; C:\Users\ikedi\secData\Conv2021Q2.pkl
+saving to C:\Users\ikedi\secData\Conv2021Q2.pkl
 </pre>
 </div>
 </div>
