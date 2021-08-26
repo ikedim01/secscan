@@ -112,7 +112,8 @@ class scraper13F(infoScraper.scraperBase) :
 
 # Cell
 
-def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0, pctFormat=False, includeName=False, cusipNames={}) :
+def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0, pctFormat=False, includeName=False, cusipNames={},
+                     minStocksPerInv=None, maxStocksPerInv=None, minTop10=None, minAUM=None) :
     """
     Converts a list of of stock and option holdings as parsed from the 13F:
         [(cusip, name, value, title, count, putCall), ... ]
@@ -121,6 +122,10 @@ def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0, pctFormat=False, includ
         [(cusip, val, frac) ... ]
     sorted in descending order by value, and restricted to stocks with fraction
     of total portfolio in [minFrac..maxFrac]
+
+    If minStocksPerInv, maxStocksPerInv, minTop10 or minAUM are specified, returns None
+    for lists with too few holdings, too many holdings, too small a fraction in the
+    top 10 holdings, or too small a total value.
     """
     if includeName :
         cusipToName = dict((cusip,name)
@@ -130,8 +135,14 @@ def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0, pctFormat=False, includ
                       if putCall=='')
     holdings = [(cusip, sum(val for _,val in it))
                 for cusip,it in itertools.groupby(holdings, key=lambda x : x[0])]
+    if ((minStocksPerInv is not None and minStocksPerInv > len(holdings))
+            or (maxStocksPerInv is not None and maxStocksPerInv < len(holdings))) :
+        return None
     holdings.sort(key = lambda x : x[1], reverse=True)
     tot = sum(val for _,val in holdings)
+    if ((minAUM is not None and minAUM > tot)
+            or (minTop10 is not None and minTop10*tot > sum(val for _,val in holdings[:10]))) :
+        return None
     res = []
     for cusip,val in holdings :
         frac = val/tot if tot>0.0 else 0.0

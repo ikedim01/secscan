@@ -54,7 +54,7 @@ nb_path: "10_scrape13G.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSec13NshAndPctFromText" class="doc_header"><code>getSec13NshAndPctFromText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSec13NshAndPctFromText</code>(<strong><code>txt</code></strong>)</p>
+<h4 id="getSec13NshAndPctFromText" class="doc_header"><code>getSec13NshAndPctFromText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSec13NshAndPctFromText</code>(<strong><code>txt</code></strong>)</p>
 </blockquote>
 <p>Returns a list [(nShares, percent) ... ] parsed from form 13G or 13D.</p>
 
@@ -79,7 +79,7 @@ nb_path: "10_scrape13G.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="cusipChecksum" class="doc_header"><code>cusipChecksum</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cusipChecksum</code>(<strong><code>cusip</code></strong>)</p>
+<h4 id="cusipChecksum" class="doc_header"><code>cusipChecksum</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L52" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cusipChecksum</code>(<strong><code>cusip</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -103,7 +103,7 @@ nb_path: "10_scrape13G.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="parse13GD" class="doc_header"><code>parse13GD</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L73" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse13GD</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="monthNameToIso" class="doc_header"><code>monthNameToIso</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L78" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>monthNameToIso</code>(<strong><code>monthName</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -127,7 +127,79 @@ nb_path: "10_scrape13G.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="scraper13G" class="doc_header"><code>class</code> <code>scraper13G</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L119" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>scraper13G</code>(<strong><code>infoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\scraped13G'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>) :: <a href="/secscan/infoScraper.html#scraperBase"><code>scraperBase</code></a></p>
+<h4 id="getMonthPatStr" class="doc_header"><code>getMonthPatStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L80" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getMonthPatStr</code>()</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="parseEventDate" class="doc_header"><code>parseEventDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L106" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parseEventDate</code>(<strong><code>info</code></strong>, <strong><code>mainText</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="parse13GD" class="doc_header"><code>parse13GD</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse13GD</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="scraper13G" class="doc_header"><code>class</code> <code>scraper13G</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L176" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>scraper13G</code>(<strong><code>infoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\scraped13G'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>) :: <a href="/secscan/infoScraper.html#scraperBase"><code>scraperBase</code></a></p>
 </blockquote>
 
 </div>
@@ -181,7 +253,7 @@ nb_path: "10_scrape13G.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>20210703 WEEKEND 20210702 ### list index 31 filings for 20210702: 6569 * 20210701 filings for 20210701: 5573 * </pre>
+<pre>20210703 WEEKEND 20210702 ### list index 39 filings for 20210702: 6569 * 20210701 filings for 20210701: 5573 * </pre>
 </div>
 </div>
 
@@ -209,10 +281,10 @@ nb_path: "10_scrape13G.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="updateCik13GDPos" class="doc_header"><code>updateCik13GDPos</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>updateCik13GDPos</code>(<strong><code>period</code></strong>, <strong><code>scrapers</code></strong>, <strong><code>cik13GDPosMap</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="updateCik13GDPos" class="doc_header"><code>updateCik13GDPos</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L184" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>updateCik13GDPos</code>(<strong><code>scrapers</code></strong>, <strong><code>cik13GDPosMap</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Generate or update a combined dict of percentage holdings:
-    cik13GDPosMap: cik -&gt; {cusip -&gt; pct}
+    cik13GDPosMap: cik -&gt; {cusip -&gt; (eventDate, accNo, pct)}
 based on a list of 13G and 13D scrapers.</p>
 
 </div>
@@ -248,13 +320,21 @@ based on a list of 13G and 13D scrapers.</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">scraper13G</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;empty&#39;</span><span class="p">)</span>
 <span class="n">s</span><span class="o">.</span><span class="n">updateForDays</span><span class="p">(</span><span class="n">dl</span><span class="p">,</span><span class="n">ciks</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;1423053&#39;</span><span class="p">],</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;20210701&#39;</span><span class="p">,</span><span class="n">endD</span><span class="o">=</span><span class="s1">&#39;20210702&#39;</span><span class="p">)</span>
-<span class="n">ss</span> <span class="o">=</span> <span class="n">updateCik13GDPos</span><span class="p">(</span><span class="s1">&#39;p1&#39;</span><span class="p">,[</span><span class="n">s</span><span class="p">])</span>
-<span class="k">assert</span> <span class="n">ss</span><span class="p">[</span><span class="s1">&#39;1423053&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;265334102&#39;</span><span class="p">:</span> <span class="mf">8.2</span><span class="p">,</span> <span class="s1">&#39;G2426E112&#39;</span><span class="p">:</span> <span class="mf">6.5</span><span class="p">}</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">updateCik13GDPos</span><span class="p">([</span><span class="n">s</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">ss</span><span class="p">[</span><span class="s1">&#39;1423053&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s1">&#39;265334102&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2021-06-21&#39;</span><span class="p">,</span> <span class="s1">&#39;0001104659-21-088227&#39;</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">),</span>
+    <span class="s1">&#39;G2426E112&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2021-06-21&#39;</span><span class="p">,</span> <span class="s1">&#39;0001104659-21-088230&#39;</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">)</span>
+<span class="p">}</span>
 
 <span class="n">s</span> <span class="o">=</span> <span class="n">scraper13G</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;empty&#39;</span><span class="p">)</span>
 <span class="n">s</span><span class="o">.</span><span class="n">updateForDays</span><span class="p">(</span><span class="n">dl</span><span class="p">,</span><span class="n">ciks</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;1423053&#39;</span><span class="p">],</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;20210702&#39;</span><span class="p">,</span><span class="n">endD</span><span class="o">=</span><span class="s1">&#39;20210704&#39;</span><span class="p">)</span>
-<span class="n">ss</span> <span class="o">=</span> <span class="n">updateCik13GDPos</span><span class="p">(</span><span class="s1">&#39;p2&#39;</span><span class="p">,[</span><span class="n">s</span><span class="p">],</span><span class="n">ss</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">ss</span><span class="p">[</span><span class="s1">&#39;1423053&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;265334102&#39;</span><span class="p">:</span> <span class="mf">8.2</span><span class="p">,</span> <span class="s1">&#39;G2426E112&#39;</span><span class="p">:</span> <span class="mf">6.5</span><span class="p">,</span> <span class="s1">&#39;88408P107&#39;</span><span class="p">:</span> <span class="mf">7.9</span><span class="p">,</span> <span class="s1">&#39;36118N102&#39;</span><span class="p">:</span> <span class="mf">6.5</span><span class="p">}</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">updateCik13GDPos</span><span class="p">([</span><span class="n">s</span><span class="p">],</span><span class="n">ss</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ss</span><span class="p">[</span><span class="s1">&#39;1423053&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s1">&#39;265334102&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2021-06-21&#39;</span><span class="p">,</span> <span class="s1">&#39;0001104659-21-088227&#39;</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">),</span>
+    <span class="s1">&#39;G2426E112&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2021-06-21&#39;</span><span class="p">,</span> <span class="s1">&#39;0001104659-21-088230&#39;</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span>
+    <span class="s1">&#39;88408P107&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2021-06-22&#39;</span><span class="p">,</span> <span class="s1">&#39;0001104659-21-088828&#39;</span><span class="p">,</span> <span class="mf">7.9</span><span class="p">),</span>
+    <span class="s1">&#39;36118N102&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;2021-06-22&#39;</span><span class="p">,</span> <span class="s1">&#39;0001104659-21-088837&#39;</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 
     </div>
@@ -267,7 +347,8 @@ based on a list of 13G and 13D scrapers.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>==========NEW 20210703========== ==========NEW 20210702========== &#39;0001104659-21-088828&#39; &#39;0001104659-21-088837&#39; period p2 - total of 1 ciks, 2 13G/D filings
+<pre>==========NEW 20210701========== &#39;0001104659-21-088227&#39; &#39;0001104659-21-088230&#39; total of 1 ciks, 2 13G/D filings
+==========NEW 20210703========== ==========NEW 20210702========== &#39;0001104659-21-088828&#39; &#39;0001104659-21-088837&#39; total of 1 ciks, 2 13G/D filings
 </pre>
 </div>
 </div>

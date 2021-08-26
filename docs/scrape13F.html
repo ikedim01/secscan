@@ -251,7 +251,7 @@ except putCall is 'CALL', 'PUT', or ''.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="condenseHoldings" class="doc_header"><code>condenseHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>condenseHoldings</code>(<strong><code>holdings</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>pctFormat</code></strong>=<em><code>False</code></em>, <strong><code>includeName</code></strong>=<em><code>False</code></em>, <strong><code>cusipNames</code></strong>=<em><code>{}</code></em>)</p>
+<h4 id="condenseHoldings" class="doc_header"><code>condenseHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>condenseHoldings</code>(<strong><code>holdings</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>pctFormat</code></strong>=<em><code>False</code></em>, <strong><code>includeName</code></strong>=<em><code>False</code></em>, <strong><code>cusipNames</code></strong>=<em><code>{}</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minTop10</code></strong>=<em><code>None</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts a list of of stock and option holdings as parsed from the 13F:
     [(cusip, name, value, title, count, putCall), ... ]
@@ -260,6 +260,9 @@ options and only has one combined entry per stock:
     [(cusip, val, frac) ... ]
 sorted in descending order by value, and restricted to stocks with fraction
 of total portfolio in [minFrac..maxFrac]</p>
+<p>If minStocksPerInv, maxStocksPerInv, minTop10 or minAUM are specified, returns None
+for lists with too few holdings, too many holdings, too small a fraction in the
+top 10 holdings, or too small a total value.</p>
 
 </div>
 
@@ -282,7 +285,7 @@ of total portfolio in [minFrac..maxFrac]</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get13FAmendmentType" class="doc_header"><code>get13FAmendmentType</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L151" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get13FAmendmentType</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get13FAmendmentType" class="doc_header"><code>get13FAmendmentType</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L162" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get13FAmendmentType</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Gets the amendment type for a 13F-HR/A filing - may be RESTATEMENT or NEW HOLDINGS.
 This turned out to be unreliable (often missing or wrong), so I don't use it to get
@@ -311,7 +314,7 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="indexMap" class="doc_header"><code>indexMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L168" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>indexMap</code>(<strong><code>lis</code></strong>)</p>
+<h4 id="indexMap" class="doc_header"><code>indexMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L179" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>indexMap</code>(<strong><code>lis</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -335,7 +338,7 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="cikConsolidatedHoldings" class="doc_header"><code>class</code> <code>cikConsolidatedHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L171" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>cikConsolidatedHoldings</code>(<strong><code>scraped13F</code></strong>, <strong><code>period</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>)</p>
+<h2 id="cikConsolidatedHoldings" class="doc_header"><code>class</code> <code>cikConsolidatedHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L182" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>cikConsolidatedHoldings</code>(<strong><code>scraped13F</code></strong>, <strong><code>period</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>)</p>
 </blockquote>
 
 </div>
@@ -359,7 +362,7 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L254" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
+<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L265" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
 </blockquote>
 <p>Returns the 13F period date for a given year and quarter number (this is the
 last day in the quarter), along with the start and end dateStrs for the next
@@ -387,7 +390,7 @@ Quarters are numbered 1-4.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getMatrixFor" class="doc_header"><code>getMatrixFor</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L267" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getMatrixFor</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>3</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
+<h4 id="getMatrixFor" class="doc_header"><code>getMatrixFor</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L278" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getMatrixFor</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>3</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
 
 </div>
@@ -411,7 +414,7 @@ Quarters are numbered 1-4.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveConvMatrixPy2" class="doc_header"><code>saveConvMatrixPy2</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L274" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveConvMatrixPy2</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.12</code></em>, <strong><code>maxFrac</code></strong>=<em><code>0.4</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>2</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
+<h4 id="saveConvMatrixPy2" class="doc_header"><code>saveConvMatrixPy2</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L285" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveConvMatrixPy2</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.12</code></em>, <strong><code>maxFrac</code></strong>=<em><code>0.4</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>2</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
 <p>Save a matrix of 13F conviction positions only for the given quarter,
 in a format readable by old Python 2 versions.</p>
