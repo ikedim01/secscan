@@ -90,18 +90,18 @@ def getMonthPatStr() :
         monthNamePatStrs.append(monthNamePatStr)
     return '(' + '|'.join(monthNamePatStrs) + ')'
 monthPatStr = getMonthPatStr()
-dateOfEventPatStr = r'date\s*of\s*event\s*which'
+dateOfEventPatStr = r'dates?\s*of\s*events?\s*which'
 dateOfEventMonthPat1 = re.compile(r'.{1,3000}?[^\dA-Z]'+monthPatStr+r'\s*(\d\d?)(?:\s*th)?'
-                                  +r'\s*(?:,|\s)\s*(\d\d\d\d)[^\d].{1,120}?'+dateOfEventPatStr,
+                                  +r'\s*(?:,|\s)\s*(\d\d\d\d)[^\d].{0,120}?'+dateOfEventPatStr,
                                  re.IGNORECASE|re.DOTALL)
 dateOfEventMonthPat2 = re.compile(r'.{1,3000}?[^\dA-Z](\d\d?)(?:\s*th)?\s*'+monthPatStr
-                                 +r'(?:,|\s)\s*(\d\d\d\d)[^\d].{1,120}?'+dateOfEventPatStr,
+                                 +r'(?:,|\s)\s*(\d\d\d\d)[^\d].{0,120}?'+dateOfEventPatStr,
                                  re.IGNORECASE|re.DOTALL)
 dateOfEventNumPat1 = re.compile(r'.{1,3000}?[^\d](\d\d?)\s*[-/]\s*(\d\d?)\s*[-/]\s*'
-                                +r'(\d\d\d\d)[^\d].{1,120}?'+dateOfEventPatStr,
+                                +r'(\d\d\d\d)[^\d].{0,120}?'+dateOfEventPatStr,
                                  re.IGNORECASE|re.DOTALL)
 dateOfEventNumPat2 = re.compile(r'.{1,3000}?[^\d](\d\d\d\d)\s*[-/]\s*(\d\d?)\s*[-/]\s*'
-                                +r'(\d\d?)[^\d].{1,120}?'+dateOfEventPatStr,
+                                +r'(\d\d?)[^\d].{0,120}?'+dateOfEventPatStr,
                                  re.IGNORECASE|re.DOTALL)
 def parseEventDate(info,mainText) :
     m = dateOfEventMonthPat1.match(mainText)
