@@ -3,10 +3,11 @@
 __all__ = ['default13GDir', 'getSec13NshAndPctFromText', 'cusipChecksum', 'monthNameToIso', 'getMonthPatStr',
            'parseEventDate', 'parse13GD', 'scraper13G', 'nSharesPatStr', 'nPctPatStr', 'form13NshAndPctPats',
            'purposePat', 'strictCusipPatStr', 'cusipPatStr', 'cusipNumberPatStr', 'cusipSearchPats', 'spaceDashPat',
-           'monthNames', 'monthAbbrevStrs', 'monthPatStr', 'monthDayPatStr', 'possCommaPatStr', 'dateOfEventPatStr',
-           'dateOfEventAtStartPatStr', 'dateOfEventAtEndPatStr', 'dateOfEventMonthPat1', 'dateOfEventMonthRevPat1',
-           'dateOfEventMonthPat2', 'dateOfEventMonthRevPat2', 'isoSepPatStr', 'dateOfEventIsoPat1',
-           'dateOfEventIsoRevPat1', 'dateOfEventIsoPat2', 'dateOfEventIsoRevPat2', 'updateCik13GDPos']
+           'monthNames', 'monthAbbrevStrs', 'monthPatStr', 'monthDayPatStr', 'possCommaPatStr', 'yearPatStr',
+           'dateOfEventPatStr', 'dateOfEventAtStartPatStr', 'dateOfEventAtEndPatStr', 'dateOfEventMonthPat1',
+           'dateOfEventMonthRevPat1', 'dateOfEventMonthPat2', 'dateOfEventMonthRevPat2', 'isoSepPatStr',
+           'dateOfEventIsoPat1', 'dateOfEventIsoRevPat1', 'dateOfEventIsoPat2', 'dateOfEventIsoRevPat2',
+           'whitespacePat', 'updateCik13GDPos']
 
 # Cell
 
@@ -92,34 +93,35 @@ def getMonthPatStr() :
         monthNamePatStrs.append(monthNamePatStr)
     return '(' + '|'.join(monthNamePatStrs) + ')'
 monthPatStr = getMonthPatStr()
-monthDayPatStr = r'(\d\d?)(?:\s*th)?'
+monthDayPatStr = r'(\d\d?)(?:\s*th|\s*st)?'
 possCommaPatStr = r'[.,\s]'
+yearPatStr = r'(\d\d\s*\d\d)'
 dateOfEventPatStr = r'dates?\s*of(?:\s*the)?\s*events?\s*which'
 dateOfEventAtStartPatStr = r'.{1,3000}?'+dateOfEventPatStr+r'.{0,120}?'
 dateOfEventAtEndPatStr = r'[^\d].{0,120}?'+dateOfEventPatStr
 dateOfEventMonthPat1 = re.compile(r'.{1,3000}?[^\dA-Z]'
-                                  + r'\s*'.join([monthPatStr,monthDayPatStr,possCommaPatStr,r'(\d\d\d\d)'])
+                                  + r'\s*'.join([monthPatStr,monthDayPatStr,possCommaPatStr,yearPatStr])
                                   + dateOfEventAtEndPatStr,
                                   re.IGNORECASE|re.DOTALL)
 dateOfEventMonthRevPat1 = re.compile(dateOfEventAtStartPatStr + r'[^\dA-Z]'
-                                     + r'\s*'.join([monthPatStr,monthDayPatStr,possCommaPatStr,r'(\d\d\d\d)'])
+                                     + r'\s*'.join([monthPatStr,monthDayPatStr,possCommaPatStr,yearPatStr])
                                      + r'[^\d]',
                                      re.IGNORECASE|re.DOTALL)
 dateOfEventMonthPat2 = re.compile(r'.{1,3000}?[^\d]'
-                                  + r'\s*'.join([monthDayPatStr,monthPatStr,possCommaPatStr,r'(\d\d\d\d)'])
+                                  + r'\s*'.join([monthDayPatStr,monthPatStr,possCommaPatStr,yearPatStr])
                                   + dateOfEventAtEndPatStr,
                                   re.IGNORECASE|re.DOTALL)
 dateOfEventMonthRevPat2 = re.compile(dateOfEventAtStartPatStr + r'[^\d]'
-                                     + r'\s*'.join([monthDayPatStr,monthPatStr,possCommaPatStr,r'(\d\d\d\d)'])
+                                     + r'\s*'.join([monthDayPatStr,monthPatStr,possCommaPatStr,yearPatStr])
                                      + r'[^\d]',
                                      re.IGNORECASE|re.DOTALL)
 isoSepPatStr = r'\s*[-/]\s*'
 dateOfEventIsoPat1 = re.compile(r'.{1,3000}?[^\d]'
-                                + isoSepPatStr.join([r'(\d\d?)',r'(\d\d?)',r'(\d\d\d\d)'])
+                                + isoSepPatStr.join([r'(\d\d?)',r'(\d\d?)',r'(\d\d(?:\d\d)?)'])
                                 + dateOfEventAtEndPatStr,
                                 re.IGNORECASE|re.DOTALL)
 dateOfEventIsoRevPat1 = re.compile(dateOfEventAtStartPatStr + r'[^\d]'
-                                   + isoSepPatStr.join([r'(\d\d?)',r'(\d\d?)',r'(\d\d\d\d)'])
+                                   + isoSepPatStr.join([r'(\d\d?)',r'(\d\d?)',r'(\d\d(?:\d\d)?)'])
                                    + r'[^\d]',
                                    re.IGNORECASE|re.DOTALL)
 dateOfEventIsoPat2 = re.compile(r'.{1,3000}?[^\d]'
@@ -130,18 +132,22 @@ dateOfEventIsoRevPat2 = re.compile(dateOfEventAtStartPatStr + r'[^\d]'
                                    + isoSepPatStr.join([r'(\d\d\d\d)',r'(\d\d?)',r'(\d\d?)'])
                                    + r'[^\d]',
                                    re.IGNORECASE|re.DOTALL)
+whitespacePat = re.compile(r'\s*',re.IGNORECASE|re.DOTALL)
 def parseEventDate(info,mainText) :
     m = dateOfEventMonthPat1.match(mainText) or dateOfEventMonthRevPat1.match(mainText)
     if m :
-        info['eventDate'] = '-'.join([m.group(3),monthNameToIso(m.group(1)),m.group(2).zfill(2)])
+        info['eventDate'] = '-'.join([whitespacePat.sub('',m.group(3)),
+                                      monthNameToIso(m.group(1)),m.group(2).zfill(2)])
         return
     m = dateOfEventMonthPat2.match(mainText) or dateOfEventMonthRevPat2.match(mainText)
     if m :
-        info['eventDate'] = '-'.join([m.group(3),monthNameToIso(m.group(2)),m.group(1).zfill(2)])
+        info['eventDate'] = '-'.join([whitespacePat.sub('',m.group(3)),
+                                      monthNameToIso(m.group(2)),m.group(1).zfill(2)])
         return
     m = dateOfEventIsoPat1.match(mainText) or dateOfEventIsoRevPat1.match(mainText)
     if m :
-        info['eventDate'] = '-'.join([m.group(3),m.group(1).zfill(2),m.group(2).zfill(2)])
+        info['eventDate'] = '-'.join([('20' if len(m.group(3))==2 else '')+m.group(3),
+                                      m.group(1).zfill(2),m.group(2).zfill(2)])
         return
     m = dateOfEventIsoPat2.match(mainText) or dateOfEventIsoRevPat2.match(mainText)
     if m :
