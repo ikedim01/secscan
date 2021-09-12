@@ -60,6 +60,9 @@ class scraperBase(object) :
         self.save()
     def showErrs(self, startD=None, endD=None) :
         self.retryErrs(startD=startD, endD=endD, justShow=True)
+    def checkDates(self, verbose=True) :
+        "Prints info on dates present, checking for missing dates."
+        dailyList.checkMapDates(self.infoMap, verbose=verbose)
     def printCounts(self, startD=None, endD=None, verbose=True) :
         if verbose :
             print()
