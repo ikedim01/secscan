@@ -12,6 +12,7 @@ __all__ = ['default13GDir', 'getSec13NshAndPctFromText', 'cusipChecksum', 'month
 # Cell
 
 import collections
+import datetime
 import itertools
 import os
 import re
@@ -228,18 +229,21 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None) :
         for dStr, accNoToInfo in scraper.infoMap.items() :
             for accNo, info in accNoToInfo.items() :
                 if info == 'ERROR' :
-                    print('ERR',accNo)
+                    print('*** ERROR in ',accNo)
                 elif 'filedByCik' not in info :
-                    print('No filed by CIK',accNo)
+                    print('*** No filed-by CIK in',accNo)
                 elif 'cusip' not in info :
-                    print('no CUSIP',accNo)
+                    print('No CUSIP in',accNo)
                 elif len(info['positions']) == 0 :
-                    print('no positions found',accNo)
-                elif 'eventDate' not in info :
-                    print('no event date',info)
+                    print('*** No positions found in',accNo)
                 else :
+                    if 'eventDate' not in info :
+                        eventDate = (utils.toDate(dStr)-datetime.timedelta(7)).isoformat()
+                        print(f'No event date in {accNo}; using {eventDate}')
+                    else :
+                        eventDate = info['eventDate']
                     cikTo13GDs[info['filedByCik'].lstrip('0')].append(
-                        (info['cusip'], info['eventDate'], accNo, max(float(pct) for _,pct in info['positions'])))
+                        (info['cusip'], eventDate, accNo, max(float(pct) for _,pct in info['positions'])))
                     count += 1
     print('total of',len(cikTo13GDs),'ciks,',count,'13G/D filings')
     for cik, cik13GDList in cikTo13GDs.items() :
