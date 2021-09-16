@@ -32,7 +32,8 @@ def get13GDDatesForQ(y, qNo) :
 def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPerInv=100,
                    minTop10Frac=0.4, minAUM=None, dtype=np.float64,
                    minInvestorsPerStock=2, maxInvestorsPerStock=None,
-                   max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100) :
+                   max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100,
+                   include13F=True, include13G=True, include13D=True) :
     """
     Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
     during the succeeding quarter, combined with 13G and 13D filings from the previous year
@@ -54,14 +55,22 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
     If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
     and 13D positions.
     """
-    dates = get13GDDatesForQ(y,qNo)
-    scrapedL = [scrape13G.scraper13G(**dates), scraper13D(**dates)]
-    cik13GDPosMap = scrape13G.updateCik13GDPos(scrapedL)
-    cikBonusMap = scrape13G.calcBonusMap(cik13GDPosMap, max13GDBonus=max13GDBonus, min13GDBonus=min13GDBonus,
-                                         max13GDCount=max13GDCount)
+    if include13G or include13D :
+        dates = get13GDDatesForQ(y,qNo)
+        scrapedL = []
+        if include13G :
+            scrapedL.append(scrape13G.scraper13G(**dates))
+        if include13D :
+            scrapedL.append(scraper13D(**dates))
+        cik13GDPosMap = scrape13G.updateCik13GDPos(scrapedL)
+        cikBonusMaps = [scrape13G.calcBonusMap(cik13GDPosMap,
+                                               max13GDBonus=max13GDBonus, min13GDBonus=min13GDBonus,
+                                               max13GDCount=max13GDCount)]
+    else :
+        cikBonusMaps = []
     return scrape13F.getNSSForQ(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
                                 minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
                                 minTop10Frac=minTop10Frac, minAUM=minAUM, dtype=dtype,
                                 minInvestorsPerStock=minInvestorsPerStock,
                                 maxInvestorsPerStock=maxInvestorsPerStock,
-                                extraHoldingsMaps=[cikBonusMap])
+                                extraHoldingsMaps=cikBonusMaps, include13F=include13F)

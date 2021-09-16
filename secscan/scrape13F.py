@@ -337,7 +337,7 @@ def getPeriodAndNextQStartEnd(y, qNo) :
 def getNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPerInv=100,
                minTop10Frac=0.4, minAUM=None, dtype=np.float64,
                minInvestorsPerStock=2, maxInvestorsPerStock=None,
-               extraHoldingsMaps = []) :
+               extraHoldingsMaps=[], include13F=True) :
     """
     Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
     during the succeeding quarter.
@@ -356,11 +356,14 @@ def getNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPe
 
     Optionally adds holdings from a list of extraHoldingsMaps (used for 13G/13D filings).
     """
-    period, nextQStartEnd = getPeriodAndNextQStartEnd(y,qNo)
-    holdingsMap = getHoldingsMap(scraper13F(**nextQStartEnd), period,
-                                 minFrac=minFrac, maxFrac=maxFrac,
-                                 minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
-                                 minTop10Frac=minTop10Frac, minAUM=minAUM)
+    if include13F :
+        period, nextQStartEnd = getPeriodAndNextQStartEnd(y,qNo)
+        holdingsMap = getHoldingsMap(scraper13F(**nextQStartEnd), period,
+                                     minFrac=minFrac, maxFrac=maxFrac,
+                                     minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
+                                     minTop10Frac=minTop10Frac, minAUM=minAUM)
+    else :
+        holdingsMap = {}
     for extraHoldingsMap in extraHoldingsMaps :
         addHoldingsMap(holdingsMap,extraHoldingsMap)
     return holdingsMapToMatrix(holdingsMap, minInvestorsPerStock=minInvestorsPerStock,
