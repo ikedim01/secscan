@@ -7,7 +7,7 @@ __all__ = ['default13GDir', 'getSec13NshAndPctFromText', 'cusipChecksum', 'month
            'dateOfEventPatStr', 'dateOfEventAtStartPatStr', 'dateOfEventAtEndPatStr', 'dateOfEventMonthPat1',
            'dateOfEventMonthRevPat1', 'dateOfEventMonthPat2', 'dateOfEventMonthRevPat2', 'isoSepPatStr',
            'dateOfEventIsoPat1', 'dateOfEventIsoRevPat1', 'dateOfEventIsoPat2', 'dateOfEventIsoRevPat2',
-           'whitespacePat', 'updateCik13GDPos']
+           'whitespacePat', 'updateCik13GDPos', 'calcBonusMap']
 
 # Cell
 
@@ -253,3 +253,22 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None) :
             if cusip not in posMap or posMap[cusip] < tup[1:] :
                 posMap[cusip] = tup[1:]
     return cik13GDPosMap
+
+def calcBonusMap(cik13GDPosMap, max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100) :
+    """
+    Calculate "bonus fractions" for cusips where a 13G or 13D has been filed.
+
+    Returns a dict: cik -> {cusip -> bonusfrac}
+    """
+    res = {}
+    for cik,posMap in cik13GDPosMap.items() :
+        cusips = [cusip for cusip,pos in posMap.items()
+                  if pos[-1] >= 5.0]
+        # Don't give a bonus for positions below 5% because this often means
+        # they're in the process of selling off the whole position.
+        if len(cusips) > 0 :
+            bonus = min(max13GDBonus,max(min13GDBonus,1/len(cusips)))
+            res[cik] = dict((cusip,bonus) for cusip in cusips)
+    if max13GDCount is not None :
+        res = dict((cik,posMap) for cik,posMap in res.items() if len(posMap)<=max13GDCount)
+    return res

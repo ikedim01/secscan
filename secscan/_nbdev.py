@@ -157,8 +157,11 @@ index = {"boto3_available": "00_utils.ipynb",
          "dateOfEventIsoRevPat2": "10_scrape13G.ipynb",
          "whitespacePat": "10_scrape13G.ipynb",
          "updateCik13GDPos": "10_scrape13G.ipynb",
+         "calcBonusMap": "10_scrape13G.ipynb",
          "default13DDir": "11_scrape13D.ipynb",
-         "scraper13D": "11_scrape13D.ipynb"}
+         "scraper13D": "11_scrape13D.ipynb",
+         "get13GDDatesForQ": "11_scrape13D.ipynb",
+         "getCombNSSForQ": "11_scrape13D.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
