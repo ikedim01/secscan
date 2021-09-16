@@ -33,6 +33,27 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
                    minTop10Frac=0.4, minAUM=None, dtype=np.float64,
                    minInvestorsPerStock=2, maxInvestorsPerStock=None,
                    max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100) :
+    """
+    Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
+    during the succeeding quarter, combined with 13G and 13D filings from the previous year
+    up through the succeeding quarter.
+
+    Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
+    in which each row has the fractions held by the corresponding cik in each cusip.
+
+    If minFrac and/or maxFrac is supplied, restricts to stocks with fraction of
+    total portfolio >=minFrac and/or <=maxFrac.
+
+    If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, omits
+    investors with too few stocks, too many stocks, too small a fraction in the
+    top 10 holdings, or too small a total stock value.
+    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors.
+    If maxInvestorsPerStock is specified, restricts to stocks with at most that many investors.
+
+    13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
+    If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
+    and 13D positions.
+    """
     dates = get13GDDatesForQ(y,qNo)
     scrapedL = [scrape13G.scraper13G(**dates), scraper13D(**dates)]
     cik13GDPosMap = scrape13G.updateCik13GDPos(scrapedL)

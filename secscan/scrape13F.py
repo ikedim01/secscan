@@ -196,7 +196,7 @@ def getHoldingsMap(scraped13F, period, minFrac=0.0, maxFrac=1.0,
 
     Restricts to stocks only (no call/put options).
 
-    If minFrac and/or maxFrac is supplied, restricts to stocks with with fraction of
+    If minFrac and/or maxFrac is supplied, restricts to stocks with fraction of
     total portfolio >=minFrac and/or <=maxFrac.
 
     If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, omits
@@ -345,7 +345,7 @@ def getNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPe
     Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
     in which each row has the fractions held by the corresponding cik in each cusip.
 
-    If minFrac and/or maxFrac is supplied, restricts to stocks with with fraction of
+    If minFrac and/or maxFrac is supplied, restricts to stocks with fraction of
     total portfolio >=minFrac and/or <=maxFrac.
 
     If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, omits
