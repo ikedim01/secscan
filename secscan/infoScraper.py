@@ -87,7 +87,8 @@ class scraperBase(object) :
         except Exception as e :
             print('*** ERROR ***',e)
             return 'ERROR'
-    def updateForDays(self, dl, startD=None, endD=None, ciks=None, errLimitPerDay=10, verbose=True) :
+    def updateForDays(self, dl, startD=None, endD=None, ciks=None, errLimitPerDay=25,
+                      verbose=True, saveAfterEachDay=False) :
         """
         Update to reflect the filings for dates between startD (inclusive)
         and endD (exclusive). If startD is None, uses the last date already
@@ -127,8 +128,11 @@ class scraperBase(object) :
                         return
             if dayIsDirty :
                 self.dirtySet.add(dStr)
+                if saveAfterEachDay :
+                    self.save()
     def loadAndUpdate(self, dlOrDir=dailyList.defaultDLDir,
-                      startD=None, endD=None, ciks=None, errLimitPerDay=10, verbose=True) :
+                      startD=None, endD=None, ciks=None, errLimitPerDay=10,
+                      verbose=True, saveAfterEachDay=False) :
         """
         Loads a dailyList for the given date range (this must already have been saved),
         and then updates the scraper for the given date range and saves it.
@@ -147,5 +151,6 @@ class scraperBase(object) :
         else :
             dl = dailyList.dailyList(dlDir=dlOrDir, startD=startD, endD=endD)
         self.loadDays(startD=startD, endD=endD)
-        self.updateForDays(dl, startD=startD, endD=endD, ciks=ciks, errLimitPerDay=errLimitPerDay, verbose=verbose)
+        self.updateForDays(dl, startD=startD, endD=endD, ciks=ciks, errLimitPerDay=errLimitPerDay,
+                           verbose=verbose, saveAfterEachDay=saveAfterEachDay)
         self.save()
