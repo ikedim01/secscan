@@ -254,21 +254,26 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None) :
                 posMap[cusip] = tup[1:]
     return cik13GDPosMap
 
-def calcBonusMap(cik13GDPosMap, max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100) :
+def calcBonusMap(cik13GDPosMap, max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100,
+                 allCusipCounter=None) :
     """
     Calculate "bonus fractions" for cusips where a 13G or 13D has been filed.
+    13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
+    If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
+    and 13D positions.
+    If supplied, allCusipCounter should be a Counter, and it will be updated to count
+    all investors that have any position in each stock.
 
     Returns a dict: cik -> {cusip -> bonusfrac}
     """
     res = {}
     for cik,posMap in cik13GDPosMap.items() :
-        cusips = [cusip for cusip,pos in posMap.items()
-                  if pos[-1] >= 5.0]
+        if allCusipCounter is not None :
+            allCusipCounter.update(posMap.keys())
+        cusips = [cusip for cusip,pos in posMap.items() if pos[-1] >= 5.0]
         # Don't give a bonus for positions below 5% because this often means
         # they're in the process of selling off the whole position.
-        if len(cusips) > 0 :
+        if len(cusips)>0 and (max13GDCount is None or len(cusips)<=max13GDCount) :
             bonus = min(max13GDBonus,max(min13GDBonus,1/len(cusips)))
             res[cik] = dict((cusip,bonus) for cusip in cusips)
-    if max13GDCount is not None :
-        res = dict((cik,posMap) for cik,posMap in res.items() if len(posMap)<=max13GDCount)
     return res

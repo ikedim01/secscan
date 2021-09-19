@@ -2,8 +2,8 @@
 
 __all__ = ['default13FDir', 'findChildEndingWith', 'findChildSeries', 'getRowInfo', 'parse13FHoldings', 'scraper13F',
            'callOptPat', 'putOptPat', 'condenseHoldings', 'get13FAmendmentType', 'indexMap', 'getHoldingsMap',
-           'addHoldingsMap', 'holdingsMapToMatrix', 'getPeriodAndNextQStartEnd', 'getNSSForQ', 'saveConvMatrixPy2',
-           'qStartEnds', 'qPeriods']
+           'addHoldingsMap', 'printRemoveStocksMessage', 'holdingsMapToMatrix', 'getPeriodAndNextQStartEnd',
+           'getNSSForQ', 'saveConvMatrixPy2', 'qStartEnds', 'qPeriods']
 
 # Cell
 
@@ -115,7 +115,8 @@ class scraper13F(infoScraper.scraperBase) :
 
 def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0,
                      pctFormat=False, includeName=False, cusipNames={},
-                     minStocksPerInv=None, maxStocksPerInv=None, minTop10Frac=None, minAUM=None) :
+                     minStocksPerInv=None, maxStocksPerInv=None, minTop10Frac=None, minAUM=None,
+                     allCusipCounter=None) :
     """
     Converts a list of of stock and option holdings as parsed from the 13F:
         [(cusip, name, value, title, count, putCall), ... ]
@@ -132,6 +133,10 @@ def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0,
     If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, returns None
     for lists with too few stocks, too many stocks, too small a fraction in the
     top 10 stocks, or too small a total value.
+
+    If supplied, allCusipCounter should be a Counter, and it will be updated to count
+    all investors that have any position in each stock, without regard to the min/max
+    options supplied to restrict the holdings list.
     """
     if includeName :
         cusipToName = dict((cusip,name)
@@ -141,6 +146,8 @@ def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0,
                       if putCall=='')
     holdings = [(cusip, sum(val for _,val in it))
                 for cusip,it in itertools.groupby(holdings, key=lambda x : x[0])]
+    if allCusipCounter is not None :
+        allCusipCounter.update(cusip for cusip,_ in holdings)
     if ((minStocksPerInv is not None and minStocksPerInv > len(holdings))
             or (maxStocksPerInv is not None and maxStocksPerInv < len(holdings))) :
         return None
@@ -187,7 +194,8 @@ def indexMap(lis) :
     return dict((el,i) for i,el in enumerate(lis))
 
 def getHoldingsMap(scraped13F, period, minFrac=0.0, maxFrac=1.0,
-                   minStocksPerInv=None, maxStocksPerInv=None, minTop10Frac=None, minAUM=None) :
+                   minStocksPerInv=None, maxStocksPerInv=None, minTop10Frac=None, minAUM=None,
+                   allCusipCounter=None) :
     """
     Consolidate holdings for each CIK based on all filings for a given period into
     a combined map of investor holdings.
@@ -202,6 +210,10 @@ def getHoldingsMap(scraped13F, period, minFrac=0.0, maxFrac=1.0,
     If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, omits
     investors with too few stocks, too many stocks, too small a fraction in the
     top 10 stocks, or too small a total stock value.
+
+    If supplied, allCusipCounter should be a Counter, and it will be updated to count
+    all investors that have any position in each stock, without regard to the min/max
+    options supplied to restrict the holdings map.
     """
     for v,msg in [(minFrac,'min stock fraction of portfolio'),
                   (maxFrac,'max stock fraction of portfolio'),
@@ -249,7 +261,8 @@ def getHoldingsMap(scraped13F, period, minFrac=0.0, maxFrac=1.0,
                 combHoldings = combHoldings + cik13FList[i][2]
         posList = condenseHoldings(combHoldings, minFrac=minFrac, maxFrac=maxFrac,
                                 minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
-                                minTop10Frac=minTop10Frac, minAUM=minAUM)
+                                minTop10Frac=minTop10Frac, minAUM=minAUM,
+                                allCusipCounter=allCusipCounter)
         if posList is not None :
             cikToPosList[cik] = posList
     res = {}
@@ -270,35 +283,64 @@ def addHoldingsMap(holdingsMap, extraHoldingsMap) :
         for cusip,frac in extraPosMap.items() :
             posMap[cusip] = posMap.get(cusip,0.0) + frac
 
+def printRemoveStocksMessage(cusipsToRemove, delCount, msg) :
+    print(msg,'- removed',len(cusipsToRemove)-delCount,'stocks')
+    return len(cusipsToRemove)
+
 def holdingsMapToMatrix(holdingsMap, minInvestorsPerStock=None, maxInvestorsPerStock=None,
-                        dtype=np.float64) :
+                        minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None, allCusipCounter=None,
+                        cusipFilter=None, dtype=np.float64) :
     """
     Converts a holdings map: cik -> {cusip -> frac} into a matrix.
 
     Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
     in which each row has the fractions held by the corresponding cik in each cusip.
 
-    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors.
-    If maxInvestorsPerStock is specified, restricts to stocks with at most that many investors.
+    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors
+    in the returned matrix; likewise, maxInvestorsPerStock can be used to give an upper bound.
+
+    If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified, then allCusipCounter
+    should be a Counter counting all investors that have any position in each stock,
+    and the result will be restricted based on this count.
+
+    If cusipFilter is specified, this should be a function that returns True for cusips to keep.
     """
-    cusipCounts = collections.Counter()
+    cusipCounter = collections.Counter()
     for posMap in holdingsMap.values() :
-        cusipCounts.update(posMap.keys())
+        cusipCounter.update(posMap.keys())
     cusipsToRemove = set()
     delCount = 0
-    if minInvestorsPerStock is None and maxInvestorsPerStock is None :
+    if (minInvestorsPerStock is None and maxInvestorsPerStock is None
+            and minAllInvestorsPerStock is None and maxAllInvestorsPerStock is None) :
         print('not limiting number of investors per stock')
     else :
+        if minAllInvestorsPerStock is not None :
+            cusipsToRemove.update(cusip for cusip in cusipCounter
+                                  if allCusipCounter[cusip] < minAllInvestorsPerStock)
+            delCount = printRemoveStocksMessage(cusipsToRemove,delCount,
+                        f'requiring at least {minAllInvestorsPerStock} ALL investors per stock')
+        if maxAllInvestorsPerStock is not None :
+            cusipsToRemove.update(cusip for cusip in cusipCounter
+                                  if allCusipCounter[cusip] > maxAllInvestorsPerStock)
+            delCount = printRemoveStocksMessage(cusipsToRemove,delCount,
+                        f'requiring at most {maxAllInvestorsPerStock} ALL investors per stock')
         if minInvestorsPerStock is not None :
-            cusipsToRemove.update(cusip for cusip,count in cusipCounts.items() if count<minInvestorsPerStock)
-            print('requiring at least',minInvestorsPerStock,'investors per stock -',
-                  'removed',len(cusipsToRemove),'stocks')
-            delCount = len(cusipsToRemove)
+            cusipsToRemove.update(cusip for cusip,count in cusipCounter.items()
+                                  if count < minInvestorsPerStock)
+            delCount = printRemoveStocksMessage(cusipsToRemove,delCount,
+                        f'requiring at least {minInvestorsPerStock} investors per stock')
         if maxInvestorsPerStock is not None :
-            cusipsToRemove.update(cusip for cusip,count in cusipCounts.items() if count>maxInvestorsPerStock)
-            print('requiring at most',maxInvestorsPerStock,'investors per stock -',
-                  'removed',len(cusipsToRemove)-delCount,'stocks')
-    cusips = sorted(set(cusipCounts.keys()) - cusipsToRemove)
+            cusipsToRemove.update(cusip for cusip,count in cusipCounter.items()
+                                  if count > maxInvestorsPerStock)
+            delCount = printRemoveStocksMessage(cusipsToRemove,delCount,
+                        f'requiring at most {maxInvestorsPerStock} investors per stock')
+    if cusipFilter is not None :
+        cusipsToRemove.update(cusip for cusip in cusipCounter
+                              if not cusipFilter(cusip))
+        delCount = printRemoveStocksMessage(cusipsToRemove,delCount,'applying CUSIP filter')
+    if delCount > 0 :
+        print('removed a total of',delCount,'stocks')
+    cusips = sorted(set(cusipCounter.keys()) - cusipsToRemove)
     ciks = sorted(cik for cik,posMap in holdingsMap.items()
                   if any((cusip not in cusipsToRemove) for cusip in posMap))
     if len(ciks) < len(holdingsMap) :
@@ -337,7 +379,8 @@ def getPeriodAndNextQStartEnd(y, qNo) :
 def getNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPerInv=100,
                minTop10Frac=0.4, minAUM=None, dtype=np.float64,
                minInvestorsPerStock=2, maxInvestorsPerStock=None,
-               extraHoldingsMaps=[], include13F=True) :
+               minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None, allCusipCounter=None,
+               cusipFilter=None, extraHoldingsMaps=[], include13F=True) :
     """
     Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
     during the succeeding quarter.
@@ -351,23 +394,34 @@ def getNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPe
     If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, omits
     investors with too few stocks, too many stocks, too small a fraction in the
     top 10 holdings, or too small a total stock value.
-    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors.
-    If maxInvestorsPerStock is specified, restricts to stocks with at most that many investors.
+    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors
+    in the returned matrix; likewise, maxInvestorsPerStock can be used to give an upper bound.
+    If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified, then allCusipCounter
+    should be a Counter counting all investors that have any position in each stock,
+    and the result will be restricted based on this count.
+    If cusipFilter is specified, this should be a function that returns True for cusips to keep.
 
     Optionally adds holdings from a list of extraHoldingsMaps (used for 13G/13D filings).
     """
+    if ((minAllInvestorsPerStock is not None or maxAllInvestorsPerStock is not None)
+            and allCusipCounter is None) :
+        allCusipCounter = collections.Counter()
     if include13F :
         period, nextQStartEnd = getPeriodAndNextQStartEnd(y,qNo)
         holdingsMap = getHoldingsMap(scraper13F(**nextQStartEnd), period,
                                      minFrac=minFrac, maxFrac=maxFrac,
                                      minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
-                                     minTop10Frac=minTop10Frac, minAUM=minAUM)
+                                     minTop10Frac=minTop10Frac, minAUM=minAUM,
+                                     allCusipCounter=allCusipCounter)
     else :
         holdingsMap = {}
     for extraHoldingsMap in extraHoldingsMaps :
         addHoldingsMap(holdingsMap,extraHoldingsMap)
     return holdingsMapToMatrix(holdingsMap, minInvestorsPerStock=minInvestorsPerStock,
-                               maxInvestorsPerStock=maxInvestorsPerStock, dtype=dtype)
+                               maxInvestorsPerStock=maxInvestorsPerStock,
+                               minAllInvestorsPerStock=minAllInvestorsPerStock,
+                               maxAllInvestorsPerStock=maxAllInvestorsPerStock,
+                               allCusipCounter=allCusipCounter, cusipFilter=cusipFilter, dtype=dtype)
 
 def saveConvMatrixPy2(y, qNo, minFrac=0.13, maxFrac=0.4, minStocksPerInv=3, maxStocksPerInv=500,
                       minTop10Frac=None, minAUM=7.5e7, dtype=np.float64,

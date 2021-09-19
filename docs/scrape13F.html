@@ -251,7 +251,7 @@ except putCall is 'CALL', 'PUT', or ''.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="condenseHoldings" class="doc_header"><code>condenseHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L116" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>condenseHoldings</code>(<strong><code>holdings</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>pctFormat</code></strong>=<em><code>False</code></em>, <strong><code>includeName</code></strong>=<em><code>False</code></em>, <strong><code>cusipNames</code></strong>=<em><code>{}</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>None</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="condenseHoldings" class="doc_header"><code>condenseHoldings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L116" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>condenseHoldings</code>(<strong><code>holdings</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>pctFormat</code></strong>=<em><code>False</code></em>, <strong><code>includeName</code></strong>=<em><code>False</code></em>, <strong><code>cusipNames</code></strong>=<em><code>{}</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>None</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts a list of of stock and option holdings as parsed from the 13F:
     [(cusip, name, value, title, count, putCall), ... ]
@@ -266,6 +266,9 @@ If includeName is True, the cusip name is also returned:
 <p>If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, returns None
 for lists with too few stocks, too many stocks, too small a fraction in the
 top 10 stocks, or too small a total value.</p>
+<p>If supplied, allCusipCounter should be a Counter, and it will be updated to count
+all investors that have any position in each stock, without regard to the min/max
+options supplied to restrict the holdings list.</p>
 
 </div>
 
@@ -288,7 +291,7 @@ top 10 stocks, or too small a total value.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get13FAmendmentType" class="doc_header"><code>get13FAmendmentType</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L168" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get13FAmendmentType</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get13FAmendmentType" class="doc_header"><code>get13FAmendmentType</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L175" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get13FAmendmentType</code>(<strong><code>accNo</code></strong>, <strong><code>formType</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Gets the amendment type for a 13F-HR/A filing - may be RESTATEMENT or NEW HOLDINGS.
 This turned out to be unreliable (often missing or wrong), so I don't use it to get
@@ -317,7 +320,7 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="indexMap" class="doc_header"><code>indexMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L185" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>indexMap</code>(<strong><code>lis</code></strong>)</p>
+<h4 id="indexMap" class="doc_header"><code>indexMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L192" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>indexMap</code>(<strong><code>lis</code></strong>)</p>
 </blockquote>
 <p>Converts a list to a dict mapping item -&gt; index in the list.</p>
 
@@ -342,7 +345,7 @@ if the new number of holdings is more than half the old number.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getHoldingsMap" class="doc_header"><code>getHoldingsMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L189" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getHoldingsMap</code>(<strong><code>scraped13F</code></strong>, <strong><code>period</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>None</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="getHoldingsMap" class="doc_header"><code>getHoldingsMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L196" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getHoldingsMap</code>(<strong><code>scraped13F</code></strong>, <strong><code>period</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>None</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Consolidate holdings for each CIK based on all filings for a given period into
 a combined map of investor holdings.</p>
@@ -353,6 +356,9 @@ total portfolio &gt;=minFrac and/or &lt;=maxFrac.</p>
 <p>If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, omits
 investors with too few stocks, too many stocks, too small a fraction in the
 top 10 stocks, or too small a total stock value.</p>
+<p>If supplied, allCusipCounter should be a Counter, and it will be updated to count
+all investors that have any position in each stock, without regard to the min/max
+options supplied to restrict the holdings map.</p>
 
 </div>
 
@@ -375,7 +381,7 @@ top 10 stocks, or too small a total stock value.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="addHoldingsMap" class="doc_header"><code>addHoldingsMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L260" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>addHoldingsMap</code>(<strong><code>holdingsMap</code></strong>, <strong><code>extraHoldingsMap</code></strong>)</p>
+<h4 id="addHoldingsMap" class="doc_header"><code>addHoldingsMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L273" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>addHoldingsMap</code>(<strong><code>holdingsMap</code></strong>, <strong><code>extraHoldingsMap</code></strong>)</p>
 </blockquote>
 <p>Adds positions in extraHoldingsMap to holdingsMap.
 Each argument is a dict: cik -&gt; {cusip -&gt; pct}
@@ -402,13 +408,8 @@ but extraHoldingsMap may contain ciks and cusips not in holdingsMap.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="holdingsMapToMatrix" class="doc_header"><code>holdingsMapToMatrix</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L273" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>holdingsMapToMatrix</code>(<strong><code>holdingsMap</code></strong>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>)</p>
+<h4 id="printRemoveStocksMessage" class="doc_header"><code>printRemoveStocksMessage</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L286" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printRemoveStocksMessage</code>(<strong><code>cusipsToRemove</code></strong>, <strong><code>delCount</code></strong>, <strong><code>msg</code></strong>)</p>
 </blockquote>
-<p>Converts a holdings map: cik -&gt; {cusip -&gt; frac} into a matrix.</p>
-<p>Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
-in which each row has the fractions held by the corresponding cik in each cusip.</p>
-<p>If minInvestorsPerStock is specified, restricts to stocks with at least that many investors.
-If maxInvestorsPerStock is specified, restricts to stocks with at most that many investors.</p>
 
 </div>
 
@@ -431,7 +432,40 @@ If maxInvestorsPerStock is specified, restricts to stocks with at most that many
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L324" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
+<h4 id="holdingsMapToMatrix" class="doc_header"><code>holdingsMapToMatrix</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L290" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>holdingsMapToMatrix</code>(<strong><code>holdingsMap</code></strong>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minAllInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>, <strong><code>cusipFilter</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>)</p>
+</blockquote>
+<p>Converts a holdings map: cik -&gt; {cusip -&gt; frac} into a matrix.</p>
+<p>Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
+in which each row has the fractions held by the corresponding cik in each cusip.</p>
+<p>If minInvestorsPerStock is specified, restricts to stocks with at least that many investors
+in the returned matrix; likewise, maxInvestorsPerStock can be used to give an upper bound.</p>
+<p>If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified, then allCusipCounter
+should be a Counter counting all investors that have any position in each stock,
+and the result will be restricted based on this count.</p>
+<p>If cusipFilter is specified, this should be a function that returns True for cusips to keep.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L366" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
 </blockquote>
 <p>Returns the 13F period date for a given year and quarter number (this is the
 last day in the quarter), along with the start and end dateStrs for the next
@@ -459,7 +493,7 @@ Quarters are numbered 1-4.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getNSSForQ" class="doc_header"><code>getNSSForQ</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L337" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getNSSForQ</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.01</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>3</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>100</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>0.4</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>2</code></em>, <strong><code>maxInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>extraHoldingsMaps</code></strong>=<em><code>[]</code></em>, <strong><code>include13F</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="getNSSForQ" class="doc_header"><code>getNSSForQ</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L379" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getNSSForQ</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.01</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>3</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>100</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>0.4</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>2</code></em>, <strong><code>maxInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minAllInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>, <strong><code>cusipFilter</code></strong>=<em><code>None</code></em>, <strong><code>extraHoldingsMaps</code></strong>=<em><code>[]</code></em>, <strong><code>include13F</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
 during the succeeding quarter.</p>
@@ -470,8 +504,12 @@ total portfolio &gt;=minFrac and/or &lt;=maxFrac.</p>
 <p>If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, omits
 investors with too few stocks, too many stocks, too small a fraction in the
 top 10 holdings, or too small a total stock value.
-If minInvestorsPerStock is specified, restricts to stocks with at least that many investors.
-If maxInvestorsPerStock is specified, restricts to stocks with at most that many investors.</p>
+If minInvestorsPerStock is specified, restricts to stocks with at least that many investors
+in the returned matrix; likewise, maxInvestorsPerStock can be used to give an upper bound.
+If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified, then allCusipCounter
+should be a Counter counting all investors that have any position in each stock,
+and the result will be restricted based on this count.
+If cusipFilter is specified, this should be a function that returns True for cusips to keep.</p>
 <p>Optionally adds holdings from a list of extraHoldingsMaps (used for 13G/13D filings).</p>
 
 </div>
@@ -495,7 +533,7 @@ If maxInvestorsPerStock is specified, restricts to stocks with at most that many
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveConvMatrixPy2" class="doc_header"><code>saveConvMatrixPy2</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L372" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveConvMatrixPy2</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.13</code></em>, <strong><code>maxFrac</code></strong>=<em><code>0.4</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>3</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>500</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>None</code></em>, <strong><code>minAUM</code></strong>=<em><code>75000000.0</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>2</code></em>, <strong><code>maxInvestorsPerStock</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="saveConvMatrixPy2" class="doc_header"><code>saveConvMatrixPy2</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L426" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveConvMatrixPy2</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.13</code></em>, <strong><code>maxFrac</code></strong>=<em><code>0.4</code></em>, <strong><code>minStocksPerInv</code></strong>=<em><code>3</code></em>, <strong><code>maxStocksPerInv</code></strong>=<em><code>500</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>None</code></em>, <strong><code>minAUM</code></strong>=<em><code>75000000.0</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>2</code></em>, <strong><code>maxInvestorsPerStock</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Save a matrix of 13F conviction positions only for the given quarter,
 in a format readable by the BW old Python2 version.</p>
@@ -918,352 +956,6 @@ CIK 913760 1 - 2 [(&#39;20210623&#39;, &#39;0000913760-21-000109&#39;, 397), (&#
 requiring at least 2 investors per stock - removed 1818 stocks
 removed 2 investors with no remaining positions
 final counts: 2,757 investors; 4,141 stocks; 53,563 positions
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>min stock fraction of portfolio 0.01
-max stock fraction of portfolio 1.0
-min stocks per investor 3
-max stocks per investor 100
-min fraction of portfolio in top 10 positions 0.4
-period 2021-03-31 - total of 5911 ciks, 6039 13F filings
-CIK 1731061 1 - 2 [(&#39;20210408&#39;, &#39;0001104659-21-047884&#39;, 829), (&#39;20210506&#39;, &#39;0001104659-21-062185&#39;, 895)]
-CIK 1386929 1 - 2 [(&#39;20210412&#39;, &#39;0001386929-21-000005&#39;, 79), (&#39;20210414&#39;, &#39;0001386929-21-000006&#39;, 79)]
-CIK 1105410 1 - 2 [(&#39;20210413&#39;, &#39;0001214659-21-004137&#39;, 50), (&#39;20210421&#39;, &#39;0001214659-21-004362&#39;, 50)]
-CIK 1566601 1 - 2 [(&#39;20210413&#39;, &#39;0001566601-21-000005&#39;, 764), (&#39;20210414&#39;, &#39;0001566601-21-000006&#39;, 764)]
-CIK 1573767 1 - 2 [(&#39;20210413&#39;, &#39;0001573767-21-000006&#39;, 49), (&#39;20210505&#39;, &#39;0001573767-21-000007&#39;, 66)]
-CIK 1840740 1 - 2 [(&#39;20210413&#39;, &#39;0001840740-21-000005&#39;, 51), (&#39;20210414&#39;, &#39;0001840740-21-000006&#39;, 51)]
-CIK 1053994 1 - 2 [(&#39;20210414&#39;, &#39;0001085146-21-001185&#39;, 184), (&#39;20210419&#39;, &#39;0001085146-21-001232&#39;, 296)]
-CIK 1381055 2 - 3 [(&#39;20210416&#39;, &#39;0001381055-21-000002&#39;, 101), (&#39;20210505&#39;, &#39;0001381055-21-000003&#39;, 101), (&#39;20210506&#39;, &#39;0001381055-21-000004&#39;, 102)]
-CIK 1844568 1 - 2 [(&#39;20210416&#39;, &#39;0001844568-21-000002&#39;, 187), (&#39;20210507&#39;, &#39;0001844568-21-000003&#39;, 104)]
-CIK 1634228 1 - 2 [(&#39;20210419&#39;, &#39;0001221073-21-000047&#39;, 62), (&#39;20210506&#39;, &#39;0001221073-21-000054&#39;, 93)]
-CIK 1710666 1 - 2 [(&#39;20210419&#39;, &#39;0001085146-21-001213&#39;, 23), (&#39;20210420&#39;, &#39;0001085146-21-001250&#39;, 23)]
-CIK 1767952 1 - 2 [(&#39;20210421&#39;, &#39;0001398344-21-008389&#39;, 224), (&#39;20210604&#39;, &#39;0001398344-21-012591&#39;, 225)]
-CIK 1843303 0 - 2 [(&#39;20210421&#39;, &#39;0001843303-21-000003&#39;, 27), (&#39;20210423&#39;, &#39;0001843303-21-000004&#39;, 1)]
-CIK 1080523 1 - 2 [(&#39;20210426&#39;, &#39;0001080523-21-000004&#39;, 63), (&#39;20210426&#39;, &#39;0001080523-21-000005&#39;, 72)]
-CIK 1800369 1 - 2 [(&#39;20210426&#39;, &#39;0001800369-21-000003&#39;, 415), (&#39;20210506&#39;, &#39;0001800369-21-000004&#39;, 416)]
-CIK 1840306 1 - 2 [(&#39;20210426&#39;, &#39;0001840306-21-000002&#39;, 595), (&#39;20210506&#39;, &#39;0001840306-21-000003&#39;, 635)]
-CIK 1845617 1 - 2 [(&#39;20210427&#39;, &#39;0001214659-21-004513&#39;, 34), (&#39;20210428&#39;, &#39;0001214659-21-004562&#39;, 74)]
-CIK 1801413 1 - 2 [(&#39;20210428&#39;, &#39;0001801413-21-000002&#39;, 85), (&#39;20210507&#39;, &#39;0001801413-21-000003&#39;, 101)]
-CIK 1825516 0 - 2 [(&#39;20210428&#39;, &#39;0001062993-21-003866&#39;, 93), (&#39;20210514&#39;, &#39;0001062993-21-004569&#39;, 29)]
-CIK 1689829 1 - 2 [(&#39;20210429&#39;, &#39;0001689829-21-000002&#39;, 107), (&#39;20210512&#39;, &#39;0001689829-21-000003&#39;, 173)]
-CIK 1803255 1 - 2 [(&#39;20210429&#39;, &#39;0001085146-21-001375&#39;, 81), (&#39;20210524&#39;, &#39;0001085146-21-001814&#39;, 75)]
-CIK 1216093 1 - 2 [(&#39;20210430&#39;, &#39;0000950123-21-005142&#39;, 30), (&#39;20210510&#39;, &#39;0000950123-21-005705&#39;, 23)]
-CIK 1541741 1 - 2 [(&#39;20210503&#39;, &#39;0001104659-21-059485&#39;, 655), (&#39;20210524&#39;, &#39;0001104659-21-070882&#39;, 655)]
-CIK 1811522 1 - 2 [(&#39;20210503&#39;, &#39;0001811522-21-000002&#39;, 20), (&#39;20210503&#39;, &#39;0001811522-21-000004&#39;, 20)]
-CIK 1054554 1 - 2 [(&#39;20210504&#39;, &#39;0001812046-21-000047&#39;, 316), (&#39;20210512&#39;, &#39;0001812046-21-000056&#39;, 303)]
-CIK 1539041 1 - 2 [(&#39;20210504&#39;, &#39;0001539041-21-000004&#39;, 339), (&#39;20210514&#39;, &#39;0001539041-21-000005&#39;, 339)]
-CIK 846600 1 - 2 [(&#39;20210504&#39;, &#39;0001085146-21-001442&#39;, 20), (&#39;20210504&#39;, &#39;0001085146-21-001443&#39;, 20)]
-CIK 1706915 1 - 2 [(&#39;20210505&#39;, &#39;0001398344-21-009704&#39;, 367), (&#39;20210511&#39;, &#39;0001398344-21-010220&#39;, 362)]
-CIK 1716984 1 - 2 [(&#39;20210505&#39;, &#39;0001606587-21-000593&#39;, 172), (&#39;20210520&#39;, &#39;0001606587-21-000742&#39;, 172)]
-CIK 1767080 1 - 2 [(&#39;20210505&#39;, &#39;0001767080-21-000003&#39;, 374), (&#39;20210506&#39;, &#39;0001767080-21-000004&#39;, 374)]
-CIK 1388409 2 - 3 [(&#39;20210506&#39;, &#39;0001388409-21-000003&#39;, 142), (&#39;20210507&#39;, &#39;0001388409-21-000004&#39;, 155), (&#39;20210511&#39;, &#39;0001388409-21-000005&#39;, 155)]
-CIK 1766791 1 - 2 [(&#39;20210506&#39;, &#39;0001766791-21-000003&#39;, 535), (&#39;20210506&#39;, &#39;0001766791-21-000004&#39;, 535)]
-CIK 919497 1 - 2 [(&#39;20210506&#39;, &#39;0001420506-21-000478&#39;, 174), (&#39;20210506&#39;, &#39;0001420506-21-000480&#39;, 174)]
-CIK 1447946 1 - 2 [(&#39;20210507&#39;, &#39;0001447946-21-000003&#39;, 116), (&#39;20210510&#39;, &#39;0001447946-21-000004&#39;, 122)]
-CIK 1539994 1 - 2 [(&#39;20210507&#39;, &#39;0001539994-21-000010&#39;, 164), (&#39;20210507&#39;, &#39;0001539994-21-000015&#39;, 167)]
-CIK 1633969 1 - 2 [(&#39;20210507&#39;, &#39;0001633969-21-000003&#39;, 10), (&#39;20210514&#39;, &#39;0001633969-21-000004&#39;, 10)]
-CIK 1858740 1 - 2 [(&#39;20210507&#39;, &#39;0001858740-21-000001&#39;, 129), (&#39;20210521&#39;, &#39;0001858740-21-000002&#39;, 2972)]
-CIK 1126328 0 - 2 [(&#39;20210510&#39;, &#39;0001126328-21-000140&#39;, 4029), (&#39;20210524&#39;, &#39;0001126328-21-000154&#39;, 36)]
-CIK 1576762 1 - 2 [(&#39;20210510&#39;, &#39;0001085146-21-001520&#39;, 109), (&#39;20210520&#39;, &#39;0001085146-21-001811&#39;, 71)]
-CIK 1858828 0 - 2 [(&#39;20210510&#39;, &#39;0001858828-21-000001&#39;, 416), (&#39;20210510&#39;, &#39;0001858828-21-000003&#39;, 64)]
-CIK 1014306 1 - 2 [(&#39;20210511&#39;, &#39;0001014306-21-000002&#39;, 181), (&#39;20210514&#39;, &#39;0001014306-21-000003&#39;, 177)]
-CIK 1575151 1 - 2 [(&#39;20210511&#39;, &#39;0001575151-21-000004&#39;, 206), (&#39;20210512&#39;, &#39;0001575151-21-000006&#39;, 206)]
-CIK 1845773 1 - 2 [(&#39;20210511&#39;, &#39;0001754960-21-000084&#39;, 55), (&#39;20210607&#39;, &#39;0001754960-21-000099&#39;, 58)]
-CIK 1860981 1 - 2 [(&#39;20210511&#39;, &#39;0001606587-21-000659&#39;, 50), (&#39;20210511&#39;, &#39;0001606587-21-000664&#39;, 50)]
-CIK 1020066 1 - 2 [(&#39;20210512&#39;, &#39;0001567619-21-009680&#39;, 76), (&#39;20210517&#39;, &#39;0001567619-21-010270&#39;, 77)]
-CIK 1420473 1 - 2 [(&#39;20210512&#39;, &#39;0001214659-21-005217&#39;, 268), (&#39;20210512&#39;, &#39;0001214659-21-005227&#39;, 268)]
-CIK 1550509 1 - 2 [(&#39;20210512&#39;, &#39;0001754960-21-000087&#39;, 33), (&#39;20210513&#39;, &#39;0001754960-21-000089&#39;, 33)]
-CIK 1770632 1 - 2 [(&#39;20210512&#39;, &#39;0001770632-21-000006&#39;, 922), (&#39;20210514&#39;, &#39;0001770632-21-000010&#39;, 922)]
-CIK 1828776 1 - 2 [(&#39;20210512&#39;, &#39;0001828776-21-000004&#39;, 26), (&#39;20210512&#39;, &#39;0001828776-21-000005&#39;, 35)]
-CIK 1842296 0 - 2 [(&#39;20210512&#39;, &#39;0001842296-21-000002&#39;, 745), (&#39;20210513&#39;, &#39;0001842296-21-000003&#39;, 251)]
-CIK 1077583 1 - 2 [(&#39;20210513&#39;, &#39;0001077583-21-000006&#39;, 138), (&#39;20210518&#39;, &#39;0001077583-21-000007&#39;, 148)]
-CIK 1302842 1 - 2 [(&#39;20210513&#39;, &#39;0001420506-21-000592&#39;, 13), (&#39;20210520&#39;, &#39;0001420506-21-000805&#39;, 17)]
-CIK 1456114 1 - 2 [(&#39;20210513&#39;, &#39;0001456114-21-000003&#39;, 757), (&#39;20210601&#39;, &#39;0001456114-21-000004&#39;, 810)]
-CIK 1513703 0 - 2 [(&#39;20210513&#39;, &#39;0001398344-21-010667&#39;, 8245), (&#39;20210520&#39;, &#39;0001398344-21-011097&#39;, 2220)]
-CIK 1691982 0 - 3 [(&#39;20210513&#39;, &#39;0001691982-21-000004&#39;, 40), (&#39;20210521&#39;, &#39;0001691982-21-000005&#39;, 1), (&#39;20210524&#39;, &#39;0001691982-21-000006&#39;, 1)]
-CIK 1705711 1 - 2 [(&#39;20210513&#39;, &#39;0001705711-21-000004&#39;, 151), (&#39;20210513&#39;, &#39;0001705711-21-000006&#39;, 151)]
-CIK 1834802 1 - 2 [(&#39;20210513&#39;, &#39;0001834802-21-000002&#39;, 90), (&#39;20210517&#39;, &#39;0001834802-21-000004&#39;, 66)]
-CIK 1858319 1 - 2 [(&#39;20210513&#39;, &#39;0001104659-21-065690&#39;, 44), (&#39;20210517&#39;, &#39;0001104659-21-068254&#39;, 42)]
-CIK 887402 1 - 2 [(&#39;20210513&#39;, &#39;0000887402-21-000002&#39;, 96), (&#39;20210514&#39;, &#39;0000887402-21-000003&#39;, 100)]
-CIK 1177244 1 - 2 [(&#39;20210514&#39;, &#39;0000909012-21-000080&#39;, 87), (&#39;20210514&#39;, &#39;0000909012-21-000083&#39;, 87)]
-CIK 1276470 1 - 2 [(&#39;20210514&#39;, &#39;0001567619-21-010197&#39;, 94), (&#39;20210517&#39;, &#39;0001567619-21-010379&#39;, 94)]
-CIK 1279030 0 - 2 [(&#39;20210514&#39;, &#39;0000950159-21-000146&#39;, 139), (&#39;20210517&#39;, &#39;0000950159-21-000158&#39;, 8)]
-CIK 1389403 1 - 2 [(&#39;20210514&#39;, &#39;0001104659-21-066764&#39;, 19), (&#39;20210521&#39;, &#39;0001104659-21-070456&#39;, 20)]
-CIK 1399386 1 - 2 [(&#39;20210514&#39;, &#39;0000921895-21-001312&#39;, 18), (&#39;20210527&#39;, &#39;0000921895-21-001505&#39;, 18)]
-CIK 1519921 1 - 2 [(&#39;20210514&#39;, &#39;0001027848-21-000003&#39;, 2), (&#39;20210514&#39;, &#39;0001027848-21-000005&#39;, 4)]
-CIK 1521001 2 - 3 [(&#39;20210514&#39;, &#39;0001567619-21-010042&#39;, 19999), (&#39;20210514&#39;, &#39;0001567619-21-010044&#39;, 20000), (&#39;20210514&#39;, &#39;0001567619-21-010048&#39;, 25295)]
-CIK 1559077 0 - 2 [(&#39;20210514&#39;, &#39;0001725547-21-000047&#39;, 263), (&#39;20210603&#39;, &#39;0001725547-21-000060&#39;, 4)]
-CIK 1591744 1 - 2 [(&#39;20210514&#39;, &#39;0000902664-21-002760&#39;, 114), (&#39;20210527&#39;, &#39;0000902664-21-002941&#39;, 114)]
-CIK 1599170 1 - 2 [(&#39;20210514&#39;, &#39;0001420506-21-000672&#39;, 101), (&#39;20210518&#39;, &#39;0001420506-21-000802&#39;, 101)]
-CIK 1668256 1 - 2 [(&#39;20210514&#39;, &#39;0001668256-21-000003&#39;, 165), (&#39;20210517&#39;, &#39;0001668256-21-000004&#39;, 165)]
-CIK 1672142 1 - 2 [(&#39;20210514&#39;, &#39;0001172661-21-001130&#39;, 118), (&#39;20210518&#39;, &#39;0001172661-21-001370&#39;, 118)]
-CIK 1714678 1 - 2 [(&#39;20210514&#39;, &#39;0001714678-21-000002&#39;, 124), (&#39;20210521&#39;, &#39;0001714678-21-000003&#39;, 128)]
-CIK 1723397 1 - 2 [(&#39;20210514&#39;, &#39;0001723397-21-000003&#39;, 3417), (&#39;20210517&#39;, &#39;0001723397-21-000004&#39;, 3417)]
-CIK 1742418 1 - 2 [(&#39;20210514&#39;, &#39;0001742418-21-000004&#39;, 37), (&#39;20210514&#39;, &#39;0001742418-21-000005&#39;, 37)]
-CIK 1833156 0 - 2 [(&#39;20210514&#39;, &#39;0001606587-21-000727&#39;, 13), (&#39;20210527&#39;, &#39;0001606587-21-000749&#39;, 6)]
-CIK 1837343 1 - 2 [(&#39;20210514&#39;, &#39;0001744238-21-000004&#39;, 17), (&#39;20210517&#39;, &#39;0001837343-21-000004&#39;, 17)]
-CIK 1846177 1 - 2 [(&#39;20210514&#39;, &#39;0001725547-21-000052&#39;, 190), (&#39;20210517&#39;, &#39;0001725547-21-000059&#39;, 207)]
-CIK 1859606 0 - 2 [(&#39;20210514&#39;, &#39;0001859606-21-000004&#39;, 527), (&#39;20210520&#39;, &#39;0001859606-21-000008&#39;, 209)]
-CIK 1063296 1 - 2 [(&#39;20210517&#39;, &#39;0000905718-21-000694&#39;, 10), (&#39;20210518&#39;, &#39;0000905718-21-000710&#39;, 10)]
-CIK 1080383 1 - 2 [(&#39;20210517&#39;, &#39;0000919574-21-003508&#39;, 53), (&#39;20210518&#39;, &#39;0000919574-21-003778&#39;, 55)]
-CIK 1086619 1 - 2 [(&#39;20210517&#39;, &#39;0001567619-21-010327&#39;, 3238), (&#39;20210528&#39;, &#39;0001567619-21-011331&#39;, 3238)]
-CIK 1119376 1 - 2 [(&#39;20210517&#39;, &#39;0001567619-21-010351&#39;, 38), (&#39;20210518&#39;, &#39;0001567619-21-010595&#39;, 40)]
-CIK 1164688 1 - 2 [(&#39;20210517&#39;, &#39;0001172661-21-001214&#39;, 16), (&#39;20210521&#39;, &#39;0001172661-21-001373&#39;, 16)]
-CIK 1224962 1 - 2 [(&#39;20210517&#39;, &#39;0001012975-21-000229&#39;, 138), (&#39;20210610&#39;, &#39;0001012975-21-000242&#39;, 139)]
-CIK 1332784 1 - 2 [(&#39;20210517&#39;, &#39;0001567619-21-010483&#39;, 12), (&#39;20210623&#39;, &#39;0001567619-21-012524&#39;, 12)]
-CIK 1387369 1 - 2 [(&#39;20210517&#39;, &#39;0000919574-21-003641&#39;, 39), (&#39;20210517&#39;, &#39;0000919574-21-003738&#39;, 40)]
-CIK 1393818 1 - 2 [(&#39;20210517&#39;, &#39;0000950123-21-007113&#39;, 500), (&#39;20210519&#39;, &#39;0000950123-21-007183&#39;, 500)]
-CIK 1423053 1 - 3 [(&#39;20210517&#39;, &#39;0000950123-21-007021&#39;, 16138), (&#39;20210521&#39;, &#39;0000950123-21-007261&#39;, 16138), (&#39;20210521&#39;, &#39;0000950123-21-007263&#39;, 3)]
-CIK 1595082 0 - 2 [(&#39;20210517&#39;, &#39;0001595082-21-000039&#39;, 453), (&#39;20210527&#39;, &#39;0001595082-21-000041&#39;, 1)]
-CIK 1604350 1 - 2 [(&#39;20210517&#39;, &#39;0001567619-21-010535&#39;, 24), (&#39;20210521&#39;, &#39;0001567619-21-010963&#39;, 24)]
-CIK 1621855 2 - 3 [(&#39;20210517&#39;, &#39;0001621855-21-000003&#39;, 32), (&#39;20210518&#39;, &#39;0001621855-21-000004&#39;, 32), (&#39;20210518&#39;, &#39;0001621855-21-000005&#39;, 32)]
-CIK 1630243 0 - 2 [(&#39;20210517&#39;, &#39;0001630243-21-000006&#39;, 38), (&#39;20210520&#39;, &#39;0001630243-21-000008&#39;, 1)]
-CIK 1643354 1 - 2 [(&#39;20210517&#39;, &#39;0001567619-21-010454&#39;, 30), (&#39;20210519&#39;, &#39;0001567619-21-010662&#39;, 30)]
-CIK 1657043 1 - 3 [(&#39;20210517&#39;, &#39;0001657043-21-000003&#39;, 10), (&#39;20210623&#39;, &#39;0001657043-21-000004&#39;, 11), (&#39;20210623&#39;, &#39;0001657043-21-000005&#39;, 1)]
-CIK 1712901 1 - 2 [(&#39;20210517&#39;, &#39;0001172661-21-001341&#39;, 139), (&#39;20210621&#39;, &#39;0001172661-21-001412&#39;, 145)]
-CIK 1717479 1 - 2 [(&#39;20210517&#39;, &#39;0001717479-21-000004&#39;, 200), (&#39;20210518&#39;, &#39;0001717479-21-000005&#39;, 244)]
-CIK 1732687 2 - 3 [(&#39;20210517&#39;, &#39;0001732687-21-000002&#39;, 101), (&#39;20210519&#39;, &#39;0001732687-21-000003&#39;, 101), (&#39;20210521&#39;, &#39;0001732687-21-000004&#39;, 101)]
-CIK 1743937 0 - 2 [(&#39;20210517&#39;, &#39;0000902664-21-002812&#39;, 42), (&#39;20210518&#39;, &#39;0000902664-21-002832&#39;, 1)]
-CIK 1768041 1 - 2 [(&#39;20210517&#39;, &#39;0001768041-21-000004&#39;, 14), (&#39;20210524&#39;, &#39;0001768041-21-000005&#39;, 14)]
-CIK 1777141 0 - 2 [(&#39;20210517&#39;, &#39;0001777141-21-000007&#39;, 25), (&#39;20210518&#39;, &#39;0001777141-21-000008&#39;, 5)]
-CIK 1777813 1 - 2 [(&#39;20210517&#39;, &#39;0001777813-21-000005&#39;, 53), (&#39;20210601&#39;, &#39;0001777813-21-000006&#39;, 53)]
-CIK 1781002 1 - 2 [(&#39;20210517&#39;, &#39;0001420506-21-000729&#39;, 80), (&#39;20210603&#39;, &#39;0001420506-21-000826&#39;, 81)]
-CIK 1787596 0 - 2 [(&#39;20210517&#39;, &#39;0001172661-21-001283&#39;, 80), (&#39;20210525&#39;, &#39;0001172661-21-001377&#39;, 12)]
-CIK 1802361 1 - 2 [(&#39;20210517&#39;, &#39;0001802361-21-000006&#39;, 46), (&#39;20210517&#39;, &#39;0001802361-21-000008&#39;, 46)]
-CIK 1822534 0 - 2 [(&#39;20210517&#39;, &#39;0001822531-21-000003&#39;, 12), (&#39;20210518&#39;, &#39;0001822534-21-000002&#39;, 1)]
-CIK 1843527 1 - 2 [(&#39;20210517&#39;, &#39;0001720350-21-000003&#39;, 29), (&#39;20210518&#39;, &#39;0001843527-21-000004&#39;, 29)]
-CIK 1860989 1 - 2 [(&#39;20210517&#39;, &#39;0001315863-21-000455&#39;, 5), (&#39;20210527&#39;, &#39;0001315863-21-000482&#39;, 5)]
-CIK 949509 7 - 8 [(&#39;20210517&#39;, &#39;0000949509-21-000009&#39;, 176), (&#39;20210517&#39;, &#39;0000949509-21-000010&#39;, 1), (&#39;20210518&#39;, &#39;0000949509-21-000011&#39;, 177), (&#39;20210518&#39;, &#39;0000949509-21-000013&#39;, 8), (&#39;20210519&#39;, &#39;0000949509-21-000014&#39;, 185), (&#39;20210519&#39;, &#39;0000949509-21-000015&#39;, 185), (&#39;20210604&#39;, &#39;0000949509-21-000016&#39;, 185), (&#39;20210604&#39;, &#39;0000949509-21-000017&#39;, 185)]
-CIK 1642274 1 - 2 [(&#39;20210518&#39;, &#39;0001642274-21-000002&#39;, 23), (&#39;20210519&#39;, &#39;0001642274-21-000003&#39;, 23)]
-CIK 1792851 1 - 2 [(&#39;20210520&#39;, &#39;0001792851-21-000002&#39;, 260), (&#39;20210524&#39;, &#39;0001792851-21-000003&#39;, 277)]
-CIK 1704300 1 - 2 [(&#39;20210607&#39;, &#39;0001704300-21-000003&#39;, 333), (&#39;20210609&#39;, &#39;0001704300-21-000005&#39;, 279)]
-CIK 1864229 1 - 2 [(&#39;20210608&#39;, &#39;0001864229-21-000001&#39;, 336), (&#39;20210617&#39;, &#39;0001864229-21-000002&#39;, 336)]
-CIK 1171592 1 - 2 [(&#39;20210618&#39;, &#39;0001420506-21-000830&#39;, 34), (&#39;20210625&#39;, &#39;0001420506-21-000830&#39;, 34)]
-CIK 913760 1 - 2 [(&#39;20210623&#39;, &#39;0000913760-21-000109&#39;, 397), (&#39;20210630&#39;, &#39;0000913760-21-000112&#39;, 413)]
-requiring at least 2 investors per stock - removed 1837 stocks
-removed 2 investors with no remaining positions
-final counts: 2,514 investors; 3,899 stocks; 44,438 positions
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>min stock fraction of portfolio 0.01
-max stock fraction of portfolio 1.0
-min stocks per investor 3
-max stocks per investor 100
-min fraction of portfolio in top 10 positions 0.4
-ERR 0000950123-21-001365
-ERR 0000950123-21-001368
-ERR 0000950123-21-002850
-period 2020-12-31 - total of 5872 ciks, 6034 13F filings
-CIK 1802098 1 - 2 [(&#39;20210107&#39;, &#39;0001802098-21-000002&#39;, 78), (&#39;20210208&#39;, &#39;0001802098-21-000002&#39;, 78)]
-CIK 1056825 1 - 2 [(&#39;20210111&#39;, &#39;0001056825-21-000001&#39;, 690), (&#39;20210201&#39;, &#39;0001056825-21-000002&#39;, 690)]
-CIK 1802533 1 - 2 [(&#39;20210111&#39;, &#39;0001802533-21-000001&#39;, 197), (&#39;20210112&#39;, &#39;0001802533-21-000002&#39;, 197)]
-CIK 1714506 1 - 2 [(&#39;20210112&#39;, &#39;0001754960-21-000006&#39;, 135), (&#39;20210113&#39;, &#39;0001754960-21-000011&#39;, 135)]
-CIK 1089707 1 - 2 [(&#39;20210113&#39;, &#39;0001089707-21-000003&#39;, 85), (&#39;20210125&#39;, &#39;0001089707-21-000006&#39;, 87)]
-CIK 1780985 1 - 2 [(&#39;20210113&#39;, &#39;0001780985-21-000001&#39;, 205), (&#39;20210208&#39;, &#39;0001780985-21-000003&#39;, 128)]
-CIK 1819955 2 - 3 [(&#39;20210113&#39;, &#39;0001819955-21-000002&#39;, 90), (&#39;20210119&#39;, &#39;0001819955-21-000004&#39;, 92), (&#39;20210217&#39;, &#39;0001819955-21-000007&#39;, 91)]
-CIK 1599923 1 - 3 [(&#39;20210114&#39;, &#39;0001085146-21-000111&#39;, 75), (&#39;20210119&#39;, &#39;0001085146-21-000123&#39;, 90), (&#39;20210129&#39;, &#39;0001085146-21-000345&#39;, 2)]
-CIK 1802365 1 - 2 [(&#39;20210115&#39;, &#39;0001802365-21-000001&#39;, 85), (&#39;20210126&#39;, &#39;0001802365-21-000002&#39;, 81)]
-CIK 1453620 1 - 2 [(&#39;20210119&#39;, &#39;0001453620-21-000002&#39;, 238), (&#39;20210125&#39;, &#39;0001453620-21-000005&#39;, 238)]
-CIK 1767306 1 - 2 [(&#39;20210119&#39;, &#39;0001420506-21-000024&#39;, 148), (&#39;20210120&#39;, &#39;0001420506-21-000026&#39;, 557)]
-CIK 1829231 1 - 2 [(&#39;20210119&#39;, &#39;0001754960-21-000020&#39;, 49), (&#39;20210210&#39;, &#39;0001754960-21-000038&#39;, 48)]
-CIK 1832274 1 - 2 [(&#39;20210121&#39;, &#39;0001398344-21-001115&#39;, 270), (&#39;20210301&#39;, &#39;0001398344-21-005211&#39;, 295)]
-CIK 1766929 1 - 2 [(&#39;20210125&#39;, &#39;0001766929-21-000001&#39;, 30), (&#39;20210209&#39;, &#39;0001766929-21-000002&#39;, 30)]
-CIK 1839421 1 - 2 [(&#39;20210125&#39;, &#39;0001839421-21-000001&#39;, 70), (&#39;20210126&#39;, &#39;0001839421-21-000002&#39;, 69)]
-CIK 1318055 1 - 2 [(&#39;20210126&#39;, &#39;0001062993-21-000611&#39;, 287), (&#39;20210127&#39;, &#39;0001062993-21-000656&#39;, 295)]
-CIK 1352675 1 - 2 [(&#39;20210127&#39;, &#39;0001352675-21-000002&#39;, 284), (&#39;20210209&#39;, &#39;0001352675-21-000004&#39;, 280)]
-CIK 1439743 1 - 2 [(&#39;20210127&#39;, &#39;0001085146-21-000285&#39;, 168), (&#39;20210202&#39;, &#39;0001085146-21-000392&#39;, 309)]
-CIK 1294571 1 - 2 [(&#39;20210128&#39;, &#39;0000909012-21-000007&#39;, 70), (&#39;20210308&#39;, &#39;0000909012-21-000051&#39;, 91)]
-CIK 874791 1 - 2 [(&#39;20210128&#39;, &#39;0000874791-21-000003&#39;, 116), (&#39;20210201&#39;, &#39;0000874791-21-000005&#39;, 120)]
-CIK 1093589 1 - 2 [(&#39;20210129&#39;, &#39;0001093589-21-000001&#39;, 85), (&#39;20210203&#39;, &#39;0001093589-21-000002&#39;, 85)]
-CIK 1302720 1 - 2 [(&#39;20210129&#39;, &#39;0001302720-21-000001&#39;, 204), (&#39;20210129&#39;, &#39;0001302720-21-000002&#39;, 215)]
-CIK 1388829 1 - 2 [(&#39;20210129&#39;, &#39;0001085146-21-000309&#39;, 288), (&#39;20210210&#39;, &#39;0001085146-21-000564&#39;, 538)]
-CIK 1764525 2 - 3 [(&#39;20210201&#39;, &#39;0001172661-21-000208&#39;, 5), (&#39;20210217&#39;, &#39;0001172661-21-000868&#39;, 1), (&#39;20210217&#39;, &#39;0001172661-21-000870&#39;, 5)]
-CIK 1780067 0 - 2 [(&#39;20210201&#39;, &#39;0001104659-21-010104&#39;, 7), (&#39;20210211&#39;, &#39;0001104659-21-020399&#39;, 1)]
-CIK 1531809 1 - 2 [(&#39;20210202&#39;, &#39;0001531809-21-000002&#39;, 99), (&#39;20210217&#39;, &#39;0001531809-21-000003&#39;, 98)]
-CIK 1633389 2 - 3 [(&#39;20210202&#39;, &#39;0001062993-21-000784&#39;, 444), (&#39;20210205&#39;, &#39;0001062993-21-000902&#39;, 573), (&#39;20210330&#39;, &#39;0001062993-21-003116&#39;, 572)]
-CIK 1808163 1 - 2 [(&#39;20210202&#39;, &#39;0001808163-21-000001&#39;, 40), (&#39;20210202&#39;, &#39;0001808163-21-000003&#39;, 40)]
-CIK 1839122 1 - 2 [(&#39;20210202&#39;, &#39;0001839122-21-000001&#39;, 78), (&#39;20210212&#39;, &#39;0001839122-21-000002&#39;, 77)]
-CIK 1843684 1 - 2 [(&#39;20210202&#39;, &#39;0000870156-21-000011&#39;, 143), (&#39;20210222&#39;, &#39;0000870156-21-000017&#39;, 153)]
-CIK 1596055 1 - 2 [(&#39;20210203&#39;, &#39;0001420506-21-000094&#39;, 93), (&#39;20210204&#39;, &#39;0001420506-21-000097&#39;, 93)]
-CIK 1767141 1 - 2 [(&#39;20210203&#39;, &#39;0001767141-21-000001&#39;, 32), (&#39;20210205&#39;, &#39;0001767141-21-000003&#39;, 32)]
-CIK 1803227 0 - 2 [(&#39;20210203&#39;, &#39;0001725547-21-000008&#39;, 105), (&#39;20210305&#39;, &#39;0001725547-21-000030&#39;, 1)]
-CIK 1177206 1 - 2 [(&#39;20210204&#39;, &#39;0001177206-21-000003&#39;, 1502), (&#39;20210310&#39;, &#39;0001177206-21-000004&#39;, 1502)]
-CIK 1386060 1 - 2 [(&#39;20210204&#39;, &#39;0001085146-21-000458&#39;, 1616), (&#39;20210210&#39;, &#39;0001085146-21-000562&#39;, 1624)]
-CIK 1526246 1 - 2 [(&#39;20210204&#39;, &#39;0001095449-21-000004&#39;, 21), (&#39;20210208&#39;, &#39;0001095449-21-000011&#39;, 19)]
-CIK 1729847 1 - 2 [(&#39;20210204&#39;, &#39;0001085146-21-000440&#39;, 103), (&#39;20210209&#39;, &#39;0001085146-21-000525&#39;, 111)]
-CIK 1766721 1 - 2 [(&#39;20210204&#39;, &#39;0001766721-21-000002&#39;, 16), (&#39;20210205&#39;, &#39;0001766721-21-000003&#39;, 16)]
-CIK 1819279 1 - 2 [(&#39;20210204&#39;, &#39;0001819279-21-000003&#39;, 46), (&#39;20210205&#39;, &#39;0001819279-21-000005&#39;, 81)]
-CIK 1005817 0 - 2 [(&#39;20210205&#39;, &#39;0001387131-21-001838&#39;, 1356), (&#39;20210212&#39;, &#39;0001387131-21-002275&#39;, 644)]
-CIK 1569141 1 - 2 [(&#39;20210205&#39;, &#39;0001569141-21-000002&#39;, 83), (&#39;20210216&#39;, &#39;0001569141-21-000003&#39;, 82)]
-CIK 1126328 1 - 2 [(&#39;20210208&#39;, &#39;0001126328-21-000008&#39;, 3801), (&#39;20210223&#39;, &#39;0001126328-21-000092&#39;, 3801)]
-CIK 1656735 1 - 2 [(&#39;20210208&#39;, &#39;0001656735-21-000001&#39;, 20), (&#39;20210211&#39;, &#39;0001656735-21-000003&#39;, 20)]
-CIK 1697539 1 - 2 [(&#39;20210208&#39;, &#39;0001697539-21-000001&#39;, 61), (&#39;20210209&#39;, &#39;0001697539-21-000002&#39;, 61)]
-CIK 1762086 1 - 2 [(&#39;20210208&#39;, &#39;0001762086-21-000001&#39;, 30), (&#39;20210208&#39;, &#39;0001844709-21-000003&#39;, 53)]
-CIK 318989 1 - 2 [(&#39;20210208&#39;, &#39;0000318989-21-000030&#39;, 1943), (&#39;20210323&#39;, &#39;0000318989-21-000062&#39;, 1943)]
-CIK 898419 1 - 2 [(&#39;20210208&#39;, &#39;0000898417-21-000003&#39;, 957), (&#39;20210210&#39;, &#39;0000898417-21-000010&#39;, 846)]
-CIK 1390777 0 - 2 [(&#39;20210209&#39;, &#39;0001390777-21-000023&#39;, 23839), (&#39;20210216&#39;, &#39;0001390777-21-000036&#39;, 32)]
-CIK 1549449 1 - 2 [(&#39;20210209&#39;, &#39;0001549449-21-000001&#39;, 15), (&#39;20210212&#39;, &#39;0001549449-21-000003&#39;, 16)]
-CIK 1667134 1 - 2 [(&#39;20210209&#39;, &#39;0001214659-21-001475&#39;, 252), (&#39;20210223&#39;, &#39;0001214659-21-002251&#39;, 265)]
-CIK 1732539 1 - 2 [(&#39;20210209&#39;, &#39;0001732539-21-000001&#39;, 34), (&#39;20210222&#39;, &#39;0001732539-21-000002&#39;, 34)]
-CIK 1803848 1 - 2 [(&#39;20210209&#39;, &#39;0001420506-21-000134&#39;, 146), (&#39;20210226&#39;, &#39;0001420506-21-000358&#39;, 530)]
-CIK 1811739 1 - 2 [(&#39;20210209&#39;, &#39;0001811739-21-000015&#39;, 58), (&#39;20210210&#39;, &#39;0001811739-21-000016&#39;, 58)]
-CIK 1374170 1 - 2 [(&#39;20210210&#39;, &#39;0001374170-21-000020&#39;, 1), (&#39;20210302&#39;, &#39;0001374170-21-000028&#39;, 2110)]
-CIK 1427684 0 - 2 [(&#39;20210210&#39;, &#39;0001062993-21-001163&#39;, 2039), (&#39;20210216&#39;, &#39;0001062993-21-001424&#39;, 191)]
-CIK 1519611 1 - 2 [(&#39;20210210&#39;, &#39;0001519611-21-000002&#39;, 353), (&#39;20210211&#39;, &#39;0001519611-21-000006&#39;, 369)]
-CIK 1526411 1 - 2 [(&#39;20210210&#39;, &#39;0001526411-21-000002&#39;, 381), (&#39;20210210&#39;, &#39;0001526411-21-000003&#39;, 422)]
-CIK 1576654 1 - 2 [(&#39;20210210&#39;, &#39;0001085146-21-000541&#39;, 202), (&#39;20210216&#39;, &#39;0001085146-21-000890&#39;, 223)]
-CIK 1728201 1 - 2 [(&#39;20210210&#39;, &#39;0001387131-21-002030&#39;, 105), (&#39;20210216&#39;, &#39;0001387131-21-002315&#39;, 86)]
-CIK 1729867 1 - 2 [(&#39;20210210&#39;, &#39;0001729867-21-000001&#39;, 140), (&#39;20210211&#39;, &#39;0001729867-21-000002&#39;, 140)]
-CIK 1731191 1 - 2 [(&#39;20210210&#39;, &#39;0001731191-21-000001&#39;, 4), (&#39;20210218&#39;, &#39;0001731191-21-000002&#39;, 4)]
-CIK 1835714 1 - 2 [(&#39;20210210&#39;, &#39;0001085146-21-000556&#39;, 15), (&#39;20210326&#39;, &#39;0001085146-21-001095&#39;, 15)]
-CIK 1020317 0 - 2 [(&#39;20210211&#39;, &#39;0001085146-21-000606&#39;, 246), (&#39;20210212&#39;, &#39;0001085146-21-000728&#39;, 26)]
-CIK 1134621 1 - 2 [(&#39;20210211&#39;, &#39;0001062993-21-001281&#39;, 268), (&#39;20210302&#39;, &#39;0001062993-21-002150&#39;, 395)]
-CIK 1302404 1 - 2 [(&#39;20210211&#39;, &#39;0000909012-21-000037&#39;, 105), (&#39;20210303&#39;, &#39;0000909012-21-000048&#39;, 105)]
-CIK 1439805 1 - 2 [(&#39;20210211&#39;, &#39;0001439805-21-000002&#39;, 192), (&#39;20210212&#39;, &#39;0001439805-21-000003&#39;, 195)]
-CIK 1483864 0 - 2 [(&#39;20210211&#39;, &#39;0001567619-21-003118&#39;, 127), (&#39;20210217&#39;, &#39;0001567619-21-004182&#39;, 59)]
-CIK 1597694 1 - 2 [(&#39;20210211&#39;, &#39;0001597694-21-000001&#39;, 397), (&#39;20210211&#39;, &#39;0001597694-21-000002&#39;, 393)]
-CIK 1720336 1 - 2 [(&#39;20210211&#39;, &#39;0000909012-21-000036&#39;, 2643), (&#39;20210219&#39;, &#39;0000909012-21-000047&#39;, 2177)]
-CIK 1753384 1 - 2 [(&#39;20210211&#39;, &#39;0001753926-21-000043&#39;, 23), (&#39;20210216&#39;, &#39;0001753384-21-000005&#39;, 23)]
-CIK 1802696 1 - 2 [(&#39;20210211&#39;, &#39;0001802696-21-000001&#39;, 122), (&#39;20210211&#39;, &#39;0001802696-21-000002&#39;, 122)]
-CIK 1839826 1 - 2 [(&#39;20210211&#39;, &#39;0001839826-21-000001&#39;, 84), (&#39;20210216&#39;, &#39;0001839826-21-000002&#39;, 91)]
-CIK 19617 1 - 2 [(&#39;20210211&#39;, &#39;0000019617-21-000192&#39;, 22648), (&#39;20210219&#39;, &#39;0000019617-21-000235&#39;, 22648)]
-CIK 354204 2 - 3 [(&#39;20210211&#39;, &#39;0001767761-21-000002&#39;, 3339), (&#39;20210225&#39;, &#39;0000354204-21-000648&#39;, 3342), (&#39;20210308&#39;, &#39;0000354204-21-000651&#39;, 3342)]
-CIK 1076598 1 - 2 [(&#39;20210212&#39;, &#39;0000940394-21-000345&#39;, 1391), (&#39;20210304&#39;, &#39;0000940394-21-000619&#39;, 1442)]
-CIK 1132597 1 - 2 [(&#39;20210212&#39;, &#39;0001104659-21-021805&#39;, 149), (&#39;20210219&#39;, &#39;0001104659-21-025453&#39;, 156)]
-CIK 1166402 1 - 2 [(&#39;20210212&#39;, &#39;0001104659-21-021337&#39;, 180), (&#39;20210304&#39;, &#39;0001104659-21-032084&#39;, 180)]
-CIK 1393825 1 - 2 [(&#39;20210212&#39;, &#39;0001393825-21-000080&#39;, 588), (&#39;20210304&#39;, &#39;0001393825-21-000083&#39;, 589)]
-CIK 1456114 1 - 2 [(&#39;20210212&#39;, &#39;0001456114-21-000001&#39;, 700), (&#39;20210217&#39;, &#39;0001456114-21-000002&#39;, 757)]
-CIK 1480916 1 - 2 [(&#39;20210212&#39;, &#39;0001480916-21-000001&#39;, 236), (&#39;20210217&#39;, &#39;0001480916-21-000002&#39;, 240)]
-CIK 1484265 1 - 2 [(&#39;20210212&#39;, &#39;0001085146-21-000682&#39;, 155), (&#39;20210216&#39;, &#39;0001085146-21-000877&#39;, 264)]
-CIK 1512716 1 - 2 [(&#39;20210212&#39;, &#39;0001493152-21-003562&#39;, 39), (&#39;20210212&#39;, &#39;0001493152-21-003649&#39;, 39)]
-CIK 1535845 1 - 2 [(&#39;20210212&#39;, &#39;0001535845-21-000002&#39;, 1465), (&#39;20210301&#39;, &#39;0001535845-21-000005&#39;, 1463)]
-CIK 1544599 1 - 2 [(&#39;20210212&#39;, &#39;0001544599-21-000002&#39;, 801), (&#39;20210224&#39;, &#39;0001544599-21-000004&#39;, 801)]
-CIK 1588340 1 - 2 [(&#39;20210212&#39;, &#39;0001588340-21-000002&#39;, 1969), (&#39;20210212&#39;, &#39;0001588340-21-000003&#39;, 1969)]
-CIK 1630709 1 - 2 [(&#39;20210212&#39;, &#39;0001630709-21-000001&#39;, 16), (&#39;20210212&#39;, &#39;0001630709-21-000002&#39;, 16)]
-CIK 1677253 1 - 2 [(&#39;20210212&#39;, &#39;0001677253-21-000001&#39;, 253), (&#39;20210218&#39;, &#39;0001677253-21-000002&#39;, 238)]
-CIK 1697366 1 - 2 [(&#39;20210212&#39;, &#39;0001104659-21-021634&#39;, 186), (&#39;20210223&#39;, &#39;0001104659-21-026600&#39;, 187)]
-CIK 1698661 1 - 2 [(&#39;20210212&#39;, &#39;0001213900-21-008583&#39;, 2), (&#39;20210317&#39;, &#39;0001213900-21-015767&#39;, 2)]
-CIK 1771067 1 - 2 [(&#39;20210212&#39;, &#39;0000919574-21-000930&#39;, 9), (&#39;20210216&#39;, &#39;0000919574-21-001579&#39;, 9)]
-CIK 1837984 1 - 2 [(&#39;20210212&#39;, &#39;0001837984-21-000001&#39;, 76), (&#39;20210311&#39;, &#39;0001837984-21-000002&#39;, 76)]
-CIK 1843358 1 - 2 [(&#39;20210212&#39;, &#39;0001606587-21-000310&#39;, 116), (&#39;20210323&#39;, &#39;0001606587-21-000375&#39;, 166)]
-CIK 1844444 1 - 2 [(&#39;20210212&#39;, &#39;0001844444-21-000001&#39;, 93), (&#39;20210212&#39;, &#39;0001844444-21-000002&#39;, 94)]
-CIK 873630 1 - 2 [(&#39;20210212&#39;, &#39;0000873630-21-000001&#39;, 7573), (&#39;20210225&#39;, &#39;0000873630-21-000002&#39;, 7573)]
-CIK 897599 1 - 2 [(&#39;20210212&#39;, &#39;0000897599-21-000003&#39;, 74), (&#39;20210212&#39;, &#39;0000897599-21-000004&#39;, 74)]
-CIK 923338 1 - 2 [(&#39;20210212&#39;, &#39;0000923338-21-000002&#39;, 5), (&#39;20210217&#39;, &#39;0000923338-21-000003&#39;, 3)]
-CIK 1020066 1 - 2 [(&#39;20210216&#39;, &#39;0001567619-21-004079&#39;, 70), (&#39;20210217&#39;, &#39;0001567619-21-004186&#39;, 78)]
-CIK 1054587 0 - 2 [(&#39;20210216&#39;, &#39;0000950123-21-002414&#39;, 420), (&#39;20210219&#39;, &#39;0000950123-21-003001&#39;, 75)]
-CIK 1061186 1 - 2 [(&#39;20210216&#39;, &#39;0001725547-21-000024&#39;, 174), (&#39;20210223&#39;, &#39;0001725547-21-000029&#39;, 193)]
-CIK 1086619 1 - 2 [(&#39;20210216&#39;, &#39;0001567619-21-003755&#39;, 3157), (&#39;20210224&#39;, &#39;0001567619-21-004749&#39;, 3158)]
-CIK 1086762 1 - 2 [(&#39;20210216&#39;, &#39;0000919574-21-001390&#39;, 30), (&#39;20210216&#39;, &#39;0000919574-21-001648&#39;, 30)]
-CIK 1094584 1 - 2 [(&#39;20210216&#39;, &#39;0001094584-21-000001&#39;, 394), (&#39;20210219&#39;, &#39;0001094584-21-000002&#39;, 424)]
-CIK 1102598 1 - 2 [(&#39;20210216&#39;, &#39;0000950123-21-002588&#39;, 13105), (&#39;20210309&#39;, &#39;0000950123-21-003332&#39;, 13406)]
-CIK 1230239 1 - 2 [(&#39;20210216&#39;, &#39;0000919574-21-001041&#39;, 295), (&#39;20210216&#39;, &#39;0000919574-21-001254&#39;, 295)]
-CIK 1280965 1 - 2 [(&#39;20210216&#39;, &#39;0001567619-21-003806&#39;, 108), (&#39;20210216&#39;, &#39;0001567619-21-003834&#39;, 124)]
-CIK 1356783 2 - 3 [(&#39;20210216&#39;, &#39;0001356783-21-000001&#39;, 193), (&#39;20210216&#39;, &#39;0001356783-21-000002&#39;, 193), (&#39;20210301&#39;, &#39;0001356783-21-000003&#39;, 193)]
-CIK 1372130 1 - 2 [(&#39;20210216&#39;, &#39;0001372130-21-000001&#39;, 186), (&#39;20210216&#39;, &#39;0001372130-21-000002&#39;, 210)]
-CIK 1432529 1 - 2 [(&#39;20210216&#39;, &#39;0001398344-21-003543&#39;, 219), (&#39;20210217&#39;, &#39;0001398344-21-003593&#39;, 236)]
-CIK 1442756 1 - 2 [(&#39;20210216&#39;, &#39;0001104659-21-023941&#39;, 85), (&#39;20210219&#39;, &#39;0001104659-21-025741&#39;, 85)]
-CIK 1446194 1 - 2 [(&#39;20210216&#39;, &#39;0001446194-21-000001&#39;, 13962), (&#39;20210326&#39;, &#39;0001011712-21-000002&#39;, 13963)]
-CIK 1453072 0 - 2 [(&#39;20210216&#39;, &#39;0001172661-21-000854&#39;, 484), (&#39;20210224&#39;, &#39;0001172661-21-000884&#39;, 6)]
-CIK 1454027 0 - 2 [(&#39;20210216&#39;, &#39;0001454027-21-000001&#39;, 1131), (&#39;20210218&#39;, &#39;0001172661-21-000873&#39;, 1)]
-CIK 1484836 1 - 2 [(&#39;20210216&#39;, &#39;0000902664-21-001441&#39;, 36), (&#39;20210223&#39;, &#39;0000902664-21-001572&#39;, 36)]
-CIK 1496859 1 - 2 [(&#39;20210216&#39;, &#39;0001172661-21-000803&#39;, 1), (&#39;20210217&#39;, &#39;0001172661-21-000869&#39;, 1)]
-CIK 1521001 2 - 3 [(&#39;20210216&#39;, &#39;0001567619-21-003829&#39;, 29999), (&#39;20210216&#39;, &#39;0001567619-21-003835&#39;, 30000), (&#39;20210216&#39;, &#39;0001567619-21-003837&#39;, 21489)]
-CIK 1533551 1 - 2 [(&#39;20210216&#39;, &#39;0001533551-21-000001&#39;, 34), (&#39;20210301&#39;, &#39;0001533551-21-000002&#39;, 34)]
-CIK 1536361 1 - 2 [(&#39;20210216&#39;, &#39;0001387131-21-002366&#39;, 70), (&#39;20210316&#39;, &#39;0001387131-21-003582&#39;, 45)]
-CIK 1566887 1 - 2 [(&#39;20210216&#39;, &#39;0001566887-21-000002&#39;, 113), (&#39;20210217&#39;, &#39;0001566887-21-000003&#39;, 113)]
-CIK 1569175 2 - 3 [(&#39;20210216&#39;, &#39;0001387131-21-002354&#39;, 49), (&#39;20210217&#39;, &#39;0001387131-21-002541&#39;, 49), (&#39;20210217&#39;, &#39;0001387131-21-002613&#39;, 52)]
-CIK 1578177 1 - 2 [(&#39;20210216&#39;, &#39;0001214659-21-001733&#39;, 105), (&#39;20210216&#39;, &#39;0001214659-21-001836&#39;, 105)]
-CIK 1590228 1 - 2 [(&#39;20210216&#39;, &#39;0001387131-21-002433&#39;, 222), (&#39;20210225&#39;, &#39;0001387131-21-002804&#39;, 222)]
-CIK 1595082 0 - 2 [(&#39;20210216&#39;, &#39;0001595082-21-000016&#39;, 273), (&#39;20210216&#39;, &#39;0001595082-21-000020&#39;, 1)]
-CIK 1595851 1 - 2 [(&#39;20210216&#39;, &#39;0001387131-21-002485&#39;, 43), (&#39;20210218&#39;, &#39;0001387131-21-002623&#39;, 43)]
-CIK 1601086 0 - 2 [(&#39;20210216&#39;, &#39;0000919574-21-001534&#39;, 104), (&#39;20210304&#39;, &#39;0000919574-21-002178&#39;, 2)]
-CIK 1603837 3 - 4 [(&#39;20210216&#39;, &#39;0001178913-21-000634&#39;, 47), (&#39;20210217&#39;, &#39;0001178913-21-000650&#39;, 53), (&#39;20210218&#39;, &#39;0001178913-21-000681&#39;, 53), (&#39;20210222&#39;, &#39;0001178913-21-000711&#39;, 53)]
-CIK 1633911 1 - 2 [(&#39;20210216&#39;, &#39;0001398344-21-003315&#39;, 134), (&#39;20210222&#39;, &#39;0001398344-21-003879&#39;, 135)]
-CIK 1680843 1 - 2 [(&#39;20210216&#39;, &#39;0001085146-21-000985&#39;, 14), (&#39;20210226&#39;, &#39;0001085146-21-001054&#39;, 14)]
-CIK 1687078 1 - 2 [(&#39;20210216&#39;, &#39;0000950123-21-002268&#39;, 16), (&#39;20210224&#39;, &#39;0000950123-21-003117&#39;, 13)]
-CIK 1691908 1 - 2 [(&#39;20210216&#39;, &#39;0001387131-21-002411&#39;, 6), (&#39;20210312&#39;, &#39;0001387131-21-003479&#39;, 6)]
-CIK 1727588 1 - 2 [(&#39;20210216&#39;, &#39;0001727588-21-000001&#39;, 113), (&#39;20210223&#39;, &#39;0001727588-21-000002&#39;, 81)]
-CIK 1738126 0 - 2 [(&#39;20210216&#39;, &#39;0001085146-21-000805&#39;, 4), (&#39;20210217&#39;, &#39;0001085146-21-001041&#39;, 1)]
-CIK 1741129 1 - 2 [(&#39;20210216&#39;, &#39;0001741129-21-000003&#39;, 30), (&#39;20210216&#39;, &#39;0001741129-21-000004&#39;, 30)]
-CIK 1742647 1 - 2 [(&#39;20210216&#39;, &#39;0001398344-21-003457&#39;, 13), (&#39;20210305&#39;, &#39;0001398344-21-005792&#39;, 13)]
-CIK 1752148 0 - 2 [(&#39;20210216&#39;, &#39;0001752148-21-000003&#39;, 53), (&#39;20210217&#39;, &#39;0001752148-21-000004&#39;, 1)]
-CIK 1768041 0 - 2 [(&#39;20210216&#39;, &#39;0001768041-21-000001&#39;, 58), (&#39;20210216&#39;, &#39;0001768041-21-000003&#39;, 16)]
-CIK 1769704 0 - 2 [(&#39;20210216&#39;, &#39;0001214659-21-001794&#39;, 20), (&#39;20210217&#39;, &#39;0001214659-21-002016&#39;, 4)]
-CIK 1786767 1 - 2 [(&#39;20210216&#39;, &#39;0001786767-21-000002&#39;, 7), (&#39;20210222&#39;, &#39;0001786767-21-000003&#39;, 7)]
-CIK 1802131 0 - 2 [(&#39;20210216&#39;, &#39;0001214659-21-001944&#39;, 37), (&#39;20210218&#39;, &#39;0001214659-21-002072&#39;, 5)]
-CIK 1840268 0 - 2 [(&#39;20210216&#39;, &#39;0001840268-21-000005&#39;, 171), (&#39;20210217&#39;, &#39;0001840268-21-000006&#39;, 22)]
-CIK 1842440 1 - 2 [(&#39;20210216&#39;, &#39;0001606587-21-000332&#39;, 550), (&#39;20210324&#39;, &#39;0001606587-21-000376&#39;, 655)]
-CIK 1846436 1 - 2 [(&#39;20210216&#39;, &#39;0000919574-21-001708&#39;, 200), (&#39;20210217&#39;, &#39;0000919574-21-001753&#39;, 200)]
-CIK 860644 1 - 2 [(&#39;20210216&#39;, &#39;0001398344-21-003400&#39;, 175), (&#39;20210222&#39;, &#39;0001398344-21-003881&#39;, 176)]
-CIK 949509 0 - 2 [(&#39;20210216&#39;, &#39;0000949509-21-000001&#39;, 183), (&#39;20210304&#39;, &#39;0000949509-21-000003&#39;, 2)]
-CIK 1132716 0 - 2 [(&#39;20210217&#39;, &#39;0001132716-21-000004&#39;, 568), (&#39;20210219&#39;, &#39;0001132716-21-000005&#39;, 2)]
-CIK 1627436 0 - 2 [(&#39;20210217&#39;, &#39;0001085146-21-001012&#39;, 25), (&#39;20210223&#39;, &#39;0001085146-21-001049&#39;, 1)]
-CIK 861177 1 - 2 [(&#39;20210217&#39;, &#39;0000861177-21-000006&#39;, 14757), (&#39;20210301&#39;, &#39;0000861177-21-000007&#39;, 15010)]
-CIK 1608904 1 - 2 [(&#39;20210222&#39;, &#39;0001420506-21-000348&#39;, 10), (&#39;20210222&#39;, &#39;0001420506-21-000352&#39;, 11)]
-CIK 1663897 1 - 2 [(&#39;20210223&#39;, &#39;0001654954-21-001998&#39;, 374), (&#39;20210224&#39;, &#39;0001654954-21-002029&#39;, 374)]
-CIK 1847794 1 - 2 [(&#39;20210226&#39;, &#39;0001095449-21-000023&#39;, 76), (&#39;20210226&#39;, &#39;0001095449-21-000024&#39;, 76)]
-CIK 1847820 1 - 3 [(&#39;20210304&#39;, &#39;0001847820-21-000001&#39;, 130), (&#39;20210311&#39;, &#39;0001847820-21-000002&#39;, 130), (&#39;20210311&#39;, &#39;0001847820-21-000003&#39;, 4)]
-CIK 1849614 0 - 2 [(&#39;20210309&#39;, &#39;0001849614-21-000001&#39;, 442), (&#39;20210309&#39;, &#39;0001849614-21-000002&#39;, 112)]
-requiring at least 2 investors per stock - removed 1638 stocks
-removed 3 investors with no remaining positions
-final counts: 2,564 investors; 3,820 stocks; 45,815 positions
 </pre>
 </div>
 </div>

@@ -102,6 +102,7 @@ index = {"boto3_available": "00_utils.ipynb",
          "indexMap": "07_scrape13F.ipynb",
          "getHoldingsMap": "07_scrape13F.ipynb",
          "addHoldingsMap": "07_scrape13F.ipynb",
+         "printRemoveStocksMessage": "07_scrape13F.ipynb",
          "holdingsMapToMatrix": "07_scrape13F.ipynb",
          "getPeriodAndNextQStartEnd": "07_scrape13F.ipynb",
          "getNSSForQ": "07_scrape13F.ipynb",
@@ -161,7 +162,8 @@ index = {"boto3_available": "00_utils.ipynb",
          "default13DDir": "11_scrape13D.ipynb",
          "scraper13D": "11_scrape13D.ipynb",
          "get13GDDatesForQ": "11_scrape13D.ipynb",
-         "getCombNSSForQ": "11_scrape13D.ipynb"}
+         "getCombNSSForQ": "11_scrape13D.ipynb",
+         "oddballScreen": "11_scrape13D.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
