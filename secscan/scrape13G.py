@@ -7,7 +7,7 @@ __all__ = ['default13GDir', 'getSec13NshAndPctFromText', 'cusipChecksum', 'month
            'dateOfEventPatStr', 'dateOfEventAtStartPatStr', 'dateOfEventAtEndPatStr', 'dateOfEventMonthPat1',
            'dateOfEventMonthRevPat1', 'dateOfEventMonthPat2', 'dateOfEventMonthRevPat2', 'isoSepPatStr',
            'dateOfEventIsoPat1', 'dateOfEventIsoRevPat1', 'dateOfEventIsoPat2', 'dateOfEventIsoRevPat2',
-           'whitespacePat', 'updateCik13GDPos', 'calcBonusMap']
+           'whitespacePat', 'updateCik13GDPos', 'cikSymStr', 'calcBonusMap']
 
 # Cell
 
@@ -215,7 +215,8 @@ class scraper13G(infoScraper.scraperBase) :
 
 # Cell
 
-def updateCik13GDPos(scrapers, cik13GDPosMap=None, cusipNames=None, cikNames=None) :
+def updateCik13GDPos(scrapers, cik13GDPosMap=None,
+                     cusipNames=None, cikNames=None, includeTickers=False) :
     """
     Generate or update a combined dict of percentage holdings:
         cik13GDPosMap: cik -> {cusip -> (eventDate, accNo, pct)}
@@ -224,7 +225,9 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None, cusipNames=None, cikNames=Non
     If cusipNames and cikNames are supplied, both should be dicts, and CUSIPs
     encountered in 13G/D filings will have the corresponding CIK names added
     to the CUSIP names based on the filings (i.e. each 13D/G filing includes
-    a CUSIP, and a corresponding subject CIK).
+    a CUSIP, and a corresponding subject CIK). If includeTickers is True,
+    the ticker names will also be added based on the CIK to ticker file
+    provided by the SEC.
     """
     if cik13GDPosMap is None :
         cik13GDPosMap = collections.defaultdict(dict)
@@ -263,22 +266,24 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None, cusipNames=None, cikNames=Non
                                 extraCusipNames[cusip] = (dStr, cikNames[subjectCik], subjectCik)
                             else :
                                 print(f"subject CIK {subjectCik} name not found '{accNo}'")
-    count1 = count2 = 0
     if extraCusipNames is not None :
+        count1 = count2 = 0
+        if includeTickers :
+            cikToTickers = dailyList.getCikToTickersMap()
+        else :
+            cikToTickers = collections.defaultdict(list)
         for cusip,name in cusipNames.items() :
-            if cusip in extraCusipNames and '(CIK' not in name :
-                extraNameTup = extraCusipNames[cusip]
-                if extraNameTup[1][:8].strip().lower() == name[:8].strip().lower() :
-                    cusipNames[cusip] += f' - (CIK {extraNameTup[2]})'
-                else :
-                    cusipNames[cusip] += f' - {extraNameTup[1]} (CIK {extraNameTup[2]})'
+            if cusip in extraCusipNames and 'CIK-' not in name :
+                _,subjectCikName,subjectCik = extraCusipNames[cusip]
+                if subjectCikName[:8].strip().lower() != name[:8].strip().lower() :
+                    cusipNames[cusip] += f' - {subjectCikName}'
+                cusipNames[cusip] += cikSymStr(subjectCik,cikToTickers[subjectCik])
                 count1 += 1
-        for cusip,extraNameTup in extraCusipNames.items() :
+        for cusip,(_,subjectCikName,subjectCik) in extraCusipNames.items() :
             if cusip not in cusipNames :
-                cusipNames[cusip] = f'- {extraNameTup[1]} (CIK {extraNameTup[2]})'
+                cusipNames[cusip] = f'- {subjectCikName}{cikSymStr(subjectCik,cikToTickers[subjectCik])})'
                 count2 += 1
-    #return dict((cik, '(' + ', '.join(sorted(tickers)[:8]) + (', ... ' if len(tickers)>8 else '') + ')')
-    #            for cik,tickers in cikToTickers.items())    print('count1',count1,'count2',count2)
+        print('count1',count1,'count2',count2)
     print('total of',len(cikTo13GDs),'ciks,',count,'13G/D filings')
     for cik, cik13GDList in cikTo13GDs.items() :
         posMap = cik13GDPosMap[cik]
@@ -287,6 +292,8 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None, cusipNames=None, cikNames=Non
             if cusip not in posMap or posMap[cusip] < tup[1:] :
                 posMap[cusip] = tup[1:]
     return cik13GDPosMap
+def cikSymStr(cik,tickers) :
+    return ' (' + ', '.join(sorted(tickers)[:8] + (['...'] if len(tickers)>8 else []) + ['CIK-'+cik])+ ')'
 
 def calcBonusMap(cik13GDPosMap, max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100,
                  allCusipCounter=None) :

@@ -61,10 +61,7 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
     If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
     and 13D positions.
     """
-    if minAllInvestorsPerStock is not None or maxAllInvestorsPerStock is not None :
-        allCusipCounter = collections.Counter()
-    else :
-        allCusipCounter = None
+    allCusipCounter = collections.Counter()
     cikNames = utils.loadPklFromDir(dailyList.defaultDLDir, 'cikNames.pkl', {})
     cikNames = dict((cik,name) for cik,(name,dStr) in cikNames.items())
     cusipNames = utils.pickLoad(os.path.join(utils.stockDataRoot,'cusipMap.pkl'))
@@ -76,7 +73,8 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
             scrapedL.append(scrape13G.scraper13G(**dates))
         if include13D :
             scrapedL.append(scraper13D(**dates))
-        cik13GDPosMap = scrape13G.updateCik13GDPos(scrapedL, cusipNames=cusipNames, cikNames=cikNames)
+        cik13GDPosMap = scrape13G.updateCik13GDPos(scrapedL, cusipNames=cusipNames, cikNames=cikNames,
+                                                   includeTickers=True)
         cikBonusMaps = [scrape13G.calcBonusMap(cik13GDPosMap,
                                                max13GDBonus=max13GDBonus, min13GDBonus=min13GDBonus,
                                                max13GDCount=max13GDCount, allCusipCounter=allCusipCounter)]
@@ -110,7 +108,8 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
         utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}sInfo.pkl', res,
                        fix_imports=True, protocol=2)
         utils.pickSave(outDir/f'cusipMap.pkl',
-                       dict((cusip,name) for cusip,name in cusipNames.items() if cusip in cusipSet),
+                       dict((cusip,cusipNames.get(cusip,'CUSIP-'+cusip))
+                            for cusip in allCusipCounter.keys()),
                        fix_imports=True, protocol=2)
         if cik13GDSortedPosMap is not None :
             utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13GD.pkl', cik13GDSortedPosMap,

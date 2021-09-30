@@ -271,7 +271,7 @@ class dailyList(object) :
 def getCikToTickersMap() :
     """
     Retrieves and parses an SEC-maintained list mapping tickers to CIKs.
-    Returns a dict: cik -> list of corresponding tickers
+    Returns a defaultdict: cik -> list of corresponding tickers
     """
     tickersJSON = utils.downloadSecUrl('/files/company_tickers.json', toFormat='json')
     cikToTickers = collections.defaultdict(list)
