@@ -215,16 +215,22 @@ class scraper13G(infoScraper.scraperBase) :
 
 # Cell
 
-def updateCik13GDPos(scrapers, cik13GDPosMap=None) :
+def updateCik13GDPos(scrapers, cik13GDPosMap=None, cusipNames=None, cikNames=None) :
     """
     Generate or update a combined dict of percentage holdings:
         cik13GDPosMap: cik -> {cusip -> (eventDate, accNo, pct)}
     based on a list of 13G and 13D scrapers.
+
+    If cusipNames and cikNames are supplied, both should be dicts, and CUSIPs
+    encountered in 13G/D filings will have the corresponding CIK names added
+    to the CUSIP names based on the filings (i.e. each 13D/G filing includes
+    a CUSIP, and a corresponding subject CIK).
     """
     if cik13GDPosMap is None :
         cik13GDPosMap = collections.defaultdict(dict)
     cikTo13GDs = collections.defaultdict(list)
     count = 0
+    extraCusipNames = None if (cusipNames is None or cikNames is None) else {}
     for scraper in scrapers :
         for dStr, accNoToInfo in scraper.infoMap.items() :
             for accNo, info in accNoToInfo.items() :
@@ -242,9 +248,37 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None) :
                         print(f'No event date in {accNo}; using {eventDate}')
                     else :
                         eventDate = info['eventDate']
-                    cikTo13GDs[info['filedByCik'].lstrip('0')].append(
-                        (info['cusip'], eventDate, accNo, max(float(pct) for _,pct in info['positions'])))
+                    cusip = info['cusip']
+                    filedByCik = info['filedByCik']
+                    cikTo13GDs[filedByCik.lstrip('0')].append((cusip, eventDate, accNo,
+                                                               max(float(pct) for _,pct in info['positions'])))
                     count += 1
+                    if extraCusipNames is not None :
+                        subjectCik = [cik for cik in info['ciks'] if cik!=filedByCik]
+                        if len(subjectCik) != 1 :
+                            print(f"missing or ambiguous subject CIK '{accNo}'")
+                        elif cusip not in extraCusipNames or extraCusipNames[cusip][0] < dStr :
+                            subjectCik = subjectCik[0].lstrip('0')
+                            if subjectCik in cikNames :
+                                extraCusipNames[cusip] = (dStr, cikNames[subjectCik], subjectCik)
+                            else :
+                                print(f"subject CIK {subjectCik} name not found '{accNo}'")
+    count1 = count2 = 0
+    if extraCusipNames is not None :
+        for cusip,name in cusipNames.items() :
+            if cusip in extraCusipNames and '(CIK' not in name :
+                extraNameTup = extraCusipNames[cusip]
+                if extraNameTup[1][:8].strip().lower() == name[:8].strip().lower() :
+                    cusipNames[cusip] += f' - (CIK {extraNameTup[2]})'
+                else :
+                    cusipNames[cusip] += f' - {extraNameTup[1]} (CIK {extraNameTup[2]})'
+                count1 += 1
+        for cusip,extraNameTup in extraCusipNames.items() :
+            if cusip not in cusipNames :
+                cusipNames[cusip] = f'- {extraNameTup[1]} (CIK {extraNameTup[2]})'
+                count2 += 1
+    #return dict((cik, '(' + ', '.join(sorted(tickers)[:8]) + (', ... ' if len(tickers)>8 else '') + ')')
+    #            for cik,tickers in cikToTickers.items())    print('count1',count1,'count2',count2)
     print('total of',len(cikTo13GDs),'ciks,',count,'13G/D filings')
     for cik, cik13GDList in cikTo13GDs.items() :
         posMap = cik13GDPosMap[cik]
@@ -270,10 +304,15 @@ def calcBonusMap(cik13GDPosMap, max13GDBonus=0.2, min13GDBonus=0.02, max13GDCoun
     for cik,posMap in cik13GDPosMap.items() :
         if allCusipCounter is not None :
             allCusipCounter.update(posMap.keys())
-        cusips = [cusip for cusip,pos in posMap.items() if pos[-1] >= 5.0]
-        # Don't give a bonus for positions below 5% because this often means
-        # they're in the process of selling off the whole position.
-        if len(cusips)>0 and (max13GDCount is None or len(cusips)<=max13GDCount) :
-            bonus = min(max13GDBonus,max(min13GDBonus,1/len(cusips)))
-            res[cik] = dict((cusip,bonus) for cusip in cusips)
+        fullCusips, halfCusips = [], []
+        for cusip,pos in posMap.items() :
+            if pos[-1] >= 5.0 :
+                fullCusips.append(cusip)
+            elif pos[-1] >= 1.0 :
+                halfCusips.append(cusip)
+        totNCusips = len(fullCusips) + len(halfCusips)
+        if totNCusips>0 and (max13GDCount is None or totNCusips<=max13GDCount) :
+            bonus = min(max13GDBonus,max(min13GDBonus,1/totNCusips))
+            res[cik] = dict((cusip,bonus) for cusip in fullCusips)
+            res[cik].update((cusip,bonus*0.5) for cusip in halfCusips)
     return res

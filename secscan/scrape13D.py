@@ -8,6 +8,7 @@ import collections
 import itertools
 import numpy as np
 import os
+from pathlib import Path
 import re
 
 from secscan import utils, dailyList, basicInfo, infoScraper, scrape13F, scrape13G
@@ -26,15 +27,16 @@ class scraper13D(infoScraper.scraperBase) :
 
 def get13GDDatesForQ(y, qNo) :
     _,kwargs = scrape13F.getPeriodAndNextQStartEnd(y, qNo)
-    kwargs['startD'] = str(int(kwargs['startD'][:4])-1) + kwargs['startD'][4:]
+    kwargs['startD'] = str(int(kwargs['startD'][:4])-2) + kwargs['startD'][4:]
     return kwargs
 
 def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPerInv=100,
                    minTop10Frac=0.4, minAUM=None, dtype=np.float64,
-                   minInvestorsPerStock=2, maxInvestorsPerStock=None,
-                   minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None, cusipFilter=None,
+                   minInvestorsPerStock=None, maxInvestorsPerStock=None,
+                   minAllInvestorsPerStock=2, maxAllInvestorsPerStock=None, cusipFilter=None,
                    max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100,
-                   include13F=True, include13G=True, include13D=True) :
+                   include13F=True, include13G=False, include13D=False,
+                   outsInfoFName='', outDir=None) :
     """
     Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
     during the succeeding quarter, combined with 13G and 13D filings from the previous year
@@ -63,6 +65,10 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
         allCusipCounter = collections.Counter()
     else :
         allCusipCounter = None
+    cikNames = utils.loadPklFromDir(dailyList.defaultDLDir, 'cikNames.pkl', {})
+    cikNames = dict((cik,name) for cik,(name,dStr) in cikNames.items())
+    cusipNames = utils.pickLoad(os.path.join(utils.stockDataRoot,'cusipMap.pkl'))
+    cik13GDSortedPosMap = None
     if include13G or include13D :
         dates = get13GDDatesForQ(y,qNo)
         scrapedL = []
@@ -70,13 +76,17 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
             scrapedL.append(scrape13G.scraper13G(**dates))
         if include13D :
             scrapedL.append(scraper13D(**dates))
-        cik13GDPosMap = scrape13G.updateCik13GDPos(scrapedL)
+        cik13GDPosMap = scrape13G.updateCik13GDPos(scrapedL, cusipNames=cusipNames, cikNames=cikNames)
         cikBonusMaps = [scrape13G.calcBonusMap(cik13GDPosMap,
                                                max13GDBonus=max13GDBonus, min13GDBonus=min13GDBonus,
                                                max13GDCount=max13GDCount, allCusipCounter=allCusipCounter)]
+        cik13GDSortedPosMap = dict((cik,sorted(((cusip,pos[-1]) for cusip,pos in posMap.items()),
+                                        # sort positions largest first, then by name
+                                        key=lambda x : (-x[1], cusipNames.get(x[0],'CUSIP-'+x[0]).lower())))
+                                   for cik,posMap in cik13GDPosMap.items())
     else :
         cikBonusMaps = []
-    return scrape13F.getNSSForQ(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
+    res = scrape13F.getNSSForQ(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
                                 minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
                                 minTop10Frac=minTop10Frac, minAUM=minAUM, dtype=dtype,
                                 minInvestorsPerStock=minInvestorsPerStock,
@@ -85,6 +95,27 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
                                 maxAllInvestorsPerStock=maxAllInvestorsPerStock,
                                 allCusipCounter=allCusipCounter, cusipFilter=cusipFilter,
                                 extraHoldingsMaps=cikBonusMaps, include13F=include13F)
+    if outsInfoFName is not None :
+        if outDir is None :
+            outDir = Path(utils.stockDataRoot)
+        else :
+            outDir = Path(utils.stockDataRoot)/outDir
+        if not outDir.exists() :
+            outDir.mkdir()
+        mat, ciks, cusips = res
+        cusipSet = set(cusips)
+        mat /= 0.01
+        mat = np.minimum(mat,20.0)
+        res = {'Y': mat, 'ciks': ciks, 'cusips': cusips, 'cusipinfo': []}
+        utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}sInfo.pkl', res,
+                       fix_imports=True, protocol=2)
+        utils.pickSave(outDir/f'cusipMap.pkl',
+                       dict((cusip,name) for cusip,name in cusipNames.items() if cusip in cusipSet),
+                       fix_imports=True, protocol=2)
+        if cik13GDSortedPosMap is not None :
+            utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13GD.pkl', cik13GDSortedPosMap,
+                           fix_imports=True, protocol=2)
+    return res
 
 def oddballScreen(yNo, qNo) :
     """
@@ -93,6 +124,6 @@ def oddballScreen(yNo, qNo) :
     """
     cusipNames = utils.pickLoad(os.path.join(utils.stockDataRoot,'cusipMap.pkl'))
     mat, ciks, cusips = getCombNSSForQ(yNo, qNo, max13GDCount=50, include13F=True, include13G=True, include13D=True,
-                                       minInvestorsPerStock=None, maxAllInvestorsPerStock=1,
+                                       minAllInvestorsPerStock=None, maxAllInvestorsPerStock=1,
                                        cusipFilter = lambda x : x in cusipNames and 'DELETED' not in cusipNames[x])
     return [cusipNames[cusip] for cusip in cusips]

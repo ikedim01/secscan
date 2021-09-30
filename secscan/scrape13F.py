@@ -341,7 +341,7 @@ def holdingsMapToMatrix(holdingsMap, minInvestorsPerStock=None, maxInvestorsPerS
     if delCount > 0 :
         print('removed a total of',delCount,'stocks')
     cusips = sorted(set(cusipCounter.keys()) - cusipsToRemove)
-    ciks = sorted(cik for cik,posMap in holdingsMap.items()
+    ciks = sorted(cik.zfill(10) for cik,posMap in holdingsMap.items()
                   if any((cusip not in cusipsToRemove) for cusip in posMap))
     if len(ciks) < len(holdingsMap) :
         print('removed',len(holdingsMap)-len(ciks),'investors with no remaining positions')
@@ -351,9 +351,9 @@ def holdingsMapToMatrix(holdingsMap, minInvestorsPerStock=None, maxInvestorsPerS
     mat = np.zeros((len(ciks), len(cusips)), dtype=dtype)
     count = 0
     for cik,posMap in holdingsMap.items() :
-        if cik not in cikToRow :
+        cikRow = cikToRow.get(cik.zfill(10))
+        if cikToRow is None :
             continue
-        cikRow = cikToRow[cik]
         for cusip,frac in posMap.items() :
             if cusip not in cusipsToRemove :
                 mat[cikRow, cusipToCol[cusip]] = frac
@@ -435,7 +435,7 @@ def saveConvMatrixPy2(y, qNo, minFrac=0.13, maxFrac=0.4, minStocksPerInv=3, maxS
                                    minTop10Frac=minTop10Frac, minAUM=minAUM, dtype=dtype,
                                    minInvestorsPerStock=minInvestorsPerStock,
                                    maxInvestorsPerStock=maxInvestorsPerStock)
-    ciks = [cik.zfill(10).encode(encoding='ascii',errors='ignore') for cik in ciks]
+    ciks = [cik.encode(encoding='ascii',errors='ignore') for cik in ciks]
     cusips = [cusip.encode(encoding='ascii',errors='ignore') for cusip in cusips]
     m = ([[('0' if el==0.0 else str(el)).encode(encoding='ascii') for el in row] for row in mat],
          ciks, indexMap(ciks), cusips, indexMap(cusips))
