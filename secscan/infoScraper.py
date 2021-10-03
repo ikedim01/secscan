@@ -42,6 +42,7 @@ class scraperBase(object) :
     def loadXInfo(self, dStr, accNo) :
         return utils.loadPklFromDir(os.path.join(self.infoDir,dStr), accNo+'-xinfo.pkl', None, **self.pickle_kwargs)
     def retryErrs(self, startD=None, endD=None, justShow=False) :
+        correctedCount = 0
         for dStr,dInfo in self.infoMap.items() :
             if ((startD is not None and dStr<startD)
                 or (endD is not None and endD<=dStr)) :
@@ -55,6 +56,9 @@ class scraperBase(object) :
                     dInfo[accNo] = self.scrapeForAccNo(accNo)
                     if dInfo[accNo] != 'ERROR' :
                         self.dirtySet.add(dStr)
+                        correctedCount += 1
+        if not justShow :
+            print(correctedCount,'corrected errors')
     def retryErrsAndSave(self, startD=None, endD=None) :
         self.retryErrs(startD=startD, endD=endD)
         self.save()
@@ -106,9 +110,11 @@ class scraperBase(object) :
             if dStr not in dl.dl :
                 print('date',dStr,'not found in dailyList, aborting update!')
                 return
-            dayIsDirty = (dStr not in self.infoMap)
-            if dayIsDirty :
+            if dStr not in self.infoMap :
                 self.infoMap[dStr] = {}
+                dayIsDirty = True
+            else :
+                dayIsDirty = False
             if verbose or dayIsDirty :
                 print(f'=========={"NEW " if dayIsDirty else ""}{dStr}==========', end=' ', flush=True)
             errCount = 0
@@ -124,12 +130,14 @@ class scraperBase(object) :
                 if dInfo[accNo] == 'ERROR' :
                     errCount += 1
                     if errCount >= errLimitPerDay :
-                        print('Error limit exceeded, aborting update!')
-                        return
+                        break
             if dayIsDirty :
                 self.dirtySet.add(dStr)
                 if saveAfterEachDay :
                     self.save()
+            if errCount >= errLimitPerDay :
+                print('Error limit exceeded, aborting update!')
+                break
     def loadAndUpdate(self, dlOrDir=dailyList.defaultDLDir,
                       startD=None, endD=None, ciks=None, errLimitPerDay=10,
                       verbose=True, saveAfterEachDay=False) :
