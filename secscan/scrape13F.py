@@ -116,7 +116,7 @@ class scraper13F(infoScraper.scraperBase) :
 def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0,
                      pctFormat=False, includeName=False, cusipNames={},
                      minStocksPerInv=None, maxStocksPerInv=None, minTop10Frac=None, minAUM=None,
-                     allCusipCounter=None) :
+                     allCusipCounter=None, allHoldingsMap=None, forCik=None) :
     """
     Converts a list of of stock and option holdings as parsed from the 13F:
         [(cusip, name, value, title, count, putCall), ... ]
@@ -137,40 +137,77 @@ def condenseHoldings(holdings, minFrac=0.0, maxFrac=1.0,
     If supplied, allCusipCounter should be a Counter, and it will be updated to count
     all investors that have any position in each stock, without regard to the min/max
     options supplied to restrict the holdings list.
+
+    If supplied, allHoldingsMap should be a dict, and a full sorted holdings list:
+        [(cusip, val, frac) ... ]
+    will be saved in allHoldingsMap[forCik], without regard to the min/max
+    options supplied to restrict the holdings list.
     """
     if includeName :
         cusipToName = dict((cusip,name)
                            for cusip, name, value, shType, nShares, putCall in holdings)
+    # eliminate options and sort to group holdings by CUSIP (stock identifier):
     holdings = sorted((cusip, float(value))
                       for cusip, name, value, shType, nShares, putCall in holdings
                       if putCall=='')
+    # combine into a single entry for each stock with the total for that stock:
     holdings = [(cusip, sum(val for _,val in it))
                 for cusip,it in itertools.groupby(holdings, key=lambda x : x[0])]
+    # sort to put largest holdings first:
+    holdings.sort(key = lambda x : x[1], reverse=True)
+    # calculate the fraction of total holdings for each stock:
+    totAum = sum(val for _,val in holdings)
+    holdings = [(cusip, val, val/totAum if totAum>0.0 else 0.0)
+                for cusip,val in holdings]
+    if allHoldingsMap is not None :
+        allHoldingsMap[forCik] = holdings
     if allCusipCounter is not None :
         allCusipCounter.update(cusip for cusip,_ in holdings)
+    # return None if the investor is eliminated by any of the min/max options:
     if ((minStocksPerInv is not None and minStocksPerInv > len(holdings))
-            or (maxStocksPerInv is not None and maxStocksPerInv < len(holdings))) :
+            or (maxStocksPerInv is not None and maxStocksPerInv < len(holdings))
+            or (minAUM is not None and minAUM > totAum*1000.0)
+            or (minTop10Frac is not None
+                and minTop10Frac > sum(frac for _,_,frac in holdings[:10]))) :
         return None
-    holdings.sort(key = lambda x : x[1], reverse=True)
-    tot = sum(val for _,val in holdings)
-    if ((minAUM is not None and minAUM > tot*1000.0)
-            or (minTop10Frac is not None and minTop10Frac*tot > sum(val for _,val in holdings[:10]))) :
-        return None
+    # get the final output list, filtered by min/maxFrac and formatted:
     res = []
-    for cusip,val in holdings :
-        frac = val/tot if tot>0.0 else 0.0
-        if frac > maxFrac :
-            # skip holdings with fraction too large
+    for cusip,val,frac in holdings :
+        if frac > maxFrac : # fraction too large - skip holding
             continue
-        if minFrac > frac :
-            # holdings list is sorted in descending order by fraction, so we can stop here
+        if minFrac > frac : # fraction too small - holdings list is sorted so we can stop here
             break
         fracOut = f'{frac:.2%}' if pctFormat else frac
         if includeName :
             res.append((cusip, cusipNames.get(cusip,cusipToName[cusip]), val, fracOut))
         else :
             res.append((cusip, val, fracOut))
-    return res
+    return res if len(res)>0 else None
+#     if allCusipCounter is not None :
+#         allCusipCounter.update(cusip for cusip,_ in holdings)
+#     if ((minStocksPerInv is not None and minStocksPerInv > len(holdings))
+#             or (maxStocksPerInv is not None and maxStocksPerInv < len(holdings))) :
+#         return None
+#     holdings.sort(key = lambda x : x[1], reverse=True)
+#     tot = sum(val for _,val in holdings)
+#     if ((minAUM is not None and minAUM > tot*1000.0)
+#             or (minTop10Frac is not None and minTop10Frac*tot > sum(val for _,val in holdings[:10]))) :
+#         return None
+#     res = []
+#     for cusip,val in holdings :
+#         frac = val/tot if tot>0.0 else 0.0
+#         if frac > maxFrac :
+#             # skip holdings with fraction too large
+#             continue
+#         if minFrac > frac :
+#             # holdings list is sorted in descending order by fraction, so we can stop here
+#             break
+#         fracOut = f'{frac:.2%}' if pctFormat else frac
+#         if includeName :
+#             res.append((cusip, cusipNames.get(cusip,cusipToName[cusip]), val, fracOut))
+#         else :
+#             res.append((cusip, val, fracOut))
+#     return res
 
 def get13FAmendmentType(accNo, formType=None) :
     """
@@ -195,7 +232,7 @@ def indexMap(lis) :
 
 def getHoldingsMap(scraped13F, period, minFrac=0.0, maxFrac=1.0,
                    minStocksPerInv=None, maxStocksPerInv=None, minTop10Frac=None, minAUM=None,
-                   allCusipCounter=None) :
+                   allCusipCounter=None, allHoldingsMap=None) :
     """
     Consolidate holdings for each CIK based on all filings for a given period into
     a combined map of investor holdings.
@@ -213,7 +250,12 @@ def getHoldingsMap(scraped13F, period, minFrac=0.0, maxFrac=1.0,
 
     If supplied, allCusipCounter should be a Counter, and it will be updated to count
     all investors that have any position in each stock, without regard to the min/max
-    options supplied to restrict the holdings map.
+    options supplied to restrict the returned holdings map.
+
+    If supplied, allHoldingsMap should be a dict, it will be updated with a full sorted
+    holdings list for each CIK:
+        allHoldingsMap[cik] = [(cusip, val, frac) ... ]
+    without regard to the min/max options supplied to restrict the returned holdings map.
     """
     for v,msg in [(minFrac,'min stock fraction of portfolio'),
                   (maxFrac,'max stock fraction of portfolio'),
@@ -262,7 +304,8 @@ def getHoldingsMap(scraped13F, period, minFrac=0.0, maxFrac=1.0,
         posList = condenseHoldings(combHoldings, minFrac=minFrac, maxFrac=maxFrac,
                                 minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
                                 minTop10Frac=minTop10Frac, minAUM=minAUM,
-                                allCusipCounter=allCusipCounter)
+                                allCusipCounter=allCusipCounter,
+                                allHoldingsMap=allHoldingsMap, forCik=cik)
         if posList is not None :
             cikToPosList[cik] = posList
     res = {}
