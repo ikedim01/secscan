@@ -220,7 +220,8 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
     """
     Generate or update a combined dict of percentage holdings:
         cik13GDPosMap: cik -> {cusip -> (eventDate, accNo, pct)}
-    based on a list of 13G and 13D scrapers.
+    based on a list of 13G and 13D scrapers - pct is in the range [0.0 .. 100.0],
+    as given in the 13G and 13D filings.
 
     If cusipNames and cikNames are supplied, both should be dicts, and CUSIPs
     encountered in 13G/D filings will have the corresponding CIK names added
@@ -233,7 +234,11 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
         cik13GDPosMap = collections.defaultdict(dict)
     cikTo13GDs = collections.defaultdict(list)
     count = 0
-    extraCusipNames = None if (cusipNames is None or cikNames is None) else {}
+    extraCusipNames = None if (cusipNames is None or cikNames is None) else {
+        # CUSIP -> CIK mapping for some stocks that don't currently appear in any 13D or 13G filings:
+        '931142103' : ('0000','walmart','104169'),
+        '084670108' : ('0000','berkshire','1067983'),
+    }
     for scraper in scrapers :
         for dStr, accNoToInfo in scraper.infoMap.items() :
             for accNo, info in accNoToInfo.items() :
@@ -281,7 +286,7 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
                 count1 += 1
         for cusip,(_,subjectCikName,subjectCik) in extraCusipNames.items() :
             if cusip not in cusipNames :
-                cusipNames[cusip] = f'- {subjectCikName}{cikSymStr(subjectCik,cikToTickers[subjectCik])})'
+                cusipNames[cusip] = f'- {subjectCikName}{cikSymStr(subjectCik,cikToTickers[subjectCik])}'
                 count2 += 1
         print('count1',count1,'count2',count2)
     print('total of',len(cikTo13GDs),'ciks,',count,'13G/D filings')
@@ -301,7 +306,9 @@ def calcBonusMap(cik13GDPosMap, max13GDBonus=0.2, min13GDBonus=0.02, max13GDCoun
     Calculate "bonus fractions" for cusips where a 13G or 13D has been filed.
     13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
     If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
-    and 13D positions.
+    and 13D positions. For positions between [1.0% .. 5.0%), the bonus is cut in half;
+    positions below 1.0% aren't given a bonus.
+
     If supplied, allCusipCounter should be a Counter, and it will be updated to count
     all investors that have any position in each stock.
 

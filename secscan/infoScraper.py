@@ -42,7 +42,7 @@ class scraperBase(object) :
     def loadXInfo(self, dStr, accNo) :
         return utils.loadPklFromDir(os.path.join(self.infoDir,dStr), accNo+'-xinfo.pkl', None, **self.pickle_kwargs)
     def retryErrs(self, startD=None, endD=None, justShow=False) :
-        correctedCount = 0
+        correctedCount = errCount = 0
         for dStr,dInfo in self.infoMap.items() :
             if ((startD is not None and dStr<startD)
                 or (endD is not None and endD<=dStr)) :
@@ -52,13 +52,14 @@ class scraperBase(object) :
                     if justShow :
                         print(accNo,end=' ')
                         continue
+                    errCount += 1
                     print('retrying',accNo)
                     dInfo[accNo] = self.scrapeForAccNo(accNo)
                     if dInfo[accNo] != 'ERROR' :
                         self.dirtySet.add(dStr)
                         correctedCount += 1
         if not justShow :
-            print(correctedCount,'corrected errors')
+            print('corrected',correctedCount,'of',errCount,'errors')
     def retryErrsAndSave(self, startD=None, endD=None) :
         self.retryErrs(startD=startD, endD=endD)
         self.save()

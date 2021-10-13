@@ -30,13 +30,15 @@ def get13GDDatesForQ(y, qNo) :
     kwargs['startD'] = str(int(kwargs['startD'][:4])-2) + kwargs['startD'][4:]
     return kwargs
 
-def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPerInv=100,
+def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0,
+                   minStocksPerInvestor=3, maxStocksPerInvestor=100,
                    minTop10Frac=0.4, minAUM=None, dtype=np.float64,
                    minInvestorsPerStock=None, maxInvestorsPerStock=None,
-                   minAllInvestorsPerStock=2, maxAllInvestorsPerStock=None, cusipFilter=None,
-                   max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100,
+                   minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None,
+                   cusipNameFilter=lambda cusip,name : name is not None,
+                   max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=50,
                    include13F=True, include13G=False, include13D=False,
-                   outsInfoFName='', outDir=None) :
+                   outsInfoFName='', outDir='ratings') :
     """
     Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
     during the succeeding quarter, combined with 13G and 13D filings from the previous year
@@ -48,24 +50,29 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
     If minFrac and/or maxFrac is supplied, restricts to stocks with fraction of
     total portfolio >=minFrac and/or <=maxFrac.
 
-    If minStocksPerInv, maxStocksPerInv, minTop10Frac or minAUM are specified, omits
-    investors with too few stocks, too many stocks, too small a fraction in the
+    If minStocksPerInvestor, maxStocksPerInvestor, minTop10Frac or minAUM are specified,
+    omits investors with too few stocks, too many stocks, too small a fraction in the
     top 10 holdings, or too small a total stock value.
-    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors
-    in the returned matrix; likewise, maxInvestorsPerStock can be used to give an upper bound.
-    If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified, restricts based on a count
-    of all investors that have any position in each stock.
-    If cusipFilter is specified, this should be a function that returns True for cusips to keep.
+    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors;
+    likewise, maxInvestorsPerStock can be used to give an upper bound.
+
+    Note min/max StocksPerInvestor/InvestorsPerStock limit based on the counts of stocks/investors
+    in the returned matrix. If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified,
+    this instead restricts based on a count of all investors that have any position in each stock.
+
+    If cusipNameFilter is specified, this should be a function that gets two arguments (cusip and
+    name, where name will be None if no name was found in either the SEC 13F CUSIP name index or
+    in the CUSIP-CIK correspondence from 13D and 13G forms), and returns True for cusips to keep.
 
     13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
     If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
     and 13D positions.
     """
     allCusipCounter = collections.Counter()
+    all13FHoldingsMap = {}
     cikNames = utils.loadPklFromDir(dailyList.defaultDLDir, 'cikNames.pkl', {})
     cikNames = dict((cik,name) for cik,(name,dStr) in cikNames.items())
-    cusipNames = utils.pickLoad(os.path.join(utils.stockDataRoot,'cusipMap.pkl'))
-    cik13GDSortedPosMap = None
+    cusipNames = utils.pickLoad(os.path.join(utils.stockDataRoot,'13FLists',f'{y}Q{qNo}secCusipMap.pkl'))
     if include13G or include13D :
         dates = get13GDDatesForQ(y,qNo)
         scrapedL = []
@@ -78,21 +85,25 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
         cikBonusMaps = [scrape13G.calcBonusMap(cik13GDPosMap,
                                                max13GDBonus=max13GDBonus, min13GDBonus=min13GDBonus,
                                                max13GDCount=max13GDCount, allCusipCounter=allCusipCounter)]
-        cik13GDSortedPosMap = dict((cik,sorted(((cusip,pos[-1]) for cusip,pos in posMap.items()),
+        cik13GDSortedPosMap = dict((cik,sorted(((cusip,pos) for cusip,pos in posMap.items()),
                                         # sort positions largest first, then by name
-                                        key=lambda x : (-x[1], cusipNames.get(x[0],'CUSIP-'+x[0]).lower())))
+                                        key=lambda x : (-x[1][2], cusipNames.get(x[0],'CUSIP-'+x[0]).lower())))
                                    for cik,posMap in cik13GDPosMap.items())
     else :
         cikBonusMaps = []
+        cik13GDSortedPosMap = {}
     res = scrape13F.getNSSForQ(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
-                                minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
-                                minTop10Frac=minTop10Frac, minAUM=minAUM, dtype=dtype,
-                                minInvestorsPerStock=minInvestorsPerStock,
-                                maxInvestorsPerStock=maxInvestorsPerStock,
-                                minAllInvestorsPerStock=minAllInvestorsPerStock,
-                                maxAllInvestorsPerStock=maxAllInvestorsPerStock,
-                                allCusipCounter=allCusipCounter, cusipFilter=cusipFilter,
-                                extraHoldingsMaps=cikBonusMaps, include13F=include13F)
+                               minStocksPerInv=minStocksPerInvestor,
+                               maxStocksPerInv=maxStocksPerInvestor,
+                               minTop10Frac=minTop10Frac, minAUM=minAUM, dtype=dtype,
+                               minInvestorsPerStock=minInvestorsPerStock,
+                               maxInvestorsPerStock=maxInvestorsPerStock,
+                               minAllInvestorsPerStock=minAllInvestorsPerStock,
+                               maxAllInvestorsPerStock=maxAllInvestorsPerStock,
+                               allCusipCounter=allCusipCounter,
+                               cusipFilter=lambda cusip : cusipNameFilter(cusip,cusipNames.get(cusip)),
+                               extraHoldingsMaps=cikBonusMaps, include13F=include13F,
+                               all13FHoldingsMap=all13FHoldingsMap)
     if outsInfoFName is not None :
         if outDir is None :
             outDir = Path(utils.stockDataRoot)
@@ -101,19 +112,26 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStoc
         if not outDir.exists() :
             outDir.mkdir()
         mat, ciks, cusips = res
-        cusipSet = set(cusips)
+        cikSet = set(ciks)
         mat /= 0.01
         mat = np.minimum(mat,20.0)
-        res = {'Y': mat, 'ciks': ciks, 'cusips': cusips, 'cusipinfo': []}
+        res = {'Y': mat, 'ciks': ciks, 'cusips': cusips, 'cusipinfo': [],
+               'deletedcusips': set(cusip for cusip in cusips
+                                    if 'DELETED' in cusipNames.get(cusip,''))}
         utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}sInfo.pkl', res,
                        fix_imports=True, protocol=2)
-        utils.pickSave(outDir/f'cusipMap.pkl',
-                       dict((cusip,cusipNames.get(cusip,'CUSIP-'+cusip))
-                            for cusip in allCusipCounter.keys()),
+        utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}cusipMap.pkl',
+                       dict((cusip, name)
+                            for cusip,name in cusipNames.items() if cusip in allCusipCounter),
                        fix_imports=True, protocol=2)
-        if cik13GDSortedPosMap is not None :
-            utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13GD.pkl', cik13GDSortedPosMap,
-                           fix_imports=True, protocol=2)
+        utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13GD.pkl',
+                       dict((cik, posMap)
+                            for cik,posMap in cik13GDSortedPosMap.items() if cik.zfill(10) in cikSet),
+                       fix_imports=True, protocol=2)
+        utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13F.pkl',
+                       dict((cik, posMap)
+                            for cik,posMap in all13FHoldingsMap.items() if cik.zfill(10) in cikSet),
+                       fix_imports=True, protocol=2)
     return res
 
 def oddballScreen(yNo, qNo) :

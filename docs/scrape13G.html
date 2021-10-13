@@ -285,7 +285,8 @@ nb_path: "10_scrape13G.ipynb"
 </blockquote>
 <p>Generate or update a combined dict of percentage holdings:
     cik13GDPosMap: cik -&gt; {cusip -&gt; (eventDate, accNo, pct)}
-based on a list of 13G and 13D scrapers.</p>
+based on a list of 13G and 13D scrapers - pct is in the range [0.0 .. 100.0],
+as given in the 13G and 13D filings.</p>
 <p>If cusipNames and cikNames are supplied, both should be dicts, and CUSIPs
 encountered in 13G/D filings will have the corresponding CIK names added
 to the CUSIP names based on the filings (i.e. each 13D/G filing includes
@@ -314,7 +315,7 @@ provided by the SEC.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="cikSymStr" class="doc_header"><code>cikSymStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L295" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cikSymStr</code>(<strong><code>cik</code></strong>, <strong><code>tickers</code></strong>)</p>
+<h4 id="cikSymStr" class="doc_header"><code>cikSymStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L300" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cikSymStr</code>(<strong><code>cik</code></strong>, <strong><code>tickers</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -338,13 +339,14 @@ provided by the SEC.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calcBonusMap" class="doc_header"><code>calcBonusMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L298" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calcBonusMap</code>(<strong><code>cik13GDPosMap</code></strong>, <strong><code>max13GDBonus</code></strong>=<em><code>0.2</code></em>, <strong><code>min13GDBonus</code></strong>=<em><code>0.02</code></em>, <strong><code>max13GDCount</code></strong>=<em><code>100</code></em>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="calcBonusMap" class="doc_header"><code>calcBonusMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L303" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calcBonusMap</code>(<strong><code>cik13GDPosMap</code></strong>, <strong><code>max13GDBonus</code></strong>=<em><code>0.2</code></em>, <strong><code>min13GDBonus</code></strong>=<em><code>0.02</code></em>, <strong><code>max13GDCount</code></strong>=<em><code>100</code></em>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Calculate "bonus fractions" for cusips where a 13G or 13D has been filed.
 13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
 If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
-and 13D positions.
-If supplied, allCusipCounter should be a Counter, and it will be updated to count
+and 13D positions. For positions between [1.0% .. 5.0%), the bonus is cut in half;
+positions below 1.0% aren't given a bonus.</p>
+<p>If supplied, allCusipCounter should be a Counter, and it will be updated to count
 all investors that have any position in each stock.</p>
 <p>Returns a dict: cik -&gt; {cusip -&gt; bonusfrac}</p>
 
