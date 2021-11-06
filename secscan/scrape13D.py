@@ -124,13 +124,13 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0,
                        dict((cusip, name)
                             for cusip,name in cusipNames.items() if cusip in allCusipCounter),
                        fix_imports=True, protocol=2)
-        utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13GD.pkl',
-                       dict((cik, posMap)
-                            for cik,posMap in cik13GDSortedPosMap.items() if cik.zfill(10) in cikSet),
+        utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13GD.pkl',cik13GDSortedPosMap,
+                       #dict((cik, posMap)
+                       #     for cik,posMap in cik13GDSortedPosMap.items() if cik.zfill(10) in cikSet),
                        fix_imports=True, protocol=2)
-        utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13F.pkl',
-                       dict((cik, posMap)
-                            for cik,posMap in all13FHoldingsMap.items() if cik.zfill(10) in cikSet),
+        utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}hold13F.pkl',all13FHoldingsMap,
+                       #dict((cik, posMap)
+                       #     for cik,posMap in all13FHoldingsMap.items() if cik.zfill(10) in cikSet),
                        fix_imports=True, protocol=2)
     return res
 

@@ -125,6 +125,30 @@ the SEC daily index.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="downloadSecFormList" class="doc_header"><code>downloadSecFormList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L62" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>downloadSecFormList</code>(<strong><code>listUrl</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 </div>
     {% endraw %}
 
@@ -191,7 +215,7 @@ the SEC daily index.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="isInFormClass" class="doc_header"><code>isInFormClass</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L92" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isInFormClass</code>(<strong><code>formClass</code></strong>, <strong><code>formType</code></strong>)</p>
+<h4 id="isInFormClass" class="doc_header"><code>isInFormClass</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L97" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isInFormClass</code>(<strong><code>formClass</code></strong>, <strong><code>formType</code></strong>)</p>
 </blockquote>
 <p>Says if formType is in formClass, where formClass can be one of the following:</p>
 
@@ -269,7 +293,7 @@ the SEC daily index.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="findCikName" class="doc_header"><code>findCikName</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L113" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>findCikName</code>(<strong><code>cikName</code></strong>, <strong><code>oldNames</code></strong>)</p>
+<h4 id="findCikName" class="doc_header"><code>findCikName</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L118" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>findCikName</code>(<strong><code>cikName</code></strong>, <strong><code>oldNames</code></strong>)</p>
 </blockquote>
 <p>Checks if a CIK name already appears in a list of old names (case insensitive).
 Returns the position if it appears, else -1.</p>
@@ -295,7 +319,7 @@ Returns the position if it appears, else -1.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="checkMapDates" class="doc_header"><code>checkMapDates</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L124" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>checkMapDates</code>(<strong><code>dMap</code></strong>, <strong><code>verbose</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="checkMapDates" class="doc_header"><code>checkMapDates</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L129" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>checkMapDates</code>(<strong><code>dMap</code></strong>, <strong><code>verbose</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Prints info on dates present present in a map, checking for missing dates.</p>
 
@@ -320,7 +344,7 @@ Returns the position if it appears, else -1.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="dailyList" class="doc_header"><code>class</code> <code>dailyList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L137" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>dailyList</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
+<h2 id="dailyList" class="doc_header"><code>class</code> <code>dailyList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L142" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>dailyList</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -344,7 +368,7 @@ Returns the position if it appears, else -1.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCikToTickersMap" class="doc_header"><code>getCikToTickersMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L271" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCikToTickersMap</code>()</p>
+<h4 id="getCikToTickersMap" class="doc_header"><code>getCikToTickersMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L282" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCikToTickersMap</code>()</p>
 </blockquote>
 <p>Retrieves and parses an SEC-maintained list mapping tickers to CIKs.
 Returns a defaultdict: cik -&gt; list of corresponding tickers</p>
@@ -370,7 +394,7 @@ Returns a defaultdict: cik -&gt; list of corresponding tickers</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dlCountFilings" class="doc_header"><code>dlCountFilings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L282" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dlCountFilings</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>ciks</code></strong>=<em><code>None</code></em>, <strong><code>formClass</code></strong>=<em><code>None</code></em>, <strong><code>noAmend</code></strong>=<em><code>False</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
+<h4 id="dlCountFilings" class="doc_header"><code>dlCountFilings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L293" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dlCountFilings</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>ciks</code></strong>=<em><code>None</code></em>, <strong><code>formClass</code></strong>=<em><code>None</code></em>, <strong><code>noAmend</code></strong>=<em><code>False</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
 </blockquote>
 <p>Convenience function to count number of filings in a date range, optionally restricting
 to ciks and formClass.</p>
@@ -396,7 +420,7 @@ to ciks and formClass.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadAndUpdateDL" class="doc_header"><code>loadAndUpdateDL</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L295" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadAndUpdateDL</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>uStartD</code></strong>=<em><code>None</code></em>, <strong><code>uEndD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtySet</code></strong>=<em><code>None</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
+<h4 id="loadAndUpdateDL" class="doc_header"><code>loadAndUpdateDL</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L306" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadAndUpdateDL</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>uStartD</code></strong>=<em><code>None</code></em>, <strong><code>uEndD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtySet</code></strong>=<em><code>None</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
 </blockquote>
 <p>Creates a dailyList object and loads lists for the date range [startD..endD), along with
 the full CIK name maps. By default (startD=None, endD=None) loads all dates present.
