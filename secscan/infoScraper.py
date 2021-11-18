@@ -4,6 +4,7 @@ __all__ = ['defaultBaseScrapeDir', 'scraperBase']
 
 # Cell
 
+import copy
 import os
 import re
 
@@ -37,6 +38,8 @@ class scraperBase(object) :
         self.dirtySet.difference_update(daySet)
     def scrapeInfo(self, accNo, formType=None) :
         return basicInfo.getSecFormInfo(accNo, formType), None
+    def rescrapeInfo(self, accNo, info) :
+        raise Exception('rescrapeInfo not implemented for this class')
     def saveXInfo(self, dStr, accNo, xInfo) :
         utils.savePklToDir(os.path.join(self.infoDir,dStr), accNo+'-xinfo.pkl', xInfo, **self.pickle_kwargs)
     def loadXInfo(self, dStr, accNo) :
@@ -60,6 +63,24 @@ class scraperBase(object) :
                         correctedCount += 1
         if not justShow :
             print('corrected',correctedCount,'of',errCount,'errors')
+    def rescrape(self, startD=None, endD=None) :
+        totCount = changedCount = 0
+        for dStr,dInfo in self.infoMap.items() :
+            if ((startD is not None and dStr<startD)
+                or (endD is not None and endD<=dStr)) :
+                continue
+            for accNo in dInfo :
+                totCount += 1
+                print(accNo, end=' ', flush=True)
+                newInfo = self.rescrapeInfo(accNo,copy.deepcopy(dInfo[accNo]))
+                if dInfo[accNo] != newInfo :
+                    print('*',end=' ')
+                    changedCount += 1
+                    dInfo[accNo] = newInfo
+                    self.dirtySet.add(dStr)
+        print(f'{changedCount} changed of {totCount} total')
+        if changedCount > 0 :
+            print('call scraper.save() to save')
     def retryErrsAndSave(self, startD=None, endD=None) :
         self.retryErrs(startD=startD, endD=endD)
         self.save()

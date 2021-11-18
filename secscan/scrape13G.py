@@ -33,13 +33,14 @@ form13NshAndPctPats = [
                 + r'.*?' + r'item\s+11\s*:.*?' + nPctPatStr + r'\s*%',
                 re.IGNORECASE|re.DOTALL),
     re.compile(r'aggregate\s+amount.{1,100}?' + nSharesPatStr
-                + r'.{1,200}?' + r'percent\s+of class.{1,100}?(?!\D9\D)\D' + nPctPatStr,
+                + r'.{1,200}?' + r'percent\s+of class.{1,100}?(?!\D9\D\D)\D' + nPctPatStr,
                 re.IGNORECASE|re.DOTALL),
 ]
 def getSec13NshAndPctFromText(txt) :
     "Returns a list [(nShares, percent) ... ] parsed from form 13G or 13D."
     for pat in form13NshAndPctPats :
         res = pat.findall(txt)
+        # print(res)
         if res :
             break
     return res
@@ -157,8 +158,9 @@ def parseEventDate(info,mainText) :
     print('NO EVENT DATE!')
 
 
-def parse13GD(accNo, formType=None) :
-    info = basicInfo.getSecFormInfo(accNo, formType=formType)
+def parse13GD(accNo, formType=None, info=None) :
+    if info is None :
+        info = basicInfo.getSecFormInfo(accNo, formType=formType)
     if 'filedByCik' not in info :
         print('No filed by CIK!')
     links = info['links']
@@ -212,6 +214,8 @@ class scraper13G(infoScraper.scraperBase) :
         super().__init__(infoDir, 'SC 13G', startD=startD, endD=endD, fSuff=fSuff, **pickle_kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse13GD(accNo, formType=formType), None
+    def rescrapeInfo(self, accNo, info) :
+        return parse13GD(accNo, info=info)
 
 # Cell
 
