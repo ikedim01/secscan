@@ -65,22 +65,31 @@ class scraperBase(object) :
             print('corrected',correctedCount,'of',errCount,'errors')
     def rescrape(self, startD=None, endD=None) :
         totCount = changedCount = 0
-        for dStr,dInfo in self.infoMap.items() :
+        for dStr in sorted(self.infoMap.keys(), reverse=True) :
             if ((startD is not None and dStr<startD)
                 or (endD is not None and endD<=dStr)) :
                 continue
+            print('===', dStr, '===', end=' ', flush=True)
+            dInfo = self.infoMap[dStr]
             for accNo in dInfo :
-                totCount += 1
                 print(accNo, end=' ', flush=True)
+                totCount += 1
+                if dInfo[accNo] == 'ERROR' :
+                    continue
                 newInfo = self.rescrapeInfo(accNo,copy.deepcopy(dInfo[accNo]))
                 if dInfo[accNo] != newInfo :
-                    print('*',end=' ')
+                    print()
+                    print('<<<<<<<', dInfo[accNo])
+                    print('>>>>>>>', newInfo, flush=True)
                     changedCount += 1
                     dInfo[accNo] = newInfo
                     self.dirtySet.add(dStr)
+        print()
         print(f'{changedCount} changed of {totCount} total')
         if changedCount > 0 :
             print('call scraper.save() to save')
+        else :
+            print('no need to save')
     def retryErrsAndSave(self, startD=None, endD=None) :
         self.retryErrs(startD=startD, endD=endD)
         self.save()

@@ -33,7 +33,10 @@ form13NshAndPctPats = [
                 + r'.*?' + r'item\s+11\s*:.*?' + nPctPatStr + r'\s*%',
                 re.IGNORECASE|re.DOTALL),
     re.compile(r'aggregate\s+amount.{1,100}?' + nSharesPatStr
-                + r'.{1,200}?' + r'percent\s+of class.{1,100}?(?!\D9\D\D)\D' + nPctPatStr,
+                + r'.{1,200}?' + r'percent\s+of class.{1,100}?\D9(?!\.\d)\D.{0,100}?' + nPctPatStr,
+                re.IGNORECASE|re.DOTALL),
+    re.compile(r'aggregate\s+amount.{1,100}?' + nSharesPatStr
+                + r'.{1,200}?' + r'percent\s+of class.{1,100}?' + nPctPatStr,
                 re.IGNORECASE|re.DOTALL),
 ]
 def getSec13NshAndPctFromText(txt) :
