@@ -142,30 +142,25 @@ def downloadSecUrl(secSubUrlOrAccessNo, toFormat='text', sleepTime=0.1, restData
 
 # Cell
 
-def delegates(toSpec=None, keepKwargs=False):
+def delegates(toFunc, keepKwargs=False):
     """
-    Returns a decorator that replaces `**kwargs` in a function or class __init__ signature
-    with keyword params from `toSpec`. If used on a function, toSpec should be the function
-    delegated to. If used on a class, toSpec should be None, and the __init__ method of the
-    class will delegate to the __init__ method of the base (parent) class.
+    Returns a decorator that replaces `**kwargs` in a function signature with the keyword
+    arguments from `toFunc`.
     """
-    def _decorator(fromSpec):
-        if toSpec is None:  # used on a class
-            toF, fromF = fromSpec.__base__.__init__, fromSpec.__init__
-        else:               # used on a function
-            toF, fromF = toSpec, fromSpec
-        sigFrom = inspect.signature(fromF)
+    def _decorator(fromFunc):
+        sigFrom = inspect.signature(fromFunc)
+        # print(sigFrom)
         sigFromDict = dict(sigFrom.parameters)
         kwargsParam = sigFromDict.pop('kwargs')
         delegatedDict = {name:param.replace(kind=inspect.Parameter.KEYWORD_ONLY)
-                         for name,param in inspect.signature(toF).parameters.items()
+                         for name,param in inspect.signature(toFunc).parameters.items()
                          if param.default != inspect.Parameter.empty and name not in sigFromDict}
         sigFromDict.update(delegatedDict)
         if keepKwargs:
             sigFromDict['kwargs'] = kwargsParam
-        fromF.__signature__ = sigFrom.replace(parameters=sigFromDict.values())
-        # print(fromF.__signature__)
-        return fromF
+        fromFunc.__signature__ = sigFrom.replace(parameters=sigFromDict.values())
+        # print(fromFunc.__signature__)
+        return fromFunc
     return _decorator
 
 # Cell

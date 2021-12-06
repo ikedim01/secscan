@@ -15,35 +15,42 @@ defaultBaseScrapeDir = os.path.join(utils.stockDataRoot,'scrapedBase')
 # Cell
 
 class scraperBase(object) :
-    def __init__(self, infoDir, formClass, startD=None, endD=None, fSuff='m.pkl', **pickle_kwargs) :
+    def __init__(self, infoDir, formClass, startD=None, endD=None, fSuff='m.pkl') :
         self.infoDir = infoDir
         self.formClass = formClass
         self.fSuff = fSuff
-        self.pickle_kwargs = dict(pickle_kwargs)
+        self.pickSavePars = {}
+        self.pickLoadPars = {}
         self.infoMap = {}
         self.dirtySet = set()
         if startD=='empty' :
             return
         self.loadDays(startD=startD, endD=endD)
+    @utils.delegates(utils.pickSave)
+    def setPickSavePars(self, **kwargs) :
+        self.pickSavePars = dict(kwargs)
+    @utils.delegates(utils.pickLoad)
+    def setPickLoadPars(self, **kwargs) :
+        self.pickLoadPars = dict(kwargs)
     def loadDays(self, startD=None, endD=None) :
         self.infoMap.update(utils.loadSplitPklFromDir(self.infoDir, startK=startD, endK=endD,
-                                                      fSuff=self.fSuff, **self.pickle_kwargs))
+                                                      fSuff=self.fSuff, **self.pickLoadPars))
     def save(self) :
         utils.saveSplitPklToDir(self.infoMap, self.infoDir, dirtySet=self.dirtySet,
-                                fSuff=self.fSuff, **self.pickle_kwargs)
+                                fSuff=self.fSuff, **self.pickSavePars)
         self.dirtySet.clear()
     def saveDays(self, daySet) :
         utils.saveSplitPklToDir(self.infoMap, self.infoDir, dirtySet=daySet,
-                                fSuff=self.fSuff, **self.pickle_kwargs)
+                                fSuff=self.fSuff, **self.pickSavePars)
         self.dirtySet.difference_update(daySet)
     def scrapeInfo(self, accNo, formType=None) :
         return basicInfo.getSecFormInfo(accNo, formType), None
     def rescrapeInfo(self, accNo, info) :
         raise Exception('rescrapeInfo not implemented for this class')
     def saveXInfo(self, dStr, accNo, xInfo) :
-        utils.savePklToDir(os.path.join(self.infoDir,dStr), accNo+'-xinfo.pkl', xInfo, **self.pickle_kwargs)
+        utils.savePklToDir(os.path.join(self.infoDir,dStr), accNo+'-xinfo.pkl', xInfo, **self.pickSavePars)
     def loadXInfo(self, dStr, accNo) :
-        return utils.loadPklFromDir(os.path.join(self.infoDir,dStr), accNo+'-xinfo.pkl', None, **self.pickle_kwargs)
+        return utils.loadPklFromDir(os.path.join(self.infoDir,dStr), accNo+'-xinfo.pkl', None, **self.pickLoadPars)
     def retryErrs(self, startD=None, endD=None, justShow=False) :
         correctedCount = errCount = 0
         for dStr,dInfo in self.infoMap.items() :

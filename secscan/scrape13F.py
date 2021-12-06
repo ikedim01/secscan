@@ -106,8 +106,9 @@ def parse13FHoldings(accNo, formType=None) :
             'holdings': holdings}
 
 class scraper13F(infoScraper.scraperBase) :
-    def __init__(self, infoDir=default13FDir, startD=None, endD=None, fSuff='m.pkl', **pickle_kwargs) :
-        super().__init__(infoDir, '13F-HR', startD=startD, endD=endD, fSuff=fSuff, **pickle_kwargs)
+    @utils.delegates(infoScraper.scraperBase.__init__)
+    def __init__(self, infoDir=default13FDir, **kwargs) :
+        super().__init__(infoDir, '13F-HR', **kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse13FHoldings(accNo, formType), None
 
