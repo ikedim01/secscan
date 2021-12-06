@@ -17,11 +17,10 @@ default13DDir = os.path.join(utils.stockDataRoot,'scraped13D')
 
 # Cell
 
-class scraper13D(infoScraper.scraperBase) :
-    def __init__(self, infoDir=default13DDir, startD=None, endD=None, fSuff='m.pkl', **pickle_kwargs) :
-        super().__init__(infoDir, 'SC 13D', startD=startD, endD=endD, fSuff=fSuff, **pickle_kwargs)
-    def scrapeInfo(self, accNo, formType=None) :
-        return scrape13G.parse13GD(accNo, formType=formType), None
+class scraper13D(scrape13G.scraper13G) :
+    @utils.delegates(scrape13G.scraper13G.__init__)
+    def __init__(self, infoDir=default13DDir, **kwargs) :
+        super().init_for_13D(infoDir, **kwargs)
 
 # Cell
 

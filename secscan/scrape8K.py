@@ -59,7 +59,8 @@ def parse8K(accNo, formType=None, textLimit=basicInfo.defaultTextLimit) :
     return info
 
 class scraper8K(infoScraper.scraperBase) :
-    def __init__(self, infoDir=default8KDir, startD=None, endD=None, fSuff='m.pkl', **pickle_kwargs) :
-        super().__init__(infoDir, '8-K', startD=startD, endD=endD, fSuff=fSuff, **pickle_kwargs)
+    @utils.delegates(infoScraper.scraperBase.__init__)
+    def __init__(self, infoDir=default8KDir, **kwargs) :
+        super().__init__(infoDir, '8-K', **kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse8K(accNo, formType), None

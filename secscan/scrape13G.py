@@ -271,8 +271,11 @@ def parse13GD(accNo, formType=None, info=None) :
 #     def rescrapeInfo(self, accNo, info) :
 #         return parse13GD(accNo, info=info)
 class scraper13G(infoScraper.scraperBase) :
-    def __init__(self, infoDir=default13GDir, startD=None, endD=None, fSuff='m.pkl', **pickle_kwargs) :
-        super().__init__(infoDir, 'SC 13G', startD=startD, endD=endD, fSuff=fSuff, **pickle_kwargs)
+    @utils.delegates(infoScraper.scraperBase.__init__)
+    def __init__(self, infoDir=default13GDir, **kwargs) :
+        super().__init__(infoDir, 'SC 13G', **kwargs)
+    def init_for_13D(self, infoDir, **kwargs) :
+        super().__init__(infoDir, 'SC 13D', **kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse13GD(accNo, formType=formType), None
     def rescrapeInfo(self, accNo, info) :

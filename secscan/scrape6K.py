@@ -46,7 +46,8 @@ def parse6K(accNo, formType=None, textLimit=basicInfo.defaultTextLimit) :
     return info
 
 class scraper6K(infoScraper.scraperBase) :
-    def __init__(self, infoDir=default6KDir, startD=None, endD=None, fSuff='m.pkl', **pickle_kwargs) :
-        super().__init__(infoDir, '6-K', startD=startD, endD=endD, fSuff=fSuff, **pickle_kwargs)
+    @utils.delegates(infoScraper.scraperBase.__init__)
+    def __init__(self, infoDir=default6KDir, **kwargs) :
+        super().__init__(infoDir, '6-K', **kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse6K(accNo, formType), None

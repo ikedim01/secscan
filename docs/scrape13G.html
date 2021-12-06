@@ -223,7 +223,7 @@ nb_path: "10_scrape13G.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="scraper13G" class="doc_header"><code>class</code> <code>scraper13G</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L273" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>scraper13G</code>(<strong><code>infoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\scraped13G'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>) :: <a href="/secscan/infoScraper.html#scraperBase"><code>scraperBase</code></a></p>
+<h2 id="scraper13G" class="doc_header"><code>class</code> <code>scraper13G</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L273" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>scraper13G</code>(<strong><code>infoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\scraped13G'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>) :: <a href="/secscan/infoScraper.html#scraperBase"><code>scraperBase</code></a></p>
 </blockquote>
 
 </div>
@@ -305,7 +305,7 @@ nb_path: "10_scrape13G.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="updateCik13GDPos" class="doc_header"><code>updateCik13GDPos</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L283" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>updateCik13GDPos</code>(<strong><code>scrapers</code></strong>, <strong><code>cik13GDPosMap</code></strong>=<em><code>None</code></em>, <strong><code>cusipNames</code></strong>=<em><code>None</code></em>, <strong><code>cikNames</code></strong>=<em><code>None</code></em>, <strong><code>includeTickers</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="updateCik13GDPos" class="doc_header"><code>updateCik13GDPos</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L286" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>updateCik13GDPos</code>(<strong><code>scrapers</code></strong>, <strong><code>cik13GDPosMap</code></strong>=<em><code>None</code></em>, <strong><code>cusipNames</code></strong>=<em><code>None</code></em>, <strong><code>cikNames</code></strong>=<em><code>None</code></em>, <strong><code>includeTickers</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Generate or update a combined dict of percentage holdings:
     cik13GDPosMap: cik -&gt; {cusip -&gt; (eventDate, accNo, pct)}
@@ -339,7 +339,7 @@ provided by the SEC.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="cikSymStr" class="doc_header"><code>cikSymStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L365" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cikSymStr</code>(<strong><code>cik</code></strong>, <strong><code>tickers</code></strong>)</p>
+<h4 id="cikSymStr" class="doc_header"><code>cikSymStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L368" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cikSymStr</code>(<strong><code>cik</code></strong>, <strong><code>tickers</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -363,7 +363,7 @@ provided by the SEC.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calcBonusMap" class="doc_header"><code>calcBonusMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L368" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calcBonusMap</code>(<strong><code>cik13GDPosMap</code></strong>, <strong><code>max13GDBonus</code></strong>=<em><code>0.2</code></em>, <strong><code>min13GDBonus</code></strong>=<em><code>0.02</code></em>, <strong><code>max13GDCount</code></strong>=<em><code>100</code></em>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="calcBonusMap" class="doc_header"><code>calcBonusMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13G.py#L371" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calcBonusMap</code>(<strong><code>cik13GDPosMap</code></strong>, <strong><code>max13GDBonus</code></strong>=<em><code>0.2</code></em>, <strong><code>min13GDBonus</code></strong>=<em><code>0.02</code></em>, <strong><code>max13GDCount</code></strong>=<em><code>100</code></em>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Calculate "bonus fractions" for cusips where a 13G or 13D has been filed.
 13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
