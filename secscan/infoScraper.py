@@ -63,7 +63,7 @@ class scraperBase(object) :
                         correctedCount += 1
         if not justShow :
             print('corrected',correctedCount,'of',errCount,'errors')
-    def rescrape(self, startD=None, endD=None) :
+    def rescrape(self, startD=None, endD=None, printAllAccNos=False) :
         totCount = changedCount = 0
         for dStr in sorted(self.infoMap.keys(), reverse=True) :
             if ((startD is not None and dStr<startD)
@@ -72,15 +72,21 @@ class scraperBase(object) :
             print('===', dStr, '===', end=' ', flush=True)
             dInfo = self.infoMap[dStr]
             for accNo in dInfo :
-                print(accNo, end=' ', flush=True)
+                if printAllAccNos :
+                    print(accNo, end=' ', flush=True)
                 totCount += 1
                 if dInfo[accNo] == 'ERROR' :
                     continue
                 newInfo = self.rescrapeInfo(accNo,copy.deepcopy(dInfo[accNo]))
                 if dInfo[accNo] != newInfo :
-                    print()
-                    print('<<<<<<<', dInfo[accNo])
-                    print('>>>>>>>', newInfo, flush=True)
+                    if printAllAccNos :
+                        print()
+                    else :
+                        print(accNo, end=' ', flush=True)
+                    for k in sorted(set(dInfo[accNo].keys())|set(newInfo.keys())) :
+                        if dInfo[accNo].get(k) != newInfo.get(k) :
+                            print(k, '<<<<<<<', dInfo[accNo].get(k),
+                                  '>>>>>>>', newInfo.get(k), flush=True)
                     changedCount += 1
                     dInfo[accNo] = newInfo
                     self.dirtySet.add(dStr)

@@ -2,7 +2,7 @@
 
 __all__ = ['boto3_available', 'setStockDataRoot', 'stockDataRoot', 'requestUrl', 'setSecUserAgent', 'secIndexUrl',
            'getCombSoupText', 'downloadSecUrl', 'secUrlPref', 'secRestDataPref', 'secHeaders', 'secSleepTime',
-           'accessNoPatStr', 'accessNoPat', 'spacesPat', 'pageUnavailablePat', 'compressGZipBytes',
+           'accessNoPatStr', 'accessNoPat', 'spacesPat', 'pageUnavailablePat', 'delegates', 'compressGZipBytes',
            'decompressGZipBytes', 'pickleToBytes', 'pickleFromBytes', 'pickSave', 'pickLoad', 'pickLoadIfPath',
            'pickSaveToS3', 'pickLoadFromS3', 'pickLoadFromS3Public', 'savePklToDir', 'loadPklFromDir',
            'saveSplitPklToDir', 'loadSplitPklFromDir', 'toDateStr', 'toDate', 'isWeekend', 'dateStrsBetween',
@@ -14,6 +14,7 @@ __all__ = ['boto3_available', 'setStockDataRoot', 'stockDataRoot', 'requestUrl',
 from bs4 import BeautifulSoup
 import datetime
 import gzip
+import inspect
 from io import BytesIO
 import json
 import os
@@ -78,6 +79,18 @@ def secIndexUrl(accessNo, includePref=False) :
             + '/Archives/edgar/data/'+accessNo.replace('-','')
             +'/'+accessNo+'-index.htm')
 
+# from bs4.element import Comment
+# def tag_visible(element):
+#     if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]'] :
+#         return False
+#     if isinstance(element, Comment):
+#         return False
+#     return True
+# def getCombSoupText(tag) :
+#     "Get the combined text from a BeautifulSoup tag."
+#     texts = tag.findAll(text=True)
+#     texts = filter(tag_visible,texts)
+#     return u" ".join(t.strip() for t in texts)
 spacesPat = re.compile(r'\s+')
 def getCombSoupText(tag) :
     "Get the combined text from a BeautifulSoup tag."
@@ -129,6 +142,34 @@ def downloadSecUrl(secSubUrlOrAccessNo, toFormat='text', sleepTime=0.1, restData
 
 # Cell
 
+def delegates(toSpec=None, keepKwargs=False):
+    """
+    Returns a decorator that replaces `**kwargs` in a function or class __init__ signature
+    with keyword params from `toSpec`. If used on a function, toSpec should be the function
+    delegated to. If used on a class, toSpec should be None, and the __init__ method of the
+    class will delegate to the __init__ method of the base (parent) class.
+    """
+    def _decorator(fromSpec):
+        if toSpec is None:  # used on a class
+            toF, fromF = fromSpec.__base__.__init__, fromSpec.__init__
+        else:               # used on a function
+            toF, fromF = toSpec, fromSpec
+        sigFrom = inspect.signature(fromF)
+        sigFromDict = dict(sigFrom.parameters)
+        kwargsParam = sigFromDict.pop('kwargs')
+        delegatedDict = {name:param.replace(kind=inspect.Parameter.KEYWORD_ONLY)
+                         for name,param in inspect.signature(toF).parameters.items()
+                         if param.default != inspect.Parameter.empty and name not in sigFromDict}
+        sigFromDict.update(delegatedDict)
+        if keepKwargs:
+            sigFromDict['kwargs'] = kwargsParam
+        fromF.__signature__ = sigFrom.replace(parameters=sigFromDict.values())
+        # print(fromF.__signature__)
+        return fromF
+    return _decorator
+
+# Cell
+
 def compressGZipBytes(b) :
     "Compress a byte string in-memory using gzip."
     out = BytesIO()
@@ -142,6 +183,7 @@ def decompressGZipBytes(b) :
     with gzip.GzipFile(fileobj=inp, mode="r") as f:
         return f.read()
 
+@delegates(pickle.dumps)
 def pickleToBytes(ob, use_gzip=False, **kwargs) :
     "Pickle an object in-memory, optionally using gzip compression."
     b = pickle.dumps(ob, **kwargs)
@@ -149,6 +191,7 @@ def pickleToBytes(ob, use_gzip=False, **kwargs) :
         b = compressGZipBytes(b)
     return b
 
+@delegates(pickle.loads)
 def pickleFromBytes(b, use_gzip=False, **kwargs) :
     "Unpickle an object in-memory, optionally using gzip compression."
     if use_gzip :
@@ -157,71 +200,80 @@ def pickleFromBytes(b, use_gzip=False, **kwargs) :
 
 # Cell
 
-def pickSave(fpath, ob, use_gzip=False, **kwargs) :
+@delegates(pickleToBytes)
+def pickSave(fpath, ob, **kwargs) :
     "Save a pickled object to a file, optionally using gzip compression."
     with open(fpath, 'wb') as f :
-        f.write(pickleToBytes(ob, use_gzip=use_gzip, **kwargs))
+        f.write(pickleToBytes(ob, **kwargs))
 
-def pickLoad(fpath, use_gzip=False, **kwargs) :
+@delegates(pickleFromBytes)
+def pickLoad(fpath, **kwargs) :
     "Load a pickled object from a file, optionally using gzip compression."
     with open(fpath, 'rb') as f :
-        return pickleFromBytes(f.read(), use_gzip=use_gzip, **kwargs)
+        return pickleFromBytes(f.read(), **kwargs)
 
-def pickLoadIfPath(path_or_ob, use_gzip=False, **kwargs) :
+@delegates(pickLoad)
+def pickLoadIfPath(path_or_ob, **kwargs) :
     """
     If given a path, loads a pickled object from it; otherwise returns
     its argument unchanged (assumes it's an already loaded object).
     """
     if isinstance(path_or_ob,str) :
-        return pickLoad(path_or_ob, use_gzip=use_gzip, **kwargs)
+        return pickLoad(path_or_ob, **kwargs)
     else :
         return path_or_ob
 
 # Cell
 
-def pickSaveToS3(bucket, key, ob, use_gzip=False, make_public=False, s3=None, **kwargs) :
+@delegates(pickleToBytes)
+def pickSaveToS3(bucket, key, ob, make_public=False, s3=None, **kwargs) :
     "Save a pickled object to an S3 bucket, optionally using gzip compression."
     if s3 is None : s3 = boto3.client('s3')
-    s3Args = dict(Bucket=bucket, Key=key, Body=pickleToBytes(ob, use_gzip=use_gzip, **kwargs))
+    s3Args = dict(Bucket=bucket, Key=key, Body=pickleToBytes(ob, **kwargs))
     if make_public :
         s3Args['ACL'] = 'public-read'
     s3.put_object(**s3Args)
 
-def pickLoadFromS3(bucket, key, use_gzip=False, s3=None, **kwargs) :
+@delegates(pickleFromBytes)
+def pickLoadFromS3(bucket, key, s3=None, **kwargs) :
     "Load a pickled object from an S3 bucket, optionally using gzip compression."
     if s3 is None : s3 = boto3.client('s3')
     obj = s3.get_object(Bucket=bucket, Key=key)
-    return pickleFromBytes(obj['Body'].read(), use_gzip=use_gzip, **kwargs)
+    return pickleFromBytes(obj['Body'].read(), **kwargs)
 
-def pickLoadFromS3Public(bucket, key, use_gzip=False, **kwargs) :
+@delegates(pickleFromBytes)
+def pickLoadFromS3Public(bucket, key, **kwargs) :
     s3PublicUrl = 'https://'+bucket+'.s3.amazonaws.com/'+key
-    return pickleFromBytes(requestUrl(s3PublicUrl).content, use_gzip=use_gzip, **kwargs)
+    return pickleFromBytes(requestUrl(s3PublicUrl).content, **kwargs)
 
 # Cell
 
-def savePklToDir(toDir, fName, ob, use_gzip=False, **kwargs) :
+@delegates(pickSave)
+def savePklToDir(toDir, fName, ob, **kwargs) :
     """
     Saves a pickled object to a file under a directory, optionally using gzip compression.
     Creates the directory if it doesn't exist.
     """
     if not os.path.exists(toDir) :
         os.makedirs(toDir)
-    pickSave(os.path.join(toDir, fName), ob, use_gzip=use_gzip, **kwargs)
+    pickSave(os.path.join(toDir, fName), ob, **kwargs)
 
-def loadPklFromDir(fromDir, fName, defaultVal, use_gzip=False, **kwargs) :
+@delegates(pickLoad)
+def loadPklFromDir(fromDir, fName, defaultVal, **kwargs) :
     """
     Load a pickled object from a file under a directory, optionally using gzip compression.
     Returns a default value if the file doesn't exist.
     """
     fpath = os.path.join(fromDir, fName)
     if os.path.exists(fpath) :
-        return pickLoad(fpath, use_gzip=use_gzip, **kwargs)
+        return pickLoad(fpath, **kwargs)
     else :
         return defaultVal
 
 # Cell
 
-def saveSplitPklToDir(m, toDir, fSuff='m.pkl', dirtySet=None, use_gzip=False, **kwargs) :
+@delegates(pickSave)
+def saveSplitPklToDir(m, toDir, fSuff='m.pkl', dirtySet=None, **kwargs) :
     """
     Saves a dict with str keys to a separate file for each key.
     If dirtySet is True, saves all keys.
@@ -239,9 +291,10 @@ def saveSplitPklToDir(m, toDir, fSuff='m.pkl', dirtySet=None, use_gzip=False, **
             if dirtySet is not None :
                 needToSave = needToSave or (k in dirtySet)
         if needToSave :
-            pickSave(fPath, m[k], use_gzip=use_gzip, **kwargs)
+            pickSave(fPath, m[k], **kwargs)
 
-def loadSplitPklFromDir(fromDir, startK=None, endK=None, fSuff='m.pkl', use_gzip=False, **kwargs) :
+@delegates(pickLoad)
+def loadSplitPklFromDir(fromDir, startK=None, endK=None, fSuff='m.pkl', **kwargs) :
     """
     Loads a pickled dict with str keys stored with a separate file for each key,
     optionally restricting to keys in [startK .. endK)
@@ -256,7 +309,7 @@ def loadSplitPklFromDir(fromDir, startK=None, endK=None, fSuff='m.pkl', use_gzip
         if ((startK is not None and fPref<startK)
                 or (endK is not None and endK<=fPref)) :
             continue
-        m[fPref] = pickLoad(os.path.join(fromDir,fName), use_gzip=use_gzip, **kwargs)
+        m[fPref] = pickLoad(os.path.join(fromDir,fName), **kwargs)
     return m
 
 # Cell
