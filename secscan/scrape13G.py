@@ -300,9 +300,12 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
                     print('*** No filed-by CIK in',accNo)
                 elif 'cusip' not in info :
                     print('No CUSIP in',accNo)
-                elif len(info['positions']) == 0 :
-                    print('*** No positions found in',accNo)
                 else :
+                    if len(info['positions']) == 0 :
+                        print('*** No positions found in',accNo)
+                        maxPctPos = 0.0
+                    else :
+                        maxPctPos = max(float(pct) for _,pct in info['positions'])
                     if 'eventDate' not in info :
                         eventDate = (utils.toDate(dStr)-datetime.timedelta(7)).isoformat()
                         print(f'No event date in {accNo}; using {eventDate}')
@@ -310,8 +313,7 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
                         eventDate = info['eventDate']
                     cusip = info['cusip']
                     filedByCik = info['filedByCik']
-                    cikTo13GDs[filedByCik.lstrip('0')].append((cusip, eventDate, accNo,
-                                                               max(float(pct) for _,pct in info['positions'])))
+                    cikTo13GDs[filedByCik.lstrip('0')].append((cusip, eventDate, accNo,maxPctPos))
                     count += 1
                     if extraCusipNames is not None :
                         subjectCik = [cik for cik in info['ciks'] if cik!=filedByCik]
