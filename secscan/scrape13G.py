@@ -2,14 +2,15 @@
 
 __all__ = ['default13GDir', 'getSec13NshAndPctFromText2', 'addNshAndPct', 'cusipChecksum', 'monthNameToIso',
            'getMonthPatStr', 'parseEventDate', 'parse13GD', 'scraper13G', 'reOPTS', 'aggregatePatStr',
-           'percentOfClassPatStr', 'typeOfRepPatStr', 'form13PiecesPat1', 'form13PiecesPat2', 'nSharesPatStr',
-           'nPctBarePatStr', 'nPctWithPctPatStr', 'nshAndPctPat1Pref', 'form13NshAndPctPats1', 'form13NshAndPctPat2',
-           'purposePat', 'strictCusipPatStr', 'cusipPatStr', 'cusipNumberPatStr', 'cusipSearchPats', 'spaceDashPat',
-           'monthNames', 'monthAbbrevStrs', 'monthPatStr', 'monthDayPatStr', 'possCommaPatStr', 'yearPatStr',
-           'dateOfEventPatStr', 'dateOfEventAtStartPatStr', 'dateOfEventAtEndPatStr', 'dateOfEventMonthPat1',
-           'dateOfEventMonthRevPat1', 'dateOfEventMonthPat2', 'dateOfEventMonthRevPat2', 'isoSepPatStr',
-           'dateOfEventIsoPat1', 'dateOfEventIsoRevPat1', 'dateOfEventIsoPat2', 'dateOfEventIsoRevPat2',
-           'whitespacePat', 'updateCik13GDPos', 'cikSymStr', 'calcBonusMap']
+           'percentOfClassPatStr', 'typeOfRepPatStr', 'form13PiecesPat1', 'form13PiecesPat2', 'form13PiecesPat3',
+           'nSharesPatStr', 'nPctBarePatStr', 'nPctWithPctPatStr', 'nshAndPctPat1Pref', 'form13NshAndPctPats1',
+           'form13NshAndPctPat2', 'form13NshAndPctPat3', 'purposePat', 'strictCusipPatStr', 'cusipPatStr',
+           'cusipNumberPatStr', 'cusipSearchPats', 'spaceDashPat', 'monthNames', 'monthAbbrevStrs', 'monthPatStr',
+           'monthDayPatStr', 'possCommaPatStr', 'yearPatStr', 'dateOfEventPatStr', 'dateOfEventAtStartPatStr',
+           'dateOfEventAtEndPatStr', 'dateOfEventMonthPat1', 'dateOfEventMonthRevPat1', 'dateOfEventMonthPat2',
+           'dateOfEventMonthRevPat2', 'isoSepPatStr', 'dateOfEventIsoPat1', 'dateOfEventIsoRevPat1',
+           'dateOfEventIsoPat2', 'dateOfEventIsoRevPat2', 'whitespacePat', 'updateCik13GDPos', 'cikSymStr',
+           'calcBonusMap']
 
 # Cell
 
@@ -26,15 +27,16 @@ default13GDir = os.path.join(utils.stockDataRoot,'scraped13G')
 # Cell
 
 reOPTS = re.IGNORECASE|re.DOTALL
-aggregatePatStr = r'aggregated?\s+amount'
+aggregatePatStr = r'aggregated?\s+amount\s+ben'
 percentOfClassPatStr = r'percent\s+of\s+class\s+(?:re|pr)'
 typeOfRepPatStr = r'type\s+of\s+(?:rep|per)'
-item9PatStr,item11PatStr,item12PatStr = (r'item\s+' + itemNo + r'\s*:'
-                                         for itemNo in ('9','11','12'))
+item9PatStr,item11PatStr,item12PatStr,item13PatStr,item14PatStr = (
+    r'item\s+' + itemNo + r'\s*:' for itemNo in ('9','11','12','13','14'))
 form13PiecesPat1 = re.compile(r'.*?'.join([aggregatePatStr,percentOfClassPatStr,typeOfRepPatStr]),reOPTS)
 form13PiecesPat2 = re.compile(r'.*?'.join([item9PatStr,item11PatStr,item12PatStr]),reOPTS)
+form13PiecesPat3 = re.compile(r'.*?'.join([item11PatStr,item13PatStr,item14PatStr]),reOPTS)
 # nSharesPatStr = r'\D(?!9\s|9\D\D)(\d+(?:[,.]\d\d\d)*)' # try to avoid taking item number 9 as share count
-nSharesPatStr = r'\D(?!9\s|9\D\D)(\d+[,.\d]*)' # try to avoid taking item number 9 as share count
+nSharesPatStr = r'(?<!\d)(?!9\s|9\D\D)(\d+[,.\d]*)' # try to avoid taking item number 9 as share count
 nPctBarePatStr = r'(\d+(?:\.\d*)?|\.\d+)'
 nPctWithPctPatStr = r'((?:\d+(?:[\.,]\d*)?|[\.,]\d+)\s*%)'
 nshAndPctPat1Pref = r'.*?'.join([aggregatePatStr,nSharesPatStr,percentOfClassPatStr])
@@ -43,29 +45,37 @@ form13NshAndPctPats1 = [
     # if percentage isn't followed by a % character, look for a plain number but
     # try to avoid using the 9 in "mentioned in item 9" verbiage for the percentage
     re.compile(r'.*?'.join([nshAndPctPat1Pref,r'\D9(?!\.\d)\D.*?'+nPctBarePatStr,typeOfRepPatStr]),reOPTS),
+    # ditto for "mentioned in item 11" verbiage
+    re.compile(r'.*?'.join([nshAndPctPat1Pref,r'\D11(?!\.\d)\D.*?'+nPctBarePatStr,typeOfRepPatStr]),reOPTS),
     re.compile(r'.*?'.join([nshAndPctPat1Pref,nPctBarePatStr,typeOfRepPatStr]),reOPTS)
 ]
 form13NshAndPctPat2 = re.compile(r'.*?'.join([item9PatStr,nSharesPatStr,item11PatStr,
                                               nPctWithPctPatStr,item12PatStr]), reOPTS)
-def getSec13NshAndPctFromText2(txt) :
+form13NshAndPctPat3 = re.compile(r'.*?'.join([item11PatStr,nSharesPatStr,item13PatStr,
+                                              nPctWithPctPatStr,item14PatStr]), reOPTS)
+def getSec13NshAndPctFromText2(txt,accNo, debug=False) :
     "Returns a list [(nShares, percent) ... ] parsed from form 13G or 13D."
-    # print(txt)
+    if debug : print(txt)
     res = []
     pat1Pieces = form13PiecesPat1.findall(txt)
     for piece in pat1Pieces :
-        # print('********',piece)
-        for pat in form13NshAndPctPats1 :
-            m = pat.match(piece)
-            if m :
-                break
-        if not addNshAndPct(m,res) :
-            print("??????1", piece)
+        if debug : print('********1',piece)
+        if not any(addNshAndPct(pat.match(piece),res) for pat in form13NshAndPctPats1) :
+            print("??????1", accNo, piece)
     if res :
         return res
     pat2Pieces = form13PiecesPat2.findall(txt)
     for piece in pat2Pieces :
+        if debug : print('********2',piece)
         if not addNshAndPct(form13NshAndPctPat2.match(piece),res) :
-            print("??????2", piece)
+            print("??????2", accNo, piece)
+    if res :
+        return res
+    pat3Pieces = form13PiecesPat3.findall(txt)
+    for piece in pat3Pieces :
+        if debug : print('********3',piece)
+        if not addNshAndPct(form13NshAndPctPat3.match(piece),res) :
+            print("??????3", accNo, piece)
     return res
 def addNshAndPct(m,res) :
     if not m :
@@ -74,38 +84,12 @@ def addNshAndPct(m,res) :
     nSh,pct = m.groups()
     if nSh in ['10','10.','11','11.','12','12.'] :
         nSh = '999'
-        if pct in ['12','12.','14','14.'] :
-            return False
+    if pct in ['9','9.','11','11.','12','12.','14','14.'] :
+        return False
     # nSh = nSh.replace('.',',')
     pct = pct.replace(',','.').replace('%','').rstrip()
     res.append((nSh,pct))
     return True
-
-# form13NshAndPctPats = [
-#     re.compile(r'aggregated?\s+amount.{1,150}?' + nSharesPatStr
-#                 + r'.{1,500}?' + r'percent\s+of\s+class.{1,120}?' + nPctPatStr + r'\s*%', reOPTS),
-#     re.compile(r'item\s+9\s*:.*?' + nSharesPatStr
-#                 + r'.*?' + r'item\s+11\s*:.*?' + nPctPatStr + r'\s*%', reOPTS),
-#     re.compile(r'aggregate\s+amount.{1,150}?' + nSharesPatStr
-#                 + r'.{1,500}?' + r'percent\s+of class.{1,100}?\D9(?!\.\d)\D.{0,100}?' + nPctPatStr, reOPTS),
-#     re.compile(r'aggregate\s+amount.{1,150}?' + nSharesPatStr
-#                 + r'.{1,200}?' + r'percent\s+of class.{1,120}?' + nPctPatStr, reOPTS),
-# ]
-# def getSec13NshAndPctFromText(txt) :
-#     "Returns a list [(nShares, percent) ... ] parsed from form 13G or 13D."
-#     #print(txt)
-#     for pat in form13NshAndPctPats :
-#         res = []
-#         # res = pat.findall(txt)
-#         # res = [tup for tup in res if tup[0] not in ['9','10','11','12']]
-#         for nSh,pct in pat.findall(txt) :
-#             #print('###',nSh,pct)
-#             if nSh in ['9','10','11','12'] :
-#                 nSh = '999'
-#             res.append((nSh,pct))
-#         if res :
-#             break
-#     return res
 
 purposePat = re.compile(r'4\s*\.?\s*purpose\s*of\s*(?:the\s*)?transaction(?:\s*\.?\s*)(.{1,10000}?)'
                         + r'(?:\s*(?:item\s*)?5\s*\.?\s*interest'
@@ -211,7 +195,7 @@ def parseEventDate(info,mainText) :
     print('NO EVENT DATE!', end=' ')
 
 
-def parse13GD(accNo, formType=None, info=None) :
+def parse13GD(accNo, formType=None, info=None, debug=False) :
     if info is None :
         info = basicInfo.getSecFormInfo(accNo, formType=formType)
     if 'filedByCik' not in info :
@@ -224,7 +208,7 @@ def parse13GD(accNo, formType=None, info=None) :
         toFormat = 'text' if links[0][3].endswith('.txt') else 'souptext'
         mainText = utils.downloadSecUrl(links[0][3], toFormat=toFormat)
         parseEventDate(info,mainText)
-        info['positions'] = getSec13NshAndPctFromText2(mainText)
+        info['positions'] = getSec13NshAndPctFromText2(mainText,accNo, debug=debug)
         for cusipSearchPat in cusipSearchPats :
             m = cusipSearchPat.match(mainText)
             if m is not None :
