@@ -27,6 +27,9 @@ default13GDir = os.path.join(utils.stockDataRoot,'scraped13G')
 # Cell
 
 reOPTS = re.IGNORECASE|re.DOTALL
+# aggregatePatStr = r'aggregate.?\s+amount\s+(?:ben|own)'
+# percentOfClassPatStr = r'percent\s+(?:of|or)\s+class\s+(?:re|pr)'
+# typeOfRepPatStr = r'type.?\s+(?:of|or)\s+(?:rep|per)'
 aggregatePatStr = r'aggregated?\s+amount\s+ben'
 percentOfClassPatStr = r'percent\s+of\s+class\s+(?:re|pr)'
 typeOfRepPatStr = r'type\s+of\s+(?:rep|per)'
@@ -246,14 +249,6 @@ def parse13GD(accNo, formType=None, info=None, debug=False) :
         print('no positions found!', end=' ')
     return info #,mainText
 
-# @delegates()
-# class scraper13G(infoScraper.scraperBase) :
-#     def __init__(self, infoDir=default13GDir, **kwargs) :
-#         super().__init__(infoDir, 'SC 13G', **kwargs)
-#     def scrapeInfo(self, accNo, formType=None) :
-#         return parse13GD(accNo, formType=formType), None
-#     def rescrapeInfo(self, accNo, info) :
-#         return parse13GD(accNo, info=info)
 class scraper13G(infoScraper.scraperBase) :
     @utils.delegates(infoScraper.scraperBase.__init__)
     def __init__(self, infoDir=default13GDir, **kwargs) :

@@ -179,7 +179,18 @@ index = {"boto3_available": "00_utils.ipynb",
          "scraper13D": "11_scrape13D.ipynb",
          "get13GDDatesForQ": "11_scrape13D.ipynb",
          "getCombNSSForQ": "11_scrape13D.ipynb",
-         "oddballScreen": "11_scrape13D.ipynb"}
+         "oddballScreen": "11_scrape13D.ipynb",
+         "default4Dir": "12_scrape4.ipynb",
+         "getForm4Value": "12_scrape4.ipynb",
+         "parse34": "12_scrape4.ipynb",
+         "scraper4": "12_scrape4.ipynb",
+         "form4ReportingNamePat": "12_scrape4.ipynb",
+         "form4ReportingCikPat": "12_scrape4.ipynb",
+         "form4TransactionPat": "12_scrape4.ipynb",
+         "form4ValueFieldsAndPats": "12_scrape4.ipynb",
+         "form4ValueFields": "12_scrape4.ipynb",
+         "form4ValuePats": "12_scrape4.ipynb",
+         "form4TransactionCodes": "12_scrape4.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
@@ -192,7 +203,8 @@ modules = ["utils.py",
            "scrape8K.py",
            "scrape6K.py",
            "scrape13G.py",
-           "scrape13D.py"]
+           "scrape13D.py",
+           "scrape4.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 
