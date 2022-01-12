@@ -31,7 +31,7 @@ reOPTS = re.IGNORECASE|re.DOTALL
 # percentOfClassPatStr = r'percent\s+(?:of|or)\s+class\s+(?:re|pr)'
 # typeOfRepPatStr = r'type.?\s+(?:of|or)\s+(?:rep|per)'
 aggregatePatStr = r'aggregated?\s+amount\s+ben'
-percentOfClassPatStr = r'percent\s+of\s+class\s+(?:re|pr)'
+percentOfClassPatStr = r'percent(?:age)?\s+of\s+class\s+(?:re|pr)'
 typeOfRepPatStr = r'type\s+of\s+(?:rep|per)'
 item9PatStr,item11PatStr,item12PatStr,item13PatStr,item14PatStr = (
     r'item\s+' + itemNo + r'\s*:' for itemNo in ('9','11','12','13','14'))
