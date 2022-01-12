@@ -11,7 +11,7 @@ __all__ = ['boto3_available', 'setStockDataRoot', 'stockDataRoot', 'requestUrl',
 
 # Cell
 
-from bs4 import BeautifulSoup, Comment, NavigableString
+from bs4 import BeautifulSoup, Comment, Doctype, NavigableString
 import datetime
 import gzip
 import inspect
@@ -100,7 +100,7 @@ def appendSpace(resL) :
         resL.append(' ')
 tagsWithLeftSpace = tagsWithRightSpace = {'p','br','div','table','tr','td','li','pre','code'}
 def getCombTextRec(soup, resL) :
-    if isinstance(soup,Comment) :
+    if isinstance(soup,Comment) or isinstance(soup,Doctype) :
         return
     if isinstance(soup,NavigableString) :
         s = soup.string.lstrip()
@@ -125,7 +125,9 @@ def getCombSoupText(soup) :
 
 def prTree(soup, level=0) :
     if isinstance(soup,NavigableString) :
-        print(level*'|'+('COMMENT' if isinstance(soup,Comment) else 'TEXT'),repr(soup.string))
+        print(level*'|'+('COMMENT' if isinstance(soup,Comment)
+                         else ('DOCTYPE' if isinstance(soup,Doctype) else 'TEXT')),
+              repr(soup.string))
     else :
         print(level*'|'+'TAG'+repr(soup.name))
         for c in soup.children :
