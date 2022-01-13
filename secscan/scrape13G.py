@@ -94,7 +94,7 @@ def addNshAndPct(m,res) :
     res.append((nSh,pct))
     return True
 
-purposePat = re.compile(r'4\s*\.?\s*purpose\s*of\s*(?:the\s*)?transaction(?:\s*\.?\s*)(.{1,10000}?)'
+purposePat = re.compile(r'4\s*\.?\s*purpose\s*of\s*(?:the\s*)?transaction(?:\s*\.?\s*)(.{1,20000}?)'
                         + r'(?:\s*(?:item\s*)?5\s*\.?\s*interest'
                             + r'|\s*(?:item\s*)?6\s*\.?\s*contracts'
                             + r'|\s*(?:item\s*)?7\s*\.?\s*material'
@@ -198,7 +198,7 @@ def parseEventDate(info,mainText) :
     print('NO EVENT DATE!', end=' ')
 
 
-def parse13GD(accNo, formType=None, info=None, debug=False) :
+def parse13GD(accNo, formType=None, info=None, textLimit=basicInfo.defaultTextLimit, debug=False) :
     if info is None :
         info = basicInfo.getSecFormInfo(accNo, formType=formType)
     if 'filedByCik' not in info :
@@ -244,7 +244,7 @@ def parse13GD(accNo, formType=None, info=None, debug=False) :
             if m is None :
                 print('no purpose!', end=' ')
             else :
-                info['purpose'] = m.group(1)
+                info['purpose'] = m.group(1)[:textLimit]
     if len(info['positions']) == 0 :
         print('no positions found!', end=' ')
     return info #,mainText

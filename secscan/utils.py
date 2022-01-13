@@ -3,11 +3,12 @@
 __all__ = ['boto3_available', 'setStockDataRoot', 'stockDataRoot', 'requestUrl', 'setSecUserAgent', 'secIndexUrl',
            'appendSpace', 'getCombTextRec', 'getCombSoupText', 'prTree', 'prAllTagNames', 'downloadSecUrl',
            'secUrlPref', 'secRestDataPref', 'secHeaders', 'secSleepTime', 'accessNoPatStr', 'accessNoPat', 'spacesPat',
-           'tagsWithLeftSpace', 'pageUnavailablePat', 'delegates', 'compressGZipBytes', 'decompressGZipBytes',
-           'pickleToBytes', 'pickleFromBytes', 'pickSave', 'pickLoad', 'pickLoadIfPath', 'pickSaveToS3',
-           'pickLoadFromS3', 'pickLoadFromS3Public', 'savePklToDir', 'loadPklFromDir', 'saveSplitPklToDir',
-           'loadSplitPklFromDir', 'toDateStr', 'toDate', 'isWeekend', 'dateStrsBetween', 'formatDateStr', 'dateStr8Pat',
-           'curEasternUSTime', 'easternUSTimeZone', 'sanitizeText', 'secBrowse', 'printSamp', 'printErrInfoOrAccessNo']
+           'tagsWithLeftSpace', 'pageUnavailablePat', 'delegates', 'callDelegated', 'compressGZipBytes',
+           'decompressGZipBytes', 'pickleToBytes', 'pickleFromBytes', 'pickSave', 'pickLoad', 'pickLoadIfPath',
+           'pickSaveToS3', 'pickLoadFromS3', 'pickLoadFromS3Public', 'savePklToDir', 'loadPklFromDir',
+           'saveSplitPklToDir', 'loadSplitPklFromDir', 'toDateStr', 'toDate', 'isWeekend', 'dateStrsBetween',
+           'formatDateStr', 'dateStr8Pat', 'curEasternUSTime', 'easternUSTimeZone', 'sanitizeText', 'secBrowse',
+           'printSamp', 'printErrInfoOrAccessNo']
 
 # Cell
 
@@ -181,26 +182,60 @@ def downloadSecUrl(secSubUrlOrAccessNo, toFormat='text', sleepTime=0.1, restData
 
 # Cell
 
-def delegates(toFunc, keepKwargs=False):
+def delegates(*toFuncs, keepKwargs=False):
     """
-    Returns a decorator that replaces `**kwargs` in a function signature with the keyword
-    arguments from `toFunc`.
+    Decorator to specify that a function delegates to one or more delegated functions.
+    This will:
+
+    - replace `**kwargs` in the delegating function's signature with the combined
+      keyword arguments from the delegated functions, so that these keyword arguments
+      are visible using autocomplete in a Jupyter environment
+
+    - add the docstrs for the delegated functions to the end of the delegating function's
+      docstr, so the usage documentation for the delegated functions is also visible.
     """
     def _decorator(fromFunc):
         sigFrom = inspect.signature(fromFunc)
         # print(sigFrom)
         sigFromDict = dict(sigFrom.parameters)
         kwargsParam = sigFromDict.pop('kwargs')
-        delegatedDict = {name:param.replace(kind=inspect.Parameter.KEYWORD_ONLY)
-                         for name,param in inspect.signature(toFunc).parameters.items()
-                         if param.default != inspect.Parameter.empty and name not in sigFromDict}
+        delegatedDict = {}
+        docStrs = []
+        if fromFunc.__doc__ is not None :
+            docStrs.append(fromFunc.__doc__)
+        for toFunc in toFuncs :
+            argL = []
+            for name,param in inspect.signature(toFunc).parameters.items() :
+                if param.default!=inspect.Parameter.empty and name not in sigFromDict :
+                    delegatedDict[name] = param.replace(kind=inspect.Parameter.KEYWORD_ONLY)
+                    argL.append(f'{name}={param.default}')
+            docStrs.append('---')
+            docStrs.append(f'{toFunc.__qualname__} arguments: ' + ', '.join(argL))
+            if toFunc.__doc__ is not None :
+                docStrs.append(toFunc.__doc__)
         sigFromDict.update(delegatedDict)
         if keepKwargs:
             sigFromDict['kwargs'] = kwargsParam
         fromFunc.__signature__ = sigFrom.replace(parameters=sigFromDict.values())
         # print(fromFunc.__signature__)
+        fromFunc.__doc__ = '\n'.join(docStrs)
         return fromFunc
     return _decorator
+
+def callDelegated(toFunc, kwargs, *args, **extraKwargs) :
+    """
+    Call a delegated function. This needs to be used from within a delegating function
+    if more than one function was delegated to, in order to select the optional arguments
+    from kwargs that apply to the delegated function.
+    """
+    # print('callDelegate',toFunc, kwargs, args, extraKwargs)
+    delegatedKwargs = {}
+    for name,param in inspect.signature(toFunc).parameters.items() :
+        if param.default != inspect.Parameter.empty :
+            delegatedKwargs[name] = kwargs.get(name, param.default)
+    delegatedKwargs.update(extraKwargs)
+    # print(delegatedKwargs)
+    return toFunc(*args,**delegatedKwargs)
 
 # Cell
 

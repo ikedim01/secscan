@@ -54,7 +54,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="setStockDataRoot" class="doc_header"><code>setStockDataRoot</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L37" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setStockDataRoot</code>(<strong><code>loc</code></strong>)</p>
+<h4 id="setStockDataRoot" class="doc_header"><code>setStockDataRoot</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L38" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setStockDataRoot</code>(<strong><code>loc</code></strong>)</p>
 </blockquote>
 <p>Set location for storing scraped stock data.</p>
 
@@ -96,7 +96,7 @@ so that we can flag the problem and retry later.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="requestUrl" class="doc_header"><code>requestUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L44" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>requestUrl</code>(<strong><code>url</code></strong>, <strong><code>timeout</code></strong>=<em><code>5.0</code></em>, <strong><code>nTries</code></strong>=<em><code>5</code></em>, <strong><code>returnText</code></strong>=<em><code>False</code></em>, <strong><code>headers</code></strong>=<em><code>None</code></em>, <strong><code>sleepTime</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="requestUrl" class="doc_header"><code>requestUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>requestUrl</code>(<strong><code>url</code></strong>, <strong><code>timeout</code></strong>=<em><code>5.0</code></em>, <strong><code>nTries</code></strong>=<em><code>5</code></em>, <strong><code>returnText</code></strong>=<em><code>False</code></em>, <strong><code>headers</code></strong>=<em><code>None</code></em>, <strong><code>sleepTime</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Downloads a URL using the requests package.
 If sleepTime is not None, sleeps for the given time to stay under max request rate limits.</p>
@@ -122,7 +122,7 @@ If sleepTime is not None, sleeps for the given time to stay under max request ra
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="setSecUserAgent" class="doc_header"><code>setSecUserAgent</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L65" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setSecUserAgent</code>(<strong><code>agentStr</code></strong>)</p>
+<h4 id="setSecUserAgent" class="doc_header"><code>setSecUserAgent</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L66" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setSecUserAgent</code>(<strong><code>agentStr</code></strong>)</p>
 </blockquote>
 <p>Should be used to set user agent to your email address for requests to the SEC site,
 to help avoid throttling.</p>
@@ -148,7 +148,7 @@ to help avoid throttling.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="secIndexUrl" class="doc_header"><code>secIndexUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L76" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secIndexUrl</code>(<strong><code>accessNo</code></strong>, <strong><code>includePref</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="secIndexUrl" class="doc_header"><code>secIndexUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L77" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secIndexUrl</code>(<strong><code>accessNo</code></strong>, <strong><code>includePref</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns the url for the index page of an SEC filing specified by accession number.</p>
 
@@ -173,7 +173,7 @@ to help avoid throttling.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="appendSpace" class="doc_header"><code>appendSpace</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>appendSpace</code>(<strong><code>resL</code></strong>)</p>
+<h4 id="appendSpace" class="doc_header"><code>appendSpace</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L99" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>appendSpace</code>(<strong><code>resL</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -197,7 +197,7 @@ to help avoid throttling.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombTextRec" class="doc_header"><code>getCombTextRec</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L102" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextRec</code>(<strong><code>soup</code></strong>, <strong><code>resL</code></strong>)</p>
+<h4 id="getCombTextRec" class="doc_header"><code>getCombTextRec</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L103" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextRec</code>(<strong><code>soup</code></strong>, <strong><code>resL</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -221,7 +221,7 @@ to help avoid throttling.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombSoupText" class="doc_header"><code>getCombSoupText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L121" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombSoupText</code>(<strong><code>soup</code></strong>)</p>
+<h4 id="getCombSoupText" class="doc_header"><code>getCombSoupText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L122" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombSoupText</code>(<strong><code>soup</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -245,7 +245,7 @@ to help avoid throttling.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="prTree" class="doc_header"><code>prTree</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>prTree</code>(<strong><code>soup</code></strong>, <strong><code>level</code></strong>=<em><code>0</code></em>)</p>
+<h4 id="prTree" class="doc_header"><code>prTree</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>prTree</code>(<strong><code>soup</code></strong>, <strong><code>level</code></strong>=<em><code>0</code></em>)</p>
 </blockquote>
 
 </div>
@@ -269,7 +269,7 @@ to help avoid throttling.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="prAllTagNames" class="doc_header"><code>prAllTagNames</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L135" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>prAllTagNames</code>(<strong><code>soup</code></strong>)</p>
+<h4 id="prAllTagNames" class="doc_header"><code>prAllTagNames</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>prAllTagNames</code>(<strong><code>soup</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -293,7 +293,7 @@ to help avoid throttling.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="downloadSecUrl" class="doc_header"><code>downloadSecUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L139" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>downloadSecUrl</code>(<strong><code>secSubUrlOrAccessNo</code></strong>, <strong><code>toFormat</code></strong>=<em><code>'text'</code></em>, <strong><code>sleepTime</code></strong>=<em><code>0.1</code></em>, <strong><code>restData</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="downloadSecUrl" class="doc_header"><code>downloadSecUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L140" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>downloadSecUrl</code>(<strong><code>secSubUrlOrAccessNo</code></strong>, <strong><code>toFormat</code></strong>=<em><code>'text'</code></em>, <strong><code>sleepTime</code></strong>=<em><code>0.1</code></em>, <strong><code>restData</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Downloads a page from the SEC site. The page can be specified by
 a sub-URL (ex. /cgi-bin/browse-edgar?CIK=0000716314&amp;owner=exclude),
@@ -434,10 +434,8 @@ Company name text: DIAMOND HILL INVESTMENT GROUP INC (Filer) CIK: 0000909108 (se
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="delegates-decorator"><a href="/secscan/utils.html#delegates"><code>delegates</code></a> decorator<a class="anchor-link" href="#delegates-decorator"> </a></h2><p>Created by Jeremy Howard to substitute **kwargs in a function signature with
-the keyword arguments from another (delegated) function.
-This makes the arguments visible to autocomplete in a Jupyter environment.
-Adapted from <a href="https://www.fast.ai/2019/08/06/delegation/">https://www.fast.ai/2019/08/06/delegation/</a></p>
+<h2 id="delegates-decorator"><a href="/secscan/utils.html#delegates"><code>delegates</code></a> decorator<a class="anchor-link" href="#delegates-decorator"> </a></h2><p>Cool/useful decorator to avoid having to repeat lists of optional keyword arguments in function signatures and docstrs.</p>
+<p>Adapted from the original design by Jeremy Howard in <a href="https://www.fast.ai/2019/08/06/delegation/">https://www.fast.ai/2019/08/06/delegation/</a></p>
 
 </div>
 </div>
@@ -453,10 +451,19 @@ Adapted from <a href="https://www.fast.ai/2019/08/06/delegation/">https://www.fa
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="delegates" class="doc_header"><code>delegates</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L184" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>delegates</code>(<strong><code>toFunc</code></strong>, <strong><code>keepKwargs</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="delegates" class="doc_header"><code>delegates</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L185" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>delegates</code>(<strong>*<code>toFuncs</code></strong>, <strong><code>keepKwargs</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
-<p>Returns a decorator that replaces <code>**kwargs</code> in a function signature with the keyword
-arguments from <code>toFunc</code>.</p>
+<p>Decorator to specify that a function delegates to one or more delegated functions.
+This will:</p>
+<ul>
+<li><p>replace <code>**kwargs</code> in the delegating function's signature with the combined
+keyword arguments from the delegated functions, so that these keyword arguments
+are visible using autocomplete in a Jupyter environment</p>
+</li>
+<li><p>add the docstrs for the delegated functions to the end of the delegating function's
+docstr, so the usage documentation for the delegated functions is also visible.</p>
+</li>
+</ul>
 
 </div>
 
@@ -471,6 +478,164 @@ arguments from <code>toFunc</code>.</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="callDelegated" class="doc_header"><code>callDelegated</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L225" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>callDelegated</code>(<strong><code>toFunc</code></strong>, <strong><code>kwargs</code></strong>, <strong>*<code>args</code></strong>, <strong>**<code>extraKwargs</code></strong>)</p>
+</blockquote>
+<p>Call a delegated function. This needs to be used from within a delegating function
+if more than one function was delegated to, in order to select the optional arguments
+from kwargs that apply to the delegated function.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">aaa</span><span class="p">(</span><span class="n">bbb</span><span class="p">,</span> <span class="n">ccc</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">ddd</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    doc for aaa</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">bbb</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">ccc</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">ddd</span>
+
+<span class="nd">@delegates</span><span class="p">(</span><span class="n">aaa</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    doc for test</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">aaa</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="s1">&#39;arguments:&#39;</span><span class="p">,</span> <span class="s1">&#39;ccc=20,&#39;</span><span class="p">,</span> <span class="s1">&#39;ddd=30&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;aaa&#39;</span><span class="p">]</span>
+        <span class="ow">and</span> <span class="n">test</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span> <span class="o">==</span> <span class="mi">99</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">99</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">20</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">30</span>
+        <span class="ow">and</span> <span class="n">test</span><span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="n">ccc</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">ddd</span><span class="o">=</span><span class="mi">33</span><span class="p">)</span> <span class="o">==</span> <span class="mi">88</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">88</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">22</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">33</span>
+       <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">xxx</span><span class="p">(</span><span class="n">yyy</span><span class="p">,</span> <span class="n">zzz</span><span class="p">,</span> <span class="n">www</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">uuu</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">vvv</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span> <span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    doc</span>
+<span class="sd">    for xxx</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">yyy</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">zzz</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">www</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">uuu</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">vvv</span>
+
+<span class="nd">@delegates</span><span class="p">(</span><span class="n">aaa</span><span class="p">,</span><span class="n">xxx</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    doc for test2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">callDelegated</span><span class="p">(</span><span class="n">aaa</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span>
+            <span class="n">callDelegated</span><span class="p">(</span><span class="n">xxx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">),</span>
+            <span class="n">callDelegated</span><span class="p">(</span><span class="n">xxx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">uuu</span><span class="o">=</span><span class="mi">999</span><span class="p">))</span>
+
+<span class="k">assert</span> <span class="p">(</span><span class="n">test2</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;test2&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="s1">&#39;arguments:&#39;</span><span class="p">,</span> <span class="s1">&#39;ccc=20,&#39;</span><span class="p">,</span> <span class="s1">&#39;ddd=30&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;xxx&#39;</span><span class="p">,</span> <span class="s1">&#39;arguments:&#39;</span><span class="p">,</span> <span class="s1">&#39;www=100,&#39;</span><span class="p">,</span> <span class="s1">&#39;uuu=200,&#39;</span><span class="p">,</span> <span class="s1">&#39;vvv=300&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;xxx&#39;</span><span class="p">]</span>
+        <span class="ow">and</span> <span class="n">test2</span><span class="p">(</span><span class="mi">77</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">77</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">20</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">30</span><span class="p">,</span>
+                          <span class="mi">77</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">77</span><span class="o">*</span><span class="mi">77</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="mi">200</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="mi">300</span><span class="p">,</span>
+                          <span class="mi">77</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">77</span><span class="o">*</span><span class="mi">77</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="mi">999</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="mi">300</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">test2</span><span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="n">uuu</span><span class="o">=</span><span class="mi">654</span><span class="p">,</span> <span class="n">vvv</span><span class="o">=</span><span class="mi">876</span><span class="p">,</span> <span class="n">ccc</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">77</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">55</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">30</span><span class="p">,</span>
+                          <span class="mi">77</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">77</span><span class="o">*</span><span class="mi">77</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="mi">654</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="mi">876</span><span class="p">,</span>
+                          <span class="mi">77</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">77</span><span class="o">*</span><span class="mi">77</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="mi">999</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="mi">876</span><span class="p">)</span>
+       <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">a</span><span class="p">()</span> <span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aa</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bb</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;a init aa=</span><span class="si">{</span><span class="n">aa</span><span class="si">}</span><span class="s1"> bb=</span><span class="si">{</span><span class="n">bb</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">aa</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">bb</span>
+
+<span class="k">class</span> <span class="nc">aa</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">:</span>
+    <span class="nd">@delegates</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="fm">__init__</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;aa init d=</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1"> kwargs=</span><span class="si">{</span><span class="n">kwargs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">3</span><span class="o">*</span><span class="n">d</span>
+    <span class="nd">@delegates</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span> 
+    <span class="k">def</span> <span class="nf">mm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">aaa</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="n">testaa1</span> <span class="o">=</span> <span class="n">aa</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
+<span class="n">testaa2</span> <span class="o">=</span> <span class="n">aa</span><span class="p">(</span><span class="mi">99</span><span class="p">,</span> <span class="n">bb</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">testaa1</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="o">*</span><span class="mi">99</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">20</span>
+        <span class="ow">and</span> <span class="n">testaa2</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="o">*</span><span class="mi">99</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">100</span>
+        <span class="ow">and</span> <span class="n">testaa2</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">ccc</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="o">==</span> <span class="n">testaa2</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">50</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="mi">30</span>
+       <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>aa init d=99 kwargs={}
+a init aa=10 bb=20
+aa init d=99 kwargs={&#39;bb&#39;: 100}
+a init aa=10 bb=100
+</pre>
+</div>
+</div>
+
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -504,7 +669,7 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="compressGZipBytes" class="doc_header"><code>compressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L207" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compressGZipBytes</code>(<strong><code>b</code></strong>)</p>
+<h4 id="compressGZipBytes" class="doc_header"><code>compressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L242" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compressGZipBytes</code>(<strong><code>b</code></strong>)</p>
 </blockquote>
 <p>Compress a byte string in-memory using gzip.</p>
 
@@ -529,7 +694,7 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="decompressGZipBytes" class="doc_header"><code>decompressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L214" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decompressGZipBytes</code>(<strong><code>b</code></strong>)</p>
+<h4 id="decompressGZipBytes" class="doc_header"><code>decompressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L249" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decompressGZipBytes</code>(<strong><code>b</code></strong>)</p>
 </blockquote>
 <p>Decompress a byte string in-memory using gzip.</p>
 
@@ -554,9 +719,23 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickleToBytes" class="doc_header"><code>pickleToBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L220" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleToBytes</code>(<strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="pickleToBytes" class="doc_header"><code>pickleToBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L255" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleToBytes</code>(<strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-<p>Pickle an object in-memory, optionally using gzip compression.</p>
+<h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
+Return the pickled representation of the object as a bytes object.</p>
+<p>The optional <em>protocol</em> argument tells the pickler to use the given
+protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
+protocol is 4. It was introduced in Python 3.4, and is incompatible
+with previous versions.</p>
+<p>Specifying a negative protocol version selects the highest protocol
+version supported.  The higher the protocol used, the more recent the
+version of Python needed to read the pickle produced.</p>
+<p>If <em>fix_imports</em> is True and <em>protocol</em> is less than 3, pickle will
+try to map the new Python 3 names to the old module names used in
+Python 2, so that the pickle data stream is readable with Python 2.</p>
+<p>If <em>buffer_callback</em> is None (the default), buffer views are serialized
+into <em>file</em> as part of the pickle stream.  It is an error if
+<em>buffer_callback</em> is not None and <em>protocol</em> is None or smaller than 5.</p>
 
 </div>
 
@@ -579,9 +758,21 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickleFromBytes" class="doc_header"><code>pickleFromBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L228" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleFromBytes</code>(<strong><code>b</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickleFromBytes" class="doc_header"><code>pickleFromBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L263" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleFromBytes</code>(<strong><code>b</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<p>Unpickle an object in-memory, optionally using gzip compression.</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+Read and return an object from the given pickle data.</p>
+<p>The protocol version of the pickle is detected automatically, so no
+protocol argument is needed.  Bytes past the pickled object's
+representation are ignored.</p>
+<p>Optional keyword arguments are <em>fix_imports</em>, <em>encoding</em> and <em>errors</em>,
+which are used to control compatibility support for pickle stream
+generated by Python 2.  If <em>fix_imports</em> is True, pickle will try to
+map the old Python 2 names to the new names used in Python 3.  The
+<em>encoding</em> and <em>errors</em> tell pickle how to decode 8-bit string
+instances pickled by Python 2; these default to 'ASCII' and 'strict',
+respectively.  The <em>encoding</em> can be 'bytes' to read these 8-bit
+string instances as bytes objects.</p>
 
 </div>
 
@@ -650,9 +841,24 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickSave" class="doc_header"><code>pickSave</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L237" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSave</code>(<strong><code>fpath</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="pickSave" class="doc_header"><code>pickSave</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L272" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSave</code>(<strong><code>fpath</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-<p>Save a pickled object to a file, optionally using gzip compression.</p>
+<h2 id="Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression.">Save a pickled object to a file, optionally using gzip compression.<a class="anchor-link" href="#Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleToBytes arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
+<h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
+Return the pickled representation of the object as a bytes object.</p>
+<p>The optional <em>protocol</em> argument tells the pickler to use the given
+protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
+protocol is 4. It was introduced in Python 3.4, and is incompatible
+with previous versions.</p>
+<p>Specifying a negative protocol version selects the highest protocol
+version supported.  The higher the protocol used, the more recent the
+version of Python needed to read the pickle produced.</p>
+<p>If <em>fix_imports</em> is True and <em>protocol</em> is less than 3, pickle will
+try to map the new Python 3 names to the old module names used in
+Python 2, so that the pickle data stream is readable with Python 2.</p>
+<p>If <em>buffer_callback</em> is None (the default), buffer views are serialized
+into <em>file</em> as part of the pickle stream.  It is an error if
+<em>buffer_callback</em> is not None and <em>protocol</em> is None or smaller than 5.</p>
 
 </div>
 
@@ -675,9 +881,22 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoad" class="doc_header"><code>pickLoad</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L243" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoad</code>(<strong><code>fpath</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickLoad" class="doc_header"><code>pickLoad</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L278" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoad</code>(<strong><code>fpath</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<p>Load a pickled object from a file, optionally using gzip compression.</p>
+<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+Read and return an object from the given pickle data.</p>
+<p>The protocol version of the pickle is detected automatically, so no
+protocol argument is needed.  Bytes past the pickled object's
+representation are ignored.</p>
+<p>Optional keyword arguments are <em>fix_imports</em>, <em>encoding</em> and <em>errors</em>,
+which are used to control compatibility support for pickle stream
+generated by Python 2.  If <em>fix_imports</em> is True, pickle will try to
+map the old Python 2 names to the new names used in Python 3.  The
+<em>encoding</em> and <em>errors</em> tell pickle how to decode 8-bit string
+instances pickled by Python 2; these default to 'ASCII' and 'strict',
+respectively.  The <em>encoding</em> can be 'bytes' to read these 8-bit
+string instances as bytes objects.</p>
 
 </div>
 
@@ -700,10 +919,29 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoadIfPath" class="doc_header"><code>pickLoadIfPath</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L249" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadIfPath</code>(<strong><code>path_or_ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickLoadIfPath" class="doc_header"><code>pickLoadIfPath</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L284" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadIfPath</code>(<strong><code>path_or_ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<p>If given a path, loads a pickled object from it; otherwise returns
-its argument unchanged (assumes it's an already loaded object).</p>
+
+<pre><code>If given a path, loads a pickled object from it; otherwise returns
+its argument unchanged (assumes it's an already loaded object).
+
+</code></pre>
+<hr>
+<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+Read and return an object from the given pickle data.</p>
+<p>The protocol version of the pickle is detected automatically, so no
+protocol argument is needed.  Bytes past the pickled object's
+representation are ignored.</p>
+<p>Optional keyword arguments are <em>fix_imports</em>, <em>encoding</em> and <em>errors</em>,
+which are used to control compatibility support for pickle stream
+generated by Python 2.  If <em>fix_imports</em> is True, pickle will try to
+map the old Python 2 names to the new names used in Python 3.  The
+<em>encoding</em> and <em>errors</em> tell pickle how to decode 8-bit string
+instances pickled by Python 2; these default to 'ASCII' and 'strict',
+respectively.  The <em>encoding</em> can be 'bytes' to read these 8-bit
+string instances as bytes objects.</p>
 
 </div>
 
@@ -769,9 +1007,24 @@ its argument unchanged (assumes it's an already loaded object).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickSaveToS3" class="doc_header"><code>pickSaveToS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L262" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSaveToS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>ob</code></strong>, <strong><code>make_public</code></strong>=<em><code>False</code></em>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="pickSaveToS3" class="doc_header"><code>pickSaveToS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L297" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSaveToS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>ob</code></strong>, <strong><code>make_public</code></strong>=<em><code>False</code></em>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-<p>Save a pickled object to an S3 bucket, optionally using gzip compression.</p>
+<h2 id="Save-a-pickled-object-to-an-S3-bucket,-optionally-using-gzip-compression.">Save a pickled object to an S3 bucket, optionally using gzip compression.<a class="anchor-link" href="#Save-a-pickled-object-to-an-S3-bucket,-optionally-using-gzip-compression."> </a></h2><p>pickleToBytes arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
+<h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
+Return the pickled representation of the object as a bytes object.</p>
+<p>The optional <em>protocol</em> argument tells the pickler to use the given
+protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
+protocol is 4. It was introduced in Python 3.4, and is incompatible
+with previous versions.</p>
+<p>Specifying a negative protocol version selects the highest protocol
+version supported.  The higher the protocol used, the more recent the
+version of Python needed to read the pickle produced.</p>
+<p>If <em>fix_imports</em> is True and <em>protocol</em> is less than 3, pickle will
+try to map the new Python 3 names to the old module names used in
+Python 2, so that the pickle data stream is readable with Python 2.</p>
+<p>If <em>buffer_callback</em> is None (the default), buffer views are serialized
+into <em>file</em> as part of the pickle stream.  It is an error if
+<em>buffer_callback</em> is not None and <em>protocol</em> is None or smaller than 5.</p>
 
 </div>
 
@@ -794,9 +1047,22 @@ its argument unchanged (assumes it's an already loaded object).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoadFromS3" class="doc_header"><code>pickLoadFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L271" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickLoadFromS3" class="doc_header"><code>pickLoadFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L306" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<p>Load a pickled object from an S3 bucket, optionally using gzip compression.</p>
+<h2 id="Load-a-pickled-object-from-an-S3-bucket,-optionally-using-gzip-compression.">Load a pickled object from an S3 bucket, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-an-S3-bucket,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+Read and return an object from the given pickle data.</p>
+<p>The protocol version of the pickle is detected automatically, so no
+protocol argument is needed.  Bytes past the pickled object's
+representation are ignored.</p>
+<p>Optional keyword arguments are <em>fix_imports</em>, <em>encoding</em> and <em>errors</em>,
+which are used to control compatibility support for pickle stream
+generated by Python 2.  If <em>fix_imports</em> is True, pickle will try to
+map the old Python 2 names to the new names used in Python 3.  The
+<em>encoding</em> and <em>errors</em> tell pickle how to decode 8-bit string
+instances pickled by Python 2; these default to 'ASCII' and 'strict',
+respectively.  The <em>encoding</em> can be 'bytes' to read these 8-bit
+string instances as bytes objects.</p>
 
 </div>
 
@@ -819,8 +1085,23 @@ its argument unchanged (assumes it's an already loaded object).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoadFromS3Public" class="doc_header"><code>pickLoadFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L278" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickLoadFromS3Public" class="doc_header"><code>pickLoadFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L313" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
+<hr>
+<p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+Read and return an object from the given pickle data.</p>
+<p>The protocol version of the pickle is detected automatically, so no
+protocol argument is needed.  Bytes past the pickled object's
+representation are ignored.</p>
+<p>Optional keyword arguments are <em>fix_imports</em>, <em>encoding</em> and <em>errors</em>,
+which are used to control compatibility support for pickle stream
+generated by Python 2.  If <em>fix_imports</em> is True, pickle will try to
+map the old Python 2 names to the new names used in Python 3.  The
+<em>encoding</em> and <em>errors</em> tell pickle how to decode 8-bit string
+instances pickled by Python 2; these default to 'ASCII' and 'strict',
+respectively.  The <em>encoding</em> can be 'bytes' to read these 8-bit
+string instances as bytes objects.</p>
 
 </div>
 
@@ -910,10 +1191,31 @@ its argument unchanged (assumes it's an already loaded object).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="savePklToDir" class="doc_header"><code>savePklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L285" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>savePklToDir</code>(<strong><code>toDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="savePklToDir" class="doc_header"><code>savePklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>savePklToDir</code>(<strong><code>toDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-<p>Saves a pickled object to a file under a directory, optionally using gzip compression.
-Creates the directory if it doesn't exist.</p>
+
+<pre><code>Saves a pickled object to a file under a directory, optionally using gzip compression.
+Creates the directory if it doesn't exist.
+
+</code></pre>
+<hr>
+<p>pickSave arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
+<h2 id="Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression.">Save a pickled object to a file, optionally using gzip compression.<a class="anchor-link" href="#Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleToBytes arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
+<h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
+Return the pickled representation of the object as a bytes object.</p>
+<p>The optional <em>protocol</em> argument tells the pickler to use the given
+protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
+protocol is 4. It was introduced in Python 3.4, and is incompatible
+with previous versions.</p>
+<p>Specifying a negative protocol version selects the highest protocol
+version supported.  The higher the protocol used, the more recent the
+version of Python needed to read the pickle produced.</p>
+<p>If <em>fix_imports</em> is True and <em>protocol</em> is less than 3, pickle will
+try to map the new Python 3 names to the old module names used in
+Python 2, so that the pickle data stream is readable with Python 2.</p>
+<p>If <em>buffer_callback</em> is None (the default), buffer views are serialized
+into <em>file</em> as part of the pickle stream.  It is an error if
+<em>buffer_callback</em> is not None and <em>protocol</em> is None or smaller than 5.</p>
 
 </div>
 
@@ -936,10 +1238,29 @@ Creates the directory if it doesn't exist.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadPklFromDir" class="doc_header"><code>loadPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L295" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>defaultVal</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="loadPklFromDir" class="doc_header"><code>loadPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L330" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>defaultVal</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<p>Load a pickled object from a file under a directory, optionally using gzip compression.
-Returns a default value if the file doesn't exist.</p>
+
+<pre><code>Load a pickled object from a file under a directory, optionally using gzip compression.
+Returns a default value if the file doesn't exist.
+
+</code></pre>
+<hr>
+<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+Read and return an object from the given pickle data.</p>
+<p>The protocol version of the pickle is detected automatically, so no
+protocol argument is needed.  Bytes past the pickled object's
+representation are ignored.</p>
+<p>Optional keyword arguments are <em>fix_imports</em>, <em>encoding</em> and <em>errors</em>,
+which are used to control compatibility support for pickle stream
+generated by Python 2.  If <em>fix_imports</em> is True, pickle will try to
+map the old Python 2 names to the new names used in Python 3.  The
+<em>encoding</em> and <em>errors</em> tell pickle how to decode 8-bit string
+instances pickled by Python 2; these default to 'ASCII' and 'strict',
+respectively.  The <em>encoding</em> can be 'bytes' to read these 8-bit
+string instances as bytes objects.</p>
 
 </div>
 
@@ -1004,12 +1325,33 @@ Returns a default value if the file doesn't exist.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveSplitPklToDir" class="doc_header"><code>saveSplitPklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L309" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveSplitPklToDir</code>(<strong><code>m</code></strong>, <strong><code>toDir</code></strong>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtySet</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="saveSplitPklToDir" class="doc_header"><code>saveSplitPklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L344" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveSplitPklToDir</code>(<strong><code>m</code></strong>, <strong><code>toDir</code></strong>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtySet</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-<p>Saves a dict with str keys to a separate file for each key.
+
+<pre><code>Saves a dict with str keys to a separate file for each key.
 If dirtySet is True, saves all keys.
 If dirtySet is None (default), saves only keys that don't yet have a file saved.
-Otherwise, also saves keys k in dirtySet.</p>
+Otherwise, also saves keys k in dirtySet.
+
+</code></pre>
+<hr>
+<p>pickSave arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
+<h2 id="Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression.">Save a pickled object to a file, optionally using gzip compression.<a class="anchor-link" href="#Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleToBytes arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
+<h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
+Return the pickled representation of the object as a bytes object.</p>
+<p>The optional <em>protocol</em> argument tells the pickler to use the given
+protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
+protocol is 4. It was introduced in Python 3.4, and is incompatible
+with previous versions.</p>
+<p>Specifying a negative protocol version selects the highest protocol
+version supported.  The higher the protocol used, the more recent the
+version of Python needed to read the pickle produced.</p>
+<p>If <em>fix_imports</em> is True and <em>protocol</em> is less than 3, pickle will
+try to map the new Python 3 names to the old module names used in
+Python 2, so that the pickle data stream is readable with Python 2.</p>
+<p>If <em>buffer_callback</em> is None (the default), buffer views are serialized
+into <em>file</em> as part of the pickle stream.  It is an error if
+<em>buffer_callback</em> is not None and <em>protocol</em> is None or smaller than 5.</p>
 
 </div>
 
@@ -1032,10 +1374,29 @@ Otherwise, also saves keys k in dirtySet.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadSplitPklFromDir" class="doc_header"><code>loadSplitPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L330" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadSplitPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>startK</code></strong>=<em><code>None</code></em>, <strong><code>endK</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="loadSplitPklFromDir" class="doc_header"><code>loadSplitPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L365" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadSplitPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>startK</code></strong>=<em><code>None</code></em>, <strong><code>endK</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<p>Loads a pickled dict with str keys stored with a separate file for each key,
-optionally restricting to keys in [startK .. endK)</p>
+
+<pre><code>Loads a pickled dict with str keys stored with a separate file for each key,
+optionally restricting to keys in [startK .. endK)
+
+</code></pre>
+<hr>
+<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+Read and return an object from the given pickle data.</p>
+<p>The protocol version of the pickle is detected automatically, so no
+protocol argument is needed.  Bytes past the pickled object's
+representation are ignored.</p>
+<p>Optional keyword arguments are <em>fix_imports</em>, <em>encoding</em> and <em>errors</em>,
+which are used to control compatibility support for pickle stream
+generated by Python 2.  If <em>fix_imports</em> is True, pickle will try to
+map the old Python 2 names to the new names used in Python 3.  The
+<em>encoding</em> and <em>errors</em> tell pickle how to decode 8-bit string
+instances pickled by Python 2; these default to 'ASCII' and 'strict',
+respectively.  The <em>encoding</em> can be 'bytes' to read these 8-bit
+string instances as bytes objects.</p>
 
 </div>
 
@@ -1103,7 +1464,7 @@ optionally restricting to keys in [startK .. endK)</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="toDateStr" class="doc_header"><code>toDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L351" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDateStr</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="toDateStr" class="doc_header"><code>toDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L386" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDateStr</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts date object or ISO format date string to YYYYMMDD format string;
 leaves YYYYMMDD format strings unchanged;
@@ -1130,7 +1491,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="toDate" class="doc_header"><code>toDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L366" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDate</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="toDate" class="doc_header"><code>toDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L401" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDate</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts date string in ISO or YYYYMMDD format to date object;
 leaves date objects unchanged;
@@ -1157,7 +1518,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="isWeekend" class="doc_header"><code>isWeekend</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L382" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isWeekend</code>(<strong><code>d</code></strong>)</p>
+<h4 id="isWeekend" class="doc_header"><code>isWeekend</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L417" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isWeekend</code>(<strong><code>d</code></strong>)</p>
 </blockquote>
 <p>Says if date string or date object is on a weekend (Saturday or Sunday).</p>
 
@@ -1182,7 +1543,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dateStrsBetween" class="doc_header"><code>dateStrsBetween</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L386" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dateStrsBetween</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>=<em><code>None</code></em>, <strong><code>excludeWeekends</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="dateStrsBetween" class="doc_header"><code>dateStrsBetween</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L421" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dateStrsBetween</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>=<em><code>None</code></em>, <strong><code>excludeWeekends</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns a list of date strings in YYYYMMDD format from d1 (inclusive)
 to d2 (exclusive), optionally excluding weekends.</p>
@@ -1208,7 +1569,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="formatDateStr" class="doc_header"><code>formatDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L403" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>formatDateStr</code>(<strong><code>dStr</code></strong>, <strong><code>sep</code></strong>=<em><code>'-'</code></em>)</p>
+<h4 id="formatDateStr" class="doc_header"><code>formatDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L438" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>formatDateStr</code>(<strong><code>dStr</code></strong>, <strong><code>sep</code></strong>=<em><code>'-'</code></em>)</p>
 </blockquote>
 <p>Convert YYYYMMDD format date string to YYYY-MM-DD.</p>
 
@@ -1275,7 +1636,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="curEasternUSTime" class="doc_header"><code>curEasternUSTime</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L410" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternUSTime</code>()</p>
+<h4 id="curEasternUSTime" class="doc_header"><code>curEasternUSTime</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L445" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternUSTime</code>()</p>
 </blockquote>
 
 </div>
@@ -1344,7 +1705,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sanitizeText" class="doc_header"><code>sanitizeText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L415" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sanitizeText</code>(<strong><code>s</code></strong>)</p>
+<h4 id="sanitizeText" class="doc_header"><code>sanitizeText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L450" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sanitizeText</code>(<strong><code>s</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1381,7 +1742,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="secBrowse" class="doc_header"><code>secBrowse</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L422" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secBrowse</code>(<strong><code>accessNo</code></strong>)</p>
+<h4 id="secBrowse" class="doc_header"><code>secBrowse</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L457" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secBrowse</code>(<strong><code>accessNo</code></strong>)</p>
 </blockquote>
 <p>Open the index page of an SEC filing specified by accession number in a web browser.</p>
 
@@ -1406,7 +1767,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printSamp" class="doc_header"><code>printSamp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L426" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printSamp</code>(<strong><code>m</code></strong>, <strong><code>n</code></strong>=<em><code>10</code></em>)</p>
+<h4 id="printSamp" class="doc_header"><code>printSamp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L461" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printSamp</code>(<strong><code>m</code></strong>, <strong><code>n</code></strong>=<em><code>10</code></em>)</p>
 </blockquote>
 <p>Prints a sample of n items from object m , where m is a list or dict;
 for other objects just prints the whole thing.</p>
@@ -1432,7 +1793,7 @@ for other objects just prints the whole thing.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printErrInfoOrAccessNo" class="doc_header"><code>printErrInfoOrAccessNo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L442" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printErrInfoOrAccessNo</code>(<strong><code>msg</code></strong>, <strong><code>infoOrAccessNo</code></strong>)</p>
+<h4 id="printErrInfoOrAccessNo" class="doc_header"><code>printErrInfoOrAccessNo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L477" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printErrInfoOrAccessNo</code>(<strong><code>msg</code></strong>, <strong><code>infoOrAccessNo</code></strong>)</p>
 </blockquote>
 
 </div>
