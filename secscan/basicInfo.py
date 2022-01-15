@@ -43,30 +43,37 @@ def getSecFormLinkList(indexSoup,accessNo) :
         print('*** missing complete text link in',utils.secIndexUrl(accessNo,True))
     return linkList, completeLink
 
-companyNameAndCikPat = re.compile(r'.*\((.*)cik[\s:]*(\d+)',re.IGNORECASE)
+companyNameAndCikPat = re.compile(r'.*\(\s*(.*?)(?:\s*\))?\s*cik[\s:]*(\d+)',re.IGNORECASE)
 filedByPat = re.compile(r'\s*filed\s*by',re.IGNORECASE)
 def getSecFormCiks(indexSoup,accessNo) :
     """
-    Returns full list of CIKs on the filing, and the "filed by" cik if present:
-        [cik, ... ], filingCik
+    Returns full list of CIKs on the filing, the "filed by" cik if present,
+    and the list of CIK types (Issuer, Filed by, etc):
+        [cik, ... ], filingCik, [cikType, ... ]
     """
-    cikList = []
+    cikList,cikTypeList = [],[]
     filedByCik = None
     for companyNameTag in indexSoup.find_all('span','companyName') :
         companyNameStr = utils.getCombSoupText(companyNameTag)
+        # print('NAMESTR',companyNameStr)
         m = companyNameAndCikPat.match(companyNameStr)
         # if m : print(m.group(1)); print(m.group(2))
         if m is None :
             print('missing company name or CIK in',companyNameStr)
             print(utils.secIndexUrl(accessNo,True))
         else :
-            if m.group(2) not in cikList :
-                cikList.append(m.group(2))
+            # print('->',repr(m.group(1)),repr(m.group(2)))
+            # if m.group(2) not in cikList :
+            #     cikList.append(m.group(2))
+            if m.group(2) in cikList :
+                print('*** repeated CIK',m.group(2),m.group(1),'***')
+            cikList.append(m.group(2))
+            cikTypeList.append(m.group(1))
             if filedByPat.match(m.group(1)) :
                 filedByCik = m.group(2)
     if len(cikList) == 0 :
         print('no company names in',utils.secIndexUrl(accessNo,True))
-    return cikList,filedByCik
+    return cikList,filedByCik,cikTypeList
 
 def getTextAfterTag(resDict, resKey, top, firstTagPat,
                     firstTagName='div', firstTagClass='infoHead',
@@ -138,7 +145,7 @@ def getSecFormInfo(accessNo, formType=None, get99=False, textLimit=defaultTextLi
         'links': links,
         'complete': completeLink,
     }
-    res['ciks'],filedByCik = getSecFormCiks(indexSoup,accessNo)
+    res['ciks'], filedByCik, res['cikTypes'] = getSecFormCiks(indexSoup,accessNo)
     if filedByCik is not None :
         res['filedByCik'] = filedByCik
     if get99 :
