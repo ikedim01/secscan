@@ -40,7 +40,7 @@ def parse8K(accNo, formType=None, textLimit=basicInfo.defaultTextLimit) :
         if m is None :
             utils.printErrInfoOrAccessNo(f"unexpected format for item header {item}",accNo)
             continue
-        m = re.search(r'item\s*' + r'\s*'.join(m.group(1)).replace('.',r'\.'),
+        m = re.search(r'item[\s\-\.]*' + r'\s*'.join(m.group(1)).replace('.',r'\.'),
                       mainText[itemPosL[-1]:], re.IGNORECASE)
         if m is None :
             utils.printErrInfoOrAccessNo(f"couldn't find {item}",accNo)
