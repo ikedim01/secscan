@@ -6,8 +6,8 @@ title: recentFeed
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Parse the SEC's recent filings feed."
-description: "Parse the SEC's recent filings feed."
+summary: "Parse the SEC's recent filings feed, and XBRL filings feed."
+description: "Parse the SEC's recent filings feed, and XBRL filings feed."
 nb_path: "01_recentFeed.ipynb"
 ---
 <!--
@@ -38,7 +38,7 @@ nb_path: "01_recentFeed.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Download and parse the SEC's recent filings feed:</p>
+<p>Download and parse the SEC's recent filings feed, and XBRL filings feed:</p>
 
 </div>
 </div>
@@ -124,12 +124,36 @@ with the most recent filings first</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getXbrlFeed" class="doc_header"><code>getXbrlFeed</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getXbrlFeed</code>()</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 </div>
     {% endraw %}
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Test downloading and parsing the SEC's recent filings feed:</p>
+<p>Test downloading and parsing the SEC's recent filings feed and XBRL filings feed:</p>
 
 </div>
 </div>
@@ -142,8 +166,15 @@ with the most recent filings first</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="n">getRecentChunk</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;recent filings feed:&#39;</span><span class="p">)</span>
 <span class="n">utils</span><span class="o">.</span><span class="n">printSamp</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">==</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;parsing recent SEC filings feed&#39;</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">==</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;parsing SEC recent filings feed&#39;</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">lxbrl</span> <span class="o">=</span> <span class="n">getXbrlFeed</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;XBRL filings feed:&#39;</span><span class="p">)</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">printSamp</span><span class="p">(</span><span class="n">lxbrl</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">lxbrl</span><span class="p">)</span><span class="o">==</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;parsing SEC XBRL filings feed&#39;</span>
 </pre></div>
 
     </div>
@@ -156,11 +187,19 @@ with the most recent filings first</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0 (&#39;2021-06-17&#39;, &#39;Rafael Holdings, Inc.&#39;, &#39;9999999995-21-002404&#39;, &#39;EFFECT&#39;, &#39;1713863&#39;)
-1 (&#39;2021-06-17&#39;, &#39;INPIXON&#39;, &#39;9999999995-21-002403&#39;, &#39;EFFECT&#39;, &#39;1529113&#39;)
-2 (&#39;2021-06-17&#39;, &#39;SUPERCONDUCTOR TECHNOLOGIES INC&#39;, &#39;9999999995-21-002389&#39;, &#39;EFFECT&#39;, &#39;895665&#39;)
-3 (&#39;2021-06-17&#39;, &#39;FT 9403&#39;, &#39;9999999995-21-002388&#39;, &#39;EFFECT&#39;, &#39;1851134&#39;)
-4 (&#39;2021-06-17&#39;, &#39;UNITED INSURANCE HOLDINGS CORP.&#39;, &#39;9999999995-21-002402&#39;, &#39;EFFECT&#39;, &#39;1401521&#39;)
+<pre>recent filings feed:
+0 (&#39;2022-01-14&#39;, &#39;Brannan Michael A.&#39;, &#39;0001654954-22-000545&#39;, &#39;4&#39;, &#39;1807248&#39;)
+1 (&#39;2022-01-14&#39;, &#39;AEHR TEST SYSTEMS&#39;, &#39;0001654954-22-000545&#39;, &#39;4&#39;, &#39;1040470&#39;)
+2 (&#39;2022-01-14&#39;, &#39;Burdick Kenneth A&#39;, &#39;0001071739-22-000032&#39;, &#39;3&#39;, &#39;1498992&#39;)
+3 (&#39;2022-01-14&#39;, &#39;CENTENE CORP&#39;, &#39;0001071739-22-000032&#39;, &#39;3&#39;, &#39;1071739&#39;)
+4 (&#39;2022-01-14&#39;, &#39;SPINK KENNETH B.&#39;, &#39;0001654954-22-000544&#39;, &#39;4&#39;, &#39;1652627&#39;)
+
+XBRL filings feed:
+0 (&#39;2022-01-14&#39;, &#39;Recro Pharma, Inc.&#39;, &#39;0000950170-22-000333&#39;, &#39;8-K/A&#39;, &#39;1588972&#39;)
+1 (&#39;2022-01-14&#39;, &#39;CXJ GROUP CO., Ltd&#39;, &#39;0001493152-22-001328&#39;, &#39;10-Q&#39;, &#39;1823635&#39;)
+2 (&#39;2022-01-14&#39;, &#39;CAMBER ENERGY, INC.&#39;, &#39;0001477932-22-000282&#39;, &#39;8-K&#39;, &#39;1309082&#39;)
+3 (&#39;2022-01-14&#39;, &#39;Coursera, Inc.&#39;, &#39;0001193125-22-010064&#39;, &#39;8-K&#39;, &#39;1651562&#39;)
+4 (&#39;2022-01-14&#39;, &#39;Breeze Holdings Acquisition Corp.&#39;, &#39;0001564590-22-001386&#39;, &#39;10-Q&#39;, &#39;1817640&#39;)
 </pre>
 </div>
 </div>
@@ -189,7 +228,7 @@ with the most recent filings first</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="curEasternTimeStampAndDate" class="doc_header"><code>curEasternTimeStampAndDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternTimeStampAndDate</code>()</p>
+<h4 id="curEasternTimeStampAndDate" class="doc_header"><code>curEasternTimeStampAndDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternTimeStampAndDate</code>()</p>
 </blockquote>
 
 </div>
@@ -213,7 +252,7 @@ with the most recent filings first</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="initRecentFeedS3" class="doc_header"><code>initRecentFeedS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>initRecentFeedS3</code>(<strong><code>bucket</code></strong>, <strong><code>prevDay</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="initRecentFeedS3" class="doc_header"><code>initRecentFeedS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L101" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>initRecentFeedS3</code>(<strong><code>bucket</code></strong>, <strong><code>prevDay</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -237,7 +276,7 @@ with the most recent filings first</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="updateRecentFeedS3" class="doc_header"><code>updateRecentFeedS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L85" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>updateRecentFeedS3</code>(<strong><code>bucket</code></strong>, <strong><code>skipOffHours</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="updateRecentFeedS3" class="doc_header"><code>updateRecentFeedS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L107" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>updateRecentFeedS3</code>(<strong><code>bucket</code></strong>, <strong><code>skipOffHours</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 
 </div>
@@ -261,7 +300,7 @@ with the most recent filings first</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getRecentFromS3" class="doc_header"><code>getRecentFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L135" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecentFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>=<em><code>'today'</code></em>)</p>
+<h4 id="getRecentFromS3" class="doc_header"><code>getRecentFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L157" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecentFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>=<em><code>'today'</code></em>)</p>
 </blockquote>
 
 </div>
@@ -285,7 +324,7 @@ with the most recent filings first</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getRecentFromS3Public" class="doc_header"><code>getRecentFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L138" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecentFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>=<em><code>'today'</code></em>)</p>
+<h4 id="getRecentFromS3Public" class="doc_header"><code>getRecentFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/recentFeed.py#L160" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecentFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>=<em><code>'today'</code></em>)</p>
 </blockquote>
 
 </div>
