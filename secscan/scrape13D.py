@@ -31,7 +31,7 @@ def get13GDDatesForQ(y, qNo) :
 
 def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0,
                    minStocksPerInvestor=3, maxStocksPerInvestor=100,
-                   minTop10Frac=0.4, minAUM=None, dtype=np.float64,
+                   minTopNFrac=0.4, minTopN=10, minAUM=None, dtype=np.float64,
                    minInvestorsPerStock=None, maxInvestorsPerStock=None,
                    minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None,
                    cusipNameFilter=lambda cusip,name : name is not None,
@@ -49,9 +49,6 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0,
     If minFrac and/or maxFrac is supplied, restricts to stocks with fraction of
     total portfolio >=minFrac and/or <=maxFrac.
 
-    If minStocksPerInvestor, maxStocksPerInvestor, minTop10Frac or minAUM are specified,
-    omits investors with too few stocks, too many stocks, too small a fraction in the
-    top 10 holdings, or too small a total stock value.
     If minInvestorsPerStock is specified, restricts to stocks with at least that many investors;
     likewise, maxInvestorsPerStock can be used to give an upper bound.
 
@@ -94,7 +91,7 @@ def getCombNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0,
     res = scrape13F.getNSSForQ(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
                                minStocksPerInv=minStocksPerInvestor,
                                maxStocksPerInv=maxStocksPerInvestor,
-                               minTop10Frac=minTop10Frac, minAUM=minAUM, dtype=dtype,
+                               minTopNFrac=minTopNFrac, minTopN=minTopN, minAUM=minAUM, dtype=dtype,
                                minInvestorsPerStock=minInvestorsPerStock,
                                maxInvestorsPerStock=maxInvestorsPerStock,
                                minAllInvestorsPerStock=minAllInvestorsPerStock,

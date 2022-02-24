@@ -162,7 +162,7 @@ nb_path: "11_scrape13D.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombNSSForQ" class="doc_header"><code>getCombNSSForQ</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13D.py#L32" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombNSSForQ</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.01</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>3</code></em>, <strong><code>maxStocksPerInvestor</code></strong>=<em><code>100</code></em>, <strong><code>minTop10Frac</code></strong>=<em><code>0.4</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minAllInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>cusipNameFilter</code></strong>=<em><code>&lt;lambda&gt;</code></em>, <strong><code>max13GDBonus</code></strong>=<em><code>0.2</code></em>, <strong><code>min13GDBonus</code></strong>=<em><code>0.02</code></em>, <strong><code>max13GDCount</code></strong>=<em><code>50</code></em>, <strong><code>include13F</code></strong>=<em><code>True</code></em>, <strong><code>include13G</code></strong>=<em><code>False</code></em>, <strong><code>include13D</code></strong>=<em><code>False</code></em>, <strong><code>outsInfoFName</code></strong>=<em><code>''</code></em>, <strong><code>outDir</code></strong>=<em><code>'ratings'</code></em>)</p>
+<h4 id="getCombNSSForQ" class="doc_header"><code>getCombNSSForQ</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13D.py#L32" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombNSSForQ</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>minFrac</code></strong>=<em><code>0.01</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minStocksPerInvestor</code></strong>=<em><code>3</code></em>, <strong><code>maxStocksPerInvestor</code></strong>=<em><code>100</code></em>, <strong><code>minTopNFrac</code></strong>=<em><code>0.4</code></em>, <strong><code>minTopN</code></strong>=<em><code>10</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>, <strong><code>minInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minAllInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvestorsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>cusipNameFilter</code></strong>=<em><code>&lt;lambda&gt;</code></em>, <strong><code>max13GDBonus</code></strong>=<em><code>0.2</code></em>, <strong><code>min13GDBonus</code></strong>=<em><code>0.02</code></em>, <strong><code>max13GDCount</code></strong>=<em><code>50</code></em>, <strong><code>include13F</code></strong>=<em><code>True</code></em>, <strong><code>include13G</code></strong>=<em><code>False</code></em>, <strong><code>include13D</code></strong>=<em><code>False</code></em>, <strong><code>outsInfoFName</code></strong>=<em><code>''</code></em>, <strong><code>outDir</code></strong>=<em><code>'ratings'</code></em>)</p>
 </blockquote>
 <p>Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
 during the succeeding quarter, combined with 13G and 13D filings from the previous year
@@ -171,10 +171,7 @@ up through the succeeding quarter.</p>
 in which each row has the fractions held by the corresponding cik in each cusip.</p>
 <p>If minFrac and/or maxFrac is supplied, restricts to stocks with fraction of
 total portfolio &gt;=minFrac and/or &lt;=maxFrac.</p>
-<p>If minStocksPerInvestor, maxStocksPerInvestor, minTop10Frac or minAUM are specified,
-omits investors with too few stocks, too many stocks, too small a fraction in the
-top 10 holdings, or too small a total stock value.
-If minInvestorsPerStock is specified, restricts to stocks with at least that many investors;
+<p>If minInvestorsPerStock is specified, restricts to stocks with at least that many investors;
 likewise, maxInvestorsPerStock can be used to give an upper bound.</p>
 <p>Note min/max StocksPerInvestor/InvestorsPerStock limit based on the counts of stocks/investors
 in the returned matrix. If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified,
@@ -207,7 +204,7 @@ and 13D positions.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="oddballScreen" class="doc_header"><code>oddballScreen</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13D.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>oddballScreen</code>(<strong><code>yNo</code></strong>, <strong><code>qNo</code></strong>)</p>
+<h4 id="oddballScreen" class="doc_header"><code>oddballScreen</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13D.py#L133" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>oddballScreen</code>(<strong><code>yNo</code></strong>, <strong><code>qNo</code></strong>)</p>
 </blockquote>
 <p>Screens for stocks that only one investor reports holding.
 These will mostly be mistakes, so I try to remove the mistakes using cusipFilter.</p>
