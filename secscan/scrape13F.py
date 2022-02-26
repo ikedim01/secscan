@@ -2,9 +2,9 @@
 
 __all__ = ['default13FDir', 'findChildEndingWith', 'findChildSeries', 'getRowInfo', 'parse13FHoldings', 'scraper13F',
            'callOptPat', 'putOptPat', 'condense13FHoldings', 'filter13FHoldings', 'get13FHoldingsReportList',
-           'get13FAmendmentType', 'indexMap', 'getHoldingsMap', 'addHoldingsMap', 'printRemoveStocksMessage',
+           'get13FAmendmentType', 'indexMap', 'getHoldingsMapFrom13Fs', 'addHoldingsMap', 'printRemoveStocksMessage',
            'holdingsMapToMatrix', 'getPeriodAndNextQStartEnd', 'getNSSForQ', 'saveConvMatrixPy2', 'qStartEnds',
-           'qPeriods']
+           'qPeriods', 'convScreenSettings']
 
 # Cell
 
@@ -164,57 +164,6 @@ def filter13FHoldings(holdings, minTopNFrac=None, minTopN=10, minAUM=None, max13
     res = [tup for tup in holdings if minFrac<=tup[2]<=maxFrac]
     return res if len(res)>0 else None
 
-# def condense13FHoldings(holdings,
-#                      minFrac=0.0, maxFrac=1.0, minTopNFrac=None, minTopN=10, minAUM=None,
-#                      allCusipCounter=None, all13FHoldingsMap=None, forCik=None) :
-#     """
-#     Converts a list of of stock and option holdings as parsed from the 13F:
-#         [(cusip, name, value, title, count, putCall), ... ]
-#     that may have multiple entries per stock into a condensed list that omits
-#     call/put options and only has one combined entry per stock:
-#         [(cusip, val, frac) ... ]
-#     sorted in descending order by value, and restricted to stocks with fraction
-#     of total portfolio in [minFrac..maxFrac]
-
-#     If minTopNFrac or minAUM are specified, returns None for lists with too small
-#     a fraction in the top minTopN stocks, or too small a total value.
-
-#     If supplied, allCusipCounter should be a Counter, and it will be updated to count
-#     all investors that have any position in each stock, without regard to the min/max
-#     options supplied to restrict the holdings list.
-
-#     If supplied, all13FHoldingsMap should be a dict, and a full sorted holdings list:
-#         [(cusip, val, frac) ... ]
-#     will be saved in all13FHoldingsMap[forCik], without regard to the min/max
-#     options supplied to restrict the holdings list.
-#     """
-#     # eliminate options and sort to group holdings by CUSIP (stock identifier):
-#     holdings = sorted((cusip, float(value))
-#                       for cusip, name, value, shType, nShares, putCall in holdings
-#                       if putCall=='')
-#     # combine into a single entry for each stock with the total for that stock:
-#     holdings = [(cusip, sum(val for _,val in it))
-#                 for cusip,it in itertools.groupby(holdings, key=lambda x : x[0])]
-#     # sort to put largest holdings first:
-#     holdings.sort(key = lambda x : x[1], reverse=True)
-#     # calculate the fraction of total holdings for each stock:
-#     totAum = sum(val for _,val in holdings)
-#     holdings = [(cusip, val, val/totAum if totAum>0.0 else 0.0)
-#                 for cusip,val in holdings]
-#     if all13FHoldingsMap is not None :
-#         all13FHoldingsMap[forCik] = holdings
-#     if allCusipCounter is not None :
-#         allCusipCounter.update(cusip for cusip,_,_ in holdings)
-#     # return None if the investor is eliminated by any of the min/max options:
-#     if ((minAUM is not None
-#              and minAUM > totAum*1000.0)
-#         or (minTopNFrac is not None
-#                 and minTopNFrac > sum(frac for _,_,frac in holdings[:minTopN]))) :
-#         return None
-#     # get the final output list, filtered by min/maxFrac
-#     res = [tup for tup in holdings if minFrac<=tup[2]<=maxFrac]
-#     return res if len(res)>0 else None
-
 @utils.delegates(filter13FHoldings)
 def get13FHoldingsReportList(holdings, cusipNames={}, **kwargs) :
     """
@@ -256,7 +205,7 @@ def indexMap(lis) :
     return dict((el,i) for i,el in enumerate(lis))
 
 @utils.delegates(filter13FHoldings)
-def getHoldingsMap(scraped13F, period, allCusipCounter=None, all13FHoldingsMap=None, **kwargs) :
+def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldingsMap=None, **kwargs) :
     """
     Consolidate holdings for each CIK based on all 13F filings for a given period into
     a combined map of investor holdings.
@@ -449,20 +398,19 @@ def getPeriodAndNextQStartEnd(y, qNo) :
             {'startD' : str(nextY) + qStartEnds[nextQNo-1],
              'endD' : str(nextY+1 if nextQNo==4 else nextY) + qStartEnds[nextQNo]})
 
-def getNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPerInv=100,
-               minTopNFrac=0.4, minTopN=10, minAUM=None, dtype=np.float64,
+@utils.delegates(filter13FHoldings)
+def getNSSForQ(y, qNo, minStocksPerInv=3, maxStocksPerInv=100,
                minInvestorsPerStock=2, maxInvestorsPerStock=None,
-               minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None, allCusipCounter=None,
-               cusipFilter=None, extraHoldingsMaps=[], include13F=True, all13FHoldingsMap=None) :
+               minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None,
+               include13F=True, all13FHoldingsMap=None, allCusipCounter=None,
+               cusipFilter=None, extraHoldingsMaps=[], dtype=np.float64,
+               **kwargs) :
     """
     Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
     during the succeeding quarter.
 
     Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
     in which each row has the fractions held by the corresponding cik in each cusip.
-
-    If minFrac and/or maxFrac is supplied, restricts to stocks with fraction of
-    total portfolio >=minFrac and/or <=maxFrac.
 
     If minInvestorsPerStock is specified, restricts to stocks with at least that many investors
     in the returned matrix; likewise, maxInvestorsPerStock can be used to give an upper bound.
@@ -483,10 +431,9 @@ def getNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPe
         allCusipCounter = collections.Counter()
     if include13F :
         period, nextQStartEnd = getPeriodAndNextQStartEnd(y,qNo)
-        holdingsMap = getHoldingsMap(scraper13F(**nextQStartEnd), period,
-                                     minFrac=minFrac, maxFrac=maxFrac,
-                                     minTopNFrac=minTopNFrac, minTopN=minTopN, minAUM=minAUM,
-                                     allCusipCounter=allCusipCounter, all13FHoldingsMap=all13FHoldingsMap)
+        holdingsMap = getHoldingsMapFrom13Fs(scraper13F(**nextQStartEnd), period,
+                                             allCusipCounter=allCusipCounter, all13FHoldingsMap=all13FHoldingsMap,
+                                             **kwargs)
     else :
         holdingsMap = {}
     for extraHoldingsMap in extraHoldingsMaps :
@@ -500,18 +447,19 @@ def getNSSForQ(y, qNo, minFrac=0.01, maxFrac=1.0, minStocksPerInv=3, maxStocksPe
                                maxAllInvestorsPerStock=maxAllInvestorsPerStock,
                                allCusipCounter=allCusipCounter, cusipFilter=cusipFilter, dtype=dtype)
 
-def saveConvMatrixPy2(y, qNo, minFrac=0.13, maxFrac=0.4, minStocksPerInv=3, maxStocksPerInv=500,
-                      minTopNFrac=None, minTopN=10, minAUM=7.5e7, dtype=np.float64,
+convScreenSettings = dict(minFrac=0.13, maxFrac=0.4, minTopNFrac=None, minAUM=7.5e7)
+def saveConvMatrixPy2(y, qNo, dtype=np.float64,
+                      minStocksPerInv=3, maxStocksPerInv=500,
                       minInvestorsPerStock=2, maxInvestorsPerStock=None) :
     """
     Save a matrix of 13F conviction positions only for the given quarter,
     in a format readable by the BW old Python2 version.
     """
-    mat, ciks, cusips = getNSSForQ(y, qNo, minFrac=minFrac, maxFrac=maxFrac,
+    mat, ciks, cusips = getNSSForQ(y, qNo, dtype=dtype,
                                    minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
-                                   minTopNFrac=minTopNFrac, minTopN=minTopN, minAUM=minAUM, dtype=dtype,
                                    minInvestorsPerStock=minInvestorsPerStock,
-                                   maxInvestorsPerStock=maxInvestorsPerStock)
+                                   maxInvestorsPerStock=maxInvestorsPerStock,
+                                   **convScreenSettings)
     ciks = [cik.encode(encoding='ascii',errors='ignore') for cik in ciks]
     cusips = [cusip.encode(encoding='ascii',errors='ignore') for cusip in cusips]
     m = ([[('0' if el==0.0 else str(el)).encode(encoding='ascii') for el in row] for row in mat],
