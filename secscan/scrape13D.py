@@ -30,32 +30,24 @@ def get13GDDatesForQ(y, qNo) :
     return kwargs
 
 defaultNSSArgs = dict(
-    # arguments to filter13FHoldings:
+    # arguments to scrape13F.filter13FHoldings:
     minFrac=0.01, maxFrac=1.0, minTopNFrac=0.4, minTopN=10, minAUM=None,
+    # arguments to scrape13F.holdingsMapToMatrix:
+    minMatStocksPerInv=3,
 )
-@utils.delegates(scrape13F.filter13FHoldings)
-def getCombNSSForQ(y, qNo, dtype=np.float64,
-                   minStocksPerInvestor=3, maxStocksPerInvestor=100,
-                   minInvestorsPerStock=None, maxInvestorsPerStock=None,
-                   minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None,
+@utils.delegates(scrape13F.filter13FHoldings, scrape13F.holdingsMapToMatrix)
+def getCombNSSForQ(y, qNo,
                    cusipNameFilter=lambda cusip,name : name is not None,
                    max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=50,
                    include13F=True, include13G=False, include13D=False,
                    outsInfoFName='', outDir='ratings', **kwargs) :
     """
     Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
-    during the succeeding quarter, combined with 13G and 13D filings from the previous year
-    up through the succeeding quarter.
+    during the succeeding quarter, combined with 13G and 13D filings from the previous two
+    years through the succeeding quarter.
 
     Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
     in which each row has the fractions held by the corresponding cik in each cusip.
-
-    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors;
-    likewise, maxInvestorsPerStock can be used to give an upper bound.
-
-    Note min/max StocksPerInvestor/InvestorsPerStock limit based on the counts of stocks/investors
-    in the returned matrix. If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified,
-    this instead restricts based on a count of all investors that have any position in each stock.
 
     If cusipNameFilter is specified, this should be a function that gets two arguments (cusip and
     name, where name will be None if no name was found in either the SEC 13F CUSIP name index or
@@ -64,6 +56,8 @@ def getCombNSSForQ(y, qNo, dtype=np.float64,
     13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
     If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
     and 13D positions.
+
+    Uses scrape13F.filter13FHoldings and scrape13F.holdingsMapToMatrix to filter the returned matrix.
     """
     kwargs = dict(defaultNSSArgs,**kwargs)
     allCusipCounter = collections.Counter()
@@ -90,14 +84,7 @@ def getCombNSSForQ(y, qNo, dtype=np.float64,
     else :
         cikBonusMaps = []
         cik13GDSortedPosMap = {}
-    res = scrape13F.getNSSForQ(y, qNo, dtype=dtype,
-                               minStocksPerInv=minStocksPerInvestor,
-                               maxStocksPerInv=maxStocksPerInvestor,
-                               minInvestorsPerStock=minInvestorsPerStock,
-                               maxInvestorsPerStock=maxInvestorsPerStock,
-                               minAllInvestorsPerStock=minAllInvestorsPerStock,
-                               maxAllInvestorsPerStock=maxAllInvestorsPerStock,
-                               allCusipCounter=allCusipCounter,
+    res = scrape13F.getNSSForQ(y, qNo, allCusipCounter=allCusipCounter,
                                cusipFilter=lambda cusip : cusipNameFilter(cusip,cusipNames.get(cusip)),
                                extraHoldingsMaps=cikBonusMaps, include13F=include13F,
                                all13FHoldingsMap=all13FHoldingsMap,

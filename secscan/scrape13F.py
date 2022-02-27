@@ -137,7 +137,7 @@ def condense13FHoldings(holdings) :
     totAum = sum(val for _,val in holdings)
     return [(cusip, val, val/totAum if totAum>0.0 else 0.0) for cusip,val in holdings]
 
-def filter13FHoldings(holdings, minTopNFrac=None, minTopN=10, minAUM=None, max13FCount=None,
+def filter13FHoldings(holdings, minAUM=None, minTopNFrac=None, minTopN=10, max13FCount=None,
                       minFrac=0.0, maxFrac=1.0) :
     """
     Filters a condensed list of 13F stock holdings as returned from condense13FHoldings,
@@ -145,7 +145,7 @@ def filter13FHoldings(holdings, minTopNFrac=None, minTopN=10, minAUM=None, max13
         [(cusip, val, frac) ... ]
     sorted in descending order by value.
 
-    If minTopNFrac is specified, returns None for lists with too small a fraction
+    If minTopNFrac is specified, returns None for lists with too small a total fraction
     in the top minTopN stocks.
     If minAUM is specified, returns None for lists with too small a total value.
     If max13FCount is specified, returns None for lists with too many stocks.
@@ -153,6 +153,7 @@ def filter13FHoldings(holdings, minTopNFrac=None, minTopN=10, minAUM=None, max13
     Restricts the returned list to stocks with fraction of total value in [minFrac..maxFrac]
     """
     # return None if the investor is eliminated by any of the options:
+    totAum = sum(val for _,val,_ in holdings)
     if ((minAUM is not None
              and minAUM > totAum*1000.0)
         or (minTopNFrac is not None
@@ -211,7 +212,6 @@ def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldi
     a combined map of investor holdings.
 
     Returns a dict: cik -> {cusip -> pct}
-    Uses filter13FHoldings to filter the returned holdings.
 
     Restricts to stocks only (no call/put options).
 
@@ -220,10 +220,9 @@ def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldi
     as returned by condense13FHoldings, i.e. a list of tuples:
         all13FHoldingsMap[cik] = [(cusip, val, frac) ... ]
     sorted in descending order by value.
+
+    Uses filter13FHoldings to filter the returned holdings.
     """
-    print('calculating holdings map from 13F forms for',period)
-    print('filter arguments:',kwargs)
-    #
     # Map cik to a list [(dateStr, accNo, holdingsList) ... ]
     # of all 13F filings from that cik with the given period.
     cikTo13Fs = collections.defaultdict(list)
@@ -243,6 +242,7 @@ def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldi
     # as many positions as the previous filing I assume it's a restatement, otherwise
     # I add its positions to the previous filing.
     res = {}
+    elimCount = 0
     for cik, cik13FList in cikTo13Fs.items() :
         cik13FList.sort()  # sort by day and then by accession number
         i = 0
@@ -267,6 +267,11 @@ def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldi
         posList = filter13FHoldings(fullPosList, **kwargs)
         if posList is not None :
             res[cik] = dict((cusip,frac) for cusip,_,frac in posList)
+        else :
+            elimCount += 1
+    print('calculated holdings map from 13F forms for',period)
+    print('13F investor filters:',kwargs)
+    print(elimCount,'investors eliminated by filters')
     return res
 
 def addHoldingsMap(holdingsMap, extraHoldingsMap) :
@@ -286,9 +291,10 @@ def printRemoveStocksMessage(cusipsToRemove, delCount, msg) :
     print(msg,'- removed',len(cusipsToRemove)-delCount,'stocks')
     return len(cusipsToRemove)
 
-def holdingsMapToMatrix(holdingsMap, minStocksPerInvestor=None, maxStocksPerInvestor=None,
-                        minInvestorsPerStock=None, maxInvestorsPerStock=None,
-                        minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None, allCusipCounter=None,
+def holdingsMapToMatrix(holdingsMap, allCusipCounter,
+                        minAllInvsPerStock=None, maxAllInvsPerStock=None,
+                        minMatStocksPerInv=None, maxMatStocksPerInv=None,
+                        minMatInvsPerStock=None, maxMatInvsPerStock=None,
                         cusipFilter=None, dtype=np.float64) :
     """
     Converts a holdings map: cik -> {cusip -> frac} into a matrix.
@@ -296,72 +302,74 @@ def holdingsMapToMatrix(holdingsMap, minStocksPerInvestor=None, maxStocksPerInve
     Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
     in which each row has the fractions held by the corresponding cik in each cusip.
 
-    If minStocksPerInvestor is specified, restricts to investors with at least that many stocks
-    in the returned matrix; likewise, maxStocksPerInvestor can be used to give an upper bound.
+    If minAllInvsPerStock or maxAllInvsPerStock is specified, then allCusipCounter should be a
+    Counter giving a count of all investors that have any position in each stock, and the result
+    will be filtered based on this count. Otherwise allCusipCounter can be None.
 
-    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors
-    in the returned matrix; likewise, maxInvestorsPerStock can be used to give an upper bound.
+    If minMatStocksPerInv is specified, restricts to investors with at least that many stocks
+    in the returned matrix; likewise, maxMatStocksPerInv can be used to give an upper bound.
 
-    If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified, then allCusipCounter
-    should be a Counter counting all investors that have any position in each stock,
-    and the result will be restricted based on this count.
+    If minMatInvsPerStock is specified, restricts to stocks with at least that many investors
+    in the returned matrix; likewise, maxMatInvsPerStock can be used to give an upper bound.
 
     If cusipFilter is specified, this should be a function that returns True for cusips to keep.
+
+    dtype specifies the type of the returned matrix.
     """
     invCount = len(holdingsMap)
     print('starting investor count:',invCount)
-    if minStocksPerInvestor is None and maxStocksPerInvestor is None :
-        print('not limiting number of stocks per investor')
+    if minMatStocksPerInv is None and maxMatStocksPerInv is None :
+        print('not limiting number of stocks per investor in the ratings matrix')
     else :
-        if minStocksPerInvestor is not None :
-            print('requiring at least',minStocksPerInvestor,'stocks per investor')
+        if minMatStocksPerInv is not None :
+            print('requiring at least',minMatStocksPerInv,'stocks per investor in the ratings matrix')
             holdingsMap = dict((cik,posMap)
                                for cik,posMap in holdingsMap.items()
-                               if len(posMap) >= minStocksPerInvestor)
+                               if len(posMap) >= minMatStocksPerInv)
             print('- removed',invCount-len(holdingsMap),'investors,',len(holdingsMap),'remaining')
             invCount = len(holdingsMap)
-        if maxStocksPerInvestor is not None :
-            print('requiring at most',maxStocksPerInvestor,'stocks per investor')
+        if maxMatStocksPerInv is not None :
+            print('requiring at most',maxMatStocksPerInv,'stocks per investor in the ratings matrix')
             holdingsMap = dict((cik,posMap)
                                for cik,posMap in holdingsMap.items()
-                               if len(posMap) <= maxStocksPerInvestor)
+                               if len(posMap) <= maxMatStocksPerInv)
             print('- removed',invCount-len(holdingsMap),'investors,',len(holdingsMap),'remaining')
             invCount = len(holdingsMap)
-    cusipCounter = collections.Counter()
+    matCusipCounter = collections.Counter()
     for posMap in holdingsMap.values() :
-        cusipCounter.update(posMap.keys())
-    print('starting stock count:',len(cusipCounter))
+        matCusipCounter.update(posMap.keys())
+    print('starting stock count:',len(matCusipCounter))
     cusipsToRemove = set()
     delCount = 0
-    if (minInvestorsPerStock is None and maxInvestorsPerStock is None
-            and minAllInvestorsPerStock is None and maxAllInvestorsPerStock is None) :
+    if (minAllInvsPerStock is None and maxAllInvsPerStock is None
+            and minMatInvsPerStock is None and maxMatStocksPerInv is None) :
         print('not limiting number of investors per stock')
     else :
-        if minAllInvestorsPerStock is not None :
-            cusipsToRemove.update(cusip for cusip in cusipCounter
-                                  if allCusipCounter[cusip] < minAllInvestorsPerStock)
+        if minAllInvsPerStock is not None :
+            cusipsToRemove.update(cusip for cusip in matCusipCounter
+                                  if allCusipCounter[cusip] < minAllInvsPerStock)
             delCount = printRemoveStocksMessage(cusipsToRemove,delCount,
-                        f'requiring at least {minAllInvestorsPerStock} ALL investors per stock')
-        if maxAllInvestorsPerStock is not None :
-            cusipsToRemove.update(cusip for cusip in cusipCounter
-                                  if allCusipCounter[cusip] > maxAllInvestorsPerStock)
+                        f'requiring at least {minAllInvsPerStock} ALL investors per stock')
+        if maxAllInvsPerStock is not None :
+            cusipsToRemove.update(cusip for cusip in matCusipCounter
+                                  if allCusipCounter[cusip] > maxAllInvsPerStock)
             delCount = printRemoveStocksMessage(cusipsToRemove,delCount,
-                        f'requiring at most {maxAllInvestorsPerStock} ALL investors per stock')
-        if minInvestorsPerStock is not None :
-            cusipsToRemove.update(cusip for cusip,count in cusipCounter.items()
-                                  if count < minInvestorsPerStock)
+                        f'requiring at most {maxAllInvsPerStock} ALL investors per stock')
+        if minMatInvsPerStock is not None :
+            cusipsToRemove.update(cusip for cusip,count in matCusipCounter.items()
+                                  if count < minMatInvsPerStock)
             delCount = printRemoveStocksMessage(cusipsToRemove,delCount,
-                        f'requiring at least {minInvestorsPerStock} investors per stock')
-        if maxInvestorsPerStock is not None :
-            cusipsToRemove.update(cusip for cusip,count in cusipCounter.items()
-                                  if count > maxInvestorsPerStock)
+                        f'requiring at least {minMatInvsPerStock} investor ratings per stock')
+        if maxMatStocksPerInv is not None :
+            cusipsToRemove.update(cusip for cusip,count in matCusipCounter.items()
+                                  if count > maxMatStocksPerInv)
             delCount = printRemoveStocksMessage(cusipsToRemove,delCount,
-                        f'requiring at most {maxInvestorsPerStock} investors per stock')
+                        f'requiring at most {maxMatStocksPerInv} investor ratings per stock')
     if cusipFilter is not None :
-        cusipsToRemove.update(cusip for cusip in cusipCounter
+        cusipsToRemove.update(cusip for cusip in matCusipCounter
                               if not cusipFilter(cusip))
         delCount = printRemoveStocksMessage(cusipsToRemove,delCount,'applying CUSIP filter')
-    cusips = sorted(set(cusipCounter.keys()) - cusipsToRemove)
+    cusips = sorted(set(matCusipCounter.keys()) - cusipsToRemove)
     if delCount > 0 :
         print('removed a total of',delCount,'stocks,',len(cusips),'remaining')
     ciks = sorted(cik.zfill(10) for cik,posMap in holdingsMap.items()
@@ -377,8 +385,9 @@ def holdingsMapToMatrix(holdingsMap, minStocksPerInvestor=None, maxStocksPerInve
         if cikRow is None :
             continue
         for cusip,frac in posMap.items() :
-            if cusip not in cusipsToRemove :
-                mat[cikRow, cusipToCol[cusip]] = frac
+            cusipCol = cusipToCol.get(cusip)
+            if cusipCol is not None :
+                mat[cikRow, cusipCol] = frac
                 count += 1
     print(f'{count:,} positions')
     return mat, ciks, cusips
@@ -398,12 +407,9 @@ def getPeriodAndNextQStartEnd(y, qNo) :
             {'startD' : str(nextY) + qStartEnds[nextQNo-1],
              'endD' : str(nextY+1 if nextQNo==4 else nextY) + qStartEnds[nextQNo]})
 
-@utils.delegates(filter13FHoldings)
-def getNSSForQ(y, qNo, minStocksPerInv=3, maxStocksPerInv=100,
-               minInvestorsPerStock=2, maxInvestorsPerStock=None,
-               minAllInvestorsPerStock=None, maxAllInvestorsPerStock=None,
-               include13F=True, all13FHoldingsMap=None, allCusipCounter=None,
-               cusipFilter=None, extraHoldingsMaps=[], dtype=np.float64,
+@utils.delegates(filter13FHoldings, holdingsMapToMatrix)
+def getNSSForQ(y, qNo, allCusipCounter=None,
+               include13F=True, all13FHoldingsMap=None, extraHoldingsMaps=[],
                **kwargs) :
     """
     Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
@@ -412,53 +418,38 @@ def getNSSForQ(y, qNo, minStocksPerInv=3, maxStocksPerInv=100,
     Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
     in which each row has the fractions held by the corresponding cik in each cusip.
 
-    If minInvestorsPerStock is specified, restricts to stocks with at least that many investors
-    in the returned matrix; likewise, maxInvestorsPerStock can be used to give an upper bound.
-    If minAllInvestorsPerStock or maxAllInvestorsPerStock is specified, then allCusipCounter
-    should be a Counter counting all investors that have any position in each stock,
-    and the result will be restricted based on this count.
-    If cusipFilter is specified, this should be a function that returns True for cusips to keep.
-
     If supplied, all13FHoldingsMap should be a dict, and it will be updated with a full sorted
     holdings list for each CIK:
         all13FHoldingsMap[cik] = [(cusip, val, frac) ... ]
     without regard to the min/max options supplied to restrict the returned holdings map.
 
     Optionally adds holdings from a list of extraHoldingsMaps (used for 13G/13D filings).
+
+    Uses filter13FHoldings and holdingsMapToMatrix to filter the returned matrix.
     """
-    if ((minAllInvestorsPerStock is not None or maxAllInvestorsPerStock is not None)
-            and allCusipCounter is None) :
-        allCusipCounter = collections.Counter()
     if include13F :
         period, nextQStartEnd = getPeriodAndNextQStartEnd(y,qNo)
-        holdingsMap = getHoldingsMapFrom13Fs(scraper13F(**nextQStartEnd), period,
-                                             allCusipCounter=allCusipCounter, all13FHoldingsMap=all13FHoldingsMap,
-                                             **kwargs)
+        holdingsMap = utils.callDelegated(getHoldingsMapFrom13Fs, kwargs,
+                                          scraper13F(**nextQStartEnd), period,
+                                          allCusipCounter=allCusipCounter,
+                                          all13FHoldingsMap=all13FHoldingsMap)
     else :
         holdingsMap = {}
     for extraHoldingsMap in extraHoldingsMaps :
         addHoldingsMap(holdingsMap,extraHoldingsMap)
-    return holdingsMapToMatrix(holdingsMap,
-                               minStocksPerInvestor=minStocksPerInv,
-                               maxStocksPerInvestor=maxStocksPerInv,
-                               minInvestorsPerStock=minInvestorsPerStock,
-                               maxInvestorsPerStock=maxInvestorsPerStock,
-                               minAllInvestorsPerStock=minAllInvestorsPerStock,
-                               maxAllInvestorsPerStock=maxAllInvestorsPerStock,
-                               allCusipCounter=allCusipCounter, cusipFilter=cusipFilter, dtype=dtype)
+    return utils.callDelegated(holdingsMapToMatrix, kwargs,
+                               holdingsMap, allCusipCounter)
 
-convScreenSettings = dict(minFrac=0.13, maxFrac=0.4, minTopNFrac=None, minAUM=7.5e7)
-def saveConvMatrixPy2(y, qNo, dtype=np.float64,
-                      minStocksPerInv=3, maxStocksPerInv=500,
-                      minInvestorsPerStock=2, maxInvestorsPerStock=None) :
+convScreenSettings = dict(  # conviction stock screen settings
+    minFrac=0.13, maxFrac=0.6, minAUM=7.5e7,
+    minMatStocksPerInv=3, minMatInvsPerStock=2,
+)
+def saveConvMatrixPy2(y, qNo) :
     """
     Save a matrix of 13F conviction positions only for the given quarter,
-    in a format readable by the BW old Python2 version.
+    in a format readable by the BW Python2 code.
     """
-    mat, ciks, cusips = getNSSForQ(y, qNo, dtype=dtype,
-                                   minStocksPerInv=minStocksPerInv, maxStocksPerInv=maxStocksPerInv,
-                                   minInvestorsPerStock=minInvestorsPerStock,
-                                   maxInvestorsPerStock=maxInvestorsPerStock,
+    mat, ciks, cusips = getNSSForQ(y, qNo, allCusipCounter=collections.Counter(),
                                    **convScreenSettings)
     ciks = [cik.encode(encoding='ascii',errors='ignore') for cik in ciks]
     cusips = [cusip.encode(encoding='ascii',errors='ignore') for cusip in cusips]
