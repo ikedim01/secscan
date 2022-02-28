@@ -268,24 +268,28 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
     Generate or update a combined dict of percentage holdings:
         cik13GDPosMap: cik -> {cusip -> (eventDate, accNo, pct)}
     based on a list of 13G and 13D scrapers - pct is in the range [0.0 .. 100.0],
-    as given in the 13G and 13D filings.
+    as given in the 13G and 13D filings. For each stock, finds the latest 13G or 13D
+    filed and keeps the maximum percentage in that filing.
 
-    If cusipNames and cikNames are supplied, both should be dicts, and CUSIPs
-    encountered in 13G/D filings will have the corresponding CIK names added
-    to the CUSIP names based on the filings (i.e. each 13D/G filing includes
-    a CUSIP, and a corresponding subject CIK). If includeTickers is True,
-    the ticker names will also be added based on the CIK to ticker file
-    provided by the SEC.
+    If cusipNames and cikNames are supplied, these should be dicts mapping CUSIP->name
+    and CIK->name, generated from SEC data. The cusipNames dict will then be modified
+    to add the corresponding CIK for each CUSIP in a 13G/D filing, since 13G and 13D
+    filings include both a CUSIP and a corresponding subject CIK. If includeTickers
+    is True, also adds the ticker symbol based on a CIK to ticker mapping downloaded
+    from the SEC.
     """
+    cusipToCik = None if (cusipNames is None or cikNames is None) else {
+        # this maps CUSIP -> (latestDateStr, CIK) so the CIK and ticker can be added to cusipNames
+        # initialize some stocks that don't appear in any 13D or 13G filings:
+        '931142103' : ('0000-00-00','104169'), # Walmart
+        '084670108' : ('0000-00-00','1067983'), # Berkshire Hathaway
+    }
+    # calculate the latest positions for each CIK based on a list of 13G and 13D scrapers:
+    #    cik13GDPosMap[cik] = {cusip: (latestDateStr, accNo, maxPctPos), ... }
+    # also updates cusipToCik to reflect the CUSIP -> CIK correspondence from the scraped filings
     if cik13GDPosMap is None :
         cik13GDPosMap = collections.defaultdict(dict)
-    cikTo13GDs = collections.defaultdict(list)
-    count = 0
-    extraCusipNames = None if (cusipNames is None or cikNames is None) else {
-        # CUSIP -> CIK mapping for some stocks that don't currently appear in any 13D or 13G filings:
-        '931142103' : ('0000','walmart','104169'),
-        '084670108' : ('0000','berkshire','1067983'),
-    }
+    filingCount = 0
     for scraper in scrapers :
         for dStr, accNoToInfo in scraper.infoMap.items() :
             for accNo, info in accNoToInfo.items() :
@@ -306,60 +310,64 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
                         print(f'No event date in {accNo}; using {eventDate}')
                     else :
                         eventDate = info['eventDate']
-                    cusip = info['cusip']
                     filedByCik = info['filedByCik']
-                    cikTo13GDs[filedByCik.lstrip('0')].append((cusip, eventDate, accNo,maxPctPos))
-                    count += 1
-                    if extraCusipNames is not None :
+                    cusip = info['cusip']
+                    curPos = (eventDate, accNo, maxPctPos)
+                    curCikPosMap = cik13GDPosMap[filedByCik.lstrip('0')]
+                    if cusip not in curCikPosMap or curCikPosMap[cusip] < curPos :
+                        curCikPosMap[cusip] = curPos
+                    filingCount += 1
+                    if cusipToCik is not None :
                         subjectCik = [cik for cik in info['ciks'] if cik!=filedByCik]
                         if len(subjectCik) != 1 :
                             print(f"missing or ambiguous subject CIK '{accNo}'")
-                        elif cusip not in extraCusipNames or extraCusipNames[cusip][0] < dStr :
+                        elif cusip not in cusipToCik or cusipToCik[cusip][0] < dStr :
                             subjectCik = subjectCik[0].lstrip('0')
                             if subjectCik in cikNames :
-                                extraCusipNames[cusip] = (dStr, cikNames[subjectCik], subjectCik)
+                                cusipToCik[cusip] = (dStr, subjectCik)
                             else :
                                 print(f"subject CIK {subjectCik} name not found '{accNo}'")
-    if extraCusipNames is not None :
+    # modify cusipNames to add CIK and ticker symbols:
+    if cusipToCik is not None :
         count1 = count2 = 0
         if includeTickers :
             cikToTickers = dailyList.getCikToTickersMap()
         else :
             cikToTickers = collections.defaultdict(list)
+        # for CUSIPs already in cusipNames, add the corresponding CIK and ticker to the existing entry:
         for cusip,name in cusipNames.items() :
-            if cusip in extraCusipNames and 'CIK-' not in name :
-                _,subjectCikName,subjectCik = extraCusipNames[cusip]
+            if cusip in cusipToCik and 'CIK-' not in name :
+                _,subjectCik = cusipToCik[cusip]
+                subjectCikName = cikNames[subjectCik]
+                # add the CIK name if different from the CUSIP name:
                 if subjectCikName[:8].strip().lower() != name[:8].strip().lower() :
                     cusipNames[cusip] += f' - {subjectCikName}'
+                # add the CIK and ticker:
                 cusipNames[cusip] += cikSymStr(subjectCik,cikToTickers[subjectCik])
                 count1 += 1
-        for cusip,(_,subjectCikName,subjectCik) in extraCusipNames.items() :
+        # for CUSIPs not in cusipNames, insert a new entry with the CIK name, CIK, and ticker:
+        for cusip,(_,subjectCik) in cusipToCik.items() :
             if cusip not in cusipNames :
-                cusipNames[cusip] = f'- {subjectCikName}{cikSymStr(subjectCik,cikToTickers[subjectCik])}'
+                cusipNames[cusip] = f'- {cikNames[subjectCik]}{cikSymStr(subjectCik,cikToTickers[subjectCik])}'
                 count2 += 1
-        print('count1',count1,'count2',count2)
-    print('total of',len(cikTo13GDs),'ciks,',count,'13G/D filings')
-    for cik, cik13GDList in cikTo13GDs.items() :
-        posMap = cik13GDPosMap[cik]
-        for tup in cik13GDList :
-            cusip = tup[0]
-            if cusip not in posMap or posMap[cusip] < tup[1:] :
-                posMap[cusip] = tup[1:]
+        print(f'added CIKS for {count1:,} listed CUSIPs and {count2:,} unlisted CUSIPs')
+    print(f'total of {len(cik13GDPosMap):,} CIKs with {filingCount:,} 13G/D filings')
     return cik13GDPosMap
 def cikSymStr(cik,tickers) :
     return ' (' + ', '.join(sorted(tickers)[:8] + (['...'] if len(tickers)>8 else []) + ['CIK-'+cik])+ ')'
 
-def calcBonusMap(cik13GDPosMap, max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100,
-                 allCusipCounter=None) :
+def calcBonusMap(cik13GDPosMap, allCusipCounter,
+                 max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100) :
     """
     Calculate "bonus fractions" for cusips where a 13G or 13D has been filed.
+
+    allCusipCounter should be a Counter, and it will be updated to count all investors that
+    have any position in each stock.
+
     13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
     If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
     and 13D positions. For positions between [1.0% .. 5.0%), the bonus is cut in half;
     positions below 1.0% aren't given a bonus.
-
-    If supplied, allCusipCounter should be a Counter, and it will be updated to count
-    all investors that have any position in each stock.
 
     Returns a dict: cik -> {cusip -> bonusfrac}
     """

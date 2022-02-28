@@ -34,11 +34,12 @@ defaultNSSArgs = dict(
     minFrac=0.01, maxFrac=1.0, minTopNFrac=0.4, minTopN=10, minAUM=None,
     # arguments to scrape13F.holdingsMapToMatrix:
     minMatStocksPerInv=3,
+    # arguments to scrape13G.calcBonusMap:
+    max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=50,
 )
-@utils.delegates(scrape13F.filter13FHoldings, scrape13F.holdingsMapToMatrix)
+@utils.delegates(scrape13F.filter13FHoldings, scrape13F.holdingsMapToMatrix, scrape13G.calcBonusMap)
 def getCombNSSForQ(y, qNo,
                    cusipNameFilter=lambda cusip,name : name is not None,
-                   max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=50,
                    include13F=True, include13G=False, include13D=False,
                    outsInfoFName='', outDir='ratings', **kwargs) :
     """
@@ -53,11 +54,8 @@ def getCombNSSForQ(y, qNo,
     name, where name will be None if no name was found in either the SEC 13F CUSIP name index or
     in the CUSIP-CIK correspondence from 13D and 13G forms), and returns True for cusips to keep.
 
-    13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
-    If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
-    and 13D positions.
-
     Uses scrape13F.filter13FHoldings and scrape13F.holdingsMapToMatrix to filter the returned matrix.
+    Uses scrape13G.calcBonusMap to calculate rating bonuses for 13G/D positions.
     """
     kwargs = dict(defaultNSSArgs,**kwargs)
     allCusipCounter = collections.Counter()
@@ -74,9 +72,7 @@ def getCombNSSForQ(y, qNo,
             scrapedL.append(scraper13D(**dates))
         cik13GDPosMap = scrape13G.updateCik13GDPos(scrapedL, cusipNames=cusipNames, cikNames=cikNames,
                                                    includeTickers=True)
-        cikBonusMaps = [scrape13G.calcBonusMap(cik13GDPosMap,
-                                               max13GDBonus=max13GDBonus, min13GDBonus=min13GDBonus,
-                                               max13GDCount=max13GDCount, allCusipCounter=allCusipCounter)]
+        cikBonusMaps = [utils.callDelegated(scrape13G.calcBonusMap, kwargs, cik13GDPosMap, allCusipCounter)]
         cik13GDSortedPosMap = dict((cik,sorted(((cusip,pos) for cusip,pos in posMap.items()),
                                         # sort positions largest first, then by name
                                         key=lambda x : (-x[1][2], cusipNames.get(x[0],'CUSIP-'+x[0]).lower())))
