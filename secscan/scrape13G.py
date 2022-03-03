@@ -396,8 +396,6 @@ def calcBonusMap(cik13GDPosMap, allCusipCounter,
             res[cik] = bonusMap
     return res
 # def calcBonusMap(cik13GDPosMap, allCusipCounter,
-#                  #bonuses = {'13G':[(10.0,0.1),(5.0,0.05)],
-#                  #           '13D':[(10.0,0.2),(5.0,0.1)],}
 #                  max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100) :
 #     """
 #     Calculate "bonus fractions" for cusips where a 13G or 13D has been filed, using cik13GDPosMap
