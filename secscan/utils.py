@@ -3,9 +3,9 @@
 __all__ = ['boto3_available', 'setStockDataRoot', 'stockDataRoot', 'requestUrl', 'setSecUserAgent', 'secIndexUrl',
            'appendSpace', 'getCombTextRec', 'getCombSoupText', 'prTree', 'prAllTagNames', 'downloadSecUrl',
            'secUrlPref', 'secRestDataPref', 'secHeaders', 'secSleepTime', 'accessNoPatStr', 'accessNoPat', 'spacesPat',
-           'tagsWithLeftSpace', 'pageUnavailablePat', 'delegates', 'callDelegated', 'compressGZipBytes',
-           'decompressGZipBytes', 'pickleToBytes', 'pickleFromBytes', 'pickSave', 'pickLoad', 'pickLoadIfPath',
-           'pickSaveToS3', 'pickLoadFromS3', 'pickLoadFromS3Public', 'savePklToDir', 'loadPklFromDir',
+           'tagsWithLeftSpace', 'pageUnavailablePat', 'delegates', 'callDelegated', 'checkDelegated',
+           'compressGZipBytes', 'decompressGZipBytes', 'pickleToBytes', 'pickleFromBytes', 'pickSave', 'pickLoad',
+           'pickLoadIfPath', 'pickSaveToS3', 'pickLoadFromS3', 'pickLoadFromS3Public', 'savePklToDir', 'loadPklFromDir',
            'saveSplitPklToDir', 'loadSplitPklFromDir', 'toDateStr', 'toDate', 'isWeekend', 'dateStrsBetween',
            'formatDateStr', 'dateStr8Pat', 'curEasternUSTime', 'easternUSTimeZone', 'sanitizeText', 'secBrowse',
            'printSamp', 'printErrInfoOrAccessNo']
@@ -236,6 +236,19 @@ def callDelegated(toFunc, kwargs, *args, **extraKwargs) :
     delegatedKwargs.update(extraKwargs)
     # print(delegatedKwargs)
     return toFunc(*args,**delegatedKwargs)
+
+def checkDelegated(*toFuncs, **kwargs) :
+    """
+    Raises an exception if kwargs contains any unexpected keyword arguments not included
+    in any of the delegated functions toFuncs.
+    """
+    allKws = set()
+    for toFunc in toFuncs :
+        allKws.update(name for name,param in inspect.signature(toFunc).parameters.items()
+                      if param.default != inspect.Parameter.empty)
+    for name,val in kwargs.items() :
+        if name not in allKws :
+            raise TypeError(f'unexpected keyword argument {name}={val}')
 
 # Cell
 

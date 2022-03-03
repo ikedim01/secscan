@@ -506,6 +506,32 @@ from kwargs that apply to the delegated function.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="checkDelegated" class="doc_header"><code>checkDelegated</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L240" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>checkDelegated</code>(<strong>*<code>toFuncs</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Raises an exception if kwargs contains any unexpected keyword arguments not included
+in any of the delegated functions toFuncs.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 </div>
     {% endraw %}
 
@@ -670,7 +696,7 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="compressGZipBytes" class="doc_header"><code>compressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L242" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compressGZipBytes</code>(<strong><code>b</code></strong>)</p>
+<h4 id="compressGZipBytes" class="doc_header"><code>compressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L255" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compressGZipBytes</code>(<strong><code>b</code></strong>)</p>
 </blockquote>
 <p>Compress a byte string in-memory using gzip.</p>
 
@@ -695,7 +721,7 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="decompressGZipBytes" class="doc_header"><code>decompressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L249" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decompressGZipBytes</code>(<strong><code>b</code></strong>)</p>
+<h4 id="decompressGZipBytes" class="doc_header"><code>decompressGZipBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L262" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decompressGZipBytes</code>(<strong><code>b</code></strong>)</p>
 </blockquote>
 <p>Decompress a byte string in-memory using gzip.</p>
 
@@ -720,7 +746,7 @@ We can optionally use gzip compression (smaller files, but slower to read).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickleToBytes" class="doc_header"><code>pickleToBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L255" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleToBytes</code>(<strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="pickleToBytes" class="doc_header"><code>pickleToBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L268" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleToBytes</code>(<strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
 Return the pickled representation of the object as a bytes object.</p>
@@ -759,7 +785,7 @@ into <em>file</em> as part of the pickle stream.  It is an error if
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickleFromBytes" class="doc_header"><code>pickleFromBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L263" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleFromBytes</code>(<strong><code>b</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickleFromBytes" class="doc_header"><code>pickleFromBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L276" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleFromBytes</code>(<strong><code>b</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
 <h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
 Read and return an object from the given pickle data.</p>
@@ -842,7 +868,7 @@ string instances as bytes objects.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickSave" class="doc_header"><code>pickSave</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L272" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSave</code>(<strong><code>fpath</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="pickSave" class="doc_header"><code>pickSave</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L285" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSave</code>(<strong><code>fpath</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <h2 id="Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression.">Save a pickled object to a file, optionally using gzip compression.<a class="anchor-link" href="#Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleToBytes arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
 <h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
@@ -882,7 +908,7 @@ into <em>file</em> as part of the pickle stream.  It is an error if
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoad" class="doc_header"><code>pickLoad</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L278" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoad</code>(<strong><code>fpath</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickLoad" class="doc_header"><code>pickLoad</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L291" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoad</code>(<strong><code>fpath</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
 <h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
 <h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
@@ -920,7 +946,7 @@ string instances as bytes objects.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoadIfPath" class="doc_header"><code>pickLoadIfPath</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L284" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadIfPath</code>(<strong><code>path_or_ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickLoadIfPath" class="doc_header"><code>pickLoadIfPath</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L297" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadIfPath</code>(<strong><code>path_or_ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
 
 <pre><code>If given a path, loads a pickled object from it; otherwise returns
@@ -1008,7 +1034,7 @@ string instances as bytes objects.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickSaveToS3" class="doc_header"><code>pickSaveToS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L297" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSaveToS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>ob</code></strong>, <strong><code>make_public</code></strong>=<em><code>False</code></em>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="pickSaveToS3" class="doc_header"><code>pickSaveToS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L310" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickSaveToS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>ob</code></strong>, <strong><code>make_public</code></strong>=<em><code>False</code></em>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <h2 id="Save-a-pickled-object-to-an-S3-bucket,-optionally-using-gzip-compression.">Save a pickled object to an S3 bucket, optionally using gzip compression.<a class="anchor-link" href="#Save-a-pickled-object-to-an-S3-bucket,-optionally-using-gzip-compression."> </a></h2><p>pickleToBytes arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
 <h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
@@ -1048,7 +1074,7 @@ into <em>file</em> as part of the pickle stream.  It is an error if
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoadFromS3" class="doc_header"><code>pickLoadFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L306" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickLoadFromS3" class="doc_header"><code>pickLoadFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L319" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
 <h2 id="Load-a-pickled-object-from-an-S3-bucket,-optionally-using-gzip-compression.">Load a pickled object from an S3 bucket, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-an-S3-bucket,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
 <h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
@@ -1086,7 +1112,7 @@ string instances as bytes objects.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pickLoadFromS3Public" class="doc_header"><code>pickLoadFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L313" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="pickLoadFromS3Public" class="doc_header"><code>pickLoadFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L326" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
 <hr>
 <p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
@@ -1192,7 +1218,7 @@ string instances as bytes objects.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="savePklToDir" class="doc_header"><code>savePklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>savePklToDir</code>(<strong><code>toDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="savePklToDir" class="doc_header"><code>savePklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L333" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>savePklToDir</code>(<strong><code>toDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>ob</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 <pre><code>Saves a pickled object to a file under a directory, optionally using gzip compression.
@@ -1239,7 +1265,7 @@ into <em>file</em> as part of the pickle stream.  It is an error if
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadPklFromDir" class="doc_header"><code>loadPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L330" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>defaultVal</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="loadPklFromDir" class="doc_header"><code>loadPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L343" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>fName</code></strong>, <strong><code>defaultVal</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
 
 <pre><code>Load a pickled object from a file under a directory, optionally using gzip compression.
@@ -1326,7 +1352,7 @@ string instances as bytes objects.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveSplitPklToDir" class="doc_header"><code>saveSplitPklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L344" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveSplitPklToDir</code>(<strong><code>m</code></strong>, <strong><code>toDir</code></strong>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtySet</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="saveSplitPklToDir" class="doc_header"><code>saveSplitPklToDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L357" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveSplitPklToDir</code>(<strong><code>m</code></strong>, <strong><code>toDir</code></strong>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtySet</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 <pre><code>Saves a dict with str keys to a separate file for each key.
@@ -1375,7 +1401,7 @@ into <em>file</em> as part of the pickle stream.  It is an error if
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadSplitPklFromDir" class="doc_header"><code>loadSplitPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L365" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadSplitPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>startK</code></strong>=<em><code>None</code></em>, <strong><code>endK</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
+<h4 id="loadSplitPklFromDir" class="doc_header"><code>loadSplitPklFromDir</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L378" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadSplitPklFromDir</code>(<strong><code>fromDir</code></strong>, <strong><code>startK</code></strong>=<em><code>None</code></em>, <strong><code>endK</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
 
 <pre><code>Loads a pickled dict with str keys stored with a separate file for each key,
@@ -1465,7 +1491,7 @@ string instances as bytes objects.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="toDateStr" class="doc_header"><code>toDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L386" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDateStr</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="toDateStr" class="doc_header"><code>toDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L399" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDateStr</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts date object or ISO format date string to YYYYMMDD format string;
 leaves YYYYMMDD format strings unchanged;
@@ -1492,7 +1518,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="toDate" class="doc_header"><code>toDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L401" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDate</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="toDate" class="doc_header"><code>toDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L414" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDate</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts date string in ISO or YYYYMMDD format to date object;
 leaves date objects unchanged;
@@ -1519,7 +1545,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="isWeekend" class="doc_header"><code>isWeekend</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L417" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isWeekend</code>(<strong><code>d</code></strong>)</p>
+<h4 id="isWeekend" class="doc_header"><code>isWeekend</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L430" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isWeekend</code>(<strong><code>d</code></strong>)</p>
 </blockquote>
 <p>Says if date string or date object is on a weekend (Saturday or Sunday).</p>
 
@@ -1544,7 +1570,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dateStrsBetween" class="doc_header"><code>dateStrsBetween</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L421" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dateStrsBetween</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>=<em><code>None</code></em>, <strong><code>excludeWeekends</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="dateStrsBetween" class="doc_header"><code>dateStrsBetween</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L434" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dateStrsBetween</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>=<em><code>None</code></em>, <strong><code>excludeWeekends</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns a list of date strings in YYYYMMDD format from d1 (inclusive)
 to d2 (exclusive), optionally excluding weekends.</p>
@@ -1570,7 +1596,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="formatDateStr" class="doc_header"><code>formatDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L438" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>formatDateStr</code>(<strong><code>dStr</code></strong>, <strong><code>sep</code></strong>=<em><code>'-'</code></em>)</p>
+<h4 id="formatDateStr" class="doc_header"><code>formatDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L451" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>formatDateStr</code>(<strong><code>dStr</code></strong>, <strong><code>sep</code></strong>=<em><code>'-'</code></em>)</p>
 </blockquote>
 <p>Convert YYYYMMDD format date string to YYYY-MM-DD.</p>
 
@@ -1637,7 +1663,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="curEasternUSTime" class="doc_header"><code>curEasternUSTime</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L445" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternUSTime</code>()</p>
+<h4 id="curEasternUSTime" class="doc_header"><code>curEasternUSTime</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L458" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternUSTime</code>()</p>
 </blockquote>
 
 </div>
@@ -1706,7 +1732,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sanitizeText" class="doc_header"><code>sanitizeText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L450" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sanitizeText</code>(<strong><code>s</code></strong>)</p>
+<h4 id="sanitizeText" class="doc_header"><code>sanitizeText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L463" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sanitizeText</code>(<strong><code>s</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1743,7 +1769,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="secBrowse" class="doc_header"><code>secBrowse</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L457" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secBrowse</code>(<strong><code>accessNo</code></strong>)</p>
+<h4 id="secBrowse" class="doc_header"><code>secBrowse</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L470" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secBrowse</code>(<strong><code>accessNo</code></strong>)</p>
 </blockquote>
 <p>Open the index page of an SEC filing specified by accession number in a web browser.</p>
 
@@ -1768,7 +1794,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printSamp" class="doc_header"><code>printSamp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L461" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printSamp</code>(<strong><code>m</code></strong>, <strong><code>n</code></strong>=<em><code>10</code></em>)</p>
+<h4 id="printSamp" class="doc_header"><code>printSamp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L474" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printSamp</code>(<strong><code>m</code></strong>, <strong><code>n</code></strong>=<em><code>10</code></em>)</p>
 </blockquote>
 <p>Prints a sample of n items from object m , where m is a list or dict;
 for other objects just prints the whole thing.</p>
@@ -1794,7 +1820,7 @@ for other objects just prints the whole thing.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printErrInfoOrAccessNo" class="doc_header"><code>printErrInfoOrAccessNo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L477" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printErrInfoOrAccessNo</code>(<strong><code>msg</code></strong>, <strong><code>infoOrAccessNo</code></strong>)</p>
+<h4 id="printErrInfoOrAccessNo" class="doc_header"><code>printErrInfoOrAccessNo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L490" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printErrInfoOrAccessNo</code>(<strong><code>msg</code></strong>, <strong><code>infoOrAccessNo</code></strong>)</p>
 </blockquote>
 
 </div>

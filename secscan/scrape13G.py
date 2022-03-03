@@ -262,14 +262,15 @@ class scraper13G(infoScraper.scraperBase) :
 
 # Cell
 
-def updateCik13GDPos(scrapers, cik13GDPosMap=None,
+def updateCik13GDPos(scraper13G, scraper13D, cik13GDPosMap=None,
                      cusipNames=None, cikNames=None, includeTickers=False) :
     """
-    Generate or update a combined dict of percentage holdings:
-        cik13GDPosMap: cik -> {cusip -> (eventDate, accNo, pct)}
-    based on a list of 13G and 13D scrapers - pct is in the range [0.0 .. 100.0],
-    as given in the 13G and 13D filings. For each stock, finds the latest 13G or 13D
-    filed and keeps the maximum percentage in that filing.
+    Generate or update a combined defaultdict(dict) of percentage holdings:
+        cik13GDPosMap: cik -> {cusip -> (eventDate, accNo, pct, fType)}
+    based on scraped filings in scraper13G and scraper13D - pct is in the
+    range [0.0 .. 100.0], as given in the 13G and 13D filings. For each stock,
+    finds the latest 13G or 13D filing and keeps the maximum percentage in
+    that filing. Saves the filing type fType = '13G' or '13D'.
 
     If cusipNames and cikNames are supplied, these should be dicts mapping CUSIP->name
     and CIK->name, generated from SEC data. The cusipNames dict will then be modified
@@ -290,7 +291,9 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
     if cik13GDPosMap is None :
         cik13GDPosMap = collections.defaultdict(dict)
     filingCount = 0
-    for scraper in scrapers :
+    for scraper,fType in ((scraper13G,'13G'), (scraper13D,'13D')) :
+        if scraper is None :
+            continue
         for dStr, accNoToInfo in scraper.infoMap.items() :
             for accNo, info in accNoToInfo.items() :
                 if info == 'ERROR' :
@@ -312,7 +315,7 @@ def updateCik13GDPos(scrapers, cik13GDPosMap=None,
                         eventDate = info['eventDate']
                     filedByCik = info['filedByCik']
                     cusip = info['cusip']
-                    curPos = (eventDate, accNo, maxPctPos)
+                    curPos = (eventDate, accNo, maxPctPos, fType)
                     curCikPosMap = cik13GDPosMap[filedByCik.lstrip('0')]
                     if cusip not in curCikPosMap or curCikPosMap[cusip] < curPos :
                         curCikPosMap[cusip] = curPos
@@ -357,33 +360,76 @@ def cikSymStr(cik,tickers) :
     return ' (' + ', '.join(sorted(tickers)[:8] + (['...'] if len(tickers)>8 else []) + ['CIK-'+cik])+ ')'
 
 def calcBonusMap(cik13GDPosMap, allCusipCounter,
-                 max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100) :
+                 bonuses = {'13G':[(10.0,0.1), (5.0,0.05)],
+                            '13D':[(10.0,0.2), (5.0,0.1)],},
+                 max13GDCount=100) :
     """
-    Calculate "bonus fractions" for cusips where a 13G or 13D has been filed.
+    Calculate "bonus fractions" for cusips where a 13G or 13D has been filed, using cik13GDPosMap
+    as calculated by updateCik13GDPos, i.e. a combined defaultdict(dict) of percentage holdings:
+        cik13GDPosMap: cik -> {cusip -> (eventDate, accNo, pct, fType)}
 
-    allCusipCounter should be a Counter, and it will be updated to count all investors that
-    have any position in each stock.
+    The bonus fractions are specified separately for 13G and 13D filings using the bonuses dict.
 
-    13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
     If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
-    and 13D positions. For positions between [1.0% .. 5.0%), the bonus is cut in half;
-    positions below 1.0% aren't given a bonus.
+    and 13D positions.
+
+    If allCusipCounter is not None, it should be a Counter and it will be updated to
+    count all investors that have any nonzero position in each stock.
 
     Returns a dict: cik -> {cusip -> bonusfrac}
     """
     res = {}
     for cik,posMap in cik13GDPosMap.items() :
-        if allCusipCounter is not None :
-            allCusipCounter.update(posMap.keys())
-        fullCusips, halfCusips = [], []
+        bonusMap = {}
         for cusip,pos in posMap.items() :
-            if pos[-1] >= 5.0 :
-                fullCusips.append(cusip)
-            elif pos[-1] >= 1.0 :
-                halfCusips.append(cusip)
-        totNCusips = len(fullCusips) + len(halfCusips)
-        if totNCusips>0 and (max13GDCount is None or totNCusips<=max13GDCount) :
-            bonus = min(max13GDBonus,max(min13GDBonus,1/totNCusips))
-            res[cik] = dict((cusip,bonus) for cusip in fullCusips)
-            res[cik].update((cusip,bonus*0.5) for cusip in halfCusips)
+            pct = pos[2]
+            if pct <= 0.0 :
+                continue
+            if allCusipCounter is not None :
+                allCusipCounter[cusip] += 1
+            fType = pos[3]
+            for bonusPct,bonusFrac in bonuses[fType] :
+                if pct >= bonusPct :
+                    bonusMap[cusip] = bonusFrac
+                    break
+        if len(bonusMap)>0 and (max13GDCount is None or len(bonusMap)<=max13GDCount) :
+            res[cik] = bonusMap
     return res
+# def calcBonusMap(cik13GDPosMap, allCusipCounter,
+#                  #bonuses = {'13G':[(10.0,0.1),(5.0,0.05)],
+#                  #           '13D':[(10.0,0.2),(5.0,0.1)],}
+#                  max13GDBonus=0.2, min13GDBonus=0.02, max13GDCount=100) :
+#     """
+#     Calculate "bonus fractions" for cusips where a 13G or 13D has been filed, using cik13GDPosMap
+#     as calculated by updateCik13GDPos, i.e. a combined defaultdict(dict) of percentage holdings:
+#         cik13GDPosMap: cik -> {cusip -> (eventDate, accNo, pct, fType)}
+
+#     13GD bonus fractions are 1.0/#positions, but restricted to [min13GDBonus..max13GDBonus]
+#     If max13GDCount is not None, restricts to investors with at most max13GDCount combined 13G
+#     and 13D positions. For positions between [1.0% .. 5.0%), the bonus is cut in half;
+#     positions below 1.0% aren't given a bonus.
+
+#     Returns a dict: cik -> {cusip -> bonusfrac}
+
+#     If allCusipCounter is not None, it should be a Counter and it will be updated to
+#     count all investors that have any position in each stock.
+#     """
+#     res = {}
+#     for cik,posMap in cik13GDPosMap.items() :
+#         fullCusips, halfCusips = [], []
+#         for cusip,pos in posMap.items() :
+#             pct = pos[2]
+#             if pct <= 0.0 :
+#                 continue
+#             if allCusipCounter is not None :
+#                 allCusipCounter[cusip] += 1
+#             if pct >= 5.0 :
+#                 fullCusips.append(cusip)
+#             elif pct >= 1.0 :
+#                 halfCusips.append(cusip)
+#         totNCusips = len(fullCusips) + len(halfCusips)
+#         if totNCusips>0 and (max13GDCount is None or totNCusips<=max13GDCount) :
+#             bonus = min(max13GDBonus,max(min13GDBonus,1/totNCusips))
+#             res[cik] = dict((cusip,bonus) for cusip in fullCusips)
+#             res[cik].update((cusip,bonus*0.5) for cusip in halfCusips)
+#     return res
