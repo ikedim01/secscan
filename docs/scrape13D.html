@@ -162,7 +162,7 @@ nb_path: "11_scrape13D.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombNSSForQ" class="doc_header"><code>getCombNSSForQ</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13D.py#L34" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombNSSForQ</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>ratingScale</code></strong>=<em><code>100.0</code></em>, <strong><code>maxRating</code></strong>=<em><code>20.0</code></em>, <strong><code>cusipNameFilter</code></strong>=<em><code>&lt;lambda&gt;</code></em>, <strong><code>include13F</code></strong>=<em><code>True</code></em>, <strong><code>include13G</code></strong>=<em><code>True</code></em>, <strong><code>include13D</code></strong>=<em><code>True</code></em>, <strong><code>outsInfoFName</code></strong>=<em><code>''</code></em>, <strong><code>outDir</code></strong>=<em><code>'ratings'</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>minTopNFrac</code></strong>=<em><code>None</code></em>, <strong><code>minTopN</code></strong>=<em><code>10</code></em>, <strong><code>max13FCount</code></strong>=<em><code>None</code></em>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>cusipFilter</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>, <strong><code>bonuses</code></strong>=<em><code>{'13G': [(10.0, 0.1), (5.0, 0.05)], '13D': [(10.0, 0.2), (5.0, 0.1)]}</code></em>, <strong><code>maxBonusTot</code></strong>=<em><code>1.0</code></em>, <strong><code>maxBonusDivisor</code></strong>=<em><code>None</code></em>, <strong><code>max13GDCount</code></strong>=<em><code>100</code></em>)</p>
+<h4 id="getCombNSSForQ" class="doc_header"><code>getCombNSSForQ</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13D.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombNSSForQ</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>ratingScale</code></strong>=<em><code>100.0</code></em>, <strong><code>maxRating</code></strong>=<em><code>20.0</code></em>, <strong><code>cusipNameFilter</code></strong>=<em><code>&lt;lambda&gt;</code></em>, <strong><code>include13F</code></strong>=<em><code>True</code></em>, <strong><code>include13G</code></strong>=<em><code>True</code></em>, <strong><code>include13D</code></strong>=<em><code>True</code></em>, <strong><code>outsInfoFName</code></strong>=<em><code>''</code></em>, <strong><code>outDir</code></strong>=<em><code>'ratings'</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>minTopNFrac</code></strong>=<em><code>None</code></em>, <strong><code>minTopN</code></strong>=<em><code>10</code></em>, <strong><code>max13FCount</code></strong>=<em><code>None</code></em>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>cusipFilter</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>, <strong><code>bonuses</code></strong>=<em><code>{'13G': [(10.0, 0.1), (5.0, 0.05)], '13D': [(10.0, 0.2), (5.0, 0.1)]}</code></em>, <strong><code>maxBonusTot</code></strong>=<em><code>1.0</code></em>, <strong><code>maxBonusDivisor</code></strong>=<em><code>None</code></em>, <strong><code>max13GDCount</code></strong>=<em><code>100</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>protocol</code></strong>=<em><code>None</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>buffer_callback</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 <pre><code>Calculates a matrix of investor ratings for a quarter, based on all 13F filings filed
@@ -190,6 +190,7 @@ Uses scrape13G.calcBonusMap to calculate rating bonuses for 13G/D positions.
 
 If outsInfoName is not None, saves the results in four pickled files for the specified quarter in outDir:
     outDir/f'{outsInfoFName}{y}Q{qNo}' + ('sInfo','cusipMap','hold13GD','hold13F') + 'pkl'
+Uses utils.pickSave to save the pickled files.
 
 </code></pre>
 <hr>
@@ -246,7 +247,27 @@ and 13D positions.
 If allCusipCounter is not None, it should be a Counter and it will be updated to
 count all investors that have any nonzero position in each stock.
 
-Returns a dict: cik -&gt; {cusip -&gt; bonusfrac}</code></pre>
+Returns a dict: cik -&gt; {cusip -&gt; bonusfrac}
+
+</code></pre>
+<hr>
+<p>pickSave arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
+<h2 id="Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression.">Save a pickled object to a file, optionally using gzip compression.<a class="anchor-link" href="#Save-a-pickled-object-to-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleToBytes arguments: use_gzip=False, protocol=None, fix_imports=True, buffer_callback=None</p>
+<h2 id="Pickle-an-object-in-memory,-optionally-using-gzip-compression.">Pickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Pickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>dumps arguments: protocol=None, fix_imports=True, buffer_callback=None
+Return the pickled representation of the object as a bytes object.</p>
+<p>The optional <em>protocol</em> argument tells the pickler to use the given
+protocol; supported protocols are 0, 1, 2, 3, 4 and 5.  The default
+protocol is 4. It was introduced in Python 3.4, and is incompatible
+with previous versions.</p>
+<p>Specifying a negative protocol version selects the highest protocol
+version supported.  The higher the protocol used, the more recent the
+version of Python needed to read the pickle produced.</p>
+<p>If <em>fix_imports</em> is True and <em>protocol</em> is less than 3, pickle will
+try to map the new Python 3 names to the old module names used in
+Python 2, so that the pickle data stream is readable with Python 2.</p>
+<p>If <em>buffer_callback</em> is None (the default), buffer views are serialized
+into <em>file</em> as part of the pickle stream.  It is an error if
+<em>buffer_callback</em> is not None and <em>protocol</em> is None or smaller than 5.</p>
 
 </div>
 
@@ -269,7 +290,7 @@ Returns a dict: cik -&gt; {cusip -&gt; bonusfrac}</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="oddballScreen" class="doc_header"><code>oddballScreen</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13D.py#L125" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>oddballScreen</code>(<strong><code>yNo</code></strong>, <strong><code>qNo</code></strong>)</p>
+<h4 id="oddballScreen" class="doc_header"><code>oddballScreen</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13D.py#L129" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>oddballScreen</code>(<strong><code>yNo</code></strong>, <strong><code>qNo</code></strong>)</p>
 </blockquote>
 <p>Screens for stocks that only one investor reports holding.
 These will mostly be mistakes, so I try to remove the mistakes using cusipNameFilter.</p>

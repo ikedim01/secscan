@@ -30,7 +30,8 @@ def get13GDDatesForQ(y, qNo) :
     kwargs['startD'] = str(int(kwargs['startD'][:4])-2) + kwargs['startD'][4:]
     return kwargs
 
-nssDelegatedFuncs = scrape13F.filter13FHoldings, scrape13F.holdingsMapToMatrix, scrape13G.calcBonusMap
+nssDelegatedFuncs = (scrape13F.filter13FHoldings, scrape13F.holdingsMapToMatrix, scrape13G.calcBonusMap,
+                     utils.pickSave)
 @utils.delegates(*nssDelegatedFuncs)
 def getCombNSSForQ(y, qNo, ratingScale=100.0, maxRating=20.0,
                    cusipNameFilter=lambda cusip,name : name is not None,
@@ -62,6 +63,7 @@ def getCombNSSForQ(y, qNo, ratingScale=100.0, maxRating=20.0,
 
     If outsInfoName is not None, saves the results in four pickled files for the specified quarter in outDir:
         outDir/f'{outsInfoFName}{y}Q{qNo}' + ('sInfo','cusipMap','hold13GD','hold13F') + 'pkl'
+    Uses utils.pickSave to save the pickled files.
     """
     utils.checkDelegated(*nssDelegatedFuncs,**kwargs)
     allCusipCounter = collections.Counter()
@@ -107,8 +109,8 @@ def getCombNSSForQ(y, qNo, ratingScale=100.0, maxRating=20.0,
         if not outDir.exists() :
             outDir.mkdir()
         for ob,fNameEnding in zip(res,('sInfo.pkl','cusipMap.pkl','hold13GD.pkl','hold13F.pkl')) :
-            utils.pickSave(outDir/f'{outsInfoFName}{y}Q{qNo}{fNameEnding}', ob,
-                           fix_imports=True, protocol=2)
+            utils.callDelegated(utils.pickSave, kwargs,
+                                outDir/f'{outsInfoFName}{y}Q{qNo}{fNameEnding}', ob)
     return res
 
 defaultNSSArgs = dict(
@@ -120,6 +122,8 @@ defaultNSSArgs = dict(
     bonuses = {'13G':[(10.0,0.1), (5.0,0.05)],
                '13D':[(10.0,0.2), (5.0,0.1)],},
     max13GDCount=50,
+    # arguments to utils.pickSave:
+    fix_imports=True, protocol=2,
 )
 
 def oddballScreen(yNo, qNo) :
