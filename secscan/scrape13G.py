@@ -362,6 +362,7 @@ def cikSymStr(cik,tickers) :
 def calcBonusMap(cik13GDPosMap, allCusipCounter,
                  bonuses = {'13G':[(10.0,0.1), (5.0,0.05)],
                             '13D':[(10.0,0.2), (5.0,0.1)],},
+                 maxBonusTot=1.0, maxBonusDivisor=None,
                  max13GDCount=100) :
     """
     Calculate "bonus fractions" for cusips where a 13G or 13D has been filed, using cik13GDPosMap
@@ -392,6 +393,14 @@ def calcBonusMap(cik13GDPosMap, allCusipCounter,
                 if pct >= bonusPct :
                     bonusMap[cusip] = bonusFrac
                     break
+        if maxBonusTot is not None :
+            bonusTot = sum(bonusMap.values())
+            if bonusTot > maxBonusTot :
+                bonusDivisor = bonusTot/maxBonusTot
+                if maxBonusDivisor is not None and bonusDivisor>maxBonusDivisor :
+                    bonusDivisor = maxBonusDivisor
+                bonusMap = dict((cusip, bonusFrac/bonusDivisor)
+                                for cusip, bonusFrac in bonusMap.items())
         if len(bonusMap)>0 and (max13GDCount is None or len(bonusMap)<=max13GDCount) :
             res[cik] = bonusMap
     return res

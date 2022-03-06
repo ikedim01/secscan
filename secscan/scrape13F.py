@@ -268,6 +268,7 @@ def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldi
         if posList is not None :
             res[cik] = dict((cusip,frac) for cusip,_,frac in posList)
         else :
+            # print('eliminated',fullPosList)
             elimCount += 1
     print('calculated holdings map from 13F forms for',period)
     print('13F investor filters:',kwargs)

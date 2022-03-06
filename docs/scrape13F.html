@@ -471,7 +471,7 @@ Restricts the returned list to stocks with fraction of total value in [minFrac..
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="addHoldingsMap" class="doc_header"><code>addHoldingsMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L277" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>addHoldingsMap</code>(<strong><code>holdingsMap</code></strong>, <strong><code>extraHoldingsMap</code></strong>)</p>
+<h4 id="addHoldingsMap" class="doc_header"><code>addHoldingsMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L278" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>addHoldingsMap</code>(<strong><code>holdingsMap</code></strong>, <strong><code>extraHoldingsMap</code></strong>)</p>
 </blockquote>
 <p>Adds positions in extraHoldingsMap to holdingsMap.
 Each argument is a dict: cik -&gt; {cusip -&gt; pct}
@@ -498,7 +498,7 @@ but extraHoldingsMap may contain ciks and cusips not in holdingsMap.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printRemoveStocksMessage" class="doc_header"><code>printRemoveStocksMessage</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L290" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printRemoveStocksMessage</code>(<strong><code>cusipsToRemove</code></strong>, <strong><code>delCount</code></strong>, <strong><code>msg</code></strong>)</p>
+<h4 id="printRemoveStocksMessage" class="doc_header"><code>printRemoveStocksMessage</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L291" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printRemoveStocksMessage</code>(<strong><code>cusipsToRemove</code></strong>, <strong><code>delCount</code></strong>, <strong><code>msg</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -522,7 +522,7 @@ but extraHoldingsMap may contain ciks and cusips not in holdingsMap.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="holdingsMapToMatrix" class="doc_header"><code>holdingsMapToMatrix</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L294" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>holdingsMapToMatrix</code>(<strong><code>holdingsMap</code></strong>, <strong><code>allCusipCounter</code></strong>, <strong><code>minAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>cusipFilter</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>)</p>
+<h4 id="holdingsMapToMatrix" class="doc_header"><code>holdingsMapToMatrix</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L295" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>holdingsMapToMatrix</code>(<strong><code>holdingsMap</code></strong>, <strong><code>allCusipCounter</code></strong>, <strong><code>minAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>cusipFilter</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>)</p>
 </blockquote>
 <p>Converts a holdings map: cik -&gt; {cusip -&gt; frac} into a matrix.</p>
 <p>Returns mat, ciks, cusips where mat is a matrix of shape (len(ciks), len(cusips))
@@ -558,7 +558,7 @@ in the returned matrix; likewise, maxMatInvsPerStock can be used to give an uppe
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L397" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
+<h4 id="getPeriodAndNextQStartEnd" class="doc_header"><code>getPeriodAndNextQStartEnd</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L398" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getPeriodAndNextQStartEnd</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
 </blockquote>
 <p>Returns the 13F period date for a given year and quarter number (this is the
 last day in the quarter), along with the start and end dateStrs for the next
@@ -586,7 +586,7 @@ Quarters are numbered 1-4.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getNSSForQ" class="doc_header"><code>getNSSForQ</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L410" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getNSSForQ</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>, <strong><code>include13F</code></strong>=<em><code>True</code></em>, <strong><code>all13FHoldingsMap</code></strong>=<em><code>None</code></em>, <strong><code>extraHoldingsMaps</code></strong>=<em><code>[]</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>minTopNFrac</code></strong>=<em><code>None</code></em>, <strong><code>minTopN</code></strong>=<em><code>10</code></em>, <strong><code>max13FCount</code></strong>=<em><code>None</code></em>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>cusipFilter</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>)</p>
+<h4 id="getNSSForQ" class="doc_header"><code>getNSSForQ</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L411" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getNSSForQ</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>, <strong><code>allCusipCounter</code></strong>=<em><code>None</code></em>, <strong><code>include13F</code></strong>=<em><code>True</code></em>, <strong><code>all13FHoldingsMap</code></strong>=<em><code>None</code></em>, <strong><code>extraHoldingsMaps</code></strong>=<em><code>[]</code></em>, <strong><code>minAUM</code></strong>=<em><code>None</code></em>, <strong><code>minTopNFrac</code></strong>=<em><code>None</code></em>, <strong><code>minTopN</code></strong>=<em><code>10</code></em>, <strong><code>max13FCount</code></strong>=<em><code>None</code></em>, <strong><code>minFrac</code></strong>=<em><code>0.0</code></em>, <strong><code>maxFrac</code></strong>=<em><code>1.0</code></em>, <strong><code>minAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxAllInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>minMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>maxMatStocksPerInv</code></strong>=<em><code>None</code></em>, <strong><code>minMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>maxMatInvsPerStock</code></strong>=<em><code>None</code></em>, <strong><code>cusipFilter</code></strong>=<em><code>None</code></em>, <strong><code>dtype</code></strong>=<em><code>float64</code></em>)</p>
 </blockquote>
 
 <pre><code>Calculates a matrix of investor holdings for a quarter, based on all 13F filings filed
@@ -664,7 +664,7 @@ dtype specifies the type of the returned matrix.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveConvMatrixPy2" class="doc_header"><code>saveConvMatrixPy2</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L447" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveConvMatrixPy2</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
+<h4 id="saveConvMatrixPy2" class="doc_header"><code>saveConvMatrixPy2</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/scrape13F.py#L448" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveConvMatrixPy2</code>(<strong><code>y</code></strong>, <strong><code>qNo</code></strong>)</p>
 </blockquote>
 <p>Save a matrix of 13F conviction positions only for the given quarter,
 in a format readable by the BW Python2 code.</p>
