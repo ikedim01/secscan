@@ -27,7 +27,7 @@ class scraper13D(scrape13G.scraper13G) :
 
 def get13GDDatesForQ(y, qNo) :
     _,kwargs = scrape13F.getPeriodAndNextQStartEnd(y, qNo)
-    kwargs['startD'] = str(int(kwargs['startD'][:4])-2) + kwargs['startD'][4:]
+    kwargs['startD'] = str(int(kwargs['startD'][:4])-3) + kwargs['startD'][4:]
     return kwargs
 
 nssDelegatedFuncs = (scrape13F.filter13FHoldings, scrape13F.holdingsMapToMatrix, scrape13G.calcBonusMap,
@@ -39,8 +39,8 @@ def getCombNSSForQ(y, qNo, ratingScale=100.0, maxRating=20.0,
                    outsInfoFName='', outDir='ratings', **kwargs) :
     """
     Calculates a matrix of investor ratings for a quarter, based on all 13F filings filed
-    during the succeeding quarter, combined with 13G and 13D filings from the previous two
-    years through the succeeding quarter.
+    during the succeeding quarter, combined with 13G and 13D filings from the previous
+    three years through the succeeding quarter.
 
     Returns (ratings, cusipMap, cik13GDSortedPosMap, all13FHoldingsMap), where:
         ratings = {'Y': mat, 'ciks': ciks, 'cusips': cusips,
