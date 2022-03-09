@@ -145,12 +145,14 @@ def filter13FHoldings(holdings, minAUM=None, minTopNFrac=None, minTopN=10, max13
         [(cusip, val, frac) ... ]
     sorted in descending order by value.
 
+    Possible filters:
+    If minAUM is specified, returns None for lists with too small a total value.
     If minTopNFrac is specified, returns None for lists with too small a total fraction
     in the top minTopN stocks.
-    If minAUM is specified, returns None for lists with too small a total value.
     If max13FCount is specified, returns None for lists with too many stocks.
 
     Restricts the returned list to stocks with fraction of total value in [minFrac..maxFrac]
+    Returns [] if there are no such positions.
     """
     # return None if the investor is eliminated by any of the options:
     totAum = sum(val for _,val,_ in holdings)
@@ -162,8 +164,7 @@ def filter13FHoldings(holdings, minAUM=None, minTopNFrac=None, minTopN=10, max13
                 and len(holdings) > max13FCount)) :
         return None
     # get the final output list, filtered by min/maxFrac
-    res = [tup for tup in holdings if minFrac<=tup[2]<=maxFrac]
-    return res if len(res)>0 else None
+    return [tup for tup in holdings if minFrac<=tup[2]<=maxFrac]
 
 @utils.delegates(filter13FHoldings)
 def get13FHoldingsReportList(holdings, cusipNames={}, **kwargs) :
@@ -211,12 +212,14 @@ def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldi
     Consolidate holdings for each CIK based on all 13F filings for a given period into
     a combined map of investor holdings.
 
-    Returns a dict: cik -> {cusip -> pct}
+    Returns holdingsMap, filteredCiks
+    where holdingsMap is a dict: cik -> {cusip -> pct}
+    and filteredCiks is a set of CIKs eliminated by the specified arguments to filter13FHoldings.
 
     Restricts to stocks only (no call/put options).
 
     If allCusipCounter is supplied, updates it to count all investors per stock.
-    If all13FHoldingsMaps is supplied, saves a list of all stock holdings for each CIK
+    If all13FHoldingsMap is supplied, saves a list of all stock holdings for each CIK
     as returned by condense13FHoldings, i.e. a list of tuples:
         all13FHoldingsMap[cik] = [(cusip, val, frac) ... ]
     sorted in descending order by value.
@@ -241,8 +244,9 @@ def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldi
     # unreliable I use a simple rule of thumb - if the amendment has more than half
     # as many positions as the previous filing I assume it's a restatement, otherwise
     # I add its positions to the previous filing.
-    res = {}
-    elimCount = 0
+    holdingsMap = {}
+    filteredCiks = set()
+    emptyCount = 0
     for cik, cik13FList in cikTo13Fs.items() :
         cik13FList.sort()  # sort by day and then by accession number
         i = 0
@@ -265,24 +269,28 @@ def getHoldingsMapFrom13Fs(scraped13F, period, allCusipCounter=None, all13FHoldi
         if allCusipCounter is not None :
             allCusipCounter.update(cusip for cusip,_,_ in fullPosList)
         posList = filter13FHoldings(fullPosList, **kwargs)
-        if posList is not None :
-            res[cik] = dict((cusip,frac) for cusip,_,frac in posList)
+        if posList is None :
+            filteredCiks.add(cik)
+        elif len(posList) == 0 :
+            emptyCount += 1
         else :
-            # print('eliminated',fullPosList)
-            elimCount += 1
+            holdingsMap[cik] = dict((cusip,frac) for cusip,_,frac in posList)
     print('calculated holdings map from 13F forms for',period)
     print('13F investor filters:',kwargs)
-    print(elimCount,'investors eliminated by filters')
-    return res
+    print(len(filteredCiks),'investors eliminated by filters')
+    print(emptyCount,'investors with no positions')
+    return holdingsMap, filteredCiks
 
-def addHoldingsMap(holdingsMap, extraHoldingsMap) :
+def addHoldingsMap(holdingsMap, extraHoldingsMap, filteredCiks) :
     """
-    Adds positions in extraHoldingsMap to holdingsMap.
+    Adds positions in extraHoldingsMap to holdingsMap, excluding the CIKs in filteredCiks.
     Each argument is a dict: cik -> {cusip -> pct}
     but extraHoldingsMap may contain ciks and cusips not in holdingsMap.
     """
     for cik,extraPosMap in extraHoldingsMap.items() :
         if cik not in holdingsMap :
+            if cik in filteredCiks :
+                continue
             holdingsMap[cik] = {}
         posMap = holdingsMap[cik]
         for cusip,frac in extraPosMap.items() :
@@ -430,14 +438,14 @@ def getNSSForQ(y, qNo, allCusipCounter=None,
     """
     if include13F :
         period, nextQStartEnd = getPeriodAndNextQStartEnd(y,qNo)
-        holdingsMap = utils.callDelegated(getHoldingsMapFrom13Fs, kwargs,
-                                          scraper13F(**nextQStartEnd), period,
-                                          allCusipCounter=allCusipCounter,
-                                          all13FHoldingsMap=all13FHoldingsMap)
+        holdingsMap, filteredCiks = utils.callDelegated(getHoldingsMapFrom13Fs, kwargs,
+                                                        scraper13F(**nextQStartEnd), period,
+                                                        allCusipCounter=allCusipCounter,
+                                                        all13FHoldingsMap=all13FHoldingsMap)
     else :
-        holdingsMap = {}
+        holdingsMap, filteredCiks = {}, set()
     for extraHoldingsMap in extraHoldingsMaps :
-        addHoldingsMap(holdingsMap,extraHoldingsMap)
+        addHoldingsMap(holdingsMap, extraHoldingsMap, filteredCiks)
     return utils.callDelegated(holdingsMapToMatrix, kwargs,
                                holdingsMap, allCusipCounter)
 

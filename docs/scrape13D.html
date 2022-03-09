@@ -201,12 +201,14 @@ i.e. a list of tuples:
     [(cusip, val, frac) ... ]
 sorted in descending order by value.
 
+Possible filters:
+If minAUM is specified, returns None for lists with too small a total value.
 If minTopNFrac is specified, returns None for lists with too small a total fraction
 in the top minTopN stocks.
-If minAUM is specified, returns None for lists with too small a total value.
 If max13FCount is specified, returns None for lists with too many stocks.
 
 Restricts the returned list to stocks with fraction of total value in [minFrac..maxFrac]
+Returns [] if there are no such positions.
 
 </code></pre>
 <hr>
