@@ -92,7 +92,8 @@ def getCombNSSForQ(y, qNo, ratingScale=100.0, maxRating=20.0,
                                **kwargs)
     mat, ciks, cusips = res
     mat *= ratingScale
-    mat = np.minimum(mat,maxRating)
+    if maxRating is not None :
+        mat = np.minimum(mat,maxRating)
     res = (
         {'Y': mat, 'ciks': ciks, 'cusips': cusips, 'cusipinfo': [],
          'deletedcusips': set(cusip for cusip in cusips
