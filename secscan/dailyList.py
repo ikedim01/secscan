@@ -205,11 +205,20 @@ class dailyList(object) :
         i = findCikName(curName, oldNames)
         if i >= 0 :
             del oldNames[i]
-    def updateDayUsingL(self, dStr, dailyL) :
-        self.dl[dStr] = []
+    def updateDayUsingL(self, dStr, dailyL, clearDay=True) :
+        if clearDay :
+            self.dl[dStr] = []
         for cik, cikName, formType, fileDate, accNo in dailyL :
             self.dl[dStr].append((cik, formType, accNo, fileDate))
             self.updateCikNamesFromEntry(dStr, cik, cikName)
+    def fixDayFromMaster(self, dStr=None) :
+        masterL = downloadSecFormList('/Archives/edgar/full-index/master.idx')
+        allAccNos = self.getAllAccNos()
+        missingL = [tup for tup in masterL if tup[-1] not in allAccNos]
+        print(len(missingL),'missing filings found, fDates',set(tup[-2] for tup in missingL))
+        if dStr is not None :
+            self.updateDayUsingL(dStr, missingL, clearDay=(dStr not in self.dl))
+            self.save(dirtySet={dStr})
     def updateForDays(self, startD=None, endD=None) :
         """
         Update to reflect the filings for dates between startD (inclusive)
