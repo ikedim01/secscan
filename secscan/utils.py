@@ -23,6 +23,7 @@ import pickle
 import re
 from pytz import timezone
 import requests
+import sys
 import time
 import webbrowser
 import xml.etree.cElementTree as cElTree
@@ -69,8 +70,11 @@ def setSecUserAgent(agentStr) :
     to help avoid throttling.
     """
     secHeaders['User-Agent'] = agentStr
+    #secHeaders['Host'] = 'www.sec.gov'
+    #secHeaders['Accept-Encoding'] = 'gzip, deflate'
 setSecUserAgent('secscantest@secscan.com')
 secSleepTime = 0.1 # sleep time after requests to stay under SEC max request rate (currently 10/sec)
+sys.setrecursionlimit(2000) # some filings have deeply nested HTML
 
 accessNoPatStr = r'\d{10}-\d+-\d+'
 accessNoPat = re.compile(accessNoPatStr)
