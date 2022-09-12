@@ -211,14 +211,35 @@ class dailyList(object) :
         for cik, cikName, formType, fileDate, accNo in dailyL :
             self.dl[dStr].append((cik, formType, accNo, fileDate))
             self.updateCikNamesFromEntry(dStr, cik, cikName)
-    def fixDayFromMaster(self, dStr=None) :
-        masterL = downloadSecFormList('/Archives/edgar/full-index/master.idx')
+    def checkAgainstMaster(self, year=None, quarter=None, fixMissingDate=False) :
+        if year is None :
+            url = '/Archives/edgar/full-index/master.idx'
+        else :
+            url = f'/Archives/edgar/full-index/{year}/QTR{quarter}/master.idx'
+        masterL = downloadSecFormList(url)
         allAccNos = self.getAllAccNos()
+        print('checking against master ...')
         missingL = [tup for tup in masterL if tup[-1] not in allAccNos]
-        print(len(missingL),'missing filings found, fDates',set(tup[-2] for tup in missingL))
-        if dStr is not None :
-            self.updateDayUsingL(dStr, missingL, clearDay=(dStr not in self.dl))
-            self.save(dirtySet={dStr})
+        if len(missingL) == 0 :
+            print('no missing filings found!')
+            return
+        missingFDates = sorted(set(tup[-2] for tup in missingL))
+        print(len(missingL),'missing filings found, fDates',missingFDates)
+        print('fTypes',sorted(set(tup[2] for tup in missingL)))
+        print('accNos[:50]',sorted(set(tup[-1] for tup in missingL))[:50])
+        if not fixMissingDate :
+            print('*** RUN WITH fixMissingDate=True TO FIX ***')
+            return
+        if len(missingFDates) != 1 :
+            print('unable to fix missing dates - ambiguous')
+            return
+        dStr = missingFDates[0]
+        if dStr not in self.dl :
+            print('unable to fix missing dates - unexpected day, not in daily map')
+            return
+        print('adding',len(missingL),'entries to',dStr)
+        self.updateDayUsingL(dStr, missingL, clearDay=False)
+        self.save(dirtySet={dStr})
     def updateForDays(self, startD=None, endD=None) :
         """
         Update to reflect the filings for dates between startD (inclusive)
