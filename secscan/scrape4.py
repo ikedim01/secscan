@@ -149,3 +149,5 @@ class scraper4(infoScraper.scraperBase) :
         super().__init__(infoDir, 'INSIDER', **kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse34(accNo, formType), None
+    def rescrapeInfo(self, accNo, info) :
+        return parse34(accNo)
