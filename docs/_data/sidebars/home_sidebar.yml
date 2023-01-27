@@ -48,6 +48,9 @@ entries:
     - output: web,pdf
       title: scrape4
       url: scrape4.html
+    - output: web,pdf
+      title: cikFInfo
+      url: cikFinfo.html
     output: web
     title: secscan
   output: web

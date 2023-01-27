@@ -101,7 +101,6 @@ index = {"boto3_available": "00_utils.ipynb",
          "itemFormTypes": "05_basicInfo.ipynb",
          "startExhibitPat": "05_basicInfo.ipynb",
          "defaultBaseScrapeDir": "06_infoScraper.ipynb",
-         "defaultCikFInfoDir": "06_infoScraper.ipynb",
          "scraperBase": "06_infoScraper.ipynb",
          "default13FDir": "07_scrape13F.ipynb",
          "findChildEndingWith": "07_scrape13F.ipynb",
@@ -210,7 +209,15 @@ index = {"boto3_available": "00_utils.ipynb",
          "form4ValuePats": "12_scrape4.ipynb",
          "form4ADCodes": "12_scrape4.ipynb",
          "form4DICodes": "12_scrape4.ipynb",
-         "form4TransactionCodes": "12_scrape4.ipynb"}
+         "form4TransactionCodes": "12_scrape4.ipynb",
+         "defaultCikFInfoDir": "13_cikFinfo.ipynb",
+         "allScraperClasses": "13_cikFinfo.ipynb",
+         "cikFPrefLen": "13_cikFinfo.ipynb",
+         "getCikFInfoDirAndPath": "13_cikFinfo.ipynb",
+         "jsonValError": "13_cikFinfo.ipynb",
+         "loadCikFInfo": "13_cikFinfo.ipynb",
+         "saveCikFInfo": "13_cikFinfo.ipynb",
+         "saveAllCikFInfo": "13_cikFinfo.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
@@ -224,7 +231,8 @@ modules = ["utils.py",
            "scrape6K.py",
            "scrape13G.py",
            "scrape13D.py",
-           "scrape4.py"]
+           "scrape4.py",
+           "cikFInfo.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 
