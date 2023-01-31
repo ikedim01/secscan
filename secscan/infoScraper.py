@@ -159,8 +159,7 @@ class scraperBase(object) :
                     cikInfoMap[cik] = {}
                 cikInfoMap[cik][accNo] = dInfo[accNo]
     def updateForDays(self, dl, startD=None, endD=None, ciks=None,
-                      errLimitPerDay=25, verbose=True, saveAfterEachDay=False,
-                      cikInfoMap=None) :
+                      errLimitPerDay=25, verbose=True, saveAfterEachDay=False) :
         """
         Update to reflect the filings for dates between startD (inclusive)
         and endD (exclusive). If startD is None, uses the last date already
@@ -168,8 +167,6 @@ class scraperBase(object) :
         If endD is None, uses today.
         The dl argument should be a dailyList object that includes those dates.
         Optionally restricts to a given set of CIKs.
-        If cikInfoMap is supplied, updates it to map cik -> {accNo -> info}
-        for all the newly parsed accNos.
         """
         if startD is None :
             if len(self.infoMap) == 0 :
@@ -199,10 +196,6 @@ class scraperBase(object) :
                     dayIsDirty = True
                     if dInfo[accNo] == 'ERROR' :
                         errCount += 1
-                if cikInfoMap is not None :
-                    if cik not in cikInfoMap :
-                        cikInfoMap[cik] = {}
-                    cikInfoMap[cik][accNo] = dInfo[accNo]
                 if errCount >= errLimitPerDay :
                     break
             if dayIsDirty :

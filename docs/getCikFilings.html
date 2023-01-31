@@ -54,7 +54,55 @@ nb_path: "04_getCikFilings.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getRecent" class="doc_header"><code>getRecent</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/getCikFilings.py#L11" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecent</code>(<strong><code>cik</code></strong>)</p>
+<h4 id="cikRestFilingsUrl" class="doc_header"><code>cikRestFilingsUrl</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/getCikFilings.py#L11" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cikRestFilingsUrl</code>(<strong><code>cik</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="appendFilings" class="doc_header"><code>appendFilings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/getCikFilings.py#L14" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>appendFilings</code>(<strong><code>res</code></strong>, <strong><code>filingList</code></strong>, <strong><code>startD</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getRecent" class="doc_header"><code>getRecent</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/getCikFilings.py#L24" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecent</code>(<strong><code>cik</code></strong>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>justFirst</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 
 </div>
@@ -92,7 +140,28 @@ nb_path: "04_getCikFilings.ipynb"
 <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">tup</span> <span class="ow">in</span> <span class="n">testF</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="p">(</span>
         <span class="p">(</span><span class="s1">&#39;8-K&#39;</span><span class="p">,</span> <span class="s1">&#39;0001437749-21-013386&#39;</span><span class="p">,</span> <span class="s1">&#39;20210526&#39;</span><span class="p">),</span>
         <span class="p">(</span><span class="s1">&#39;10-Q&#39;</span><span class="p">,</span> <span class="s1">&#39;0001437749-21-012377&#39;</span><span class="p">,</span> <span class="s1">&#39;20210517&#39;</span><span class="p">)</span>
-    <span class="p">)),</span><span class="s2">&quot;testing get recent CIK filings&quot;</span>
+    <span class="p">)),</span><span class="s2">&quot;testing get recent CIK filings on Reserve Petroleum&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testF</span> <span class="o">=</span> <span class="n">getRecent</span><span class="p">(</span><span class="mi">732717</span><span class="p">,</span> <span class="n">startD</span><span class="o">=</span><span class="s1">&#39;2017&#39;</span><span class="p">,</span> <span class="n">justFirst</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">tup</span> <span class="ow">in</span> <span class="n">testF</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;0001127602-22-020264&#39;</span><span class="p">,</span> <span class="s1">&#39;20220802&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;425&#39;</span><span class="p">,</span> <span class="s1">&#39;0001193125-17-000682&#39;</span><span class="p">,</span> <span class="s1">&#39;20170103&#39;</span><span class="p">)</span>
+    <span class="p">)),</span><span class="s2">&quot;testing get recent CIK filings on AT&amp;T&quot;</span>
 </pre></div>
 
     </div>
@@ -105,7 +174,9 @@ nb_path: "04_getCikFilings.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>254 filings for RESERVE PETROLEUM CO
+<pre>1023 filings
+[{&#39;name&#39;: &#39;CIK0000732717-submissions-001.json&#39;, &#39;filingCount&#39;: 2018, &#39;filingFrom&#39;: &#39;2013-02-04&#39;, &#39;filingTo&#39;: &#39;2019-02-06&#39;}, {&#39;name&#39;: &#39;CIK0000732717-submissions-002.json&#39;, &#39;filingCount&#39;: 2019, &#39;filingFrom&#39;: &#39;2007-02-02&#39;, &#39;filingTo&#39;: &#39;2013-02-03&#39;}, {&#39;name&#39;: &#39;CIK0000732717-submissions-003.json&#39;, &#39;filingCount&#39;: 2001, &#39;filingFrom&#39;: &#39;1994-05-19&#39;, &#39;filingTo&#39;: &#39;2007-02-01&#39;}, {&#39;name&#39;: &#39;CIK0000732717-submissions-004.json&#39;, &#39;filingCount&#39;: 7, &#39;filingFrom&#39;: &#39;1994-02-14&#39;, &#39;filingTo&#39;: &#39;1994-05-18&#39;}]
+2018 filings
 </pre>
 </div>
 </div>

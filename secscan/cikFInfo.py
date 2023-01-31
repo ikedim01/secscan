@@ -30,7 +30,7 @@ def jsonValError(msg, s) :
         s = s[:100] + ' ... ' + s[-100:]
     return ValueError(msg + ' in ' + s)
 
-def loadCikFInfo(cik, cikFInfoDir=defaultCikFInfoDir) :
+def loadCikFInfo(cik, cikFInfoDir=defaultCikFInfoDir, returnAsText=False) :
     fPath = getCikFInfoDirAndPath(cik, cikFInfoDir)[1]
     if not os.path.exists(fPath) :
         return {}
@@ -38,6 +38,8 @@ def loadCikFInfo(cik, cikFInfoDir=defaultCikFInfoDir) :
         s = f.read().strip()
     if s[-1] != ',' :
         raise jsonValError('missing ending ,', s)
+    if returnAsText :
+        return s[:-1]
     return json.loads('{'+s[:-1]+'}')
 
 def saveCikFInfo(cik, cikFInfo, removeDups=False, cikFInfoDir=defaultCikFInfoDir) :

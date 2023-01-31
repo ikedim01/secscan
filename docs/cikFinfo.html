@@ -103,7 +103,7 @@ The format is designed so that info for additional forms can simply be appended 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadCikFInfo" class="doc_header"><code>loadCikFInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/cikFInfo.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadCikFInfo</code>(<strong><code>cik</code></strong>, <strong><code>cikFInfoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\cikFInfo'</code></em>)</p>
+<h4 id="loadCikFInfo" class="doc_header"><code>loadCikFInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/cikFInfo.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadCikFInfo</code>(<strong><code>cik</code></strong>, <strong><code>cikFInfoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\cikFInfo'</code></em>, <strong><code>returnAsText</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 
 </div>
@@ -127,7 +127,7 @@ The format is designed so that info for additional forms can simply be appended 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveCikFInfo" class="doc_header"><code>saveCikFInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/cikFInfo.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveCikFInfo</code>(<strong><code>cik</code></strong>, <strong><code>cikFInfo</code></strong>, <strong><code>removeDups</code></strong>=<em><code>False</code></em>, <strong><code>cikFInfoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\cikFInfo'</code></em>)</p>
+<h4 id="saveCikFInfo" class="doc_header"><code>saveCikFInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/cikFInfo.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveCikFInfo</code>(<strong><code>cik</code></strong>, <strong><code>cikFInfo</code></strong>, <strong><code>removeDups</code></strong>=<em><code>False</code></em>, <strong><code>cikFInfoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\cikFInfo'</code></em>)</p>
 </blockquote>
 
 </div>
@@ -151,7 +151,7 @@ The format is designed so that info for additional forms can simply be appended 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="saveAllCikFInfo" class="doc_header"><code>saveAllCikFInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/cikFInfo.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveAllCikFInfo</code>(<strong><code>startD</code></strong>, <strong><code>endD</code></strong>, <strong><code>scraperClasses</code></strong>, <strong><code>removeDups</code></strong>=<em><code>True</code></em>, <strong><code>cikFInfoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\cikFInfo'</code></em>, <strong><code>ciks</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="saveAllCikFInfo" class="doc_header"><code>saveAllCikFInfo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/cikFInfo.py#L61" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>saveAllCikFInfo</code>(<strong><code>startD</code></strong>, <strong><code>endD</code></strong>, <strong><code>scraperClasses</code></strong>, <strong><code>removeDups</code></strong>=<em><code>True</code></em>, <strong><code>cikFInfoDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\cikFInfo'</code></em>, <strong><code>ciks</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -185,16 +185,15 @@ The format is designed so that info for additional forms can simply be appended 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">checkCiks</span><span class="p">()</span> <span class="p">:</span>
-    <span class="n">cikNames</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">pickLoad</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">stockDataRoot</span><span class="p">,</span><span class="s1">&#39;dlMaps&#39;</span><span class="p">,</span><span class="s1">&#39;cikNames.pkl&#39;</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ciks with leading 0&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">cik</span> <span class="k">for</span> <span class="n">cik</span> <span class="ow">in</span> <span class="n">cikNames</span> <span class="k">if</span> <span class="n">cik</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;0&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;less than 4 long&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">cik</span> <span class="k">for</span> <span class="n">cik</span> <span class="ow">in</span> <span class="n">cikNames</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cik</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">prefLen</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="p">:</span>
-        <span class="n">ciksByPref</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">cik</span> <span class="ow">in</span> <span class="n">cikNames</span> <span class="p">:</span>
-            <span class="n">ciksByPref</span><span class="p">[</span><span class="n">cik</span><span class="p">[:</span><span class="n">prefLen</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cik</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;prefix length </span><span class="si">{</span><span class="n">prefLen</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ciksByPref</span><span class="p">)</span><span class="si">}</span><span class="s1"> folders,&#39;</span>
-              <span class="o">+</span><span class="sa">f</span><span class="s1">&#39; max </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ciksByPref</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">}</span><span class="s1"> files&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#     cikNames = utils.pickLoad(os.path.join(utils.stockDataRoot,&#39;dlMaps&#39;,&#39;cikNames.pkl&#39;))</span>
+<span class="c1">#     print(&#39;ciks with leading 0&#39;, [cik for cik in cikNames if cik[0]==&#39;0&#39;])</span>
+<span class="c1">#     print(&#39;less than 4 long&#39;, [cik for cik in cikNames if len(cik)&lt;4])</span>
+<span class="c1">#     for prefLen in [3,4] :</span>
+<span class="c1">#         ciksByPref = collections.defaultdict(list)</span>
+<span class="c1">#         for cik in cikNames :</span>
+<span class="c1">#             ciksByPref[cik[:prefLen]].append(cik)</span>
+<span class="c1">#         print(f&#39;prefix length {prefLen}: {len(ciksByPref)} folders,&#39;</span>
+<span class="c1">#               +f&#39; max {max(len(v) for v in ciksByPref.values())} files&#39;)</span>
 <span class="c1"># checkCiks()</span>
 <span class="c1"># OUTPUT: </span>
 <span class="c1"># ciks with leading 0 []</span>
@@ -218,7 +217,86 @@ The format is designed so that info for additional forms can simply be appended 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># saveAllCikFInfo(&#39;20220701&#39;,&#39;20221001&#39;,allScraperClasses)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">htmlPref</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;!DOCTYPE html&gt;</span>
+<span class="s2">&lt;html&gt;</span>
+<span class="s2">&lt;head&gt;</span>
+<span class="s2">&lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="s2">&lt;style&gt;</span>
+<span class="s2">.collapsible {</span>
+<span class="s2">  background-color: #DDD;</span>
+<span class="s2">  cursor: pointer;</span>
+<span class="s2">  padding: 2px;</span>
+<span class="s2">  margin: 2px;</span>
+<span class="s2">  border: 1px solid black;</span>
+<span class="s2">  text-align: left;</span>
+<span class="s2">  outline: none;</span>
+<span class="s2">  font-size: 15px;</span>
+<span class="s2">}</span>
+<span class="s2">.collapsible:hover {</span>
+<span class="s2">  background-color: #AAA;</span>
+<span class="s2">}</span>
+<span class="s2">.content {</span>
+<span class="s2">  padding: 0 2px;</span>
+<span class="s2">  display: none;</span>
+<span class="s2">  overflow: hidden;</span>
+<span class="s2">  background-color: #DDD;</span>
+<span class="s2">}</span>
+<span class="s2">.bodyclass {</span>
+<span class="s2">  font-size: 16px;</span>
+<span class="s2">  font-family: Arial;</span>
+<span class="s2">}</span>
+<span class="s2">&lt;/style&gt;</span>
+<span class="s2">&lt;/head&gt;</span>
+<span class="s2">&lt;body class=&quot;bodyclass&quot;&gt;</span>
+<span class="s2">&lt;div&gt;&lt;button type=&quot;button&quot; id=&quot;expandall&quot;&gt;expand all&lt;/button&gt;&lt;/div&gt;</span>
+<span class="s2">&lt;script&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">htmlSuff</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">var fList = submissions[&#39;filings&#39;][&#39;recent&#39;];</span>
+<span class="s2">var accNos = fList[&#39;accessionNumber&#39;];</span>
+<span class="s2">for (let i=0; i&lt;accNos.length; i++) {</span>
+<span class="s2">    var el = document.createElement(&quot;div&quot;);</span>
+<span class="s2">    el.innerHTML = accNos[i];</span>
+<span class="s2">    document.body.appendChild(el);</span>
+<span class="s2">}</span>
+<span class="s2">var collList = document.getElementsByClassName(&quot;collapsible&quot;);</span>
+<span class="s2">for (let i = 0; i &lt; collList.length; i++) {</span>
+<span class="s2">  collList[i].addEventListener(&quot;click&quot;, function() {</span>
+<span class="s2">    let content = this.nextElementSibling;</span>
+<span class="s2">    content.style.display = (content.style.display === &quot;block&quot; ? &quot;none&quot; : &quot;block&quot;);</span>
+<span class="s2">  }</span>
+<span class="s2">  );</span>
+<span class="s2">}</span>
+<span class="s2">document.getElementById(&quot;expandall&quot;).addEventListener(&quot;click&quot;, function() {</span>
+<span class="s2">    let expandingAll = (this.textContent === &#39;expand all&#39;);</span>
+<span class="s2">    this.textContent = (expandingAll ? &#39;collapse all&#39; : &#39;expand all&#39;);</span>
+<span class="s2">    for (let i = 0; i &lt; collList.length; i++) {</span>
+<span class="s2">        let content = collList[i].nextElementSibling;</span>
+<span class="s2">        content.style.display = (expandingAll ? &quot;block&quot; : &quot;none&quot;);</span>
+<span class="s2">    }</span>
+<span class="s2">});</span>
+<span class="s2">&lt;/script&gt;</span>
+<span class="s2">&lt;/body&gt;</span>
+<span class="s2">&lt;/html&gt;&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">secscan</span> <span class="kn">import</span> <span class="n">getCikFilings</span>
+
+<span class="k">def</span> <span class="nf">makeHtml</span><span class="p">(</span><span class="n">cik</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">cik</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cik</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+    <span class="n">subs</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">downloadSecUrl</span><span class="p">(</span><span class="n">getCikFilings</span><span class="o">.</span><span class="n">cikRestFilingsUrl</span><span class="p">(</span><span class="n">cik</span><span class="p">),</span>
+                             <span class="n">restData</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">toFormat</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+    <span class="n">cikFInfo</span> <span class="o">=</span> <span class="n">loadCikFInfo</span><span class="p">(</span><span class="n">cik</span><span class="p">,</span> <span class="n">returnAsText</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">stockDataRoot</span><span class="p">,</span><span class="n">cik</span><span class="o">+</span><span class="s1">&#39;.html&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span> <span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">htmlPref</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;var fInfo={&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cikFInfo</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;};</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;var submissions=&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">subs</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">htmlSuff</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -235,8 +313,76 @@ The format is designed so that info for additional forms can simply be appended 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># mm = loadCikFInfo(&#39;1634379&#39;)</span>
-<span class="c1"># mm.keys()</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;cik&#39;: &#39;732717&#39;,
+ &#39;entityType&#39;: &#39;operating&#39;,
+ &#39;sic&#39;: &#39;4813&#39;,
+ &#39;sicDescription&#39;: &#39;Telephone Communications (No Radiotelephone)&#39;,
+ &#39;insiderTransactionForOwnerExists&#39;: 1,
+ &#39;insiderTransactionForIssuerExists&#39;: 1,
+ &#39;name&#39;: &#39;AT&amp;T INC.&#39;,
+ &#39;tickers&#39;: [&#39;T&#39;, &#39;TBB&#39;, &#39;TBC&#39;, &#39;T-PA&#39;, &#39;T-PC&#39;],
+ &#39;exchanges&#39;: [&#39;NYSE&#39;, &#39;NYSE&#39;, &#39;NYSE&#39;, &#39;NYSE&#39;, &#39;NYSE&#39;],
+ &#39;ein&#39;: &#39;431301883&#39;,
+ &#39;description&#39;: &#39;&#39;,
+ &#39;website&#39;: &#39;&#39;,
+ &#39;investorWebsite&#39;: &#39;&#39;,
+ &#39;category&#39;: &#39;Large accelerated filer&#39;,
+ &#39;fiscalYearEnd&#39;: &#39;1231&#39;,
+ &#39;stateOfIncorporation&#39;: &#39;DE&#39;,
+ &#39;stateOfIncorporationDescription&#39;: &#39;DE&#39;,
+ &#39;addresses&#39;: {&#39;mailing&#39;: {&#39;street1&#39;: &#39;208 S. AKARD ST&#39;,
+   &#39;street2&#39;: None,
+   &#39;city&#39;: &#39;DALLAS&#39;,
+   &#39;stateOrCountry&#39;: &#39;TX&#39;,
+   &#39;zipCode&#39;: &#39;75202&#39;,
+   &#39;stateOrCountryDescription&#39;: &#39;TX&#39;},
+  &#39;business&#39;: {&#39;street1&#39;: &#39;208 S. AKARD ST&#39;,
+   &#39;street2&#39;: None,
+   &#39;city&#39;: &#39;DALLAS&#39;,
+   &#39;stateOrCountry&#39;: &#39;TX&#39;,
+   &#39;zipCode&#39;: &#39;75202&#39;,
+   &#39;stateOrCountryDescription&#39;: &#39;TX&#39;}},
+ &#39;phone&#39;: &#39;2108214105&#39;,
+ &#39;flags&#39;: &#39;&#39;,
+ &#39;formerNames&#39;: [{&#39;name&#39;: &#39;SBC COMMUNICATIONS INC&#39;,
+   &#39;from&#39;: &#39;1995-05-26T00:00:00.000Z&#39;,
+   &#39;to&#39;: &#39;2005-11-18T00:00:00.000Z&#39;},
+  {&#39;name&#39;: &#39;SOUTHWESTERN BELL CORP&#39;,
+   &#39;from&#39;: &#39;1994-06-24T00:00:00.000Z&#39;,
+   &#39;to&#39;: &#39;1995-04-26T00:00:00.000Z&#39;}]}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -253,8 +399,7 @@ The format is designed so that info for additional forms can simply be appended 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># mm2 = loadCikFInfo(&#39;1634379&#39;)</span>
-<span class="c1"># mm2.keys()</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
