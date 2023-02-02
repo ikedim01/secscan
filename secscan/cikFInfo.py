@@ -31,6 +31,7 @@ def jsonValError(msg, s) :
     return ValueError(msg + ' in ' + s)
 
 def loadCikFInfo(cik, cikFInfoDir=defaultCikFInfoDir, returnAsText=False) :
+    cik = str(cik).lstrip('0')
     fPath = getCikFInfoDirAndPath(cik, cikFInfoDir)[1]
     if not os.path.exists(fPath) :
         return {}
@@ -62,11 +63,14 @@ def saveAllCikFInfo(startD, endD, scraperClasses,
                     removeDups=True, cikFInfoDir=defaultCikFInfoDir,
                     ciks=None) :
     dl = dailyList.dailyList(startD=startD, endD=endD)
+    datesPresent = utils.loadPklFromDir(cikFInfoDir, "dates.pkl", set())
     cikInfoMap = {}
     for scraperClass in scraperClasses :
         scraper = scraperClass(startD=startD, endD=endD)
-        scraper.addToCikInfoMap(dl, cikInfoMap, ciks=ciks)
+        scraper.addToCikInfoMap(dl, cikInfoMap, ciks=ciks, excludeDates=datesPresent)
     for cik,cikFInfo in cikInfoMap.items() :
         if (ciks is not None and cik not in ciks) :
             continue
         saveCikFInfo(cik, cikFInfo, removeDups=removeDups, cikFInfoDir=cikFInfoDir)
+    datesPresent.update(dl.dl.keys())
+    utils.savePklToDir(cikFInfoDir, "dates.pkl", datesPresent)

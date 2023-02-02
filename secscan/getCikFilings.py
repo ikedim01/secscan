@@ -27,8 +27,8 @@ def getRecent(cik, startD=None, justFirst=True) :
     res = []
     if appendFilings(res, filingsJson['recent'], startD) or justFirst :
         return res
-    print(filingsJson['files'])
     for file in filingsJson.get('files', []) :
+        print('extra file from',file['filingFrom'],'to',file['filingTo'],end=': ')
         extraList = utils.downloadSecUrl(f'/submissions/{file["name"]}',
                                          restData=True, toFormat='json')
         if appendFilings(res, extraList, startD) :

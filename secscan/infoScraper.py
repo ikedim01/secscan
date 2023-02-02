@@ -139,14 +139,18 @@ class scraperBase(object) :
         except Exception as e :
             print('*** ERROR ***',e)
             return 'ERROR'
-    def addToCikInfoMap(self, dl, cikInfoMap, ciks=None) :
+    def addToCikInfoMap(self, dl, cikInfoMap, ciks=None, excludeDates={}) :
         """
         Adds to cikInfoMap a mapping cik -> {accNo -> info}
         for all forms with scraped info in self.infoMap.
         The dl argument should be a dailyList object that includes all
         the dates in self.infoMap.
+        Optionally restricts to a given set of CIKs.
+        Optionally excludes a given set of dates.
         """
         for dStr,dInfo in self.infoMap.items() :
+            if dStr in excludeDates :
+                continue
             if dStr not in dl.dl :
                 raise ValueError(f'date {dStr} not found in dailyList!')
             for cik, formType, accNo, fileDate in dl.dl[dStr] :
