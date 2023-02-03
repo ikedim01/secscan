@@ -109,9 +109,9 @@ def formatF4Num(numStr) :
             return numStr
 def formatTrans(trans) :
     return ' '.join([trans[1],'&nbsp;',trans[0],
-        f'<b>{form4ADCodes.get(trans[3].upper(),"???AD")}{formatF4Num(trans[4])}',
+        f'<b>{form4ADCodes.get(trans[3].upper(),"???")}{formatF4Num(trans[4])}',
         f'={formatF4Num(trans[8])} @{trans[5]}</b>',
-        f'({form4TransactionCodes.get(trans[2].upper())}, {form4DICodes.get(trans[7].upper(),"???")})',
+        f'({form4TransactionCodes.get(trans[2].upper(),"???")}, {form4DICodes.get(trans[7].upper(),"???")})',
     ]).lower().capitalize().replace(' a ',' A ').replace(' b ',' B ').replace(' c ',' C ')
 
 def getForm4Value(transSoup,tagPat) :
