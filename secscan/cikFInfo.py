@@ -66,6 +66,15 @@ def saveAllCikFInfo(startD, endD, scraperClasses,
     cikInfoMap = {}
     for scraperClass in scraperClasses :
         scraper = scraperClass(startD=startD, endD=endD)
+        if (scraper.formClass.startswith('SC 13')) :
+            # fill in cik names
+            for dInfo in scraper.infoMap.values() :
+                for info in dInfo.values() :
+                    if 'ciks' in info :
+                        info['cikNames'] = []
+                        for cik in info['ciks'] :
+                            info['cikNames'].append(dl.cikNames.get(cik.lstrip('0'),
+                                                            ('CIK'+cik.lstrip('0'),))[0])
         scraper.addToCikInfoMap(dl, cikInfoMap, ciks=ciks, excludeDates=datesPresent)
     for cik,cikFInfo in cikInfoMap.items() :
         if (ciks is not None and cik not in ciks) :
