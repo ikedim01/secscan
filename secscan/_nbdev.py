@@ -220,6 +220,7 @@ index = {"boto3_available": "00_utils.ipynb",
          "loadCikFInfo": "13_cikFinfo.ipynb",
          "saveCikFInfo": "13_cikFinfo.ipynb",
          "saveAllCikFInfo": "13_cikFinfo.ipynb",
+         "prSample": "13_cikFinfo.ipynb",
          "saveYears": "13_cikFinfo.ipynb"}
 
 modules = ["utils.py",
