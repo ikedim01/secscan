@@ -66,18 +66,18 @@ def saveAllCikFInfo(startD, endD, scraperClasses,
     cikInfoMap = {}
     for scraperClass in scraperClasses :
         scraper = scraperClass(startD=startD, endD=endD)
-        if scraper.formClass.startswith('SC 13') :
-            # fill in cik names
-            for dInfo in scraper.infoMap.values() :
-                for info in dInfo.values() :
+        for dInfo in scraper.infoMap.values() :
+            for info in dInfo.values() :
+                if info == 'ERROR' :
+                    continue
+                if scraper.formClass.startswith('SC 13') :
+                    # fill in cik names
                     if 'ciks' in info :
                         info['cikNames'] = []
                         for cik in info['ciks'] :
                             info['cikNames'].append(dl.cikNames.get(cik.lstrip('0'),
                                                             ('CIK'+cik.lstrip('0'),))[0])
-        elif scraper.formClass.startswith('INSIDER') :
-            for dInfo in scraper.infoMap.values() :
-                for info in dInfo.values() :
+                elif scraper.formClass.startswith('INSIDER') :
                     issuerCik = None
                     for cik,cikType in zip(info['ciks'],info['cikTypes']) :
                         if cikType == 'Issuer' :
@@ -86,9 +86,7 @@ def saveAllCikFInfo(startD, endD, scraperClasses,
                     if issuerCik is not None :
                         info['issuerName'] = dl.cikNames.get(issuerCik.lstrip('0'),
                                                              ('CIK'+issuerCik.lstrip('0'),))[0]
-        elif scraper.formClass.startswith('13F') :
-            for dInfo in scraper.infoMap.values() :
-                for info in dInfo.values() :
+                elif scraper.formClass.startswith('13F') :
                     info['holdings'] = scrape13F.get13FHoldingsReportList(info['holdings'],
                                                                           minFrac=0.01)
         scraper.addToCikInfoMap(dl, cikInfoMap, ciks=ciks, excludeDates=datesPresent)
