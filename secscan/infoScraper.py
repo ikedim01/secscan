@@ -137,7 +137,7 @@ class scraperBase(object) :
                 self.saveXInfo(dStr, accNo, xInfo)
             return info
         except Exception as e :
-            print('*** ERROR ***',e)
+            print('############################ ERROR ############################',e)
             return 'ERROR'
     def addToCikInfoMap(self, dl, cikInfoMap, ciks=None, excludeDates={}) :
         """
@@ -206,6 +206,11 @@ class scraperBase(object) :
                 self.dirtySet.add(dStr)
                 if saveAfterEachDay :
                     self.save()
+                if errCount > 0 :
+                    print('############################', errCount,
+                          'errors in day', '############################')
+                else :
+                    print('--- no errors in day ---', end=' ')
             if errCount >= errLimitPerDay :
                 print('Error limit exceeded, aborting update!')
                 break
