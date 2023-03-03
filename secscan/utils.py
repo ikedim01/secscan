@@ -6,9 +6,9 @@ __all__ = ['boto3_available', 'setStockDataRoot', 'stockDataRoot', 'requestUrl',
            'tagsWithLeftSpace', 'pageUnavailablePat', 'delegates', 'callDelegated', 'checkDelegated',
            'compressGZipBytes', 'decompressGZipBytes', 'pickleToBytes', 'pickleFromBytes', 'pickSave', 'pickLoad',
            'pickLoadIfPath', 'pickSaveToS3', 'pickLoadFromS3', 'pickLoadFromS3Public', 'savePklToDir', 'loadPklFromDir',
-           'saveSplitPklToDir', 'loadSplitPklFromDir', 'toDateStr', 'toDate', 'isWeekend', 'dateStrsBetween',
-           'formatDateStr', 'dateStr8Pat', 'curEasternUSTime', 'easternUSTimeZone', 'sanitizeText', 'secBrowse',
-           'printSamp', 'printErrInfoOrAccessNo']
+           'saveSplitPklToDir', 'loadSplitPklFromDir', 'addMissingOnesF', 'toDateStr', 'toDate', 'isWeekend',
+           'dateStrsBetween', 'formatDateStr', 'dateStr8Pat', 'curEasternUSTime', 'easternUSTimeZone', 'sanitizeText',
+           'secBrowse', 'printSamp', 'printErrInfoOrAccessNo']
 
 # Cell
 
@@ -400,7 +400,14 @@ def loadSplitPklFromDir(fromDir, startK=None, endK=None, fSuff='m.pkl', **kwargs
 
 # Cell
 
-def toDateStr(d=None) :
+def addMissingOnesF(dateStr) :
+    if len(dateStr) == 4 :
+        return dateStr + '0101'
+    if len(dateStr) == 6 :
+        return dateStr + '01'
+    return dateStr
+
+def toDateStr(d=None, addMissingOnes=False) :
     """
     Converts date object or ISO format date string to YYYYMMDD format string;
     leaves YYYYMMDD format strings unchanged;
@@ -411,11 +418,16 @@ def toDateStr(d=None) :
     else :
         if d is None :
             d = curEasternUSTime()
+        elif isinstance(d,int) :
+            d = curEasternUSTime() + datetime.timedelta(d)
         dateStr = d.isoformat()[:10]
-    return dateStr.replace('-','').replace('/','')
+    dateStr = dateStr.replace('-','').replace('/','')
+    if addMissingOnes :
+        dateStr = addMissingOnesF(dateStr)
+    return dateStr
 
 dateStr8Pat = re.compile(r"(\d\d\d\d)(\d\d)(\d\d)$")
-def toDate(d=None) :
+def toDate(d=None, addMissingOnes=False) :
     """
     Converts date string in ISO or YYYYMMDD format to date object;
     leaves date objects unchanged;
@@ -423,12 +435,16 @@ def toDate(d=None) :
     """
     if isinstance(d,str) :
         dateStr = d.replace('-','').replace('/','')
+        if addMissingOnes :
+            dateStr = addMissingOnesF(dateStr)
         m = dateStr8Pat.match(dateStr)
         if m is None :
             raise Exception('invalid date str "'+d+'"')
         return datetime.date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
     if d is None :
         return curEasternUSTime()
+    if isinstance(d,int) :
+        return curEasternUSTime() + datetime.timedelta(d)
     return d
 
 def isWeekend(d) :

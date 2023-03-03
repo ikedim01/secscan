@@ -1491,7 +1491,31 @@ string instances as bytes objects.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="toDateStr" class="doc_header"><code>toDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L403" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDateStr</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="addMissingOnesF" class="doc_header"><code>addMissingOnesF</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L403" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>addMissingOnesF</code>(<strong><code>dateStr</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="toDateStr" class="doc_header"><code>toDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L410" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDateStr</code>(<strong><code>d</code></strong>=<em><code>None</code></em>, <strong><code>addMissingOnes</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Converts date object or ISO format date string to YYYYMMDD format string;
 leaves YYYYMMDD format strings unchanged;
@@ -1518,7 +1542,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="toDate" class="doc_header"><code>toDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L418" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDate</code>(<strong><code>d</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="toDate" class="doc_header"><code>toDate</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L430" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>toDate</code>(<strong><code>d</code></strong>=<em><code>None</code></em>, <strong><code>addMissingOnes</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Converts date string in ISO or YYYYMMDD format to date object;
 leaves date objects unchanged;
@@ -1545,7 +1569,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="isWeekend" class="doc_header"><code>isWeekend</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L434" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isWeekend</code>(<strong><code>d</code></strong>)</p>
+<h4 id="isWeekend" class="doc_header"><code>isWeekend</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L450" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isWeekend</code>(<strong><code>d</code></strong>)</p>
 </blockquote>
 <p>Says if date string or date object is on a weekend (Saturday or Sunday).</p>
 
@@ -1570,7 +1594,7 @@ None -&gt; today.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dateStrsBetween" class="doc_header"><code>dateStrsBetween</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L438" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dateStrsBetween</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>=<em><code>None</code></em>, <strong><code>excludeWeekends</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="dateStrsBetween" class="doc_header"><code>dateStrsBetween</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L454" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dateStrsBetween</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>=<em><code>None</code></em>, <strong><code>excludeWeekends</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns a list of date strings in YYYYMMDD format from d1 (inclusive)
 to d2 (exclusive), optionally excluding weekends.</p>
@@ -1596,7 +1620,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="formatDateStr" class="doc_header"><code>formatDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L455" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>formatDateStr</code>(<strong><code>dStr</code></strong>, <strong><code>sep</code></strong>=<em><code>'-'</code></em>)</p>
+<h4 id="formatDateStr" class="doc_header"><code>formatDateStr</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L471" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>formatDateStr</code>(<strong><code>dStr</code></strong>, <strong><code>sep</code></strong>=<em><code>'-'</code></em>)</p>
 </blockquote>
 <p>Convert YYYYMMDD format date string to YYYY-MM-DD.</p>
 
@@ -1631,7 +1655,8 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">dateStrsBetween</span><span class="p">(</span><span class="s1">&#39;20201230&#39;</span><span class="p">,</span><span class="s1">&#39;20210103&#39;</span><span class="p">)</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;20201230&#39;</span><span class="p">,</span> <span class="s1">&#39;20201231&#39;</span><span class="p">,</span> <span class="s1">&#39;20210101&#39;</span><span class="p">,</span> <span class="s1">&#39;20210102&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">toDateStr</span><span class="p">(</span><span class="s1">&#39;2022&#39;</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;20220101&#39;</span>
+<span class="k">assert</span> <span class="n">dateStrsBetween</span><span class="p">(</span><span class="s1">&#39;20201230&#39;</span><span class="p">,</span><span class="s1">&#39;20210103&#39;</span><span class="p">)</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;20201230&#39;</span><span class="p">,</span> <span class="s1">&#39;20201231&#39;</span><span class="p">,</span> <span class="s1">&#39;20210101&#39;</span><span class="p">,</span> <span class="s1">&#39;20210102&#39;</span><span class="p">]</span>
 <span class="k">assert</span> <span class="n">dateStrsBetween</span><span class="p">(</span><span class="s1">&#39;20201231&#39;</span><span class="p">,</span><span class="s1">&#39;20210106&#39;</span><span class="p">,</span><span class="n">excludeWeekends</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;20201231&#39;</span><span class="p">,</span> <span class="s1">&#39;20210101&#39;</span><span class="p">,</span> <span class="s1">&#39;20210104&#39;</span><span class="p">,</span> <span class="s1">&#39;20210105&#39;</span><span class="p">]</span>
 <span class="k">assert</span> <span class="n">formatDateStr</span><span class="p">(</span><span class="s1">&#39;20200630&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;2020-06-30&#39;</span>
 <span class="k">assert</span> <span class="n">formatDateStr</span><span class="p">(</span><span class="s1">&#39;20200630&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;2020/06/30&#39;</span>
@@ -1663,7 +1688,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="curEasternUSTime" class="doc_header"><code>curEasternUSTime</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L462" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternUSTime</code>()</p>
+<h4 id="curEasternUSTime" class="doc_header"><code>curEasternUSTime</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L478" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>curEasternUSTime</code>()</p>
 </blockquote>
 
 </div>
@@ -1732,7 +1757,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sanitizeText" class="doc_header"><code>sanitizeText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L467" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sanitizeText</code>(<strong><code>s</code></strong>)</p>
+<h4 id="sanitizeText" class="doc_header"><code>sanitizeText</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L483" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sanitizeText</code>(<strong><code>s</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1769,7 +1794,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="secBrowse" class="doc_header"><code>secBrowse</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L474" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secBrowse</code>(<strong><code>accessNo</code></strong>)</p>
+<h4 id="secBrowse" class="doc_header"><code>secBrowse</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L490" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>secBrowse</code>(<strong><code>accessNo</code></strong>)</p>
 </blockquote>
 <p>Open the index page of an SEC filing specified by accession number in a web browser.</p>
 
@@ -1794,7 +1819,7 @@ to d2 (exclusive), optionally excluding weekends.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printSamp" class="doc_header"><code>printSamp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L478" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printSamp</code>(<strong><code>m</code></strong>, <strong><code>n</code></strong>=<em><code>10</code></em>)</p>
+<h4 id="printSamp" class="doc_header"><code>printSamp</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L494" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printSamp</code>(<strong><code>m</code></strong>, <strong><code>n</code></strong>=<em><code>10</code></em>)</p>
 </blockquote>
 <p>Prints a sample of n items from object m , where m is a list or dict;
 for other objects just prints the whole thing.</p>
@@ -1820,7 +1845,7 @@ for other objects just prints the whole thing.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="printErrInfoOrAccessNo" class="doc_header"><code>printErrInfoOrAccessNo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L494" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printErrInfoOrAccessNo</code>(<strong><code>msg</code></strong>, <strong><code>infoOrAccessNo</code></strong>)</p>
+<h4 id="printErrInfoOrAccessNo" class="doc_header"><code>printErrInfoOrAccessNo</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L510" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>printErrInfoOrAccessNo</code>(<strong><code>msg</code></strong>, <strong><code>infoOrAccessNo</code></strong>)</p>
 </blockquote>
 
 </div>
