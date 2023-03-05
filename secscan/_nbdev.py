@@ -220,6 +220,7 @@ index = {"boto3_available": "00_utils.ipynb",
          "jsonValError": "13_cikFinfo.ipynb",
          "loadCikFInfo": "13_cikFinfo.ipynb",
          "saveCikFInfo": "13_cikFinfo.ipynb",
+         "modifyInfoForDisp": "13_cikFinfo.ipynb",
          "saveAllCikFInfo": "13_cikFinfo.ipynb",
          "prSample": "13_cikFinfo.ipynb",
          "saveYears": "13_cikFinfo.ipynb"}
