@@ -17,6 +17,7 @@ import datetime
 import gzip
 import inspect
 from io import BytesIO
+import itertools
 import json
 import os
 import pickle
@@ -498,14 +499,14 @@ def printSamp(m,n=10) :
     """
     if isinstance(m,list) :
         for i,item in enumerate(m[:n]) :
-            print(i,end=' ')
+            print(f'[{i}]',end=' ')
             printSamp(item,n)
     elif isinstance(m,dict) :
-        for k in m.keys()[:n] :
-            print(k,end=' ')
-            printSamp(m[k],n)
+        for k,v in itertools.islice(m.items(),n) :
+            print(repr(k),end=': ')
+            printSamp(v,n)
     else :
-        print(m)
+        print(repr(m))
 
 def printErrInfoOrAccessNo(msg,infoOrAccessNo) :
     print(msg,end=' ')
