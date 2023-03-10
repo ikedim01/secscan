@@ -171,16 +171,17 @@ class scraperBase(object) :
         If endD is None, uses today.
         The dl argument should be a dailyList object that includes those dates.
         Optionally restricts to a given set of CIKs.
+        Returns the total number of errors encountered while scraping.
         """
         if startD is None :
             if len(self.infoMap) == 0 :
                 startD = utils.toDateStr()[:4]+'0101' # start of current year
             else :
                 startD = max(self.infoMap.keys())
+        totErrCount = 0
         for dStr in reversed(utils.dateStrsBetween(startD,endD)) :
             if dStr not in dl.dl :
-                print('date',dStr,'not found in dailyList, aborting update!')
-                return
+                raise Exception(f'date {dStr} not found in dailyList, aborting update!')
             if dStr not in self.infoMap :
                 self.infoMap[dStr] = {}
                 dayIsDirty = True
@@ -211,9 +212,11 @@ class scraperBase(object) :
                           'errors in day', '############################')
                 else :
                     print('--- no errors in day ---', end=' ')
+            totErrCount += errCount
             if errCount >= errLimitPerDay :
                 print('Error limit exceeded, aborting update!')
                 break
+        return totErrCount
     def loadAndUpdate(self, dlOrDir=dailyList.defaultDLDir,
                       startD=None, endD=None, ciks=None, errLimitPerDay=10,
                       verbose=True, saveAfterEachDay=False) :
@@ -229,12 +232,14 @@ class scraperBase(object) :
             s.printCounts()
         assuming the dailyList is already saved for that date range.
         This will also work to extend a scraperBase or subclass to a new date range.
+        Returns the total number of errors encountered while scraping.
         """
         if isinstance(dlOrDir, dailyList.dailyList) :
             dl = dlOrDir
         else :
             dl = dailyList.dailyList(dlDir=dlOrDir, startD=startD, endD=endD)
         self.loadDays(startD=startD, endD=endD)
-        self.updateForDays(dl, startD=startD, endD=endD, ciks=ciks, errLimitPerDay=errLimitPerDay,
-                           verbose=verbose, saveAfterEachDay=saveAfterEachDay)
+        res = self.updateForDays(dl, startD=startD, endD=endD, ciks=ciks, errLimitPerDay=errLimitPerDay,
+                                 verbose=verbose, saveAfterEachDay=saveAfterEachDay)
         self.save()
+        return res
