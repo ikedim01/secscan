@@ -212,6 +212,14 @@ class dailyList(object) :
             self.dl[dStr].append((cik, formType, accNo, fileDate))
             self.updateCikNamesFromEntry(dStr, cik, cikName)
     def checkAgainstMaster(self, year=None, quarter=None, fixMissingDate=False) :
+        """
+        Checks this list against the SEC combined master list.
+        Returns True if no missing filings (filings in master but not in this list).
+        If missing filings are found:
+        - if fixMissingDate is False, returns False.
+        - otherwise tries to fix this list by adding the missing filings and adding it,
+          and returns True if successful.
+        """
         if year is None :
             url = '/Archives/edgar/full-index/master.idx'
         else :
@@ -222,24 +230,25 @@ class dailyList(object) :
         missingL = [tup for tup in masterL if tup[-1] not in allAccNos]
         if len(missingL) == 0 :
             print('no missing filings found!')
-            return
+            return True
         missingFDates = sorted(set(tup[-2] for tup in missingL))
         print(len(missingL),'missing filings found, fDates',missingFDates)
         print('fTypes',sorted(set(tup[2] for tup in missingL)))
         print('accNos[:50]',sorted(set(tup[-1] for tup in missingL))[:50])
         if not fixMissingDate :
             print('*** RUN WITH fixMissingDate=True TO FIX ***')
-            return
+            return False
         if len(missingFDates) != 1 :
             print('unable to fix missing dates - ambiguous')
-            return
+            return False
         dStr = missingFDates[0]
         if dStr not in self.dl :
             print('unable to fix missing dates - unexpected day, not in daily map')
-            return
+            return False
         print('adding',len(missingL),'entries to',dStr)
         self.updateDayUsingL(dStr, missingL, clearDay=False)
         self.save(dirtySet={dStr})
+        return True
     def updateForDays(self, startD=None, endD=None) :
         """
         Update to reflect the filings for dates between startD (inclusive)
