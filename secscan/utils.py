@@ -142,7 +142,7 @@ def prAllTagNames(soup) :
     print(sorted(set(tag.name for tag in soup.descendants)))
 
 pageUnavailablePat = re.compile('page is temporarily unavailable',re.IGNORECASE)
-def downloadSecUrl(secSubUrlOrAccessNo, toFormat='text', sleepTime=0.1, restData=False) :
+def downloadSecUrl(secSubUrlOrAccessNo, toFormat='text', sleepTime=0.2, restData=False) :
     """
     Downloads a page from the SEC site. The page can be specified by
     a sub-URL (ex. /cgi-bin/browse-edgar?CIK=0000716314&owner=exclude),
