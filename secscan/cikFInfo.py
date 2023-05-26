@@ -34,14 +34,13 @@ def loadCikFInfo(cik, cikFInfoDir=defaultCikFInfoDir, returnAsText=False) :
     cik = str(cik).lstrip('0')
     fPath = getCikFInfoDirAndPath(cik, cikFInfoDir)[1]
     if not os.path.exists(fPath) :
-        return {}
+        return "" if returnAsText else {}
     with open(fPath,'r',encoding='ascii') as f :
         s = f.read().strip()
     if s[-1] != ',' :
         raise jsonValError('missing ending ,', s)
     if returnAsText :
-        return s[:-1]
-    return json.loads('{'+s[:-1]+'}')
+        return s[:-1] if returnAsText else json.loads('{'+s[:-1]+'}')
 
 def saveCikFInfo(cik, cikFInfo, removeDups=False, cikFInfoDir=defaultCikFInfoDir) :
     if removeDups :
