@@ -368,7 +368,7 @@ Returns the position if it appears, else -1.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCikToTickersMap" class="doc_header"><code>getCikToTickersMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L321" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCikToTickersMap</code>()</p>
+<h4 id="getCikToTickersMap" class="doc_header"><code>getCikToTickersMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L324" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCikToTickersMap</code>()</p>
 </blockquote>
 <p>Retrieves and parses an SEC-maintained list mapping tickers to CIKs.
 Returns a defaultdict: cik -&gt; list of corresponding tickers</p>
@@ -394,7 +394,7 @@ Returns a defaultdict: cik -&gt; list of corresponding tickers</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dlCountFilings" class="doc_header"><code>dlCountFilings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L332" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dlCountFilings</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>ciks</code></strong>=<em><code>None</code></em>, <strong><code>formClass</code></strong>=<em><code>None</code></em>, <strong><code>noAmend</code></strong>=<em><code>False</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
+<h4 id="dlCountFilings" class="doc_header"><code>dlCountFilings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L335" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dlCountFilings</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>ciks</code></strong>=<em><code>None</code></em>, <strong><code>formClass</code></strong>=<em><code>None</code></em>, <strong><code>noAmend</code></strong>=<em><code>False</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
 </blockquote>
 <p>Convenience function to count number of filings in a date range, optionally restricting
 to ciks and formClass.</p>
@@ -420,7 +420,7 @@ to ciks and formClass.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loadAndUpdateDL" class="doc_header"><code>loadAndUpdateDL</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L345" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadAndUpdateDL</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>uStartD</code></strong>=<em><code>None</code></em>, <strong><code>uEndD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtySet</code></strong>=<em><code>None</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
+<h4 id="loadAndUpdateDL" class="doc_header"><code>loadAndUpdateDL</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/dailyList.py#L348" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loadAndUpdateDL</code>(<strong><code>dlDir</code></strong>=<em><code>'C:\\Users\\ikedi\\secData\\dlMaps'</code></em>, <strong><code>startD</code></strong>=<em><code>None</code></em>, <strong><code>endD</code></strong>=<em><code>None</code></em>, <strong><code>uStartD</code></strong>=<em><code>None</code></em>, <strong><code>uEndD</code></strong>=<em><code>None</code></em>, <strong><code>fSuff</code></strong>=<em><code>'m.pkl'</code></em>, <strong><code>dirtySet</code></strong>=<em><code>None</code></em>, <strong>**<code>pickle_kwargs</code></strong>)</p>
 </blockquote>
 <p>Creates a dailyList object and loads lists for the date range [startD..endD), along with
 the full CIK name maps. By default (startD=None, endD=None) loads all dates present.

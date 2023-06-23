@@ -211,7 +211,8 @@ class dailyList(object) :
         for cik, cikName, formType, fileDate, accNo in dailyL :
             self.dl[dStr].append((cik, formType, accNo, fileDate))
             self.updateCikNamesFromEntry(dStr, cik, cikName)
-    def checkAgainstMaster(self, year=None, quarter=None, fixMissingDate=False) :
+    def checkAgainstMaster(self, year=None, quarter=None, fixMissingDate=False,
+                           returnMissing=False) :
         """
         Checks this list against the SEC combined master list.
         Returns True if no missing filings (filings in master but not in this list).
@@ -228,6 +229,8 @@ class dailyList(object) :
         allAccNos = self.getAllAccNos()
         print('checking against master ...')
         missingL = [tup for tup in masterL if tup[-1] not in allAccNos]
+        if returnMissing :
+            return missingL
         if len(missingL) == 0 :
             print('no missing filings found!')
             return True
