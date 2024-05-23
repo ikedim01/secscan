@@ -51,6 +51,9 @@ entries:
     - output: web,pdf
       title: cikFInfo
       url: cikFinfo.html
+    - output: web,pdf
+      title: priceHist
+      url: priceHist.html
     output: web
     title: secscan
   output: web

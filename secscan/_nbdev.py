@@ -227,7 +227,9 @@ index = {"boto3_available": "00_utils.ipynb",
          "saveAllCikFInfo": "13_cikFinfo.ipynb",
          "redoDate": "13_cikFinfo.ipynb",
          "prSample": "13_cikFinfo.ipynb",
-         "saveYears": "13_cikFinfo.ipynb"}
+         "saveYears": "13_cikFinfo.ipynb",
+         "USExchanges": "14_priceHist.ipynb",
+         "getHistFStuff": "14_priceHist.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
@@ -242,7 +244,8 @@ modules = ["utils.py",
            "scrape13G.py",
            "scrape13D.py",
            "scrape4.py",
-           "cikFInfo.py"]
+           "cikFInfo.py",
+           "priceHist.py"]
 
 doc_url = "https://ikedim01.github.io/secscan/"
 
