@@ -38,7 +38,13 @@ nb_path: "14_priceHist.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>xxx</p>
+<p>Uses the historical price data from eoddata.com -
+this comes as one CSV file per exchange per day, sample:</p>
+
+<pre><code>Symbol,Date,Open,High,Low,Close,Volume
+AACG,08-Jan-2020,1.41,1.58,1.3642,1.5112,90800
+AAL,08-Jan-2020,27.1,28.09,27.07,27.84,10497200
+...</code></pre>
 
 </div>
 </div>
@@ -107,8 +113,10 @@ for the given exchange and date.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getDayMap" class="doc_header"><code>getDayMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L28" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getDayMap</code>(<strong><code>exch</code></strong>, <strong><code>dateStr</code></strong>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getDayMap" class="doc_header"><code>getDayMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L28" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getDayMap</code>(<strong><code>dateStr</code></strong>, <strong><code>exch</code></strong>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
+<p>Parse the CSV file for a single day and exchange,
+returning a dict:<stock symbol> -&gt; <value></p>
 
 </div>
 
@@ -135,13 +143,28 @@ for the given exchange and date.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">setStockPriceRoot</span><span class="p">(</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">getDayMap</span><span class="p">(</span><span class="s1">&#39;AMEX&#39;</span><span class="p">,</span><span class="s1">&#39;20200108&#39;</span><span class="p">)</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">getDayMap</span><span class="p">(</span><span class="s1">&#39;20200108&#39;</span><span class="p">,</span><span class="s1">&#39;AMEX&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">==</span><span class="mi">2024</span>
+        <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">==</span><span class="s1">&#39;AAAU&#39;</span> <span class="ow">and</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;AAAU&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">15.56</span>
+        <span class="ow">and</span> <span class="nb">max</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">==</span><span class="s1">&#39;ZSL&#39;</span> <span class="ow">and</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;ZSL&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">26.04</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">getDayMap</span><span class="p">(</span><span class="s1">&#39;20200108&#39;</span><span class="p">,</span><span class="s1">&#39;NASDAQ&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">==</span><span class="mi">3233</span>
+        <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">==</span><span class="s1">&#39;AACG&#39;</span> <span class="ow">and</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;AACG&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">1.5112</span>
+        <span class="ow">and</span> <span class="nb">max</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">==</span><span class="s1">&#39;ZYXI&#39;</span> <span class="ow">and</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;ZYXI&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">8.47</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -149,13 +172,49 @@ for the given exchange and date.</p>
 <div class="output_area">
 
 
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getCombDayMap" class="doc_header"><code>getCombDayMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMap</code>(<strong><code>dateStr</code></strong>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+</blockquote>
 
-<div class="output_text output_subarea output_execute_result">
-<pre>2024</pre>
+<pre><code>Combines the day maps for a list of exchanges, optionally checking for symbols
+duplicated between exchanges.
+
+</code></pre>
+<hr>
+<p>getDayMap arguments: symCol='Symbol', priceCol='Close'</p>
+
+<pre><code>Parse the CSV file for a single day and exchange,
+returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
+
 </div>
 
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">getCombDayMap</span><span class="p">(</span><span class="s1">&#39;20200108&#39;</span><span class="p">,[</span><span class="s1">&#39;AMEX&#39;</span><span class="p">,</span><span class="s1">&#39;NASDAQ&#39;</span><span class="p">])</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">==</span><span class="mi">2024</span><span class="o">+</span><span class="mi">3233</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 

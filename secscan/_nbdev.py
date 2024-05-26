@@ -230,7 +230,8 @@ index = {"boto3_available": "00_utils.ipynb",
          "saveYears": "13_cikFinfo.ipynb",
          "USExchanges": "14_priceHist.ipynb",
          "getHistFStuff": "14_priceHist.ipynb",
-         "getDayMap": "14_priceHist.ipynb"}
+         "getDayMap": "14_priceHist.ipynb",
+         "getCombDayMap": "14_priceHist.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",

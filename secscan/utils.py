@@ -220,7 +220,7 @@ def delegates(*toFuncs, keepKwargs=False):
             for name,param in inspect.signature(toFunc).parameters.items() :
                 if param.default!=inspect.Parameter.empty and name not in sigFromDict :
                     delegatedDict[name] = param.replace(kind=inspect.Parameter.KEYWORD_ONLY)
-                    argL.append(f'{name}={param.default}')
+                    argL.append(f'{name}={repr(param.default)}')
             docStrs.append('---')
             docStrs.append(f'{toFunc.__qualname__} arguments: ' + ', '.join(argL))
             if toFunc.__doc__ is not None :

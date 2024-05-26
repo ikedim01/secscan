@@ -826,7 +826,7 @@ into <em>file</em> as part of the pickle stream.  It is an error if
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="pickleFromBytes" class="doc_header"><code>pickleFromBytes</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L288" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickleFromBytes</code>(<strong><code>b</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding='ASCII', errors='strict', buffers=()
 Read and return an object from the given pickle data.</p>
 <p>The protocol version of the pickle is detected automatically, so no
 protocol argument is needed.  Bytes past the pickled object's
@@ -949,8 +949,8 @@ into <em>file</em> as part of the pickle stream.  It is an error if
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="pickLoad" class="doc_header"><code>pickLoad</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L303" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoad</code>(<strong><code>fpath</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding='ASCII', errors='strict', buffers=()
 Read and return an object from the given pickle data.</p>
 <p>The protocol version of the pickle is detected automatically, so no
 protocol argument is needed.  Bytes past the pickled object's
@@ -993,9 +993,9 @@ its argument unchanged (assumes it's an already loaded object).
 
 </code></pre>
 <hr>
-<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding='ASCII', errors='strict', buffers=()
 Read and return an object from the given pickle data.</p>
 <p>The protocol version of the pickle is detected automatically, so no
 protocol argument is needed.  Bytes past the pickled object's
@@ -1115,8 +1115,8 @@ into <em>file</em> as part of the pickle stream.  It is an error if
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="pickLoadFromS3" class="doc_header"><code>pickLoadFromS3</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L331" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>s3</code></strong>=<em><code>None</code></em>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
-<h2 id="Load-a-pickled-object-from-an-S3-bucket,-optionally-using-gzip-compression.">Load a pickled object from an S3 bucket, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-an-S3-bucket,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+<h2 id="Load-a-pickled-object-from-an-S3-bucket,-optionally-using-gzip-compression.">Load a pickled object from an S3 bucket, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-an-S3-bucket,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding='ASCII', errors='strict', buffers=()
 Read and return an object from the given pickle data.</p>
 <p>The protocol version of the pickle is detected automatically, so no
 protocol argument is needed.  Bytes past the pickled object's
@@ -1154,8 +1154,8 @@ string instances as bytes objects.</p>
 <h4 id="pickLoadFromS3Public" class="doc_header"><code>pickLoadFromS3Public</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/utils.py#L338" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pickLoadFromS3Public</code>(<strong><code>bucket</code></strong>, <strong><code>key</code></strong>, <strong><code>use_gzip</code></strong>=<em><code>False</code></em>, <strong><code>fix_imports</code></strong>=<em><code>True</code></em>, <strong><code>encoding</code></strong>=<em><code>'ASCII'</code></em>, <strong><code>errors</code></strong>=<em><code>'strict'</code></em>, <strong><code>buffers</code></strong>=<em><code>()</code></em>)</p>
 </blockquote>
 <hr>
-<p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+<p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding='ASCII', errors='strict', buffers=()
 Read and return an object from the given pickle data.</p>
 <p>The protocol version of the pickle is detected automatically, so no
 protocol argument is needed.  Bytes past the pickled object's
@@ -1312,9 +1312,9 @@ Returns a default value if the file doesn't exist.
 
 </code></pre>
 <hr>
-<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding='ASCII', errors='strict', buffers=()
 Read and return an object from the given pickle data.</p>
 <p>The protocol version of the pickle is detected automatically, so no
 protocol argument is needed.  Bytes past the pickled object's
@@ -1448,9 +1448,9 @@ optionally restricting to keys in [startK .. endK)
 
 </code></pre>
 <hr>
-<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding=ASCII, errors=strict, buffers=()</p>
-<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding=ASCII, errors=strict, buffers=()
+<p>pickLoad arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression.">Load a pickled object from a file, optionally using gzip compression.<a class="anchor-link" href="#Load-a-pickled-object-from-a-file,-optionally-using-gzip-compression."> </a></h2><p>pickleFromBytes arguments: use_gzip=False, fix_imports=True, encoding='ASCII', errors='strict', buffers=()</p>
+<h2 id="Unpickle-an-object-in-memory,-optionally-using-gzip-compression.">Unpickle an object in-memory, optionally using gzip compression.<a class="anchor-link" href="#Unpickle-an-object-in-memory,-optionally-using-gzip-compression."> </a></h2><p>loads arguments: fix_imports=True, encoding='ASCII', errors='strict', buffers=()
 Read and return an object from the given pickle data.</p>
 <p>The protocol version of the pickle is detected automatically, so no
 protocol argument is needed.  Bytes past the pickled object's
