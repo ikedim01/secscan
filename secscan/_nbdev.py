@@ -231,7 +231,13 @@ index = {"boto3_available": "00_utils.ipynb",
          "USExchanges": "14_priceHist.ipynb",
          "getHistFStuff": "14_priceHist.ipynb",
          "getDayMap": "14_priceHist.ipynb",
-         "getCombDayMap": "14_priceHist.ipynb"}
+         "getCombDayMap": "14_priceHist.ipynb",
+         "getCombDayMapsForRange": "14_priceHist.ipynb",
+         "getDayMapWithLookback": "14_priceHist.ipynb",
+         "getCombDayMapsForRangeWithLookback": "14_priceHist.ipynb",
+         "getCleanedPriceData": "14_priceHist.ipynb",
+         "getForwardReturns": "14_priceHist.ipynb",
+         "getClosestReturn": "14_priceHist.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
