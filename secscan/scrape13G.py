@@ -20,7 +20,7 @@ import itertools
 import os
 import re
 
-from secscan import utils, dailyList, basicInfo, infoScraper
+from secscan import utils, dailyList, tickerMap, basicInfo, infoScraper
 
 default13GDir = os.path.join(utils.stockDataRoot,'scraped13G')
 
@@ -334,7 +334,7 @@ def updateCik13GDPos(scraper13G, scraper13D, cik13GDPosMap=None,
     if cusipToCik is not None :
         count1 = count2 = 0
         if includeTickers :
-            cikToTickers = dailyList.getCikToTickersMap()
+            cikToTickers = tickerMap.getCikToTickersMap()
         else :
             cikToTickers = collections.defaultdict(list)
         # for CUSIPs already in cusipNames, add the corresponding CIK and ticker to the existing entry:

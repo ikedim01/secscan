@@ -2,7 +2,7 @@
 
 __all__ = ['defaultDLDir', 'getQStr', 'getSecDailyIndexUrls', 'getDailyFList', 'downloadSecFormList', 'edgarTxtFPat',
            'isInFormClass', 'namedFormClasses', 'noPeriodFormTypes', 'findCikName', 'checkMapDates', 'dailyList',
-           'getCikToTickersMap', 'dlCountFilings', 'loadAndUpdateDL']
+           'dlCountFilings', 'loadAndUpdateDL']
 
 # Cell
 
@@ -320,17 +320,6 @@ class dailyList(object) :
     def checkDates(self, verbose=True) :
         "Prints info on dates present, checking for missing dates."
         checkMapDates(self.dl, verbose=verbose)
-
-def getCikToTickersMap() :
-    """
-    Retrieves and parses an SEC-maintained list mapping tickers to CIKs.
-    Returns a defaultdict: cik -> list of corresponding tickers
-    """
-    tickersJSON = utils.downloadSecUrl('/files/company_tickers.json', toFormat='json')
-    cikToTickers = collections.defaultdict(list)
-    for v in tickersJSON.values() :
-        cikToTickers[str(v['cik_str'])].append(v['ticker'])
-    return cikToTickers
 
 def dlCountFilings(dlDir=defaultDLDir, startD=None, endD=None, ciks=None,
                    formClass=None, noAmend=False,
