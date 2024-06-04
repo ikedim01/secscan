@@ -115,8 +115,8 @@ for the given exchange and date.</p>
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="getDayMap" class="doc_header"><code>getDayMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L32" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getDayMap</code>(<strong><code>dateStr</code></strong>, <strong><code>exch</code></strong>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
-<p>Parse the CSV file for a single day and exchange,
-returning a dict:<stock symbol> -&gt; <value></p>
+<p>Parse the CSV file for a single day and exchange.
+Returns a dict:<stock symbol> -&gt; <value></p>
 
 </div>
 
@@ -142,7 +142,8 @@ returning a dict:<stock symbol> -&gt; <value></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">setStockPriceRoot</span><span class="p">(</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">ikedi</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">stockPriceRoot</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">setStockPriceRoot</span><span class="p">(</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
 
 <span class="n">m</span> <span class="o">=</span> <span class="n">getDayMap</span><span class="p">(</span><span class="s1">&#39;20200108&#39;</span><span class="p">,</span><span class="s1">&#39;AMEX&#39;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">==</span><span class="mi">2024</span>
@@ -178,13 +179,14 @@ returning a dict:<stock symbol> -&gt; <value></p>
 
 <pre><code>Combines the day maps for a list of exchanges, optionally checking for symbols
 duplicated between exchanges.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
 <p>getDayMap arguments: symCol='Symbol', priceCol='Close'</p>
 
-<pre><code>Parse the CSV file for a single day and exchange,
-returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
+<pre><code>Parse the CSV file for a single day and exchange.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 </div>
 
@@ -232,11 +234,14 @@ returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombDayMapsForRange" class="doc_header"><code>getCombDayMapsForRange</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMapsForRange</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getCombDayMapWithLookback" class="doc_header"><code>getCombDayMapWithLookback</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMapWithLookback</code>(<strong><code>forD</code></strong>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 
-<pre><code>Get all the combined day maps from d1 (inclusive) to d2 (exclusive).
-Returns a dict:dateStr -&gt; {&lt;stock symbol&gt; -&gt; &lt;value&gt;}
+<pre><code>Get the day map for a given day, looking back a given number of days -
+i.e. if a stock doesn't trade on a particular day, looks back the specified
+number of days to find the most recent trade.
+
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
@@ -244,13 +249,14 @@ Returns a dict:dateStr -&gt; {&lt;stock symbol&gt; -&gt; &lt;value&gt;}
 
 <pre><code>Combines the day maps for a list of exchanges, optionally checking for symbols
 duplicated between exchanges.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
 <p>getDayMap arguments: symCol='Symbol', priceCol='Close'</p>
 
-<pre><code>Parse the CSV file for a single day and exchange,
-returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
+<pre><code>Parse the CSV file for a single day and exchange.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 </div>
 
@@ -273,38 +279,23 @@ returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getDayMapWithLookback" class="doc_header"><code>getDayMapWithLookback</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L80" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getDayMapWithLookback</code>(<strong><code>combDayMapsForRange</code></strong>, <strong><code>forD</code></strong>, <strong><code>lookback</code></strong>)</p>
-</blockquote>
-<p>Get the day map for a given day, looking back a given number of days -
-i.e. uses the value from a previous day if it's not present in the given day.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombDayMapsForRangeWithLookback" class="doc_header"><code>getCombDayMapsForRangeWithLookback</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMapsForRangeWithLookback</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getCombDayMapsForRangeWithLookback" class="doc_header"><code>getCombDayMapsForRangeWithLookback</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMapsForRangeWithLookback</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 
 <pre><code>Get all the combined day maps from d1 (inclusive) to d2 (exclusive), with lookback.
+
 Returns a dict:dateStr -&gt; {&lt;stock symbol&gt; -&gt; &lt;value&gt;}
-Skips weekend dates.
+Skips weekend dates in the returned dict.
+
+</code></pre>
+<hr>
+<p>getCombDayMapWithLookback arguments: dayMapCache=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+
+<pre><code>Get the day map for a given day, looking back a given number of days -
+i.e. if a stock doesn't trade on a particular day, looks back the specified
+number of days to find the most recent trade.
+
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
@@ -312,13 +303,14 @@ Skips weekend dates.
 
 <pre><code>Combines the day maps for a list of exchanges, optionally checking for symbols
 duplicated between exchanges.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
 <p>getDayMap arguments: symCol='Symbol', priceCol='Close'</p>
 
-<pre><code>Parse the CSV file for a single day and exchange,
-returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
+<pre><code>Parse the CSV file for a single day and exchange.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 </div>
 
@@ -334,6 +326,20 @@ returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Direct indexing tests:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -341,14 +347,44 @@ returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCleanedPriceData" class="doc_header"><code>getCleanedPriceData</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L110" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCleanedPriceData</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getCleanedPriceData" class="doc_header"><code>getCleanedPriceData</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L108" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCleanedPriceData</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
+
+<pre><code>Constructs a price dataset for direct indexing tests.
+
+First gets all the combined day maps from d1 to d2, with specified lookback,
+and skipping weekend days.
+
+Then, cuts down to stocks that have values for all the specified days.
+
+If minPrice is not None, also cuts down to stocks with value &gt; minPrice on all days.
+
+If restrictToNames is True, also cuts down to stocks present in the SEC ticker list.
+
+Returns a tuple (syms, symNames, dateStrs, priceMat), where:
+syms is a sorted list of ticker symbols
+symNames is a list of corresponding names from the SEC ticker list ('' if not present)
+dateStrs is a list of date strings in the format '20240624'
+priceMat is a matrix of values with len(syms) rows and len(dateStrs) columns
+
+</code></pre>
 <hr>
-<p>getCombDayMapsForRangeWithLookback arguments: lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+<p>getCombDayMapsForRangeWithLookback arguments: dayMapCache=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
 
 <pre><code>Get all the combined day maps from d1 (inclusive) to d2 (exclusive), with lookback.
+
 Returns a dict:dateStr -&gt; {&lt;stock symbol&gt; -&gt; &lt;value&gt;}
-Skips weekend dates.
+Skips weekend dates in the returned dict.
+
+</code></pre>
+<hr>
+<p>getCombDayMapWithLookback arguments: dayMapCache=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+
+<pre><code>Get the day map for a given day, looking back a given number of days -
+i.e. if a stock doesn't trade on a particular day, looks back the specified
+number of days to find the most recent trade.
+
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
@@ -356,13 +392,14 @@ Skips weekend dates.
 
 <pre><code>Combines the day maps for a list of exchanges, optionally checking for symbols
 duplicated between exchanges.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
 <p>getDayMap arguments: symCol='Symbol', priceCol='Close'</p>
 
-<pre><code>Parse the CSV file for a single day and exchange,
-returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
+<pre><code>Parse the CSV file for a single day and exchange.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 </div>
 
@@ -385,16 +422,46 @@ returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getForwardReturns" class="doc_header"><code>getForwardReturns</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L134" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getForwardReturns</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>weekdaysForward</code></strong>=<em><code>20</code></em>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getForwardReturns" class="doc_header"><code>getForwardReturns</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L158" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getForwardReturns</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>weekdaysForward</code></strong>=<em><code>20</code></em>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 <hr>
-<p>getCleanedPriceData arguments: minPrice=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+<p>getCleanedPriceData arguments: minPrice=None, restrictToNames=False, dayMapCache=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+
+<pre><code>Constructs a price dataset for direct indexing tests.
+
+First gets all the combined day maps from d1 to d2, with specified lookback,
+and skipping weekend days.
+
+Then, cuts down to stocks that have values for all the specified days.
+
+If minPrice is not None, also cuts down to stocks with value &gt; minPrice on all days.
+
+If restrictToNames is True, also cuts down to stocks present in the SEC ticker list.
+
+Returns a tuple (syms, symNames, dateStrs, priceMat), where:
+syms is a sorted list of ticker symbols
+symNames is a list of corresponding names from the SEC ticker list ('' if not present)
+dateStrs is a list of date strings in the format '20240624'
+priceMat is a matrix of values with len(syms) rows and len(dateStrs) columns
+
+</code></pre>
 <hr>
-<p>getCombDayMapsForRangeWithLookback arguments: lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+<p>getCombDayMapsForRangeWithLookback arguments: dayMapCache=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
 
 <pre><code>Get all the combined day maps from d1 (inclusive) to d2 (exclusive), with lookback.
+
 Returns a dict:dateStr -&gt; {&lt;stock symbol&gt; -&gt; &lt;value&gt;}
-Skips weekend dates.
+Skips weekend dates in the returned dict.
+
+</code></pre>
+<hr>
+<p>getCombDayMapWithLookback arguments: dayMapCache=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+
+<pre><code>Get the day map for a given day, looking back a given number of days -
+i.e. if a stock doesn't trade on a particular day, looks back the specified
+number of days to find the most recent trade.
+
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
@@ -402,13 +469,14 @@ Skips weekend dates.
 
 <pre><code>Combines the day maps for a list of exchanges, optionally checking for symbols
 duplicated between exchanges.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
 
 </code></pre>
 <hr>
 <p>getDayMap arguments: symCol='Symbol', priceCol='Close'</p>
 
-<pre><code>Parse the CSV file for a single day and exchange,
-returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
+<pre><code>Parse the CSV file for a single day and exchange.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 </div>
 
@@ -431,7 +499,7 @@ returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getClosestReturn" class="doc_header"><code>getClosestReturn</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L145" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getClosestReturn</code>(<strong><code>sym</code></strong>, <strong><code>syms</code></strong>, <strong><code>dateStrs</code></strong>, <strong><code>returnMat</code></strong>)</p>
+<h4 id="getClosestReturn" class="doc_header"><code>getClosestReturn</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L169" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getClosestReturn</code>(<strong><code>sym</code></strong>, <strong><code>syms</code></strong>, <strong><code>symNames</code></strong>, <strong><code>dateStrs</code></strong>, <strong><code>returnMat</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -458,7 +526,7 @@ returning a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">getForwardReturns</span><span class="p">(</span><span class="s1">&#39;20230101&#39;</span><span class="p">,</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240201&#39;</span><span class="p">,</span><span class="n">minPrice</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">priceCol</span><span class="o">=</span><span class="s1">&#39;Open&#39;</span><span class="p">,</span><span class="n">lookback</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -486,7 +554,435 @@ duplicated keys: NYSE 20230321 [&#39;AMB.W&#39;]
 duplicated keys: NYSE 20230322 [&#39;AMB.W&#39;]
 duplicated keys: OTCBB 20230323 [&#39;CETY&#39;]
 duplicated keys: OTCBB 20230614 [&#39;LTRY&#39;, &#39;LTRYW&#39;]
+SEC ticker list length 10288 with 10288 unique values
+result has 10288 keys with 8030 unique values
 8541 symbols 283 dates
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getClosestReturn</span><span class="p">(</span><span class="s1">&#39;MNDO&#39;</span><span class="p">,</span><span class="o">*</span><span class="n">m</span><span class="p">)[:</span><span class="mi">40</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;MNDO (MIND CTI LTD)&#39;, 0.0),
+ (&#39;FPE&#39;, 0.3939572159416754),
+ (&#39;FPEI&#39;, 0.4037418391021024),
+ (&#39;LOAN (MANHATTAN BRIDGE CAPITAL, INC)&#39;, 0.4058725785512839),
+ (&#39;CHI (CALAMOS CONVERTIBLE OPPORTUNITIES &amp; INCOME FUND)&#39;, 0.4152784927005114),
+ (&#39;IHTA (Invesco High Income 2024 Target Term Fund)&#39;, 0.44170900864517204),
+ (&#39;JPC (Nuveen Preferred &amp; Income Opportunities Fund)&#39;, 0.452376416767534),
+ (&#39;EFSCP (ENTERPRISE FINANCIAL SERVICES CORP)&#39;, 0.45330330487244486),
+ (&#39;JPI (Nuveen Preferred &amp; Income Term Fund)&#39;, 0.4547505807153403),
+ (&#39;HIO (WESTERN ASSET HIGH INCOME OPPORTUNITY FUND INC.)&#39;,
+  0.46793309830180163),
+ (&#39;SPN-B&#39;, 0.4700152766777501),
+ (&#39;PRE-J&#39;, 0.47212628763457065),
+ (&#39;ACR-C&#39;, 0.47461934816855417),
+ (&#39;HIPS&#39;, 0.47686817879050203),
+ (&#39;JHPI&#39;, 0.47973534129229467),
+ (&#39;FINS (Angel Oak Financial Strategies Income Term Trust)&#39;,
+  0.4845376741716778),
+ (&#39;PGZ (Principal Real Estate Income Fund)&#39;, 0.4862788449951719),
+ (&#39;PQDI&#39;, 0.4975648213837466),
+ (&#39;OAK-A&#39;, 0.4991444262088841),
+ (&#39;GPM-A&#39;, 0.5011538793366852),
+ (&#39;AGNCL (AGNC Investment Corp.)&#39;, 0.5017410214072874),
+ (&#39;FPFD&#39;, 0.504103833266577),
+ (&#39;FPF (First Trust Intermediate Duration Preferred &amp; Income Fund)&#39;,
+  0.5049961043290062),
+ (&#39;AGNCP (AGNC Investment Corp.)&#39;, 0.5053524521403767),
+ (&#39;CHY (CALAMOS CONVERTIBLE &amp; HIGH INCOME FUND)&#39;, 0.5088684131210859),
+ (&#39;LBRDP (Liberty Broadband Corp)&#39;, 0.5108330133233034),
+ (&#39;HYI (Western Asset High Yield Defined Opportunity Fund Inc.)&#39;,
+  0.5125425757092482),
+ (&#39;CIF (MFS INTERMEDIATE HIGH INCOME FUND)&#39;, 0.5130657428941686),
+ (&#39;EPR-E&#39;, 0.5137085080977194),
+ (&#39;TRT-C&#39;, 0.5149181659898618),
+ (&#39;TSI (TCW STRATEGIC INCOME FUND INC)&#39;, 0.5168988865957156),
+ (&#39;COD-C&#39;, 0.5168995738334496),
+ (&#39;ECC-D&#39;, 0.5173808859079847),
+ (&#39;AGNCO (AGNC Investment Corp.)&#39;, 0.5177865329445955),
+ (&#39;LNC-D&#39;, 0.5184930786790813),
+ (&#39;JQC (Nuveen Credit Strategies Income Fund)&#39;, 0.5186660836113184),
+ (&#39;SPFF&#39;, 0.5187548259283024),
+ (&#39;RC-E&#39;, 0.5199608057749265),
+ (&#39;VVR (Invesco Senior Income Trust)&#39;, 0.5211631667818244),
+ (&#39;PREF&#39;, 0.5252624535064171)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getClosestReturn</span><span class="p">(</span><span class="s1">&#39;TAIT&#39;</span><span class="p">,</span><span class="o">*</span><span class="n">m</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;TAIT (TAITRON COMPONENTS INC)&#39;, 0.0),
+ (&#39;NNI (NELNET INC)&#39;, 0.7368105665953435),
+ (&#39;SPN-B&#39;, 0.771899859504044),
+ (&#39;ICVT&#39;, 0.81698375759366),
+ (&#39;COD-B&#39;, 0.8352495377240741),
+ (&#39;CLSM&#39;, 0.8366884639203913),
+ (&#39;CET (CENTRAL SECURITIES CORP)&#39;, 0.8384678465364781),
+ (&#39;CWB&#39;, 0.8487942439973535),
+ (&#39;ET-D&#39;, 0.8519271383152587),
+ (&#39;TLGPY (Telstra Group Ltd)&#39;, 0.8523217702721007),
+ (&#39;CSF&#39;, 0.8566815134696606),
+ (&#39;MGMT&#39;, 0.858181003231267),
+ (&#39;TDSC&#39;, 0.8644684103862601),
+ (&#39;WEDXF&#39;, 0.8715553578868909),
+ (&#39;WBIF&#39;, 0.8718234798733043),
+ (&#39;NCV-A&#39;, 0.8744353593018128),
+ (&#39;STT-D&#39;, 0.8744449134382206),
+ (&#39;QRMI&#39;, 0.8770904594690824),
+ (&#39;ET-C&#39;, 0.8804238997785947),
+ (&#39;XRMI&#39;, 0.8821812102633625)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getClosestReturn</span><span class="p">(</span><span class="s1">&#39;RELL&#39;</span><span class="p">,</span><span class="o">*</span><span class="n">m</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;RELL (RICHARDSON ELECTRONICS, LTD.)&#39;, 0.0),
+ (&#39;CASS (CASS INFORMATION SYSTEMS INC)&#39;, 2.3632986384989505),
+ (&#39;POWI (POWER INTEGRATIONS INC)&#39;, 2.8332377785971987),
+ (&#39;GWRS (Global Water Resources, Inc.)&#39;, 2.8404981620316088),
+ (&#39;ANGO (ANGIODYNAMICS INC)&#39;, 2.8471128912348176),
+ (&#39;OARK&#39;, 2.9107047683916987),
+ (&#39;RRBI (RED RIVER BANCSHARES INC)&#39;, 2.9644257369823506),
+ (&#39;RICK (RCI HOSPITALITY HOLDINGS, INC.)&#39;, 2.9732589455373617),
+ (&#39;GTY (GETTY REALTY CORP /MD/)&#39;, 2.982627077477133),
+ (&#39;RGCO (RGC RESOURCES INC)&#39;, 2.9997206622373067),
+ (&#39;TMP (TOMPKINS FINANCIAL CORP)&#39;, 3.0179666671694),
+ (&#39;KLIC (KULICKE &amp; SOFFA INDUSTRIES INC)&#39;, 3.0608739237335296),
+ (&#39;SEAS&#39;, 3.0614640639877395),
+ (&#39;AMBA (AMBARELLA INC)&#39;, 3.0634315959649765),
+ (&#39;CWE.A&#39;, 3.0799862214034004),
+ (&#39;CNRG&#39;, 3.136485251345724),
+ (&#39;CWEN (Clearway Energy, Inc.)&#39;, 3.1397049276381717),
+ (&#39;KEYS (Keysight Technologies, Inc.)&#39;, 3.1410272634367935),
+ (&#39;MYE (MYERS INDUSTRIES INC)&#39;, 3.1592785252589612),
+ (&#34;DENN (DENNY&#39;S Corp)&#34;, 3.1643088355572795)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getClosestReturn</span><span class="p">(</span><span class="s1">&#39;SILC&#39;</span><span class="p">,</span><span class="o">*</span><span class="n">m</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;SILC (SILICOM LTD.)&#39;, 0.0),
+ (&#39;B (BARNES GROUP INC)&#39;, 2.661399007253552),
+ (&#39;AMN (AMN HEALTHCARE SERVICES INC)&#39;, 2.724160992667765),
+ (&#39;VMI (VALMONT INDUSTRIES INC)&#39;, 2.7338617655898383),
+ (&#39;CALX (CALIX, INC)&#39;, 3.023091318498608),
+ (&#39;NTCT (NETSCOUT SYSTEMS INC)&#39;, 3.093619695327906),
+ (&#39;WHR (WHIRLPOOL CORP /DE/)&#39;, 3.1580493246124544),
+ (&#39;NJDCY&#39;, 3.193515114816411),
+ (&#39;CNHI (CNH Industrial N.V.)&#39;, 3.29110063382151),
+ (&#39;HTLD (HEARTLAND EXPRESS INC)&#39;, 3.3082190659668576),
+ (&#39;GGT (GABELLI MULTIMEDIA TRUST INC.)&#39;, 3.3232999413469373),
+ (&#39;PAYC (Paycom Software, Inc.)&#39;, 3.3241541343912147),
+ (&#39;IRDM (Iridium Communications Inc.)&#39;, 3.3623235906548),
+ (&#39;CCRN (CROSS COUNTRY HEALTHCARE INC)&#39;, 3.366726739268066),
+ (&#39;NNDNF&#39;, 3.3774229025067783),
+ (&#39;F (FORD MOTOR CO)&#39;, 3.4039068620830566),
+ (&#39;TAN&#39;, 3.4594237422058955),
+ (&#39;RAYS&#39;, 3.4860890952497),
+ (&#39;EL (ESTEE LAUDER COMPANIES INC)&#39;, 3.4909226509975593),
+ (&#39;NWG (NatWest Group plc)&#39;, 3.5315279137915208)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getClosestReturn</span><span class="p">(</span><span class="s1">&#39;ELV&#39;</span><span class="p">,</span><span class="o">*</span><span class="n">m</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;ELV (Elevance Health, Inc.)&#39;, 0.0),
+ (&#39;IHF&#39;, 0.1953185559368255),
+ (&#39;UNH (UNITEDHEALTH GROUP INC)&#39;, 0.25919901364555165),
+ (&#39;SIXL&#39;, 0.28807940930622417),
+ (&#39;AVIE&#39;, 0.2918642231635463),
+ (&#39;DIAX (Nuveen Dow 30sm Dynamic Overwrite Fund)&#39;, 0.2923529537316265),
+ (&#39;FBCV&#39;, 0.3074473957197455),
+ (&#39;VFMV&#39;, 0.31679367718052276),
+ (&#39;HYLG&#39;, 0.3243023540402277),
+ (&#39;NDJI&#39;, 0.3318950586036155),
+ (&#39;DIVZ&#39;, 0.3353862296524296),
+ (&#39;TPYP&#39;, 0.33630163046910805),
+ (&#39;SMMV&#39;, 0.33704934235129946),
+ (&#39;DIVO&#39;, 0.3371396383561065),
+ (&#39;PHDG&#39;, 0.34182974217536133),
+ (&#39;FTCS&#39;, 0.34346836052288554),
+ (&#39;WES (Western Midstream Partners, LP)&#39;, 0.34389658771690557),
+ (&#39;RSF (RiverNorth Capital &amp; Income Fund, Inc.)&#39;, 0.3485322830580354),
+ (&#39;XLV&#39;, 0.3486680373936523),
+ (&#39;INFL&#39;, 0.3514287227508094)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Text-based prediction tests:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getTextPriceDataset" class="doc_header"><code>getTextPriceDataset</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L187" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextPriceDataset</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+</blockquote>
+
+<pre><code>Constructs a text/price dataset for text-based prediction tests.
+
+First gets day maps from d2 and d3, with specified lookback.
+
+Then, cuts down to stocks that have values for both days.
+
+If minPrice is not None, also cuts down to stocks with value &gt; minPrice on both days.
+
+Returns a tuple (syms, symNames, dateStrs, priceMat), where:
+syms is a sorted list of ticker symbols
+symNames is a list of corresponding names from the SEC ticker list ('' if not present)
+dateStrs is a list of date strings in the format '20240624'
+priceMat is a matrix of values with len(syms) rows and len(dateStrs) columns
+
+</code></pre>
+<hr>
+<p>getCombDayMapWithLookback arguments: dayMapCache=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+
+<pre><code>Get the day map for a given day, looking back a given number of days -
+i.e. if a stock doesn't trade on a particular day, looks back the specified
+number of days to find the most recent trade.
+
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
+
+</code></pre>
+<hr>
+<p>getCombDayMap arguments: exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
+
+<pre><code>Combines the day maps for a list of exchanges, optionally checking for symbols
+duplicated between exchanges.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;
+
+</code></pre>
+<hr>
+<p>getDayMap arguments: symCol='Symbol', priceCol='Close'</p>
+
+<pre><code>Parse the CSV file for a single day and exchange.
+Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getTextPriceDataset</span><span class="p">(</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240401&#39;</span><span class="p">,</span><span class="n">minPrice</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>15656 stock symbols found
+restricting to price &gt;= 1.0
+now 11738 stocks
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>SEC ticker list length 10288 with 8031 unique values
+result has 8031 keys with 8031 unique values
 </pre>
 </div>
 </div>
@@ -519,28 +1015,41 @@ duplicated keys: OTCBB 20230614 [&#39;LTRY&#39;, &#39;LTRYW&#39;]
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;MNDO&#39;, 0.0),
- (&#39;FPE&#39;, 0.3939572159416754),
- (&#39;FPEI&#39;, 0.4037418391021024),
- (&#39;LOAN&#39;, 0.4058725785512839),
- (&#39;CHI&#39;, 0.4152784927005114),
- (&#39;IHTA&#39;, 0.44170900864517204),
- (&#39;JPC&#39;, 0.452376416767534),
- (&#39;EFSCP&#39;, 0.45330330487244486),
- (&#39;JPI&#39;, 0.4547505807153403),
- (&#39;HIO&#39;, 0.46793309830180163),
- (&#39;SPN-B&#39;, 0.4700152766777501),
- (&#39;PRE-J&#39;, 0.47212628763457065),
- (&#39;ACR-C&#39;, 0.47461934816855417),
- (&#39;HIPS&#39;, 0.47686817879050203),
- (&#39;JHPI&#39;, 0.47973534129229467),
- (&#39;FINS&#39;, 0.4845376741716778),
- (&#39;PGZ&#39;, 0.4862788449951719),
- (&#39;PQDI&#39;, 0.4975648213837466),
- (&#39;OAK-A&#39;, 0.4991444262088841),
- (&#39;GPM-A&#39;, 0.5011538793366852)]</pre>
+<pre>&#39;GOOGL&#39;</pre>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>SEC ticker list length 10288 with 8031 unique values
+result has 8031 keys
+</pre>
+</div>
 </div>
 
 </div>
@@ -571,78 +1080,7 @@ duplicated keys: OTCBB 20230614 [&#39;LTRY&#39;, &#39;LTRYW&#39;]
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;TAIT&#39;, 0.0),
- (&#39;NNI&#39;, 0.7368105665953435),
- (&#39;SPN-B&#39;, 0.771899859504044),
- (&#39;ICVT&#39;, 0.81698375759366),
- (&#39;COD-B&#39;, 0.8352495377240741),
- (&#39;CLSM&#39;, 0.8366884639203913),
- (&#39;CET&#39;, 0.8384678465364781),
- (&#39;CWB&#39;, 0.8487942439973535),
- (&#39;ET-D&#39;, 0.8519271383152587),
- (&#39;TLGPY&#39;, 0.8523217702721007),
- (&#39;CSF&#39;, 0.8566815134696606),
- (&#39;MGMT&#39;, 0.858181003231267),
- (&#39;TDSC&#39;, 0.8644684103862601),
- (&#39;WEDXF&#39;, 0.8715553578868909),
- (&#39;WBIF&#39;, 0.8718234798733043),
- (&#39;NCV-A&#39;, 0.8744353593018128),
- (&#39;STT-D&#39;, 0.8744449134382206),
- (&#39;QRMI&#39;, 0.8770904594690824),
- (&#39;ET-C&#39;, 0.8804238997785947),
- (&#39;XRMI&#39;, 0.8821812102633625)]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;RELL&#39;, 0.0),
- (&#39;CASS&#39;, 2.3632986384989505),
- (&#39;POWI&#39;, 2.8332377785971987),
- (&#39;GWRS&#39;, 2.8404981620316088),
- (&#39;ANGO&#39;, 2.8471128912348176),
- (&#39;OARK&#39;, 2.9107047683916987),
- (&#39;RRBI&#39;, 2.9644257369823506),
- (&#39;RICK&#39;, 2.9732589455373617),
- (&#39;GTY&#39;, 2.982627077477133),
- (&#39;RGCO&#39;, 2.9997206622373067),
- (&#39;TMP&#39;, 3.0179666671694),
- (&#39;KLIC&#39;, 3.0608739237335296),
- (&#39;SEAS&#39;, 3.0614640639877395),
- (&#39;AMBA&#39;, 3.0634315959649765),
- (&#39;CWE.A&#39;, 3.0799862214034004),
- (&#39;CNRG&#39;, 3.136485251345724),
- (&#39;CWEN&#39;, 3.1397049276381717),
- (&#39;KEYS&#39;, 3.1410272634367935),
- (&#39;MYE&#39;, 3.1592785252589612),
- (&#39;DENN&#39;, 3.1643088355572795)]</pre>
+<pre>[&#39;GOOGL&#39;, &#39;GOOG&#39;]</pre>
 </div>
 
 </div>

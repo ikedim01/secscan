@@ -54,13 +54,15 @@ nb_path: "03_tickerMap.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSecTickerDict" class="doc_header"><code>getSecTickerDict</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/tickerMap.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecTickerDict</code>(<strong><code>field1</code></strong>=<em><code>'ticker'</code></em>, <strong><code>field2</code></strong>=<em><code>'cik'</code></em>, <strong><code>singleValue</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="getSecTickerDict" class="doc_header"><code>getSecTickerDict</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/tickerMap.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSecTickerDict</code>(<strong><code>field1</code></strong>=<em><code>'ticker'</code></em>, <strong><code>field2</code></strong>=<em><code>'cik'</code></em>, <strong><code>multiValue</code></strong>=<em><code>'last'</code></em>)</p>
 </blockquote>
 <p>Return mappings among ticker, cik, name, and exchange based on a
-downloaded list from the SEC. Returns a dict: field1 -&gt; field2 values.
-If singleValue is True returns just the last field2 value found
-for each field1 value. Otherwise returns a list of all the field2
-values found for each field1 value.</p>
+downloaded list from the SEC. Returns a dict: field1 -&gt; field2 values.</p>
+<p>The multivalue argument specifies how to handle multiple field2 values
+found for the same field1 value:
+'list' - stores a list of all field2 values found
+'first' - just stores the first field2 value found
+'last' - just stores the last field2 value found</p>
 
 </div>
 
@@ -83,9 +85,34 @@ values found for each field1 value.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCikToTickersMap" class="doc_header"><code>getCikToTickersMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/tickerMap.py#L37" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCikToTickersMap</code>()</p>
+<h4 id="getCikToTickersMap" class="doc_header"><code>getCikToTickersMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/tickerMap.py#L44" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCikToTickersMap</code>()</p>
 </blockquote>
-<p>Returns a dict: cik -&gt; list of corresponding tickers</p>
+<p>Returns a dict: cik -&gt; <list of corresponding tickers from the SEC list></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="getCikToFirstTickerMap" class="doc_header"><code>getCikToFirstTickerMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/tickerMap.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCikToFirstTickerMap</code>()</p>
+</blockquote>
+<p>Returns a dict: cik -&gt; <first ticker for cik found on the SEC list></p>
 
 </div>
 
