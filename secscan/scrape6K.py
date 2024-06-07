@@ -51,3 +51,11 @@ class scraper6K(infoScraper.scraperBase) :
         super().__init__(infoDir, '6-K', **kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse6K(accNo, formType), None
+    def getTextDigest(self, info) :
+        res = []
+        if 'mainText' in info :
+            res.extend(['START MAIN TEXT.',info['mainText'].strip(),'END MAIN TEXT.'])
+        for prText in info.get('text99',[]) :
+            if len(prText.strip()) > 0 :
+                res.extend(['START PRESS RELEASE.',prText.strip(),'END PRESS RELEASE.'])
+        return ' '.join(res)

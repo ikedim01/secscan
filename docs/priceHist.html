@@ -555,7 +555,7 @@ duplicated keys: NYSE 20230322 [&#39;AMB.W&#39;]
 duplicated keys: OTCBB 20230323 [&#39;CETY&#39;]
 duplicated keys: OTCBB 20230614 [&#39;LTRY&#39;, &#39;LTRYW&#39;]
 SEC ticker list length 10283 with 10283 unique values
-result has 10283 keys with 8025 unique values
+dict: ticker-&gt;name [multiValue=last] has 10283 keys with 8025 unique values
 8541 symbols 283 dates
 </pre>
 </div>
@@ -925,30 +925,6 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
     
 <div class="cell border-box-sizing code_cell rendered">
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="get8KTexts" class="doc_header"><code>get8KTexts</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L241" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get8KTexts</code>(<strong><code>info</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 </div>
     {% endraw %}
 
@@ -960,7 +936,8 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">getTextPriceDataset</span><span class="p">(</span><span class="s1">&#39;20231001&#39;</span><span class="p">,</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240401&#39;</span><span class="p">,</span><span class="n">minPrice</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">scrape8K</span><span class="o">.</span><span class="n">scraper8K</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;20231001&#39;</span><span class="p">,</span><span class="n">endD</span><span class="o">=</span><span class="s1">&#39;20240101&#39;</span><span class="p">)</span>
+<span class="n">s8</span> <span class="o">=</span> <span class="n">scrape8K</span><span class="o">.</span><span class="n">scraper8K</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;20231001&#39;</span><span class="p">,</span><span class="n">endD</span><span class="o">=</span><span class="s1">&#39;20240101&#39;</span><span class="p">)</span>
+<span class="n">s6</span> <span class="o">=</span> <span class="n">scrape6K</span><span class="o">.</span><span class="n">scraper6K</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;20231001&#39;</span><span class="p">,</span><span class="n">endD</span><span class="o">=</span><span class="s1">&#39;20240101&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -976,7 +953,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 <pre>15656 stock symbols found
 restricting to price &gt;= 1.0 ... now 11738 stocks
 SEC ticker list length 10283 with 8026 unique values
-result has 8026 keys with 8026 unique values
+dict: cik-&gt;ticker [multiValue=first] has 8026 keys with 8026 unique values
 restricting to CIKs ... now 5542 stocks
 loading 8-K ... Total filings: 17114
 loading 6-K ... Total filings: 6629
@@ -998,7 +975,7 @@ getting CIK texts ... 4916 stocks with CIK text found
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get8KTexts</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">infoMap</span><span class="p">[</span><span class="s1">&#39;20231002&#39;</span><span class="p">][</span><span class="s1">&#39;0001193125-23-248561&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -1013,7 +990,7 @@ getting CIK texts ... 4916 stocks with CIK text found
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;FORM Item 1.01 Entry into a Material Definitive Agreement. On September 29, 2023, Medallion Financial Corp., a Delaware corporation (the “Company”), entered into several Note Purchase Agreements (the “Note Purchase Agreements”) with certain institutional investors relating to the private placement of its $39.0 million aggregate principal amount of 9.25% Senior Notes due 2028 (the “Notes”). Closing of the issuance and sale of the Notes occurred on September 29, 2023. The private placement of the Notes was exempt from registration under the Securities Act of 1933, as amended. The Notes mature on September 30, 2028 and bear a fixed interest rate of 9.25% per year. Interest payments on the Notes are payable semiannually on March 30 and September 30 of each year, commencing on March 30, 2024. The Notes are unsecured and unsubordinated obligations of the Company, ranking pari passu in all respects with the Company’s existing and future unsecured and unsubordinated indebtedness. A portion of the n END ITEM. Item 2.03 Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant. Reference is made to the disclosure set forth under Item 1.01 above, which is incorporated herein by reference.  END ITEM. Item 8.01. Other Events. On October 2, 2023, the Company issued a press release announcing the Note Purchase Agreements and the Notes issued thereunder, along with the use of a portion of the proceeds therefrom to repurchase certain of the outstanding 2024 Notes. The press release is attached as Exhibit 99.1 hereto and is incorporated in this Item 8.01 by reference. - 2 -  END ITEM. Item 9.01 Financial Statements and Exhibits (d) Exhibits The following exhibits are being filed with this Current Report on Form 8-K: 4.1 Form of Note Purchase Agreement, including the form of Note attached thereto. 99.1 Press Release, dated October 2, 2023. 104 Cover Page Interactive Data File (embedded within the Inline XBRL document) - 3 - SIGNATURE Pursuant to the requirements of the Securities Exchange Act of 1934, as amended, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized. Dated: October 2, 2023 MEDALLION FINANCIAL CORP. By: /s/ Anthony N. Cutrone Name: Anthony N. Cutrone Title: Executive Vice President and Chief Financial Officer END ITEM.&#39;</pre>
+<pre>dict_keys([&#39;0000919574-23-005442&#39;, &#39;0001654954-23-012485&#39;, &#39;0001654954-23-012499&#39;, &#39;0001292814-23-004049&#39;, &#39;0001654954-23-012483&#39;, &#39;0001654954-23-012503&#39;, &#39;0001171843-23-005961&#39;, &#39;0001292814-23-004061&#39;, &#39;0001292814-23-004063&#39;, &#39;0001341004-23-000259&#39;, &#39;0001654954-23-012477&#39;, &#39;0000950170-23-050915&#39;, &#39;0001159508-23-000066&#39;, &#39;0001171843-23-005962&#39;, &#39;0001654954-23-012452&#39;, &#39;0001062993-23-018650&#39;, &#39;0001292814-23-004057&#39;, &#39;0000950157-23-001016&#39;, &#39;0001279569-23-001252&#39;, &#39;0001013762-23-000479&#39;, &#39;0001193125-23-248004&#39;, &#39;0001383395-23-000060&#39;, &#39;0001193125-23-248965&#39;, &#39;0001395064-23-000127&#39;, &#39;0001292814-23-004059&#39;, &#39;0001292814-23-004053&#39;, &#39;0001292814-23-004055&#39;, &#39;0001292814-23-004051&#39;, &#39;0001493152-23-034964&#39;, &#39;0001477932-23-007292&#39;, &#39;0001171843-23-005966&#39;, &#39;0000950103-23-014435&#39;, &#39;0001104659-23-105920&#39;, &#39;0001171843-23-005968&#39;, &#39;0001013762-23-000143&#39;, &#39;0000950170-23-051129&#39;, &#39;0001493152-23-034958&#39;, &#39;0001648416-23-000182&#39;, &#39;0001013762-23-000318&#39;, &#39;0001650107-23-000073&#39;, &#39;0001668438-23-000002&#39;, &#39;0001437749-23-027409&#39;, &#39;0001437749-23-027415&#39;, &#39;0001013762-23-000517&#39;, &#39;0001104659-23-105986&#39;, &#39;0001104659-23-105516&#39;, &#39;0001193125-23-249091&#39;, &#39;0001013762-23-000145&#39;, &#39;0000950170-23-050865&#39;, &#39;0001013762-23-000120&#39;, &#39;0001104659-23-105518&#39;, &#39;0001013762-23-000342&#39;, &#39;0001013762-23-000502&#39;, &#39;0001013762-23-000424&#39;, &#39;0001013762-23-000423&#39;, &#39;0001013762-23-000522&#39;, &#39;0000950170-23-050914&#39;, &#39;0001171843-23-005980&#39;, &#39;0001292814-23-004047&#39;, &#39;0001013762-23-000477&#39;, &#39;0001013762-23-000425&#39;, &#39;0001654954-23-012492&#39;, &#39;0001104659-23-105793&#39;, &#39;0001178913-23-003271&#39;, &#39;0001013762-23-000454&#39;, &#39;0001062993-23-018669&#39;, &#39;0001869858-23-000052&#39;, &#39;0001013762-23-000152&#39;, &#39;0001013762-23-000156&#39;, &#39;0001013762-23-000237&#39;, &#39;0001193125-23-248493&#39;, &#39;0001683168-23-006880&#39;, &#39;0001683168-23-006846&#39;, &#39;0001140361-23-046145&#39;, &#39;0001178913-23-003265&#39;, &#39;0001193125-23-249145&#39;, &#39;0001104659-23-105877&#39;, &#39;0001157523-23-001453&#39;, &#39;0001493152-23-035058&#39;, &#39;0001013762-23-000171&#39;, &#39;0001013762-23-000368&#39;, &#39;0001654954-23-012473&#39;, &#39;0001654954-23-012468&#39;, &#39;0001654954-23-012495&#39;, &#39;0001171843-23-005969&#39;, &#39;0001171843-23-005963&#39;, &#39;0001193125-23-248523&#39;, &#39;0001279569-23-001254&#39;, &#39;0001654954-23-012464&#39;, &#39;0001654954-23-012450&#39;, &#39;0001104659-23-105707&#39;, &#39;0001193125-23-247999&#39;, &#39;0001193125-23-248184&#39;, &#39;0001654954-23-012501&#39;, &#39;0001654954-23-012487&#39;, &#39;0001654954-23-012458&#39;, &#39;0001628280-23-033492&#39;, &#39;0001104659-23-105512&#39;, &#39;0001654954-23-012469&#39;, &#39;0001178913-23-003269&#39;, &#39;0001654954-23-012454&#39;, &#39;0000950170-23-050958&#39;, &#39;0000929869-23-000517&#39;, &#39;0000929869-23-000519&#39;, &#39;0001654954-23-012456&#39;, &#39;0001654954-23-012463&#39;, &#39;0001654954-23-012460&#39;, &#39;0001654954-23-012481&#39;, &#39;0001178913-23-003264&#39;])</pre>
 </div>
 
 </div>
@@ -1031,7 +1008,7 @@ getting CIK texts ... 4916 stocks with CIK text found
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">infoMap</span><span class="p">[</span><span class="s1">&#39;20231002&#39;</span><span class="p">][</span><span class="s1">&#39;0001193125-23-248561&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -1046,60 +1023,77 @@ getting CIK texts ... 4916 stocks with CIK text found
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;links&#39;: [(&#39;d692601d8k.htm&#39;,
-   &#39;8-K&#39;,
-   &#39;8-K&#39;,
-   &#39;/ix?doc=/Archives/edgar/data/1000209/000119312523248561/d692601d8k.htm&#39;),
-  (&#39;d692601dex41.htm&#39;,
-   &#39;EX-4.1&#39;,
-   &#39;EX-4.1&#39;,
-   &#39;/Archives/edgar/data/1000209/000119312523248561/d692601dex41.htm&#39;),
-  (&#39;d692601dex991.htm&#39;,
-   &#39;EX-99.1&#39;,
-   &#39;EX-99.1&#39;,
-   &#39;/Archives/edgar/data/1000209/000119312523248561/d692601dex991.htm&#39;),
-  (&#39;g692601g0929213642782.jpg&#39;,
-   &#39;GRAPHIC&#39;,
-   &#39;GRAPHIC&#39;,
-   &#39;/Archives/edgar/data/1000209/000119312523248561/g692601g0929213642782.jpg&#39;),
-  (&#39;mfin-20230929.xsd&#39;,
-   &#39;XBRL TAXONOMY EXTENSION SCHEMA&#39;,
-   &#39;EX-101.SCH&#39;,
-   &#39;/Archives/edgar/data/1000209/000119312523248561/mfin-20230929.xsd&#39;),
-  (&#39;mfin-20230929_lab.xml&#39;,
-   &#39;XBRL TAXONOMY EXTENSION LABEL LINKBASE&#39;,
-   &#39;EX-101.LAB&#39;,
-   &#39;/Archives/edgar/data/1000209/000119312523248561/mfin-20230929_lab.xml&#39;),
-  (&#39;mfin-20230929_pre.xml&#39;,
-   &#39;XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE&#39;,
-   &#39;EX-101.PRE&#39;,
-   &#39;/Archives/edgar/data/1000209/000119312523248561/mfin-20230929_pre.xml&#39;),
-  (&#39;d692601d8k_htm.xml&#39;,
-   &#39;EXTRACTED XBRL INSTANCE DOCUMENT&#39;,
-   &#39;XML&#39;,
-   &#39;/Archives/edgar/data/1000209/000119312523248561/d692601d8k_htm.xml&#39;)],
- &#39;complete&#39;: &#39;/Archives/edgar/data/1000209/000119312523248561/0001193125-23-248561.txt&#39;,
- &#39;ciks&#39;: [&#39;0001000209&#39;],
- &#39;cikTypes&#39;: [&#39;Filer&#39;],
- &#39;text99&#39;: [&#39;&#39;,
-  &#39;&#39;,
-  &#39;FOR IMMEDIATE RELEASE: MEDALLION FINANCIAL CORP. ANNOUNCES COMPLETION OF PRIVATE PLACEMENT OF $39.0 MILLION OF SENIOR NOTES NEW YORK, NY – October 2, 2023 – Medallion Financial Corp. (NASDAQ: MFIN, “Medallion” or the “Company”), a specialty finance company that originates and services loans in various consumer and commercial industries, along with offering loan origination services to fintech strategic partners, announced today that it has completed a private placement of $39.0 million aggregate principal amount of senior unsecured notes to certain institutional investors. The notes will mature on September 30, 2028, and bear a fixed interest rate of 9.25% per year, paid semi-annually. The notes received an investment grade rating of A- by Egan-Jones. The Company used a portion of the proceeds from this offering to repurchase $33.0 million aggregate principal amount of its existing 8.25% senior notes due 2024. The balance will be used for general corporate purposes, which may include&#39;,
-  &#39;&#39;,
-  &#39;&#39;,
-  &#39;&#39;,
-  &#39;&#39;,
-  &#39;&#39;],
- &#39;period&#39;: &#39;2023-09-29&#39;,
- &#39;acceptDate&#39;: &#39;2023-10-02&#39;,
- &#39;acceptTime&#39;: &#39;09:39:30&#39;,
- &#39;items&#39;: [&#39;Item 1.01: Entry into a Material Definitive Agreement&#39;,
-  &#39;Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant&#39;,
-  &#39;Item 8.01: Other Events&#39;,
-  &#39;Item 9.01: Financial Statements and Exhibits&#39;],
- &#39;itemTexts&#39;: [&#39;Item 1.01 Entry into a Material Definitive Agreement. On September 29, 2023, Medallion Financial Corp., a Delaware corporation (the “Company”), entered into several Note Purchase Agreements (the “Note Purchase Agreements”) with certain institutional investors relating to the private placement of its $39.0 million aggregate principal amount of 9.25% Senior Notes due 2028 (the “Notes”). Closing of the issuance and sale of the Notes occurred on September 29, 2023. The private placement of the Notes was exempt from registration under the Securities Act of 1933, as amended. The Notes mature on September 30, 2028 and bear a fixed interest rate of 9.25% per year. Interest payments on the Notes are payable semiannually on March 30 and September 30 of each year, commencing on March 30, 2024. The Notes are unsecured and unsubordinated obligations of the Company, ranking pari passu in all respects with the Company’s existing and future unsecured and unsubordinated indebtedness. A portion of the n&#39;,
-  &#39;Item 2.03 Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant. Reference is made to the disclosure set forth under Item 1.01 above, which is incorporated herein by reference. &#39;,
-  &#39;Item 8.01. Other Events. On October 2, 2023, the Company issued a press release announcing the Note Purchase Agreements and the Notes issued thereunder, along with the use of a portion of the proceeds therefrom to repurchase certain of the outstanding 2024 Notes. The press release is attached as Exhibit 99.1 hereto and is incorporated in this Item 8.01 by reference. - 2 - &#39;,
-  &#39;Item 9.01 Financial Statements and Exhibits (d) Exhibits The following exhibits are being filed with this Current Report on Form 8-K: 4.1 Form of Note Purchase Agreement, including the form of Note attached thereto. 99.1 Press Release, dated October 2, 2023. 104 Cover Page Interactive Data File (embedded within the Inline XBRL document) - 3 - SIGNATURE Pursuant to the requirements of the Securities Exchange Act of 1934, as amended, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized. Dated: October 2, 2023 MEDALLION FINANCIAL CORP. By: /s/ Anthony N. Cutrone Name: Anthony N. Cutrone Title: Executive Vice President and Chief Financial Officer&#39;]}</pre>
+<pre>[&#39;0000950170-23-051160&#39;,
+ &#39;0001104659-23-105520&#39;,
+ &#39;0001335258-23-000089&#39;,
+ &#39;0001193125-23-249190&#39;,
+ &#39;0000714395-23-000046&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;START NOTE. Explanatory Note This Current Report on Form 8-K/A (Amendment No. 1) is being filed by CSG Systems International, Inc. (“CSG” or the “Company”) to amend and supplement the Current Report on Form 8-K dated and filed with the Securities and Exchange Commission on August 30, 2023. Item 5.02. Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers; Compensatory Arrangements of Certain Officers. Effective September 27, 2023, CSG entered into a Transition Services Agreement with Kenneth M. Kennedy, CSG’s former Chief Operating Officer and President – Revenue Management and Digital Monetization, to provide transition services to the Company through the end of 2023. Additionally, on September 28, 2023, CSG entered into Separation and Release Agreement with Mr. Kennedy. Mr. Kennedy was terminated without cause effective September 10, 2023. A copy of the Transition Services Agreement and the Separation and Release Agreement are attached hereto as Exhibi END NOTE. START ITEM. Item 5.02. Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers; Compensatory Arrangements of Certain Officers. Effective September 27, 2023, CSG entered into a Transition Services Agreement with Kenneth M. Kennedy, CSG’s former Chief Operating Officer and President – Revenue Management and Digital Monetization, to provide transition services to the Company through the end of 2023. Additionally, on September 28, 2023, CSG entered into Separation and Release Agreement with Mr. Kennedy. Mr. Kennedy was terminated without cause effective September 10, 2023. A copy of the Transition Services Agreement and the Separation and Release Agreement are attached hereto as Exhibit 10.53D and 10.53E, respectively, and hereby incorporated by reference. END ITEM. START ITEM. Item 9.01. Financial Statements and Exhibits. (d) Exhibits Exhibit Number Description 10.53D Transition Services Agreement with Kenneth M. Kennedy, dated September 27, 2023 10.53E Separation and Release Agreement with Kenneth M. Kennedy, dated September 28, 2023 104 Cover Page Interactive Data File (embedded within Inline XBRL document) SIGNATURES Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized. Date: October 2, 2023 By: /s/ Lori J. Szwanek Lori J. Szwanek Chief Accounting Officer END ITEM.&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;START MAIN TEXT. INFORMATION CONTAINED IN THIS FORM 6-K REPORT Attached as Exhibit 1 is a press release of Nordic American Tankers Limited (the &#34;Company&#34;) dated October 2, 2023, announcing the date for the Company\&#39;s Annual General Meeting of Shareholders. Attached as Exhibit 2 is the notice of the Annual General Meeting, the Proxy Statement and the Proxy Card for the Annual General Meeting of Shareholders of the Company, which will be held on November 16, 2023. This Report on Form 6-K is hereby incorporated by reference into the Company’s Registration Statement on Form F-3 (File No. 333-261630), filed with the U.S. Securities and Exchange Commission with an effective date of February 14, 2022. SIGNATURES Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned, thereunto duly authorized. NORDIC AMERICAN TANKERS LIMITED (registrant) Dated: October 2, 2023 By: /S/ HERBJØRN HANSSON Herbjørn Hansson Chairma END MAIN TEXT.&#39;</pre>
 </div>
 
 </div>

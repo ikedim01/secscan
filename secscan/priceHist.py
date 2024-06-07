@@ -2,7 +2,7 @@
 
 __all__ = ['USExchanges', 'getHistFStuff', 'getDayMap', 'getCombDayMap', 'getCombDayMapWithLookback',
            'getCombDayMapsForRangeWithLookback', 'getCleanedPriceData', 'getForwardReturns', 'getClosestReturn',
-           'getTextPriceDataset', 'get8KTexts', 'textScraperL']
+           'getTextPriceDataset', 'textScraperL']
 
 # Cell
 
@@ -237,10 +237,3 @@ def getTextPriceDataset(d1, d2, d3, d4, minPrice=None, **kwargs) :
 #                         for andL in searchREs) :
 #                     res.append((dStrIso, s['fClass'], accNo, info))
     print(len(symTexts),'stocks with CIK text found')
-
-def get8KTexts(info) :
-    res = ['FORM',]
-    for itemText in info.get('itemTexts',[]) :
-        if len(itemText.strip()) > 0 :
-            res.extend([itemText,'END ITEM.'])
-    return ' '.join(res)

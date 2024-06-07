@@ -64,3 +64,14 @@ class scraper8K(infoScraper.scraperBase) :
         super().__init__(infoDir, '8-K', **kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse8K(accNo, formType), None
+    def getTextDigest(self, info) :
+        res = []
+        if 'explanatoryNote' in info :
+            res.extend(['START NOTE.',info['explanatoryNote'].strip(),'END NOTE.'])
+        for itemText in info.get('itemTexts',[]) :
+            if len(itemText.strip()) > 0 :
+                res.extend(['START ITEM.',itemText.strip(),'END ITEM.'])
+        for prText in info.get('text99',[]) :
+            if len(prText.strip()) > 0 :
+                res.extend(['START PRESS RELEASE.',prText.strip(),'END PRESS RELEASE.'])
+        return ' '.join(res)

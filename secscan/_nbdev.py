@@ -239,7 +239,6 @@ index = {"boto3_available": "00_utils.ipynb",
          "getForwardReturns": "14_priceHist.ipynb",
          "getClosestReturn": "14_priceHist.ipynb",
          "getTextPriceDataset": "14_priceHist.ipynb",
-         "get8KTexts": "14_priceHist.ipynb",
          "textScraperL": "14_priceHist.ipynb"}
 
 modules = ["utils.py",

@@ -47,6 +47,8 @@ class scraperBase(object) :
         return basicInfo.getSecFormInfo(accNo, formType), None
     def rescrapeInfo(self, accNo, info) :
         raise Exception('rescrapeInfo not implemented for this class')
+    def getTextDigest(self, info) :
+        return ''
     def saveXInfo(self, dStr, accNo, xInfo) :
         utils.savePklToDir(os.path.join(self.infoDir,dStr), accNo+'-xinfo.pkl', xInfo, **self.pickSavePars)
     def loadXInfo(self, dStr, accNo) :
