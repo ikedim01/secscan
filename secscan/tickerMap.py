@@ -35,9 +35,9 @@ def getSecTickerDict(field1='ticker', field2='cik', multiValue='last') :
             res[field1Val].append(field2Val)
         elif multiValue=='last' or field1Val not in res :
             res[field1Val] = field2Val
-    print('result has',len(res),'keys',end='')
+    print(f'dict: {field1}->{field2} [multiValue={multiValue}] has {len(res)} keys',end='')
     if multiValue != 'list' :
-        print(' with',len(set(res.values())),'unique values',end='')
+        print(f' with {len(set(res.values()))} unique values',end='')
     print()
     return res
 

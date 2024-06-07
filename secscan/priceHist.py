@@ -2,10 +2,11 @@
 
 __all__ = ['USExchanges', 'getHistFStuff', 'getDayMap', 'getCombDayMap', 'getCombDayMapWithLookback',
            'getCombDayMapsForRangeWithLookback', 'getCleanedPriceData', 'getForwardReturns', 'getClosestReturn',
-           'getTextPriceDataset', 'textScraperL']
+           'getTextPriceDataset', 'get8KTexts', 'textScraperL']
 
 # Cell
 
+import collections
 import datetime
 import numpy as np
 import os
@@ -97,9 +98,7 @@ def getCombDayMapsForRangeWithLookback(d1, d2, **kwargs) :
     """
     dayMapCache = {}
     res = {}
-    for d in utils.dateStrsBetween(d1, d2) :
-        if utils.isWeekend(d) :
-            continue
+    for d in utils.dateStrsBetween(d1, d2, excludeWeekends=True) :
         res[d] = getCombDayMapWithLookback(d, dayMapCache=dayMapCache, **kwargs)
     return res
 
@@ -185,7 +184,7 @@ textScraperL = [
 ]
 
 @utils.delegates(getCombDayMapWithLookback)
-def getTextPriceDataset(d1, d2, d3, minPrice=None, **kwargs) :
+def getTextPriceDataset(d1, d2, d3, d4, minPrice=None, **kwargs) :
     """
     Constructs a text/price dataset for text-based prediction tests.
 
@@ -201,11 +200,47 @@ def getTextPriceDataset(d1, d2, d3, minPrice=None, **kwargs) :
     dateStrs is a list of date strings in the format '20240624'
     priceMat is a matrix of values with len(syms) rows and len(dateStrs) columns
     """
-    dm2 = getCombDayMapWithLookback(d2, **kwargs)
     dm3 = getCombDayMapWithLookback(d3, **kwargs)
-    syms = sorted(set(dm2.keys()).intersection(dm3.keys()))
-    print(len(syms),'stock symbols found')
+    dm4 = getCombDayMapWithLookback(d4, **kwargs)
+    symsWithPrices = sorted(set(dm3.keys()).intersection(dm4.keys()))
+    print(len(symsWithPrices),'stock symbols found')
     if minPrice is not None :
-        print('restricting to price >=',minPrice)
-        syms = [sym for sym in syms if dm2[sym]>=minPrice and dm3[sym]>=minPrice]
-        print('now',len(syms),'stocks')
+        print('restricting to price >=',minPrice,end=' ... ')
+        symsWithPrices = [sym for sym in symsWithPrices
+                          if dm3[sym]>=minPrice and dm4[sym]>=minPrice]
+        print('now',len(symsWithPrices),'stocks')
+    cikToTicker = tickerMap.getCikToFirstTickerMap()
+    tickerToCik = dict((ticker,cik) for cik,ticker in cikToTicker.items())
+    print('restricting to CIKs',end=' ... ')
+    symsWithPrices = [sym for sym in symsWithPrices if sym in tickerToCik]
+    print('now',len(symsWithPrices),'stocks')
+    for s in textScraperL :
+        print('loading',s['fClass'],end=' ... ')
+        s['scraper'] = s['class'](startD=d1, endD=d2)
+        s['scraper'].printCounts(verbose=False)
+    print('getting CIK texts',end=' ... ')
+    symsWithPricesAsSet = set(symsWithPrices)
+    symTexts = collections.defaultdict(list)
+    for d in utils.dateStrsBetween(d1, d2, excludeWeekends=True) :
+        for s in textScraperL :
+            for accNo,info in s['scraper'].infoMap[d].items() :
+                if info == 'ERROR' :
+                    continue
+                ciks = [cik.lstrip('0') for cik in info.get('ciks',[])]
+                ciks = [cik for cik in ciks
+                        if cikToTicker.get(cik,'-') in symsWithPricesAsSet]
+                if len(ciks)==0 :
+                    continue
+                for cik in ciks :
+                    symTexts[cikToTicker[cik]].append('TEXT')
+#                 if any(findAllSS(andL, info, ['cikNames']+s['infoTextKeys'])
+#                         for andL in searchREs) :
+#                     res.append((dStrIso, s['fClass'], accNo, info))
+    print(len(symTexts),'stocks with CIK text found')
+
+def get8KTexts(info) :
+    res = ['FORM',]
+    for itemText in info.get('itemTexts',[]) :
+        if len(itemText.strip()) > 0 :
+            res.extend([itemText,'END ITEM.'])
+    return ' '.join(res)

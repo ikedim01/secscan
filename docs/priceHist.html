@@ -60,7 +60,7 @@ AAL,08-Jan-2020,27.1,28.09,27.07,27.84,10497200
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getHistFStuff" class="doc_header"><code>getHistFStuff</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L20" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getHistFStuff</code>(<strong><code>exch</code></strong>, <strong><code>dateStr</code></strong>)</p>
+<h4 id="getHistFStuff" class="doc_header"><code>getHistFStuff</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L21" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getHistFStuff</code>(<strong><code>exch</code></strong>, <strong><code>dateStr</code></strong>)</p>
 </blockquote>
 <p>Returns (fName, fDir, fPath) containing the CSV file of historical prices
 for the given exchange and date.</p>
@@ -113,7 +113,7 @@ for the given exchange and date.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getDayMap" class="doc_header"><code>getDayMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L32" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getDayMap</code>(<strong><code>dateStr</code></strong>, <strong><code>exch</code></strong>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getDayMap" class="doc_header"><code>getDayMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getDayMap</code>(<strong><code>dateStr</code></strong>, <strong><code>exch</code></strong>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 <p>Parse the CSV file for a single day and exchange.
 Returns a dict:<stock symbol> -&gt; <value></p>
@@ -174,7 +174,7 @@ Returns a dict:<stock symbol> -&gt; <value></p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombDayMap" class="doc_header"><code>getCombDayMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMap</code>(<strong><code>dateStr</code></strong>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getCombDayMap" class="doc_header"><code>getCombDayMap</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L52" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMap</code>(<strong><code>dateStr</code></strong>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 
 <pre><code>Combines the day maps for a list of exchanges, optionally checking for symbols
@@ -234,7 +234,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombDayMapWithLookback" class="doc_header"><code>getCombDayMapWithLookback</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMapWithLookback</code>(<strong><code>forD</code></strong>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getCombDayMapWithLookback" class="doc_header"><code>getCombDayMapWithLookback</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L71" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMapWithLookback</code>(<strong><code>forD</code></strong>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 
 <pre><code>Get the day map for a given day, looking back a given number of days -
@@ -279,7 +279,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombDayMapsForRangeWithLookback" class="doc_header"><code>getCombDayMapsForRangeWithLookback</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMapsForRangeWithLookback</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getCombDayMapsForRangeWithLookback" class="doc_header"><code>getCombDayMapsForRangeWithLookback</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombDayMapsForRangeWithLookback</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 
 <pre><code>Get all the combined day maps from d1 (inclusive) to d2 (exclusive), with lookback.
@@ -347,7 +347,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCleanedPriceData" class="doc_header"><code>getCleanedPriceData</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L108" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCleanedPriceData</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getCleanedPriceData" class="doc_header"><code>getCleanedPriceData</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L107" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCleanedPriceData</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 
 <pre><code>Constructs a price dataset for direct indexing tests.
@@ -422,7 +422,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getForwardReturns" class="doc_header"><code>getForwardReturns</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L158" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getForwardReturns</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>weekdaysForward</code></strong>=<em><code>20</code></em>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getForwardReturns" class="doc_header"><code>getForwardReturns</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L157" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getForwardReturns</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>weekdaysForward</code></strong>=<em><code>20</code></em>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 <hr>
 <p>getCleanedPriceData arguments: minPrice=None, restrictToNames=False, dayMapCache=None, lookback=7, exchs=['AMEX', 'NASDAQ', 'NYSE', 'OTCBB'], checkDups=True, symCol='Symbol', priceCol='Close'</p>
@@ -499,7 +499,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getClosestReturn" class="doc_header"><code>getClosestReturn</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L169" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getClosestReturn</code>(<strong><code>sym</code></strong>, <strong><code>syms</code></strong>, <strong><code>symNames</code></strong>, <strong><code>dateStrs</code></strong>, <strong><code>returnMat</code></strong>)</p>
+<h4 id="getClosestReturn" class="doc_header"><code>getClosestReturn</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L168" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getClosestReturn</code>(<strong><code>sym</code></strong>, <strong><code>syms</code></strong>, <strong><code>symNames</code></strong>, <strong><code>dateStrs</code></strong>, <strong><code>returnMat</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -554,8 +554,8 @@ duplicated keys: NYSE 20230321 [&#39;AMB.W&#39;]
 duplicated keys: NYSE 20230322 [&#39;AMB.W&#39;]
 duplicated keys: OTCBB 20230323 [&#39;CETY&#39;]
 duplicated keys: OTCBB 20230614 [&#39;LTRY&#39;, &#39;LTRYW&#39;]
-SEC ticker list length 10288 with 10288 unique values
-result has 10288 keys with 8030 unique values
+SEC ticker list length 10283 with 10283 unique values
+result has 10283 keys with 8025 unique values
 8541 symbols 283 dates
 </pre>
 </div>
@@ -777,7 +777,7 @@ result has 10288 keys with 8030 unique values
  (&#39;NTCT (NETSCOUT SYSTEMS INC)&#39;, 3.093619695327906),
  (&#39;WHR (WHIRLPOOL CORP /DE/)&#39;, 3.1580493246124544),
  (&#39;NJDCY&#39;, 3.193515114816411),
- (&#39;CNHI (CNH Industrial N.V.)&#39;, 3.29110063382151),
+ (&#39;CNHI&#39;, 3.29110063382151),
  (&#39;HTLD (HEARTLAND EXPRESS INC)&#39;, 3.3082190659668576),
  (&#39;GGT (GABELLI MULTIMEDIA TRUST INC.)&#39;, 3.3232999413469373),
  (&#39;PAYC (Paycom Software, Inc.)&#39;, 3.3241541343912147),
@@ -869,7 +869,7 @@ result has 10288 keys with 8030 unique values
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getTextPriceDataset" class="doc_header"><code>getTextPriceDataset</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L187" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextPriceDataset</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
+<h4 id="getTextPriceDataset" class="doc_header"><code>getTextPriceDataset</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L186" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextPriceDataset</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>d4</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>dayMapCache</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Close'</code></em>)</p>
 </blockquote>
 
 <pre><code>Constructs a text/price dataset for text-based prediction tests.
@@ -925,6 +925,30 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get8KTexts" class="doc_header"><code>get8KTexts</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L241" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get8KTexts</code>(<strong><code>info</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 </div>
     {% endraw %}
 
@@ -935,7 +959,8 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getTextPriceDataset</span><span class="p">(</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240401&#39;</span><span class="p">,</span><span class="n">minPrice</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getTextPriceDataset</span><span class="p">(</span><span class="s1">&#39;20231001&#39;</span><span class="p">,</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240101&#39;</span><span class="p">,</span><span class="s1">&#39;20240401&#39;</span><span class="p">,</span><span class="n">minPrice</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">scrape8K</span><span class="o">.</span><span class="n">scraper8K</span><span class="p">(</span><span class="n">startD</span><span class="o">=</span><span class="s1">&#39;20231001&#39;</span><span class="p">,</span><span class="n">endD</span><span class="o">=</span><span class="s1">&#39;20240101&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -949,8 +974,13 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>15656 stock symbols found
-restricting to price &gt;= 1.0
-now 11738 stocks
+restricting to price &gt;= 1.0 ... now 11738 stocks
+SEC ticker list length 10283 with 8026 unique values
+result has 8026 keys with 8026 unique values
+restricting to CIKs ... now 5542 stocks
+loading 8-K ... Total filings: 17114
+loading 6-K ... Total filings: 6629
+getting CIK texts ... 4916 stocks with CIK text found
 </pre>
 </div>
 </div>
@@ -968,39 +998,7 @@ now 11738 stocks
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>SEC ticker list length 10288 with 8031 unique values
-result has 8031 keys with 8031 unique values
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get8KTexts</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">infoMap</span><span class="p">[</span><span class="s1">&#39;20231002&#39;</span><span class="p">][</span><span class="s1">&#39;0001193125-23-248561&#39;</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -1015,7 +1013,7 @@ result has 8031 keys with 8031 unique values
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;GOOGL&#39;</pre>
+<pre>&#39;FORM Item 1.01 Entry into a Material Definitive Agreement. On September 29, 2023, Medallion Financial Corp., a Delaware corporation (the “Company”), entered into several Note Purchase Agreements (the “Note Purchase Agreements”) with certain institutional investors relating to the private placement of its $39.0 million aggregate principal amount of 9.25% Senior Notes due 2028 (the “Notes”). Closing of the issuance and sale of the Notes occurred on September 29, 2023. The private placement of the Notes was exempt from registration under the Securities Act of 1933, as amended. The Notes mature on September 30, 2028 and bear a fixed interest rate of 9.25% per year. Interest payments on the Notes are payable semiannually on March 30 and September 30 of each year, commencing on March 30, 2024. The Notes are unsecured and unsubordinated obligations of the Company, ranking pari passu in all respects with the Company’s existing and future unsecured and unsubordinated indebtedness. A portion of the n END ITEM. Item 2.03 Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant. Reference is made to the disclosure set forth under Item 1.01 above, which is incorporated herein by reference.  END ITEM. Item 8.01. Other Events. On October 2, 2023, the Company issued a press release announcing the Note Purchase Agreements and the Notes issued thereunder, along with the use of a portion of the proceeds therefrom to repurchase certain of the outstanding 2024 Notes. The press release is attached as Exhibit 99.1 hereto and is incorporated in this Item 8.01 by reference. - 2 -  END ITEM. Item 9.01 Financial Statements and Exhibits (d) Exhibits The following exhibits are being filed with this Current Report on Form 8-K: 4.1 Form of Note Purchase Agreement, including the form of Note attached thereto. 99.1 Press Release, dated October 2, 2023. 104 Cover Page Interactive Data File (embedded within the Inline XBRL document) - 3 - SIGNATURE Pursuant to the requirements of the Securities Exchange Act of 1934, as amended, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized. Dated: October 2, 2023 MEDALLION FINANCIAL CORP. By: /s/ Anthony N. Cutrone Name: Anthony N. Cutrone Title: Executive Vice President and Chief Financial Officer END ITEM.&#39;</pre>
 </div>
 
 </div>
@@ -1033,39 +1031,7 @@ result has 8031 keys with 8031 unique values
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>SEC ticker list length 10288 with 8031 unique values
-result has 8031 keys
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">infoMap</span><span class="p">[</span><span class="s1">&#39;20231002&#39;</span><span class="p">][</span><span class="s1">&#39;0001193125-23-248561&#39;</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -1080,7 +1046,60 @@ result has 8031 keys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;GOOGL&#39;, &#39;GOOG&#39;]</pre>
+<pre>{&#39;links&#39;: [(&#39;d692601d8k.htm&#39;,
+   &#39;8-K&#39;,
+   &#39;8-K&#39;,
+   &#39;/ix?doc=/Archives/edgar/data/1000209/000119312523248561/d692601d8k.htm&#39;),
+  (&#39;d692601dex41.htm&#39;,
+   &#39;EX-4.1&#39;,
+   &#39;EX-4.1&#39;,
+   &#39;/Archives/edgar/data/1000209/000119312523248561/d692601dex41.htm&#39;),
+  (&#39;d692601dex991.htm&#39;,
+   &#39;EX-99.1&#39;,
+   &#39;EX-99.1&#39;,
+   &#39;/Archives/edgar/data/1000209/000119312523248561/d692601dex991.htm&#39;),
+  (&#39;g692601g0929213642782.jpg&#39;,
+   &#39;GRAPHIC&#39;,
+   &#39;GRAPHIC&#39;,
+   &#39;/Archives/edgar/data/1000209/000119312523248561/g692601g0929213642782.jpg&#39;),
+  (&#39;mfin-20230929.xsd&#39;,
+   &#39;XBRL TAXONOMY EXTENSION SCHEMA&#39;,
+   &#39;EX-101.SCH&#39;,
+   &#39;/Archives/edgar/data/1000209/000119312523248561/mfin-20230929.xsd&#39;),
+  (&#39;mfin-20230929_lab.xml&#39;,
+   &#39;XBRL TAXONOMY EXTENSION LABEL LINKBASE&#39;,
+   &#39;EX-101.LAB&#39;,
+   &#39;/Archives/edgar/data/1000209/000119312523248561/mfin-20230929_lab.xml&#39;),
+  (&#39;mfin-20230929_pre.xml&#39;,
+   &#39;XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE&#39;,
+   &#39;EX-101.PRE&#39;,
+   &#39;/Archives/edgar/data/1000209/000119312523248561/mfin-20230929_pre.xml&#39;),
+  (&#39;d692601d8k_htm.xml&#39;,
+   &#39;EXTRACTED XBRL INSTANCE DOCUMENT&#39;,
+   &#39;XML&#39;,
+   &#39;/Archives/edgar/data/1000209/000119312523248561/d692601d8k_htm.xml&#39;)],
+ &#39;complete&#39;: &#39;/Archives/edgar/data/1000209/000119312523248561/0001193125-23-248561.txt&#39;,
+ &#39;ciks&#39;: [&#39;0001000209&#39;],
+ &#39;cikTypes&#39;: [&#39;Filer&#39;],
+ &#39;text99&#39;: [&#39;&#39;,
+  &#39;&#39;,
+  &#39;FOR IMMEDIATE RELEASE: MEDALLION FINANCIAL CORP. ANNOUNCES COMPLETION OF PRIVATE PLACEMENT OF $39.0 MILLION OF SENIOR NOTES NEW YORK, NY – October 2, 2023 – Medallion Financial Corp. (NASDAQ: MFIN, “Medallion” or the “Company”), a specialty finance company that originates and services loans in various consumer and commercial industries, along with offering loan origination services to fintech strategic partners, announced today that it has completed a private placement of $39.0 million aggregate principal amount of senior unsecured notes to certain institutional investors. The notes will mature on September 30, 2028, and bear a fixed interest rate of 9.25% per year, paid semi-annually. The notes received an investment grade rating of A- by Egan-Jones. The Company used a portion of the proceeds from this offering to repurchase $33.0 million aggregate principal amount of its existing 8.25% senior notes due 2024. The balance will be used for general corporate purposes, which may include&#39;,
+  &#39;&#39;,
+  &#39;&#39;,
+  &#39;&#39;,
+  &#39;&#39;,
+  &#39;&#39;],
+ &#39;period&#39;: &#39;2023-09-29&#39;,
+ &#39;acceptDate&#39;: &#39;2023-10-02&#39;,
+ &#39;acceptTime&#39;: &#39;09:39:30&#39;,
+ &#39;items&#39;: [&#39;Item 1.01: Entry into a Material Definitive Agreement&#39;,
+  &#39;Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant&#39;,
+  &#39;Item 8.01: Other Events&#39;,
+  &#39;Item 9.01: Financial Statements and Exhibits&#39;],
+ &#39;itemTexts&#39;: [&#39;Item 1.01 Entry into a Material Definitive Agreement. On September 29, 2023, Medallion Financial Corp., a Delaware corporation (the “Company”), entered into several Note Purchase Agreements (the “Note Purchase Agreements”) with certain institutional investors relating to the private placement of its $39.0 million aggregate principal amount of 9.25% Senior Notes due 2028 (the “Notes”). Closing of the issuance and sale of the Notes occurred on September 29, 2023. The private placement of the Notes was exempt from registration under the Securities Act of 1933, as amended. The Notes mature on September 30, 2028 and bear a fixed interest rate of 9.25% per year. Interest payments on the Notes are payable semiannually on March 30 and September 30 of each year, commencing on March 30, 2024. The Notes are unsecured and unsubordinated obligations of the Company, ranking pari passu in all respects with the Company’s existing and future unsecured and unsubordinated indebtedness. A portion of the n&#39;,
+  &#39;Item 2.03 Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant. Reference is made to the disclosure set forth under Item 1.01 above, which is incorporated herein by reference. &#39;,
+  &#39;Item 8.01. Other Events. On October 2, 2023, the Company issued a press release announcing the Note Purchase Agreements and the Notes issued thereunder, along with the use of a portion of the proceeds therefrom to repurchase certain of the outstanding 2024 Notes. The press release is attached as Exhibit 99.1 hereto and is incorporated in this Item 8.01 by reference. - 2 - &#39;,
+  &#39;Item 9.01 Financial Statements and Exhibits (d) Exhibits The following exhibits are being filed with this Current Report on Form 8-K: 4.1 Form of Note Purchase Agreement, including the form of Note attached thereto. 99.1 Press Release, dated October 2, 2023. 104 Cover Page Interactive Data File (embedded within the Inline XBRL document) - 3 - SIGNATURE Pursuant to the requirements of the Securities Exchange Act of 1934, as amended, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized. Dated: October 2, 2023 MEDALLION FINANCIAL CORP. By: /s/ Anthony N. Cutrone Name: Anthony N. Cutrone Title: Executive Vice President and Chief Financial Officer&#39;]}</pre>
 </div>
 
 </div>
