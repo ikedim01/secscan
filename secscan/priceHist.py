@@ -16,7 +16,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 
-from secscan import utils,tickerMap,scrape8K,scrape6K
+from secscan import utils,tickerMap,scrape8K,scrape6K,scrape13D
 
 USExchanges = ['AMEX','NASDAQ','NYSE','OTCBB']
 
@@ -235,7 +235,7 @@ def genServList(fName, syms) :
 # Cell
 
 textScraperClasses = [
-    scrape8K.scraper8K, scrape6K.scraper6K,
+    scrape8K.scraper8K, scrape6K.scraper6K, scrape13D.scraper13D
 ]
 
 @utils.delegates(getCombDayMapWithLookback)

@@ -259,6 +259,11 @@ class scraper13G(infoScraper.scraperBase) :
         return parse13GD(accNo, formType=formType), None
     def rescrapeInfo(self, accNo, info) :
         return parse13GD(accNo, info=info)
+    def getTextDigest(self, info) :
+        purposeText = info.get('purpose','').strip()
+        if purposeText == '' :
+            return ''
+        return ' '.join(['START PURPOSE.',purposeText,'END PURPOSE.'])
 
 # Cell
 
