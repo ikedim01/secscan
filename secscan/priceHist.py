@@ -15,6 +15,7 @@ import os
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+import time
 
 from secscan import utils,tickerMap,scrape8K,scrape6K,scrape13D
 
@@ -340,7 +341,7 @@ def getCombTextEmbedding(sym, symTexts, model='text-embedding-3-small', **kwargs
     return np.array(response.data[0].embedding)
 
 @utils.delegates(getCombTextEmbedding)
-def cacheEmbeddings(fName, syms, symTexts, **kwargs) :
+def cacheEmbeddings(fName, syms, symTexts, verbose=False, sleepTime=0.25, **kwargs) :
     """
     Caches the embeddings for the combined text digests for the given symbols
     in the named file under utils.stockDataRoot, subdir 'embeddings'.
@@ -351,12 +352,15 @@ def cacheEmbeddings(fName, syms, symTexts, **kwargs) :
     nMissing = 0
     for sym in syms :
         if sym in embCache :
-            print(sym,'loaded',end='; ')
+            if verbose :
+                print(sym,'loaded',end='; ')
         elif openAI_client is None :
             print('MISSING',sym,end='; ')
             nMissing += 1
         else :
             print('getting',sym,'embedding',end=' ')
+            if sleepTime is not None :
+                time.sleep(sleepTime)
             embCache[sym] = getCombTextEmbedding(sym, symTexts, **kwargs)
             dirty = True
     if nMissing > 0 :
