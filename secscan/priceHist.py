@@ -3,8 +3,9 @@
 __all__ = ['USExchanges', 'getHistFStuff', 'getDayMap', 'getCombDayMap', 'getCombDayMapWithLookback',
            'getCombDayMapsForRangeWithLookback', 'dayMapCache', 'tickerNames', 'cikToTicker', 'tickerToCik',
            'getCleanedPriceData', 'getSortedReturns', 'getForwardReturns', 'getClosestReturn', 'genServList',
-           'getTextPriceDataset', 'getCombTextDigest', 'getCombTextEmbedding', 'cacheEmbeddings', 'findClosestEmbs',
-           'makePortEmbDataSet', 'getRecsFromPort', 'textScraperClasses', 'openAI_client']
+           'getTextPriceDataset', 'getCombTextDigest', 'getCombTextEmbedding', 'init_openAI', 'cacheEmbeddings',
+           'findClosestEmbs', 'makePortEmbDataSet', 'getRecsFromPort', 'textScraperClasses', 'openAI_client',
+           'openAI_defKeyPath']
 
 # Cell
 
@@ -339,6 +340,16 @@ def getCombTextEmbedding(sym, symTexts, model='text-embedding-3-small', **kwargs
     print('symbol',sym,'text length',len(combText))
     response = openAI_client.embeddings.create(input=combText, model=model)
     return np.array(response.data[0].embedding)
+
+openAI_defKeyPath = os.path.join('..','xyzzy.txt')
+
+def init_openAI(keyPath=openAI_defKeyPath) :
+    global openAI_client
+    from openai import OpenAI
+    #from openai.embeddings_utils import get_embedding, cosine_similarity
+    with open(keyPath,'r') as f :
+        openAI_api_key = f.read()
+    openAI_client = OpenAI(api_key=openAI_api_key)
 
 @utils.delegates(getCombTextEmbedding)
 def cacheEmbeddings(fName, syms, symTexts, verbose=False, sleepTime=0.25, **kwargs) :

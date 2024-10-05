@@ -247,12 +247,14 @@ index = {"boto3_available": "00_utils.ipynb",
          "getTextPriceDataset": "14_priceHist.ipynb",
          "getCombTextDigest": "14_priceHist.ipynb",
          "getCombTextEmbedding": "14_priceHist.ipynb",
+         "init_openAI": "14_priceHist.ipynb",
          "cacheEmbeddings": "14_priceHist.ipynb",
          "findClosestEmbs": "14_priceHist.ipynb",
          "makePortEmbDataSet": "14_priceHist.ipynb",
          "getRecsFromPort": "14_priceHist.ipynb",
          "textScraperClasses": "14_priceHist.ipynb",
-         "openAI_client": "14_priceHist.ipynb"}
+         "openAI_client": "14_priceHist.ipynb",
+         "openAI_defKeyPath": "14_priceHist.ipynb"}
 
 modules = ["utils.py",
            "recentFeed.py",
