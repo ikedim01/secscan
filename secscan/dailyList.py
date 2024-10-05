@@ -314,6 +314,29 @@ class dailyList(object) :
         res.sort()
         res.sort(key = lambda x : x[0], reverse=True)
         return res, accNosByCik
+    def compareFClasses(self, fc1, fc2) :
+        """
+        Compare two form classes (used to change a definition when needed,
+        ex. when some filings started using "SCHEDULE 13G" instead of "SC 13G").
+        """
+        fl1,cikMap1 = self.getFilingsList(formClass=fc1)
+        fl2,cikMap2 = self.getFilingsList(formClass=fc2)
+        accN1 = set(tup[3] for tup in fl1)
+        accN2 = set(tup[3] for tup in fl2)
+        cikN1 = set(tup[1] for tup in fl1)
+        cikN2 = set(tup[1] for tup in fl2)
+        ciks1 = set(cikMap1.keys())
+        ciks2 = set(cikMap2.keys())
+        print('dailyList entries:')
+        print(f'    [[{fc1}]] {len(fl1)}')
+        print(f'    [[{fc2}]] {len(fl2)}')
+        print('in both:',len(accN1&accN2),'forms',len(ciks1&ciks2),'ciks',len(cikN1&cikN2),'cik names')
+        print('first only:',len(accN1-accN2),'forms',len(ciks1-ciks2),'ciks',len(cikN1-cikN2),'cik names')
+        if len(cikN1-cikN2) > 0 :
+            print(cikN1-cikN2)
+        print('second only:',len(accN2-accN1),'forms',len(ciks2-ciks1),'ciks',len(cikN2-cikN1),'cik names')
+        if len(cikN2-cikN1) > 0 :
+            print(cikN2-cikN1)
     def restrictedCikNameMap(self, ciks) :
         "Create a dict : cik -> latest name restricted to a given list or set of ciks."
         return dict((cik,self.cikNames[cik][0]) for cik in ciks)
