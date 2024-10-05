@@ -49,7 +49,7 @@ def saveCikFInfo(cik, cikFInfo, removeDups=False, cikFInfoDir=defaultCikFInfoDir
         existingCikFInfo = loadCikFInfo(cik, cikFInfoDir=cikFInfoDir)
         cikFInfo = dict((k,v) for k,v in cikFInfo.items() if k not in existingCikFInfo)
     if len(cikFInfo) == 0 :
-        return
+        return 0
     s = json.dumps(cikFInfo, indent=0).strip()
     if s[0]!='{' or s[-1]!='}' :
         raise jsonValError('missing start/end {}', s)
@@ -59,6 +59,7 @@ def saveCikFInfo(cik, cikFInfo, removeDups=False, cikFInfoDir=defaultCikFInfoDir
     with open(fPath,'a',encoding='ascii') as f :
         f.write(s[1:-1])
         f.write(',\n')
+    return 1
 
 def modifyInfoForDisp(info, scraper, cikNames) :
     if info == 'ERROR' :
@@ -99,10 +100,12 @@ def saveAllCikFInfo(startD, endD, scraperClasses,
             for info in dInfo.values() :
                 modifyInfoForDisp(info, scraper, dl.cikNames)
         scraper.addToCikInfoMap(dl, cikInfoMap, ciks=ciks, excludeDates=datesPresent)
+    cikModCount = 0
     for cik,cikFInfo in cikInfoMap.items() :
         if (ciks is not None and cik not in ciks) :
             continue
-        saveCikFInfo(cik, cikFInfo, removeDups=removeDups, cikFInfoDir=cikFInfoDir)
+        cikModCount += saveCikFInfo(cik, cikFInfo, removeDups=removeDups, cikFInfoDir=cikFInfoDir)
+    print('saved new info for',cikModCount,'CIKs')
     datesPresent.update(dl.dl.keys())
     print('now',len(datesPresent),'dates present')
     utils.savePklToDir(cikFInfoDir, "dates.pkl", datesPresent)
