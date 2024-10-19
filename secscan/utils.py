@@ -8,7 +8,8 @@ __all__ = ['boto3_available', 'setStockDataRoot', 'stockDataRoot', 'setStockPric
            'pickleFromBytes', 'pickSave', 'pickLoad', 'pickLoadIfPath', 'pickSaveToS3', 'pickLoadFromS3',
            'pickLoadFromS3Public', 'savePklToDir', 'loadPklFromDir', 'saveSplitPklToDir', 'loadSplitPklFromDir',
            'addMissingOnesF', 'toDateStr', 'toDate', 'isWeekend', 'dateStrsBetween', 'formatDateStr', 'dateStr8Pat',
-           'curEasternUSTime', 'easternUSTimeZone', 'sanitizeText', 'secBrowse', 'printSamp', 'printErrInfoOrAccessNo']
+           'curEasternUSTime', 'wasUpdatedToday', 'easternUSTimeZone', 'sanitizeText', 'secBrowse', 'printSamp',
+           'printErrInfoOrAccessNo']
 
 # Cell
 
@@ -485,6 +486,13 @@ def formatDateStr(dStr,sep='-') :
 easternUSTimeZone = timezone('US/Eastern')
 def curEasternUSTime() :
     return datetime.datetime.now(easternUSTimeZone)
+
+def wasUpdatedToday(fPath) :
+    """
+    Says if a file was last modified today (assuming system is on Eastern time).
+    """
+    return (utils.curEasternUSTime().isoformat()[:10]
+        == datetime.datetime.fromtimestamp(os.path.getmtime(fPath)).isoformat()[:10])
 
 # Cell
 
