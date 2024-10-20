@@ -26,23 +26,6 @@ nb_path: "14_priceHist.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>SEC ticker list length 10195 with 10195 unique values
-dict: ticker-&gt;name [multiValue=last] has 10195 keys with 8010 unique values
-SEC ticker list length 10195 with 8011 unique values
-dict: cik-&gt;ticker [multiValue=first] has 8011 keys with 8011 unique values
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -362,6 +345,30 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 <div class="output_area">
 
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="initTickerMappings" class="doc_header"><code>initTickerMappings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L114" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>initTickerMappings</code>()</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>SEC ticker list length 10160 with 10160 unique values
 dict: ticker-&gt;name [multiValue=last] has 10160 keys with 7985 unique values
@@ -388,7 +395,7 @@ dict: cik-&gt;ticker [multiValue=first] has 7986 keys with 7986 unique values
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCleanedPriceData" class="doc_header"><code>getCleanedPriceData</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L119" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCleanedPriceData</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Open'</code></em>)</p>
+<h4 id="getCleanedPriceData" class="doc_header"><code>getCleanedPriceData</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L123" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCleanedPriceData</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Open'</code></em>)</p>
 </blockquote>
 
 <pre><code>Constructs a price dataset for direct indexing tests.
@@ -463,7 +470,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getSortedReturns" class="doc_header"><code>getSortedReturns</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L165" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSortedReturns</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>highestFirst</code></strong>=<em><code>True</code></em>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Open'</code></em>)</p>
+<h4 id="getSortedReturns" class="doc_header"><code>getSortedReturns</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L170" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getSortedReturns</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>highestFirst</code></strong>=<em><code>True</code></em>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Open'</code></em>)</p>
 </blockquote>
 
 <pre><code>Gets a sorted list of stock price returns between two dates.
@@ -547,7 +554,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getForwardReturns" class="doc_header"><code>getForwardReturns</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L185" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getForwardReturns</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>weekdaysForward</code></strong>=<em><code>20</code></em>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Open'</code></em>)</p>
+<h4 id="getForwardReturns" class="doc_header"><code>getForwardReturns</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L190" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getForwardReturns</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>weekdaysForward</code></strong>=<em><code>20</code></em>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>restrictToNames</code></strong>=<em><code>False</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Open'</code></em>)</p>
 </blockquote>
 
 <pre><code>Calculates a matrix of forward percentage returns looking ahead weekdaysForward
@@ -633,7 +640,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getClosestReturn" class="doc_header"><code>getClosestReturn</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L204" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getClosestReturn</code>(<strong><code>sym</code></strong>, <strong><code>syms</code></strong>, <strong><code>symNames</code></strong>, <strong><code>dateStrs</code></strong>, <strong><code>returnMat</code></strong>, <strong><code>fName</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>)</p>
+<h4 id="getClosestReturn" class="doc_header"><code>getClosestReturn</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L209" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getClosestReturn</code>(<strong><code>sym</code></strong>, <strong><code>syms</code></strong>, <strong><code>symNames</code></strong>, <strong><code>dateStrs</code></strong>, <strong><code>returnMat</code></strong>, <strong><code>fName</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>)</p>
 </blockquote>
 <p>Finds the symbols with the closest average forward return to a given symbol.</p>
 <p>Returns a list:
@@ -660,7 +667,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="genServList" class="doc_header"><code>genServList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L222" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>genServList</code>(<strong><code>fName</code></strong>, <strong><code>syms</code></strong>)</p>
+<h4 id="genServList" class="doc_header"><code>genServList</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L227" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>genServList</code>(<strong><code>fName</code></strong>, <strong><code>syms</code></strong>)</p>
 </blockquote>
 <p>Save a list of stock symbols and CIKs in display format for my secscrape server.</p>
 
@@ -1249,7 +1256,7 @@ skipping AGNCM (no CIK)
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getTextPriceDataset" class="doc_header"><code>getTextPriceDataset</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L243" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextPriceDataset</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>d4</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Open'</code></em>)</p>
+<h4 id="getTextPriceDataset" class="doc_header"><code>getTextPriceDataset</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L249" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getTextPriceDataset</code>(<strong><code>d1</code></strong>, <strong><code>d2</code></strong>, <strong><code>d3</code></strong>, <strong><code>d4</code></strong>, <strong><code>minPrice</code></strong>=<em><code>None</code></em>, <strong><code>lookback</code></strong>=<em><code>7</code></em>, <strong><code>exchs</code></strong>=<em><code>['AMEX', 'NASDAQ', 'NYSE', 'OTCBB']</code></em>, <strong><code>checkDups</code></strong>=<em><code>True</code></em>, <strong><code>symCol</code></strong>=<em><code>'Symbol'</code></em>, <strong><code>priceCol</code></strong>=<em><code>'Open'</code></em>)</p>
 </blockquote>
 
 <pre><code>Constructs a text/price dataset for text-based prediction tests.
@@ -1317,7 +1324,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombTextDigest" class="doc_header"><code>getCombTextDigest</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L312" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextDigest</code>(<strong><code>sym</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
+<h4 id="getCombTextDigest" class="doc_header"><code>getCombTextDigest</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextDigest</code>(<strong><code>sym</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
 </blockquote>
 <p>Returns a combined text digest for a symbol, where symTexts maps symbols
 to lists of text digests, earliest first. Just concatenates all the most
@@ -1344,7 +1351,7 @@ recent text digests that will fit into the given character limit.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombTextEmbedding" class="doc_header"><code>getCombTextEmbedding</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L334" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextEmbedding</code>(<strong><code>sym</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>model</code></strong>=<em><code>'text-embedding-3-small'</code></em>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
+<h4 id="getCombTextEmbedding" class="doc_header"><code>getCombTextEmbedding</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L342" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextEmbedding</code>(<strong><code>sym</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>model</code></strong>=<em><code>'text-embedding-3-small'</code></em>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
 </blockquote>
 
 <pre><code>Calls the OpenAI API to get the embedding for the combined text digest for a given symbol.
@@ -1378,7 +1385,7 @@ recent text digests that will fit into the given character limit.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="init_openAI" class="doc_header"><code>init_openAI</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L346" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>init_openAI</code>(<strong><code>keyPath</code></strong>=<em><code>'..\\xyzzy.txt'</code></em>)</p>
+<h4 id="init_openAI" class="doc_header"><code>init_openAI</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L354" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>init_openAI</code>(<strong><code>keyPath</code></strong>=<em><code>'..\\xyzzy.txt'</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1402,7 +1409,7 @@ recent text digests that will fit into the given character limit.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="cacheEmbeddings" class="doc_header"><code>cacheEmbeddings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L354" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cacheEmbeddings</code>(<strong><code>fName</code></strong>, <strong><code>syms</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>sleepTime</code></strong>=<em><code>0.25</code></em>, <strong><code>model</code></strong>=<em><code>'text-embedding-3-small'</code></em>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
+<h4 id="cacheEmbeddings" class="doc_header"><code>cacheEmbeddings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L362" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cacheEmbeddings</code>(<strong><code>fName</code></strong>, <strong><code>syms</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>sleepTime</code></strong>=<em><code>0.25</code></em>, <strong><code>model</code></strong>=<em><code>'text-embedding-3-small'</code></em>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
 </blockquote>
 
 <pre><code>Caches the embeddings for the combined text digests for the given symbols
@@ -1443,7 +1450,7 @@ recent text digests that will fit into the given character limit.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="findClosestEmbs" class="doc_header"><code>findClosestEmbs</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L388" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>findClosestEmbs</code>(<strong><code>toSym</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>fName</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>, <strong><code>distFunc</code></strong>=<em><code>&lt;lambda&gt;</code></em>, <strong><code>reverse</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="findClosestEmbs" class="doc_header"><code>findClosestEmbs</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L396" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>findClosestEmbs</code>(<strong><code>toSym</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>fName</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>, <strong><code>distFunc</code></strong>=<em><code>&lt;lambda&gt;</code></em>, <strong><code>reverse</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Finds the symbols in the given list with the embeddings closest to the given symbol,
 using the given distance function. The embeddings must have been previously cached
@@ -1470,7 +1477,7 @@ using cacheEmbeddings.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="makePortEmbDataSet" class="doc_header"><code>makePortEmbDataSet</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L404" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>makePortEmbDataSet</code>(<strong><code>portSyms</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>posWeight</code></strong>=<em><code>1.0</code></em>, <strong><code>negWeight</code></strong>=<em><code>0.001</code></em>)</p>
+<h4 id="makePortEmbDataSet" class="doc_header"><code>makePortEmbDataSet</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L412" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>makePortEmbDataSet</code>(<strong><code>portSyms</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>posWeight</code></strong>=<em><code>1.0</code></em>, <strong><code>negWeight</code></strong>=<em><code>0.001</code></em>)</p>
 </blockquote>
 <p>Create a data set for training classification models based on a given list of portfolio symbols.
 The embeddings for the portfolio symbols will have y=1 and weight=posWeight,
@@ -1497,7 +1504,7 @@ while those for the non-portfolio symbols will have y=0 and weight=negWeight.</p
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getRecsFromPort" class="doc_header"><code>getRecsFromPort</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L422" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecsFromPort</code>(<strong><code>portSyms</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>n</code></strong>=<em><code>30</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>posWeight</code></strong>=<em><code>1.0</code></em>, <strong><code>negWeight</code></strong>=<em><code>0.001</code></em>)</p>
+<h4 id="getRecsFromPort" class="doc_header"><code>getRecsFromPort</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L430" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecsFromPort</code>(<strong><code>portSyms</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>n</code></strong>=<em><code>30</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>posWeight</code></strong>=<em><code>1.0</code></em>, <strong><code>negWeight</code></strong>=<em><code>0.001</code></em>)</p>
 </blockquote>
 
 <pre><code>Fit a classification model based on the given portfolio of symbols

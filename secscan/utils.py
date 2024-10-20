@@ -491,8 +491,9 @@ def wasUpdatedToday(fPath) :
     """
     Says if a file was last modified today (assuming system is on Eastern time).
     """
-    return (utils.curEasternUSTime().isoformat()[:10]
-        == datetime.datetime.fromtimestamp(os.path.getmtime(fPath)).isoformat()[:10])
+    return (os.path.exists(fPath)
+            and (curEasternUSTime().isoformat()[:10]
+                 == datetime.datetime.fromtimestamp(os.path.getmtime(fPath)).isoformat()[:10]))
 
 # Cell
 
