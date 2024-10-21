@@ -1324,7 +1324,7 @@ Returns a dict:&lt;stock symbol&gt; -&gt; &lt;value&gt;</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombTextDigest" class="doc_header"><code>getCombTextDigest</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextDigest</code>(<strong><code>sym</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
+<h4 id="getCombTextDigest" class="doc_header"><code>getCombTextDigest</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L319" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextDigest</code>(<strong><code>sym</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
 </blockquote>
 <p>Returns a combined text digest for a symbol, where symTexts maps symbols
 to lists of text digests, earliest first. Just concatenates all the most
@@ -1351,7 +1351,7 @@ recent text digests that will fit into the given character limit.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getCombTextEmbedding" class="doc_header"><code>getCombTextEmbedding</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L342" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextEmbedding</code>(<strong><code>sym</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>model</code></strong>=<em><code>'text-embedding-3-small'</code></em>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
+<h4 id="getCombTextEmbedding" class="doc_header"><code>getCombTextEmbedding</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L341" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getCombTextEmbedding</code>(<strong><code>sym</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>model</code></strong>=<em><code>'text-embedding-3-small'</code></em>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
 </blockquote>
 
 <pre><code>Calls the OpenAI API to get the embedding for the combined text digest for a given symbol.
@@ -1385,7 +1385,7 @@ recent text digests that will fit into the given character limit.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="init_openAI" class="doc_header"><code>init_openAI</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L354" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>init_openAI</code>(<strong><code>keyPath</code></strong>=<em><code>'..\\xyzzy.txt'</code></em>)</p>
+<h4 id="init_openAI" class="doc_header"><code>init_openAI</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L353" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>init_openAI</code>(<strong><code>keyPath</code></strong>=<em><code>'..\\xyzzy.txt'</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1409,7 +1409,7 @@ recent text digests that will fit into the given character limit.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="cacheEmbeddings" class="doc_header"><code>cacheEmbeddings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L362" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cacheEmbeddings</code>(<strong><code>fName</code></strong>, <strong><code>syms</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>sleepTime</code></strong>=<em><code>0.25</code></em>, <strong><code>model</code></strong>=<em><code>'text-embedding-3-small'</code></em>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
+<h4 id="cacheEmbeddings" class="doc_header"><code>cacheEmbeddings</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L361" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cacheEmbeddings</code>(<strong><code>fName</code></strong>, <strong><code>syms</code></strong>, <strong><code>symTexts</code></strong>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>sleepTime</code></strong>=<em><code>0.25</code></em>, <strong><code>model</code></strong>=<em><code>'text-embedding-3-small'</code></em>, <strong><code>maxLen</code></strong>=<em><code>8191</code></em>)</p>
 </blockquote>
 
 <pre><code>Caches the embeddings for the combined text digests for the given symbols
@@ -1450,7 +1450,7 @@ recent text digests that will fit into the given character limit.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="findClosestEmbs" class="doc_header"><code>findClosestEmbs</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L396" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>findClosestEmbs</code>(<strong><code>toSym</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>fName</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>, <strong><code>distFunc</code></strong>=<em><code>&lt;lambda&gt;</code></em>, <strong><code>reverse</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="findClosestEmbs" class="doc_header"><code>findClosestEmbs</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L395" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>findClosestEmbs</code>(<strong><code>toSym</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>fName</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>, <strong><code>distFunc</code></strong>=<em><code>&lt;lambda&gt;</code></em>, <strong><code>reverse</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Finds the symbols in the given list with the embeddings closest to the given symbol,
 using the given distance function. The embeddings must have been previously cached
@@ -1477,7 +1477,7 @@ using cacheEmbeddings.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="makePortEmbDataSet" class="doc_header"><code>makePortEmbDataSet</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L412" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>makePortEmbDataSet</code>(<strong><code>portSyms</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>posWeight</code></strong>=<em><code>1.0</code></em>, <strong><code>negWeight</code></strong>=<em><code>0.001</code></em>)</p>
+<h4 id="makePortEmbDataSet" class="doc_header"><code>makePortEmbDataSet</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L411" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>makePortEmbDataSet</code>(<strong><code>portSyms</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>posWeight</code></strong>=<em><code>1.0</code></em>, <strong><code>negWeight</code></strong>=<em><code>0.001</code></em>)</p>
 </blockquote>
 <p>Create a data set for training classification models based on a given list of portfolio symbols.
 The embeddings for the portfolio symbols will have y=1 and weight=posWeight,
@@ -1504,7 +1504,7 @@ while those for the non-portfolio symbols will have y=0 and weight=negWeight.</p
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="getRecsFromPort" class="doc_header"><code>getRecsFromPort</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L430" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecsFromPort</code>(<strong><code>portSyms</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>n</code></strong>=<em><code>30</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>posWeight</code></strong>=<em><code>1.0</code></em>, <strong><code>negWeight</code></strong>=<em><code>0.001</code></em>)</p>
+<h4 id="getRecsFromPort" class="doc_header"><code>getRecsFromPort</code><a href="https://github.com/ikedim01/secscan/tree/master/secscan/priceHist.py#L429" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>getRecsFromPort</code>(<strong><code>portSyms</code></strong>, <strong><code>syms</code></strong>, <strong><code>cemb</code></strong>, <strong><code>n</code></strong>=<em><code>30</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>posWeight</code></strong>=<em><code>1.0</code></em>, <strong><code>negWeight</code></strong>=<em><code>0.001</code></em>)</p>
 </blockquote>
 
 <pre><code>Fit a classification model based on the given portfolio of symbols

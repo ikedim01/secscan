@@ -291,7 +291,6 @@ def getTextPriceDataset(d1, d2, d3, d4, minPrice=None, **kwargs) :
     symTexts = collections.defaultdict(list)
     dStrList = utils.dateStrsBetween(d1, d2)
     nDays = len(dStrList)
-    initTickerMappings()
     for dNo,d in enumerate(dStrList) :
         for s in scraperL :
             for accNo,info in s.infoMap[d].items() :
