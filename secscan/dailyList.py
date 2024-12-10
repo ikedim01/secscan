@@ -85,7 +85,7 @@ def downloadSecFormList(listUrl) :
 namedFormClasses = {  # readable names for some groups of form types
     'ALL' : '',
     'FINANCIAL' : re.compile('10-[KQ]',re.IGNORECASE),
-    'ACTIVIST' : 'SC 13D',
+    # 'ACTIVIST' : 'SC 13D',
     'FIVEPERCENT' : re.compile('SC 13[DG]',re.IGNORECASE),
     'INVESTOR' : '13F-HR',
     'ALLINVESTOR' : re.compile('13F-HR|SC 13[DG]',re.IGNORECASE),
