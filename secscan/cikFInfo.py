@@ -55,7 +55,7 @@ def saveCikFInfo(cik, cikFInfo, removeDups=False, cikFInfoDir=defaultCikFInfoDir
                         for k,v in cikFInfo.items()
                         if not ((k in existingCikFInfo) and existingCikFInfo[k]==v))
         if len(cikFInfo)>0 and not printedM :
-            print(cikFInfo)
+            print('CIK',cik,'new info:',cikFInfo)
             printedM = True
     if len(cikFInfo) == 0 :
         return 0
@@ -109,6 +109,7 @@ def saveAllCikFInfo(startD, endD, scraperClasses,
             for info in dInfo.values() :
                 modifyInfoForDisp(info, scraper, dl.cikNames)
         scraper.addToCikInfoMap(dl, cikInfoMap, ciks=ciks, excludeDates=datesPresent)
+    print('total of',len(cikInfoMap),'CIKs with info')
     cikModCount = 0
     for cik,cikFInfo in cikInfoMap.items() :
         if (ciks is not None and cik not in ciks) :
