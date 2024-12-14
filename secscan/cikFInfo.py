@@ -50,7 +50,7 @@ def saveCikFInfo(cik, cikFInfo, removeDups=False, cikFInfoDir=defaultCikFInfoDir
     global printedM
     if removeDups :
         existingCikFInfo = loadCikFInfo(cik, cikFInfoDir=cikFInfoDir)
-        cikFInfo = json.loads(json.dumps(cikFInfo))
+        cikFInfo = json.loads(json.dumps(cikFInfo)) # prevents some unneeded re-stores
         cikFInfo = dict((k,v)
                         for k,v in cikFInfo.items()
                         if not ((k in existingCikFInfo) and existingCikFInfo[k]==v))
