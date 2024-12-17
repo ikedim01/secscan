@@ -73,14 +73,14 @@ def saveCikFInfo(cik, cikFInfo, removeDups=False, cikFInfoDir=defaultCikFInfoDir
 def modifyInfoForDisp(info, scraper, cikNames) :
     if info == 'ERROR' :
         return
-    if scraper.formClass.startswith('SC 13') :
+    if scraper.formClass.startswith('FIVEPCT') : #('SC 13') :
         # fill in cik names
         if 'ciks' in info :
             info['cikNames'] = []
             for cik in info['ciks'] :
                 info['cikNames'].append(cikNames.get(cik.lstrip('0'),
                                                      ('CIK'+cik.lstrip('0'),))[0])
-    elif scraper.formClass.startswith('INSIDER') :
+    elif scraper.formClass == 'INSIDER' :
         issuerCik = None
         for cik,cikType in zip(info['ciks'],info['cikTypes']) :
             if cikType == 'Issuer' :

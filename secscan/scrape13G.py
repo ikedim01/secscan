@@ -239,7 +239,8 @@ def parse13GD(accNo, formType=None, info=None, textLimit=basicInfo.defaultTextLi
             # print('CUSIP-'+cusip,end=' ')
         if formType is None :
             formType = links[0][2]
-        if formType.upper().startswith('SC 13D') :
+        if dailyList.isInFormClass('FIVEPCTACTIVE', formType) :
+            # formType.upper().startswith('SC 13D') :
             m = purposePat.search(mainText)
             if m is None :
                 print('no purpose!', end=' ')
@@ -252,9 +253,11 @@ def parse13GD(accNo, formType=None, info=None, textLimit=basicInfo.defaultTextLi
 class scraper13G(infoScraper.scraperBase) :
     @utils.delegates(infoScraper.scraperBase.__init__)
     def __init__(self, infoDir=default13GDir, **kwargs) :
-        super().__init__(infoDir, 'SC 13G', **kwargs)
+        super().__init__(infoDir, 'FIVEPCTPASSIVE', #'SC 13G',
+                         **kwargs)
     def init_for_13D(self, infoDir, **kwargs) :
-        super().__init__(infoDir, 'SC 13D', **kwargs)
+        super().__init__(infoDir, 'FIVEPCTACTIVE', #'SC 13D',
+                         **kwargs)
     def scrapeInfo(self, accNo, formType=None) :
         return parse13GD(accNo, formType=formType), None
     def rescrapeInfo(self, accNo, info) :
