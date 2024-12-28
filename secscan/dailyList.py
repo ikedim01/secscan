@@ -62,7 +62,9 @@ def getDailyFList(d, listIndexCache=None) :
 
 def downloadSecFormList(listUrl) :
     fListRes = utils.downloadSecUrl(listUrl)
-    r = csv.reader(fListRes.splitlines(), delimiter='|')
+    fListRes = fListRes.splitlines()
+    fListRes = [ln.strip() for ln in fListRes if ln.strip()!='']
+    r = csv.reader(fListRes, delimiter='|')
     res = []
     for entry in r :
         if len(entry)==5 and entry[0].isdigit() :
@@ -85,7 +87,7 @@ def downloadSecFormList(listUrl) :
 
 financialsPat = '10-[KQ]|20-F'
 insiderPat = '4(?:/A)?$'
-schedulePat = 'SC(?:HEDULE)?'
+schedulePat = 'SC'#'SC(?:HEDULE)?'
 fivePctActivePat = schedulePat+' 13D'
 fivePctPassivePat = schedulePat+' 13G'
 fivePctAllPat = fivePctActivePat+'|'+fivePctPassivePat
