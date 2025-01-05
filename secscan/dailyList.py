@@ -87,7 +87,7 @@ def downloadSecFormList(listUrl) :
 
 financialsPat = '10-[KQ]|20-F'
 insiderPat = '4(?:/A)?$'
-schedulePat = 'SC'#'SC(?:HEDULE)?'
+schedulePat = 'SC(?:HEDULE)?'
 fivePctActivePat = schedulePat+' 13D'
 fivePctPassivePat = schedulePat+' 13G'
 fivePctAllPat = fivePctActivePat+'|'+fivePctPassivePat
